@@ -1,0 +1,16 @@
+{
+  "$comment": "Keys are suite/case/tool. A listed failure that starts passing is stale and fails CI.",
+  "typecheck/plants/rsvelte-check": {
+    "platforms": ["win32"],
+    "reason": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  },
+  "typecheck/plants/verter-tsc": {
+    "reason": "The experimental Verter TypeScript carrier does not yet report both shared Svelte plants."
+  },
+  "lint/html-plant/verter": {
+    "reason": "Verter does not expose the shared raw-HTML diagnostic through this host API yet."
+  },
+  "format/markup-rewrite/oxfmt": {
+    "reason": "The pinned Oxfmt release excludes .svelte files; the gate prevents timing a no-op."
+  }
+}

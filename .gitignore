@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Generated benchmark corpora (recreate with `pnpm generate`)
+/fixtures/*
+!/fixtures/.gitkeep
+
+# Pinned real-world checkouts are fetched on demand; only registry/manifest
+# provenance belongs in reports, never third-party source trees.
+/fixtures/real/
+
+# Ephemeral workspaces / probe output
+/work/
+# bench.mjs falls back to work-<pid>-<timestamp> when Windows file locks stop it
+# wiping /work/ — those fallback dirs are ephemeral too and must not be tracked.
+/work-*/
+/work-real/
+/work-real-*/
+
+# Local and CI report outputs (README markers hold published summaries)
+/results/*
+!/results/.gitkeep
+
+# VS Code test runner download cache
+.vscode-test/
+
+# Svelte language-tools generated cache
+.svelte-check/
+
+# Tooling / OS noise
+.bench-temp.json
+*.tgz
+*.log
+.DS_Store
+Thumbs.db
+dist/
+target/
+.env
+.env.*
+!.env.example
+
+# Editor / IDE
+.idea/
+*.swp
+*.swo

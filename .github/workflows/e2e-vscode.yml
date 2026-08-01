@@ -1,0 +1,99 @@
+name: E2E VS Code
+
+# Heavy and network-dependent, so it is deliberate/manual rather than a PR gate.
+on:
+  workflow_dispatch:
+    inputs:
+      svelte_extension:
+        description: "Official Svelte marketplace id"
+        required: false
+        default: "svelte.svelte-vscode"
+      rsvelte_extension:
+        description: "rsvelte marketplace id (optional row)"
+        required: false
+        default: "baseballyama.rsvelte-vscode"
+      verter_extension:
+        description: "Verter marketplace id"
+        required: false
+        default: "verter.verter-vscode"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-vscode-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    name: Svelte extensions (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install xvfb
+        run: sudo apt-get update && sudo apt-get install -y xvfb
+
+      - name: Compute cache period
+        id: cache-period
+        run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache VS Code download
+        uses: actions/cache@v4
+        with:
+          path: .vscode-test
+          key: vscode-test-${{ runner.os }}-stable-${{ steps.cache-period.outputs.month }}
+          restore-keys: |
+            vscode-test-${{ runner.os }}-stable-
+
+      - name: Cache marketplace extensions
+        uses: actions/cache@v4
+        with:
+          path: ~/.vscode/extensions
+          key: svelte-vscode-exts-${{ runner.os }}-${{ github.event.inputs.svelte_extension }}-${{ github.event.inputs.verter_extension }}
+          restore-keys: |
+            svelte-vscode-exts-${{ runner.os }}-
+
+      - name: Pre-install required extensions
+        env:
+          SVELTE_EXTENSION_ID: ${{ github.event.inputs.svelte_extension || 'svelte.svelte-vscode' }}
+          VERTER_EXTENSION_ID: ${{ github.event.inputs.verter_extension || 'verter.verter-vscode' }}
+        run: node scripts/e2e-vscode/install-extensions.mjs --ids "${SVELTE_EXTENSION_ID},${VERTER_EXTENSION_ID}"
+
+      - name: Setup Svelte workspaces
+        run: pnpm e2e:setup
+
+      - name: Run isolated extension cells
+        env:
+          SVELTE_EXTENSION_ID: ${{ github.event.inputs.svelte_extension || 'svelte.svelte-vscode' }}
+          RSVELTE_EXTENSION_ID: ${{ github.event.inputs.rsvelte_extension || 'baseballyama.rsvelte-vscode' }}
+          VERTER_EXTENSION_ID: ${{ github.event.inputs.verter_extension || 'verter.verter-vscode' }}
+        run: |
+          xvfb-run -a node scripts/e2e-vscode/run.mjs \
+            --workspaces regular,monorepo \
+            --svelte-extension "$SVELTE_EXTENSION_ID" \
+            --rsvelte-extension "$RSVELTE_EXTENSION_ID" \
+            --verter-extension "$VERTER_EXTENSION_ID"
+
+      - name: Upload E2E results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-vscode-linux
+          path: results/e2e-vscode/**
+          if-no-files-found: warn
+          retention-days: 30

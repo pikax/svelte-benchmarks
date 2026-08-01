@@ -1,0 +1,14 @@
+{
+  "name": "svelte-benchmarks-e2e-stub",
+  "displayName": "Svelte Benchmarks E2E Stub",
+  "version": "0.0.1",
+  "description": "Minimal extension required by @vscode/test-electron host; does not provide language features.",
+  "categories": ["Other"],
+  "publisher": "svelte-benchmarks",
+  "main": "./extension.cjs",
+  "contributes": {},
+  "activationEvents": [],
+  "engines": {
+    "vscode": "^1.90.0"
+  }
+}

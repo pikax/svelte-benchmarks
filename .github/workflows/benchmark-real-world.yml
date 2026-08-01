@@ -1,0 +1,152 @@
+name: Benchmark (real-world)
+
+# Manual only. One job per project; every tool/surface for that project shares
+# one runner. The suite fetches source but never installs or executes a third-
+# party project's dependencies or lifecycle scripts.
+on:
+  workflow_dispatch:
+    inputs:
+      projects:
+        description: "Project ids (comma-separated, blank = all)"
+        required: false
+        default: ""
+      bench_runs:
+        description: "Measured runs per row"
+        required: false
+        default: "5"
+      bench_warmups:
+        description: "Discarded warmups per row (minimum 1)"
+        required: false
+        default: "1"
+      file_limit:
+        description: "Alphabetical SFC prefix for debugging; blank = full corpus"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: benchmark-real-world-${{ github.ref_name }}
+  cancel-in-progress: ${{ github.ref_name != 'main' }}
+
+jobs:
+  plan:
+    name: Plan matrix
+    runs-on: ubuntu-latest
+    outputs:
+      include: ${{ steps.plan.outputs.include }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+      - id: plan
+        env:
+          REQUESTED: ${{ github.event.inputs.projects }}
+        run: |
+          node --input-type=module -e '
+            const { appendFileSync } = await import("node:fs");
+            const { REAL_WORLD_PROJECTS } = await import("./scripts/lib/real-world/projects.mjs");
+            const requested = (process.env.REQUESTED || "").split(",").map((s) => s.trim()).filter(Boolean);
+            const known = REAL_WORLD_PROJECTS.map((project) => project.id);
+            const unknown = requested.filter((id) => !known.includes(id));
+            if (unknown.length) throw new Error(`unknown project ids: ${unknown.join(", ")}`);
+            const ids = requested.length ? requested : known;
+            const include = ids.map((id) => {
+              const project = REAL_WORLD_PROJECTS.find((entry) => entry.id === id);
+              const files = Math.max(...project.corpora.map((corpus) => corpus.approxFiles));
+              return { project: id, timeoutMinutes: files > 2000 ? 120 : 75 };
+            });
+            appendFileSync(process.env.GITHUB_OUTPUT, `include=${JSON.stringify(include)}\n`);
+          '
+
+  project:
+    name: ${{ matrix.project }} (Linux)
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ matrix.timeoutMinutes }}
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.include) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - name: Install harness dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Harness self-tests
+        run: pnpm test:harness
+      - name: Restore pinned checkout cache
+        uses: actions/cache@v4
+        with:
+          path: fixtures/real/${{ matrix.project }}
+          key: svelte-real-v1-${{ matrix.project }}-${{ hashFiles('scripts/lib/real-world/projects.mjs') }}
+      - name: Fetch pinned source
+        run: node scripts/fetch-real-world.mjs --projects "${{ matrix.project }}"
+      - name: Report corpus provenance
+        run: |
+          echo '### Corpus provenance' >> "$GITHUB_STEP_SUMMARY"
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          cat fixtures/real/manifest.json >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+      - name: Measured pass
+        env:
+          RUNNER_OS: Linux
+          BENCH_PHASE: real-world
+          RUNS: ${{ github.event.inputs.bench_runs || '5' }}
+          WARMUPS: ${{ github.event.inputs.bench_warmups || '1' }}
+          FILE_LIMIT: ${{ github.event.inputs.file_limit }}
+        run: |
+          LIMIT_ARG=()
+          if [ -n "$FILE_LIMIT" ]; then LIMIT_ARG=(--file-limit "$FILE_LIMIT"); fi
+          node scripts/bench-real-world.mjs \
+            --projects "${{ matrix.project }}" \
+            --surfaces compile,projection,format,lint \
+            --runs "$RUNS" \
+            --warmups "$WARMUPS" \
+            "${LIMIT_ARG[@]}" \
+            --json "results/real-world-Linux-${{ matrix.project }}.json" \
+            --out "results/real-world-Linux-${{ matrix.project }}.md"
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: results-real-world-${{ matrix.project }}
+          path: |
+            results/real-world-Linux-${{ matrix.project }}.*
+            work-real/surface-json/*.json
+          if-no-files-found: warn
+          retention-days: 30
+
+  update-readme:
+    name: Publish real-world summaries
+    needs: project
+    if: github.ref == 'refs/heads/main' && needs.project.result == 'success' && github.event.inputs.projects == '' && github.event.inputs.file_limit == ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: results-real-world-*
+          merge-multiple: true
+          path: results
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+      - name: Update README and full reports
+        run: node scripts/update-readme.mjs --dir results
+      - name: Commit published results
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "chore: publish real-world benchmark results [skip ci]"
+          file_pattern: README.md docs/results/*.md

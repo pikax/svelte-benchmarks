@@ -1,0 +1,180 @@
+name: Benchmark
+
+# Publishing is deliberate and Linux-only. Validation runs separately in
+# test.yml; a push must never spend runner time or rewrite reference results.
+on:
+  workflow_dispatch:
+    inputs:
+      fixture_count:
+        description: "Unique Svelte fixture count"
+        required: false
+        default: "200"
+      bench_runs:
+        description: "Measured runs per row"
+        required: false
+        default: "5"
+      bench_warmups:
+        description: "Discarded warmups per row (minimum 1)"
+        required: false
+        default: "1"
+      memory_samples:
+        description: "Fresh isolated workers per memory row"
+        required: false
+        default: "3"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: benchmark-${{ github.ref_name }}
+  cancel-in-progress: ${{ github.ref_name != 'main' }}
+
+env:
+  FIXTURE_COUNT: ${{ github.event.inputs.fixture_count || '200' }}
+  BENCH_RUNS: ${{ github.event.inputs.bench_runs || '5' }}
+  BENCH_WARMUPS: ${{ github.event.inputs.bench_warmups || '1' }}
+
+jobs:
+  bench:
+    name: Bench (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Harness self-tests
+        run: pnpm test:harness
+
+      - name: Generate unique fixtures
+        run: node scripts/generate.mjs --counts "50,${FIXTURE_COUNT}"
+
+      # All timing surfaces share one VM. Splitting them across runners would
+      # fold runner-to-runner variance into comparisons between surfaces.
+      - name: Measured pass
+        env:
+          RUNNER_OS: Linux
+          BENCH_PHASE: bench
+        run: |
+          CHECK_LIMIT=$(( FIXTURE_COUNT < 200 ? FIXTURE_COUNT : 200 ))
+          node scripts/bench.mjs \
+            --fixture "fixtures/${FIXTURE_COUNT}" \
+            --runs "${BENCH_RUNS}" \
+            --warmups "${BENCH_WARMUPS}" \
+            --surfaces compile,projection,typecheck,format,lint,component-meta,lsp,lsp-format,bundle,hmr \
+            --check-file-limit "${CHECK_LIMIT}" \
+            --out "results/bench-Linux-${FIXTURE_COUNT}-bench.md" \
+            --json "results/bench-Linux-${FIXTURE_COUNT}-bench.json"
+
+      - name: Upload benchmark results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: results-bench-linux
+          path: results/bench-Linux-*
+          if-no-files-found: warn
+          retention-days: 30
+
+  memory:
+    name: Memory (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Harness self-tests
+        run: pnpm test:harness
+
+      - name: Generate unique fixtures
+        run: node scripts/generate.mjs --counts "${FIXTURE_COUNT}"
+
+      # Resource sampling never shares a process with speed measurements.
+      - name: Isolated resource probes
+        env:
+          RUNNER_OS: Linux
+          BENCH_PHASE: memory
+          MEMORY_SAMPLES: ${{ github.event.inputs.memory_samples || '3' }}
+        run: |
+          node --expose-gc scripts/bench-memory.mjs \
+            --fixture "fixtures/${FIXTURE_COUNT}" \
+            --file-limit "${FIXTURE_COUNT}" \
+            --samples "${MEMORY_SAMPLES}" \
+            --json "results/memory-linux-${FIXTURE_COUNT}.json" \
+            --out "results/memory-linux-${FIXTURE_COUNT}.md"
+
+      - name: Upload memory results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: results-memory-linux
+          path: results/memory-linux-*
+          if-no-files-found: warn
+          retention-days: 30
+
+  update-readme:
+    name: Publish README summaries
+    needs: [bench, memory]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/main' &&
+      needs.bench.result == 'success' &&
+      needs.memory.result == 'success'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: results-bench-linux
+          path: results
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: results-memory-linux
+          path: results
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - name: Update README and full reports
+        run: node scripts/update-readme.mjs --dir results
+
+      - name: Update memory report
+        run: node scripts/update-memory-readme.mjs --dir results
+
+      - name: Commit published results
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "chore: publish benchmark results [skip ci]"
+          file_pattern: README.md MEMORY.md docs/results/*.md
