@@ -7,37 +7,41 @@
 import {
   chartFileName,
   chartTwin,
+  chartPicture,
   formatDuration,
 } from "../chart-svg.mjs";
 import {
   renderSurfaceMarkdown,
   RANKING_RULES,
+  chartLabel,
+  displayName,
+  variantClasses,
 } from "../report.mjs";
 import {
   confirmRowsForSuite,
   localRunBanner,
   runMetaLines,
-  surfacesForGroup,
+  sourcesForGroup,
 } from "./data.mjs";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const GENERATED_NOTE =
-  "> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm docs`.";
+  "> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm run docs`.";
 
 function compactTable(variants, { docHref }) {
-  const measured = variants.filter(
-    (v) => v.status === "ok" || v.status === "unranked",
-  );
-  if (measured.length === 0) return "_No measured rows._";
+  const measured = variants;
+  if (measured.length === 0) return "";
   const hasFresh = measured.some((v) => Number.isFinite(v.freshChildMedianMs));
   const sorted = [...measured].sort((a, b) => {
-    if (a.status !== b.status) return a.status === "ok" ? -1 : 1;
+    const rank = (v) => v.status === "ok" ? 0 : v.status === "unranked" ? 1 : 2;
+    if (rank(a) !== rank(b)) return rank(a) - rank(b);
     return (a.medianMs ?? Infinity) - (b.medianMs ?? Infinity);
   });
   const fastest = Math.min(
     ...measured.filter((v) => v.status === "ok" && Number.isFinite(v.medianMs)).map((v) => v.medianMs),
   );
+  const hasCompetition = measured.filter((v) => v.status === "ok" && Number.isFinite(v.medianMs)).length >= 2;
   const lines = [];
   lines.push(
     hasFresh
@@ -48,61 +52,60 @@ function compactTable(variants, { docHref }) {
     hasFresh ? "| --- | ---: | ---: | ---: | ---: |" : "| --- | ---: | ---: | ---: |",
   );
   for (const v of sorted) {
-    const name = `${v.label}${v.status === "unranked" ? " ⚠" : v.status === "error" ? " ❌" : ""}`;
+    const name = displayName(v);
     const warm =
       v.status === "ok"
         ? `**${formatDuration(v.medianMs)}**`
-        : `(${formatDuration(v.medianMs)})`;
+        : v.status === "unranked" ? `(${formatDuration(v.medianMs)})` : v.status;
     const ratio =
-      v.status === "ok" && Number.isFinite(fastest) && fastest > 0
+      v.status === "ok" && hasCompetition && Number.isFinite(fastest) && fastest > 0
         ? `${(v.medianMs / fastest).toFixed(2)}x`
-        : "not ranked";
-    const rss = Number.isFinite(v.rssMaxMb) ? `${v.rssMaxMb} MB` : "n/a";
+        : v.status === "unranked" ? "not ranked" : "—";
+    const rss = Number.isFinite(v.rssMaxMb) ? `${v.rssMaxMb.toFixed(1)} MB` : "—";
     lines.push(
       hasFresh
         ? `| ${name} | ${Number.isFinite(v.freshChildMedianMs) ? formatDuration(v.freshChildMedianMs) : "–"} | ${warm} | ${ratio} | ${rss} |`
         : `| ${name} | ${warm} | ${ratio} | ${rss} |`,
     );
   }
-  if (measured.some((v) => v.status !== "ok")) {
+  if (measured.some((v) => v.status === "unranked")) {
     lines.push("");
     lines.push(
       `⚠ bracketed rows are measured but unranked — see [the full page](${docHref}) for why.`,
     );
   }
+  for (const v of measured.filter((v) => ["skipped", "error"].includes(v.status))) {
+    lines.push("", `**${displayName(v)}:** ${String(v.error || v.notes || "No timing available").replace(/\r?\n/g, " ")}`);
+  }
   return lines.join("\n");
 }
 
-/** One chart per comparison class — a chart never ranks across classes. */
-export function groupCharts(group, surfaces) {
-  const charts = [];
-  for (const surface of surfaces) {
-    const variants = surface.groups
-      ? surface.groups.flatMap((g) => g.variants)
-      : (surface.variants ?? []);
-    const hasFresh = variants.some((v) => Number.isFinite(v.freshChildMedianMs));
-    const bars = variants
-      .filter((v) => v.status !== "skipped" && v.status !== "error")
-      .map((v) => ({
-        label: v.label,
-        value: v.freshChildMedianMs ?? v.medianMs,
-        value2: hasFresh ? v.medianMs : undefined,
-        unranked: v.status === "unranked",
-      }));
-    if (bars.length === 0) continue;
-    charts.push({
-      surfaceId: surface.id,
-      fileBase: chartFileName(`${group.id}-${surface.id}`),
-      title: `${surface.label} — ${hasFresh ? "fresh child / warm (primary)" : "median (primary), lower is better"}`,
-      bars,
-    });
-  }
-  return charts;
+export function barsFromVariants(variants) {
+  return variants.map((v) => ({
+    label: chartLabel(v), value: ["ok", "unranked"].includes(v.status) ? v.medianMs : undefined,
+    value2: ["ok", "unranked"].includes(v.status) ? v.freshChildMedianMs : undefined,
+    status: v.status, unranked: v.status === "unranked", note: v.error || v.notes,
+  }));
 }
 
-function writeChartPair(chartsDir, chart) {
+/** Preserve group AND workload identity in chart data and filenames. */
+export function groupCharts(group, surfaces, sourceName = "") {
+  return surfaces.flatMap((surface) => (surface.groups?.length ? surface.groups : [surface]).flatMap((cell) =>
+    variantClasses(cell.variants).map((cls) => ({
+      surfaceId: surface.id, groupId: cell.id, classKey: cls.key, variants: cls.variants,
+      fileBase: chartFileName(`${group.id}-${sourceName}-${surface.id}-${cell.id}-${cls.key}`),
+      title: surface.label,
+      subtitle: [cell !== surface ? cell.label : null, cls.label].filter(Boolean).join(" · "),
+      bars: barsFromVariants(cls.variants),
+    })),
+  ));
+}
+
+export function writeChartPair(chartsDir, chart) {
+  mkdirSync(chartsDir, { recursive: true });
   const twin = chartTwin({
     title: chart.title,
+    subtitle: chart.subtitle,
     unit: "ms",
     bars: chart.bars,
     lowerIsBetter: true,
@@ -111,8 +114,20 @@ function writeChartPair(chartsDir, chart) {
   writeFileSync(join(chartsDir, `${chart.fileBase}-dark.svg`), `${twin.dark}\n`);
 }
 
-function chartPicture(leaf) {
-  return `<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="charts/${leaf}-dark.svg">\n  <img src="charts/${leaf}.svg" alt="" width="760">\n</picture>`;
+export function renderSurfaceWithCharts(group, surface, entry, { chartsDir, chartsHref = "charts" }) {
+  const charts = groupCharts(group, [surface], entry.name.replace(/\.json$/i, ""));
+  return {
+    charts,
+    content: renderSurfaceMarkdown(surface, {
+      includeRankingRules: false,
+      renderComparison: (cls, cell) => {
+        const chart = charts.find((c) => c.classKey === cls.key && c.groupId === (cell?.id ?? surface.id));
+        if (!chart || !chart.bars.length) return "";
+        writeChartPair(chartsDir, chart);
+        return chartPicture(chart.fileBase, [chart.title, chart.subtitle].filter(Boolean).join(" — "), chartsHref);
+      },
+    }),
+  };
 }
 
 function confirmMatrix(model, suites) {
@@ -165,16 +180,12 @@ export function renderGroupDoc(group, model, { chartsDir, docsDir }) {
   lines.push("");
   lines.push(GENERATED_NOTE);
   lines.push("");
-  if (model.bench) {
-    lines.push(...runMetaLines(model.bench.data, { sourceName: model.bench.name }));
-    lines.push("");
-  }
-
   if (group.memoryOnly) {
     if (!model.memory) {
       lines.push("_No published memory snapshot — this page is left as-is._");
       return { content: lines.join("\n"), charts: [] };
     }
+    if (model.memory.local) lines.push(localRunBanner(model.memory), "");
     lines.push(...runMetaLines(model.memory.data, { sourceName: model.memory.name }));
     lines.push("");
     lines.push("## Peak RSS by surface (isolated probes)");
@@ -193,33 +204,21 @@ export function renderGroupDoc(group, model, { chartsDir, docsDir }) {
     return { content: lines.join("\n"), charts: [] };
   }
 
-  const surfaces = surfacesForGroup(group, model.bench.data);
-  const charts = groupCharts(group, surfaces);
-  for (const chart of charts) writeChartPair(chartsDir, chart);
-
   lines.push("## Results");
   lines.push("");
-  lines.push(RANKING_RULES);
-  lines.push("");
-  for (const surface of surfaces) {
-    const surfaceCharts = charts.filter((c) => c.surfaceId === surface.id);
-    for (const chart of surfaceCharts) {
-      lines.push(chartPicture(chart.fileBase));
-      lines.push("");
+  lines.push("<details><summary>Ranking rules and measurement definitions</summary>", "", RANKING_RULES, "", "</details>", "");
+  const charts = [];
+  const sources = sourcesForGroup(group, model);
+  const seen = new Set();
+  for (const { surface, entry } of sources) {
+    if (!seen.has(entry.name)) {
+      if (entry.local) lines.push(localRunBanner(entry), "");
+      lines.push(...runMetaLines(entry.data, { sourceName: entry.name }), "");
+      seen.add(entry.name);
     }
-    lines.push(renderSurfaceMarkdown(surface));
-  }
-
-  // Local secondary runs render whole, behind their banner.
-  const localBenches = model.benches.filter((b) => b.local);
-  for (const local of localBenches.slice(0, 2)) {
-    const localSurfaces = surfacesForGroup(group, local.data);
-    if (localSurfaces.length === 0) continue;
-    lines.push(localRunBanner(local));
-    lines.push("");
-    for (const surface of localSurfaces) {
-      lines.push(renderSurfaceMarkdown(surface));
-    }
+    const rendered = renderSurfaceWithCharts(group, surface, entry, { chartsDir });
+    charts.push(...rendered.charts);
+    lines.push(rendered.content);
   }
 
   const confirmSections = confirmMatrix(model, group.confirmSuites ?? []);
@@ -242,7 +241,7 @@ export function renderGroupDoc(group, model, { chartsDir, docsDir }) {
     }
   }
 
-  const versions = model.bench.data.versions ?? {};
+  const versions = Object.assign({}, ...sources.map(({ entry }) => entry.data.versions ?? {}));
   lines.push("## Tool versions");
   lines.push("");
   lines.push("<details><summary>Pinned package versions</summary>");

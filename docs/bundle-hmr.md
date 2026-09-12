@@ -1,6 +1,14 @@
 # Vite bundle & incremental transform
 
-> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm docs`.
+> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm run docs`.
+
+## Results
+
+<details><summary>Ranking rules and measurement definitions</summary>
+
+Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
+
+</details>
 
 - **Generated:** 2026-09-12T10:46:24.868Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
@@ -10,23 +18,19 @@
 - **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557
 - **Source:** `bench-Linux-200-bench.json`
 
-## Results
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/bundle-hmr-bundle-dark.svg">
-  <img src="charts/bundle-hmr-bundle.svg" alt="" width="760">
-</picture>
-
 ### Vite production bundle (generated Svelte graph)
 
 Files: **200** · Bytes: **134,760**
 
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
+##### VITE-7-SVELTE-INTEGRATION-BUILD — separate workload
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/bundle-hmr-bench-linux-200-bench-bundle-bundle-class-vite-7-svel-0fso2i1-dark.svg">
+  <img src="charts/bundle-hmr-bench-linux-200-bench-bundle-bundle-class-vite-7-svel-0fso2i1.svg" alt="Vite production bundle (generated Svelte graph) — VITE-7-SVELTE-INTEGRATION-BUILD — separate workload" width="760">
+</picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | bundle bytes | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Vite 7 × @rsvelte/vite-plugin-svelte | 200 | **347.9 ms** | 322.6 ms | 12.2 ms | 3.5% | 1.00x | 300,455 | n/a | 575 files/s |
 | Vite 7 × @sveltejs/vite-plugin-svelte | 200 | **532.8 ms** | 481.9 ms | 37.2 ms | 7.0% | 1.53x | 300,455 | n/a | 375 files/s |
 
@@ -52,19 +56,19 @@ Raw runs:
 
 </details>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/bundle-hmr-hmr-dark.svg">
-  <img src="charts/bundle-hmr-hmr.svg" alt="" width="760">
-</picture>
-
 ### Warm incremental Svelte transform (Vite HMR compile path)
 
 Files: **1** · Bytes: **99**
 
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
+##### VITE-7-WARM-INCREMENTAL-SVELTE-TRANSFORM — separate workload
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/bundle-hmr-bench-linux-200-bench-hmr-hmr-class-vite-7-warm-incre-1lyd23z-dark.svg">
+  <img src="charts/bundle-hmr-bench-linux-200-bench-hmr-hmr-class-vite-7-warm-incre-1lyd23z.svg" alt="Warm incremental Svelte transform (Vite HMR compile path) — VITE-7-WARM-INCREMENTAL-SVELTE-TRANSFORM — separate workload" width="760">
+</picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | module bytes | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Vite 7 × @sveltejs/vite-plugin-svelte | 1 | **25.5 ms** | 23.7 ms | 1.8 ms | 6.9% | 1.00x | 517 | n/a | 39 files/s |
 | Vite 7 × @rsvelte/vite-plugin-svelte | 1 | **25.7 ms** | 22.4 ms | 2.0 ms | 7.9% | 1.01x | 516 | n/a | 39 files/s |
 

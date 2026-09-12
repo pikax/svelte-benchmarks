@@ -1,6 +1,14 @@
 # Lint
 
-> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm docs`.
+> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm run docs`.
+
+## Results
+
+<details><summary>Ranking rules and measurement definitions</summary>
+
+Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
+
+</details>
 
 - **Generated:** 2026-09-12T10:46:24.868Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
@@ -10,20 +18,9 @@
 - **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557
 - **Source:** `bench-Linux-200-bench.json`
 
-## Results
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/lint-lint-dark.svg">
-  <img src="charts/lint-lint.svg" alt="" width="760">
-</picture>
-
 ### Lint
 
 Files: **200** · Bytes: **134,760**
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
 
 Tools:
 
@@ -35,8 +32,13 @@ Tools:
 
 ##### ESLINT-RECOMMENDED-RULES — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/lint-bench-linux-200-bench-lint-lint-class-eslint-recommended-rules-dark.svg">
+  <img src="charts/lint-bench-linux-200-bench-lint-lint-class-eslint-recommended-rules.svg" alt="Lint — ESLINT-RECOMMENDED-RULES — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | eslint-plugin-svelte (1T API) | 200 | **343.1 ms** | 325.6 ms | 45.7 ms | 13.3% ⚠ | 1.00x | n/a | n/a | 583 files/s |
 | eslint-plugin-svelte (CLI) | 200 | **1.25 s** | 1.23 s | 24.7 ms | 2.0% | 3.64x | n/a | n/a | 160 files/s |
 | eslint-plugin-svelte (worker pool) | 200 | **1.88 s** | 1.84 s | 25.1 ms | 1.3% | 5.49x | n/a | n/a | 106 files/s |
@@ -51,8 +53,13 @@ Tools:
 
 ##### RSVELTE-NATIVE-RULES — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/lint-bench-linux-200-bench-lint-lint-class-rsvelte-native-rules-dark.svg">
+  <img src="charts/lint-bench-linux-200-bench-lint-lint-class-rsvelte-native-rules.svg" alt="Lint — RSVELTE-NATIVE-RULES — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | rsvelte-lint | 200 | **148.2 ms** | 144.3 ms | 33.5 ms | 22.6% ⚠ | — | n/a | n/a | — |
 
 <details><summary>Notes</summary>
@@ -63,8 +70,13 @@ Tools:
 
 ##### VERTER-NATIVE-DIAGNOSTICS — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/lint-bench-linux-200-bench-lint-lint-class-verter-native-diagnostics-dark.svg">
+  <img src="charts/lint-bench-linux-200-bench-lint-lint-class-verter-native-diagnostics.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter host lint ⚠ | 200 | (55.8 ms) | (55.7 ms) | – | – | not ranked | – | n/a | – |
 
 <details><summary>Notes</summary>

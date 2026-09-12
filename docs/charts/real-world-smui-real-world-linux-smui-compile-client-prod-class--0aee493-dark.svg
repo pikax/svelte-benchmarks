@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="222" viewBox="0 0 760 222" role="img" aria-label="SFC compile (unique contents)">
+<title>SFC compile (unique contents)</title><desc>CLIENT · production · SVELTE-5.56.4 — separate workload. Lower is better. Hatched bars are unranked; unavailable tools have no bar.</desc>
+<style><![CDATA[text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}]]></style>
+<text x="16" y="22" fill="#f0f6fc" font-size="15" font-weight="600">SFC compile (unique contents)</text>
+<text x="16" y="42" fill="#a6adb7" font-size="12">CLIENT · production · SVELTE-5.56.4 — separate workload</text>
+<text x="16" y="69" fill="#a6adb7" font-size="11">Lower is better · Solid: warm (primary) · Outline: fresh child</text>
+<line x1="258" y1="82" x2="258" y2="192" stroke="#2a313a"/>
+<text x="258" y="212" fill="#a6adb7" font-size="10" text-anchor="middle">0.0 ms</text>
+<line x1="377.5" y1="82" x2="377.5" y2="192" stroke="#2a313a"/>
+<text x="377.5" y="212" fill="#a6adb7" font-size="10" text-anchor="middle">194 ms</text>
+<line x1="497" y1="82" x2="497" y2="192" stroke="#2a313a"/>
+<text x="497" y="212" fill="#a6adb7" font-size="10" text-anchor="middle">387 ms</text>
+<line x1="616.5" y1="82" x2="616.5" y2="192" stroke="#2a313a"/>
+<text x="616.5" y="212" fill="#a6adb7" font-size="10" text-anchor="middle">581 ms</text>
+<line x1="736" y1="82" x2="736" y2="192" stroke="#2a313a"/>
+<text x="736" y="212" fill="#a6adb7" font-size="10" text-anchor="middle">775 ms</text>
+<g data-tool="svelte/compiler 5.56.4"><title>svelte/compiler 5.56.4: Pinned official reference for @mrwaip/svelte-rs; generate=client, dev=false, css=external | runtime gate: ✓ 126/126 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte-mrwaip-reference/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)</title>
+<circle cx="21" cy="105" r="4" fill="#e34b20"/>
+<text x="32" y="109" fill="#f0f6fc" font-size="12" font-weight="500">svelte/compiler 5.56.4</text>
+<rect x="258" y="108" width="478" height="12" rx="3" fill="#6e768133"/>
+<rect data-series="fresh" x="258" y="105" width="478.00" height="18" rx="3" fill="none" stroke="#e34b20" stroke-width="1.5"/>
+<rect data-series="primary" x="258" y="108" width="464.18" height="12" rx="3" fill="#e34b20"/>
+<text x="258" y="98" fill="#f0f6fc" font-size="12" font-weight="600">753 ms warm / 775 ms fresh child</text>
+</g>
+<g data-tool="@mrwaip/svelte-rs (NAPI)"><title>@mrwaip/svelte-rs (NAPI) · Unranked: @mrwaip/svelte-rs compile(), generate=client, dev=false, css=external | runtime gate: ✓ 126/126 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-styles: css.css-0: mapped to 2:24; expected 9:24; crlf-styles: css.css-0: mapped to 2:24; expected 9:24). The timing remains visible but cannot rank until the emitted maps are correct.</title>
+<circle cx="21" cy="159" r="4" fill="#7c3aed"/>
+<text x="32" y="163" fill="#f0f6fc" font-size="12" font-weight="500">@mrwaip/svelte-rs (NAPI)</text>
+<text x="32" y="179" fill="#a6adb7" font-size="10">Unranked</text>
+<defs><pattern id="hatch-1" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="7" height="7" fill="#7c3aed"/><line x1="0" y1="0" x2="0" y2="7" stroke="#fff" stroke-width="2" stroke-opacity="0.5"/></pattern></defs>
+<rect x="258" y="162" width="478" height="12" rx="3" fill="#6e768133"/>
+<rect data-series="fresh" x="258" y="159" width="27.56" height="18" rx="3" fill="none" stroke="#7c3aed" stroke-width="1.5"/>
+<rect data-series="primary" x="258" y="162" width="27.28" height="12" rx="3" fill="url(#hatch-1)"/>
+<text x="258" y="152" fill="#f0f6fc" font-size="12" font-weight="600">(44.2 ms warm / 44.7 ms fresh child)</text>
+</g>
+</svg>

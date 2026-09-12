@@ -162,8 +162,8 @@ function routeSnapshot(entry, model) {
 }
 
 /**
- * The rendering model. The PRIMARY bench is the newest publishable snapshot
- * with the largest file count; local runs are secondary, never primary.
+ * The primary bench is the newest publishable snapshot; corpus size breaks
+ * ties. Local runs can only be the explicitly requested fallback.
  */
 export function loadPublished(root, env = process.env, { includeLocal = false } = {}) {
   const model = {
@@ -217,12 +217,8 @@ export function loadPublished(root, env = process.env, { includeLocal = false } 
     }
   }
 
-  // Primary selection: publishable first, then largest corpus, then newest.
-  const rank = (entry) =>
-    (benchIsPublishable(entry.data, env) ? 0 : entry.local ? 2 : 1) * 1e12 +
-    (entry.data?.fileCount ?? 0) * 1e6 +
-    Date.parse(entry.generatedAt || 0);
-  model.benches.sort((a, b) => rank(b) - rank(a));
+  // Primary selection: published first, then newest, then largest corpus.
+  model.benches.sort(snapshotOrder);
   // Primary = newest publishable snapshot. A non-publishable (e.g. win32)
   // snapshot NEVER becomes the primary, even when it is the only one — the
   // docs fall back to local sections instead.
@@ -230,17 +226,38 @@ export function loadPublished(root, env = process.env, { includeLocal = false } 
     model.benches.find(
       (b) => !b.local && benchIsPublishable(b.data, env),
     ) ??
-    (includeLocal ? model.benches[0] ?? null : null);
+    (includeLocal ? model.benches.find((b) => b.local) ?? null : null);
+  model.memories.sort(snapshotOrder);
+  model.confirms.sort(snapshotOrder);
   model.memory =
-    model.memories.find((m) => benchIsPublishable(m.data, env)) ??
-    model.memories[0] ??
+    model.memories.find((m) => !m.local && benchIsPublishable(m.data, env)) ??
+    (includeLocal ? model.memories.find((m) => m.local) : null) ??
     null;
   model.confirm =
-    model.confirms.find((c) => benchIsPublishable(c.data, env)) ??
-    model.confirms[0] ??
+    model.confirms.find((c) => !c.local && benchIsPublishable(c.data, env)) ??
+    (includeLocal ? model.confirms.find((c) => c.local) : null) ??
     null;
   model.realWorld.sort((a, b) => (a.local === b.local ? 0 : a.local ? 1 : -1));
   return model;
+}
+
+function snapshotOrder(a, b) {
+  const time = (entry) => Date.parse(entry.generatedAt) || 0;
+  return Number(Boolean(a.local)) - Number(Boolean(b.local)) || time(b) - time(a) ||
+    (b.data?.fileCount ?? 0) - (a.data?.fileCount ?? 0) || a.name.localeCompare(b.name);
+}
+
+/** Pick one source per surface; partial snapshots must not hide other surfaces. */
+export function sourcesForGroup(group, model) {
+  const entries = [...new Set([model.bench, ...(model.benches ?? [])].filter(Boolean))]
+    .filter((entry) => entry.local || benchIsPublishable(entry.data)).sort(snapshotOrder);
+  return (group.benchSurfaces ?? []).flatMap((id) => {
+    for (const entry of entries) {
+      const surface = entry.data.surfaces?.find((s) => s.id === id);
+      if (surface) return [{ surface, entry }];
+    }
+    return [];
+  });
 }
 
 /** Surfaces of a bench snapshot that belong to a group, in group order. */
@@ -253,9 +270,7 @@ export function surfacesForGroup(group, benchData) {
 
 /** The newest confirm source carrying a given suite wins whole. */
 export function confirmRowsForSuite(model, suite) {
-  const sources = [...model.confirms].sort(
-    (a, b) => Date.parse(b.generatedAt || 0) - Date.parse(a.generatedAt || 0),
-  );
+  const sources = [...model.confirms].filter((entry) => entry.local || benchIsPublishable(entry.data)).sort(snapshotOrder);
   for (const source of sources) {
     const rows = (source.data?.results ?? []).filter((r) => r.suite === suite);
     if (rows.length) return { rows, source };

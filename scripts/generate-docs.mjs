@@ -12,10 +12,11 @@
  */
 import { readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { attachMemoryToBench, GROUPS, loadPublished } from "./lib/docs/data.mjs";
-import { writeGroupDoc } from "./lib/docs/render.mjs";
+import { pathToFileURL } from "node:url";
+import { attachMemoryToBench, GROUPS, loadPublished, sourcesForGroup, localRunBanner, runMetaLines } from "./lib/docs/data.mjs";
+import { writeGroupDoc, renderSurfaceWithCharts } from "./lib/docs/render.mjs";
 import { updateReadme } from "./lib/docs/readme.mjs";
-import { renderSurfaceMarkdown } from "./lib/report.mjs";
+import { RANKING_RULES } from "./lib/report.mjs";
 
 const rootDir = join(import.meta.dirname, "..");
 
@@ -25,7 +26,7 @@ function escapeLooseHtml(content) {
 }
 
 function write(target, content) {
-  writeFileSync(target, `${escapeLooseHtml(content)}\n`);
+  writeFileSync(target, `${escapeLooseHtml(content).trimEnd()}\n`);
 }
 
 function generateDocs({ includeLocal = false } = {}) {
@@ -53,14 +54,19 @@ function generateDocs({ includeLocal = false } = {}) {
 
   if (model.realWorld.length > 0) {
     const lines = ["# Real-world projects", "",
-      "> Generated from committed snapshots under `results/real_world/`. Ranked within a corpus, never across projects. Pinned revisions — see each project's provenance line.", ""];
+      "> Generated from committed snapshots under `results/real_world/`. Ranked within a corpus, never across projects. Pinned revisions — see each project's provenance line.", "",
+      "<details><summary>Ranking rules and measurement definitions</summary>", "", RANKING_RULES, "", "</details>", ""];
     for (const entry of model.realWorld) {
       lines.push(`## ${entry.project}${entry.local ? " *(local run)*" : ""}`);
       lines.push("");
+      if (entry.local) lines.push(localRunBanner(entry), "");
+      lines.push(...runMetaLines(entry.data, { sourceName: entry.name }), "");
       const provenance = entry.data?.corpora?.[0]?.provenance ?? entry.data?.corpora?.[0]?.selector ?? "";
       if (provenance) lines.push(`Corpus: ${provenance}`, "");
       for (const surface of entry.data?.surfaces ?? []) {
-        lines.push(renderSurfaceMarkdown(surface));
+        lines.push(renderSurfaceWithCharts({ id: `real-world-${entry.project}` }, surface, entry, {
+          chartsDir: join(rootDir, "docs", "charts"),
+        }).content);
       }
       lines.push("");
     }
@@ -84,24 +90,16 @@ function generateDocs({ includeLocal = false } = {}) {
     console.log("[docs] README.md already current");
   }
 
-  // Chart pruning ONLY on a complete run — a partial run must not erase the
-  // absent input's charts.
-  const complete =
-    model.bench && model.memory && model.confirm && model.realWorld.length > 0;
-  if (complete) {
-    pruneCharts(rootDir);
-  } else {
-    console.log("[docs] partial model — chart pruning skipped");
-  }
+  // Missing inputs leave their pages untouched, so scanning ALL pages keeps
+  // their chart references while obsolete charts from regenerated pages go.
+  pruneCharts(rootDir);
 }
 
 function surfacesPresent(group, model) {
-  if (!group.benchSurfaces?.length) return Boolean(model.bench);
-  const ids = (model.bench.data?.surfaces ?? []).map((s) => s.id);
-  return group.benchSurfaces.some((id) => ids.includes(id));
+  return sourcesForGroup(group, model).length > 0;
 }
 
-function pruneCharts(rootDir) {
+export function pruneCharts(rootDir) {
   const chartsDir = join(rootDir, "docs", "charts");
   let removed = 0;
   try {
@@ -125,7 +123,6 @@ function pruneCharts(rootDir) {
       }
     };
     scan(join(rootDir, "docs"), "docs/");
-    scan(join(rootDir, "README.md"), "");
     try {
       const readme = readFileSync(join(rootDir, "README.md"), "utf8");
       for (const match of readme.matchAll(/charts\/([A-Za-z0-9-]+)\.svg/g)) {
@@ -135,6 +132,7 @@ function pruneCharts(rootDir) {
       // no README — nothing to add
     }
     for (const name of readdirSync(chartsDir)) {
+      if (!name.endsWith(".svg")) continue;
       const base = name.replace(/\.svg$/, "").replace(/-dark$/, "");
       if (!referenced.has(base)) {
         rmSync(join(chartsDir, name), { force: true });
@@ -147,5 +145,6 @@ function pruneCharts(rootDir) {
   if (removed) console.log(`[docs] pruned ${removed} unreferenced chart file(s)`);
 }
 
-const includeLocal = process.argv.includes("--include-local");
-generateDocs({ includeLocal });
+if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
+  generateDocs({ includeLocal: process.argv.includes("--include-local") });
+}

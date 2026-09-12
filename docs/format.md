@@ -1,6 +1,14 @@
 # Format
 
-> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm docs`.
+> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm run docs`.
+
+## Results
+
+<details><summary>Ranking rules and measurement definitions</summary>
+
+Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
+
+</details>
 
 - **Generated:** 2026-09-12T10:46:24.868Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
@@ -10,20 +18,9 @@
 - **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557
 - **Source:** `bench-Linux-200-bench.json`
 
-## Results
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/format-format-dark.svg">
-  <img src="charts/format-format.svg" alt="" width="760">
-</picture>
-
 ### Format
 
 Files: **200** · Bytes: **134,760**
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
 
 Tools:
 
@@ -31,11 +28,16 @@ Tools:
 - **rsvelte-fmt** — @rsvelte/fmt — Rust formatter for .svelte.
 - **Oxfmt** — Oxc formatter; skipped because the pinned release excludes .svelte files.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/format-bench-linux-200-bench-format-format-all-dark.svg">
+  <img src="charts/format-bench-linux-200-bench-format-format-all.svg" alt="Format" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | rsvelte-fmt | 200 | **166.6 ms** | 165.1 ms | 1.3 ms | 0.8% | 1.00x | n/a | n/a | 1.2k files/s |
 | Prettier | 200 | **2.91 s** | 2.83 s | 41.8 ms | 1.4% | 17.45x | n/a | n/a | 69 files/s |
-| Oxfmt ⏭ | 200 | skipped | – | – | – | – | – | – |
+| Oxfmt ⏭ | 200 | skipped | – | – | – | – | – | – | – |
 
 <details><summary>Notes</summary>
 

@@ -1,14 +1,6 @@
 # Memory (isolated probe)
 
-> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm docs`.
-
-- **Generated:** 2026-09-12T10:46:24.868Z
-- **Fixture:** `fixtures/200` (200 Svelte files)
-- **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [cc44ddb](https://github.com/pikax/svelte-benchmarks/commit/cc44ddb)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557
-- **Source:** `bench-Linux-200-bench.json`
+> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm run docs`.
 
 - **Generated:** 2026-09-12T10:38:05.665Z
 - **Fixture:** `fixtures/200` (200 Svelte files)

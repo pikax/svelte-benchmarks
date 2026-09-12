@@ -1,250 +1,109 @@
-/**
- * Deterministic single-file SVG bar charts for generated docs.
- *
- * Safari constraint (same as the Vue reference implementation): GitHub loads
- * SVGs through <img>, and Safari does not reliably apply
- * prefers-color-scheme INSIDE such an image. Charts therefore ship as explicit
- * light + dark twins with fixed fills and no media queries; the page selects
- * via <picture><source media="(prefers-color-scheme: dark)">.
- *
- * Deterministic filenames: slugified chart names ≤72 chars pass through;
- * longer names become first-64-chars + "-" + 7-char base36 FNV-1a hash of the
- * full string (truncating alone made sibling charts overwrite each other).
- */
-
+/** Shared SVG charts; page-level <picture> selects explicit light/dark twins. */
 export function slugify(name) {
-  return String(name)
-    .toLowerCase()
-    .replace(/[<>]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+  return String(name).toLowerCase().replace(/[<>]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
-
-function fnv1a(text) {
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < text.length; i++) {
-    hash ^= text.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  return hash.toString(36);
-}
-
 export function chartFileName(name) {
   const slug = slugify(name);
   if (slug.length <= 72) return slug;
-  return `${slug.slice(0, 64)}-${fnv1a(slug).slice(0, 7)}`;
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < slug.length; i++) hash = Math.imul(hash ^ slug.charCodeAt(i), 0x01000193) >>> 0;
+  return slug.slice(0, 64) + "-" + hash.toString(36).padStart(7, "0");
 }
-
 export function formatDuration(ms) {
-  if (!Number.isFinite(ms)) return "n/a";
-  if (ms >= 1000) return `${(ms / 1000).toFixed(2)} s`;
-  return `${ms.toFixed(1)} ms`;
+  if (!Number.isFinite(ms)) return "–";
+  if (ms >= 1000) return (ms / 1000).toFixed(ms >= 10000 ? 1 : 2) + " s";
+  return ms.toFixed(ms >= 100 ? 0 : 1) + " ms";
 }
-
-/** Stable tool colors — a tool keeps its color across pages of a run. */
-const TOOL_COLORS = [
-  "#2563eb",
-  "#16a34a",
-  "#dc2626",
-  "#9333ea",
-  "#ea580c",
-  "#0891b2",
-  "#ca8a04",
-  "#db2777",
-  "#4f46e5",
-  "#059669",
-];
-const colorByLabel = new Map();
-export function colorForTool(label) {
-  if (!colorByLabel.has(label)) {
-    colorByLabel.set(
-      label,
-      TOOL_COLORS[colorByLabel.size % TOOL_COLORS.length],
-    );
-  }
-  return colorByLabel.get(label);
-}
-
-export const CHART_THEMES = Object.freeze({
-  light: {
-    ink: "#1f2328",
-    inkSoft: "#59636e",
-    axis: "#d1d9e0",
-    grid: "#eaeef2",
-    surface: "transparent",
-  },
-  dark: {
-    ink: "#f0f6fc",
-    inkSoft: "#9198a1",
-    axis: "#3d444d",
-    grid: "#2a313a",
-    surface: "transparent",
-  },
+export const TOOL_COLORS = Object.freeze({
+  svelte: "#e34b20", rsvelte: "#2563eb", mrwaip: "#7c3aed", verter: "#e11d48",
+  prettier: "#d6a529", eslint: "#6250cf", checkRs: "#0d9488", checkNative: "#b77820",
+  sveld: "#0891b2", docinfo: "#a855f7", oxc: "#ca8a04", other: "#64748b",
 });
-
-function luminance(hex) {
-  const n = Number.parseInt(hex.slice(1), 16);
-  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(
-    (c) => c / 255,
-  );
-  const f = (c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
-  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+export function colorForTool(label) {
+  const n = String(label).toLowerCase();
+  for (const [needle, family] of [
+    ["verter", "verter"], ["mrwaip", "mrwaip"], ["rsvelte", "rsvelte"],
+    ["svelte-check-native", "checkNative"], ["svelte-check-rs", "checkRs"],
+    ["prettier", "prettier"], ["eslint", "eslint"], ["svelte-docinfo", "docinfo"],
+    ["sveld", "sveld"], ["oxfmt", "oxc"], ["oxlint", "oxc"], ["svelte", "svelte"],
+  ]) if (n.includes(needle)) return TOOL_COLORS[family];
+  return TOOL_COLORS.other;
 }
-
-function escapeXml(text) {
-  return String(text)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
+export const CHART_THEMES = Object.freeze({
+  light: { ink: "#1f2328", inkSoft: "#59636e", grid: "#eaeef2", track: "#afb8c126" },
+  dark: { ink: "#f0f6fc", inkSoft: "#a6adb7", grid: "#2a313a", track: "#6e768133" },
+});
+export function escapeXml(text) {
+  return String(text).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
-
-/** Safari clips overflowing labels — approximate width and ellipsize. */
-function fitLabel(text, maxWidth, charWidth = 0.62, fontPx = 12) {
-  const maxChars = Math.max(4, Math.floor(maxWidth / (charWidth * fontPx)));
-  if (text.length <= maxChars) return text;
-  return `${text.slice(0, Math.max(1, maxChars - 1))}…`;
+function fitLabel(text, maxWidth, fontPx = 12) {
+  const count = Math.max(4, Math.floor(maxWidth / (0.62 * fontPx)));
+  return text.length <= count ? text : text.slice(0, count - 1) + "…";
 }
-
-/**
- * Render a horizontal bar chart.
- *
- * bars: [{ label, value, value2?, unranked? }] — value2 (when finite) draws an
- * overlaid second series (fresh child vs warm); unranked rows sort last and
- * render hatched with a struck-through name.
- */
-export function barChartSvg({
-  title,
-  unit = "ms",
-  bars,
-  lowerIsBetter = true,
-  maxValue,
-  theme = "light",
-}) {
+/** value is the primary median; value2 is the independent fresh-child median. */
+export function barChartSvg({ title, subtitle, unit = "ms", bars, lowerIsBetter = true, maxValue, theme = "light" }) {
   const t = CHART_THEMES[theme] ?? CHART_THEMES.light;
-  const width = 760;
-  const labelW = 248;
-  const rowH = 36;
-  const barH = 22;
-  const headerH = 40;
-  const rows = [...bars].sort((a, b) =>
-    a.unranked === b.unranked
-      ? lowerIsBetter
-        ? a.value - b.value
-        : b.value - a.value
-      : a.unranked
-        ? 1
-        : -1,
-  );
-  const height = headerH + rows.length * rowH + 12;
-  const plotW = width - labelW - 96;
-  const peak =
-    Number.isFinite(maxValue) && maxValue > 0
-      ? maxValue
-      : Math.max(
-          1e-9,
-          ...rows.map((r) => Math.max(r.value ?? 0, r.value2 ?? 0)),
-        );
-  const fmt =
-    unit === "ms"
-      ? formatDuration
-      : unit === "%"
-        ? (v) => `${v.toFixed(0)}%`
-        : (v) => `${Math.round(v).toLocaleString()} ${unit}`;
-
-  const parts = [];
-  parts.push(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXml(title)}">`,
-  );
-  parts.push(
-    `<style><![CDATA[text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}]]></style>`,
-  );
-  parts.push(
-    `<text x="0" y="18" font-size="13" font-weight="600" fill="${t.ink}">${escapeXml(fitLabel(title, width))}</text>`,
-  );
-
-  // 4 axis gridlines with tick labels
-  for (let i = 0; i <= 4; i++) {
-    const x = labelW + (plotW * i) / 4;
-    parts.push(
-      `<line x1="${x}" y1="${headerH - 8}" x2="${x}" y2="${height - 10}" stroke="${i === 0 ? t.axis : t.grid}" stroke-width="1"/>`,
-    );
-    parts.push(
-      `<text x="${x}" y="${height - 2}" font-size="10" fill="${t.inkSoft}" text-anchor="middle">${escapeXml(fmt((peak * i) / 4))}</text>`,
-    );
+  const valid = (v) => Number.isFinite(v) && v >= 0;
+  const rows = bars.filter((r) => valid(r.value) || ["skipped", "error"].includes(r.status))
+    .map((r) => ({ ...r, unranked: Boolean(r.unranked || r.status === "unranked") }));
+  if (!rows.length) return "";
+  const order = (r) => !valid(r.value) ? 2 : r.unranked ? 1 : 0;
+  rows.sort((a, b) => order(a) - order(b) ||
+    (lowerIsBetter ? a.value - b.value : b.value - a.value) || a.label.localeCompare(b.label));
+  const width = 760, labelW = 258, plotW = 478, rowH = 54, barH = 12;
+  const headerH = subtitle ? 84 : 64;
+  const height = headerH + rows.length * rowH + 30;
+  const hasFresh = rows.some((r) => valid(r.value2));
+  const peak = Math.max(Number.EPSILON, unit === "%" ? 100 : 0, valid(maxValue) ? maxValue : 0,
+    ...rows.flatMap((r) => [r.value, r.value2].filter(valid)));
+  const fmt = unit === "ms" ? formatDuration : unit === "%" ? (v) => v.toFixed(0) + "%" : (v) => v.toFixed(1) + " " + unit;
+  const text = (x, y, value, attrs = "", fill = t.ink) =>
+    '<text x="' + x + '" y="' + y + '" fill="' + fill + '" ' + attrs + '>' + escapeXml(value) + '</text>';
+  const better = lowerIsBetter ? "Lower is better" : "Higher is better";
+  const parts = [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="' + escapeXml(title) + '">',
+    '<title>' + escapeXml(title) + '</title><desc>' + escapeXml((subtitle ?? "") + ". " + better + ". Hatched bars are unranked; unavailable tools have no bar.") + '</desc>',
+    '<style><![CDATA[text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}]]></style>',
+    text(16, 22, fitLabel(title, width - 32, 15), 'font-size="15" font-weight="600"'),
+  ];
+  if (subtitle) parts.push(text(16, 42, fitLabel(subtitle, width - 32), 'font-size="12"', t.inkSoft));
+  parts.push(text(16, headerH - 15, better + (hasFresh ? " · Solid: warm (primary) · Outline: fresh child" : " · Median of measured runs"), 'font-size="11"', t.inkSoft));
+  if (rows.some((r) => valid(r.value))) for (let i = 0; i <= 4; i++) {
+    const x = labelW + plotW * i / 4;
+    parts.push('<line x1="' + x + '" y1="' + (headerH - 2) + '" x2="' + x + '" y2="' + (height - 30) + '" stroke="' + t.grid + '"/>',
+      text(x, height - 10, fmt(peak * i / 4), 'font-size="10" text-anchor="middle"', t.inkSoft));
   }
-
   rows.forEach((row, i) => {
-    const y = headerH + i * rowH;
-    const color = colorForTool(row.label);
-    const name = fitLabel(row.label, labelW - 26) + (row.unranked ? " · unranked" : "");
-    const strike = row.unranked
-      ? ` stroke="${t.inkSoft}" stroke-width="1" text-decoration="line-through"`
-      : "";
-    parts.push(
-      `<text x="${labelW - 10}" y="${y + 15}" font-size="12" fill="${t.inkSoft}" text-anchor="end"${strike}>${escapeXml(name)}</text>`,
-    );
-
-    const drawBar = (x0, w, fill, { hatch = false, opacity = 1 } = {}) => {
-      if (w <= 0) return;
-      if (hatch) {
-        parts.push(
-          `<rect x="${x0}" y="${y}" width="${w}" height="${barH}" fill="${fill}" fill-opacity="0.25" stroke="${fill}" stroke-width="1"/>`,
-        );
-        parts.push(
-          `<line x1="${x0}" y1="${y + barH}" x2="${x0 + barH}" y2="${y}" stroke="${fill}" stroke-width="1" opacity="0.7"/>`,
-          `<line x1="${x0 + barH / 2}" y1="${y + barH}" x2="${x0 + barH}" y2="${y}" stroke="${fill}" stroke-width="1" opacity="0.7"/>`,
-        );
-      } else {
-        parts.push(
-          `<rect x="${x0}" y="${y}" width="${w}" height="${barH}" fill="${fill}" fill-opacity="${opacity}" rx="2"/>`,
-        );
-      }
-    };
-
-    const baseW = Math.max(0, (Math.max(row.value ?? 0, row.value2 ?? 0) / peak) * plotW);
-    drawBar(labelW, baseW, color, { hatch: Boolean(row.unranked) });
-    if (Number.isFinite(row.value2) && row.value2 !== row.value) {
-      // Second series (e.g. warm) overlaid on the fresh-child extent.
-      const w2 = Math.max(0, (row.value2 / peak) * plotW);
-      drawBar(labelW, w2, color, { opacity: 0.55 });
-      parts.push(
-        `<line x1="${labelW + w2}" y1="${y - 2}" x2="${labelW + w2}" y2="${y + barH + 2}" stroke="${t.inkSoft}" stroke-width="1"/>`,
-      );
+    const y = headerH + i * rowH, color = colorForTool(row.label);
+    const status = row.status === "skipped" ? "Skipped" : row.status === "error" ? "Error" : row.unranked ? "Unranked" : "";
+    parts.push('<g data-tool="' + escapeXml(row.label) + '"><title>' + escapeXml(row.label + (status ? " · " + status : "") + (row.note ? ": " + row.note : "")) + '</title>',
+      '<circle cx="21" cy="' + (y + 21) + '" r="4" fill="' + color + '"/>',
+      text(32, y + 25, fitLabel(row.label, labelW - 46), 'font-size="12" font-weight="500"'));
+    if (status) parts.push(text(32, y + 41, status, 'font-size="10"', t.inkSoft));
+    if (!valid(row.value)) {
+      parts.push(text(labelW, y + 25, fitLabel(row.note || "No timing available", plotW), 'font-size="11"', t.inkSoft), "</g>");
+      return;
     }
-
-    // On-bar value label, ink chosen from the bar's own WCAG luminance.
-    const ink = luminance(color) > 0.45 ? "#ffffff" : "#0b0f14";
-    const label =
-      Number.isFinite(row.value2) && row.value2 !== row.value
-        ? `${fmt(row.value)} / ${fmt(row.value2)}`
-        : fmt(row.value);
-    const inside = baseW > 96;
-    parts.push(
-      `<text x="${inside ? labelW + baseW - 6 : labelW + baseW + 6}" y="${y + 15}" font-size="11" fill="${ink === "#ffffff" ? ink : t.ink}" text-anchor="${inside ? "end" : "start"}">${escapeXml(label)}</text>`,
-    );
+    const primaryW = row.value / peak * plotW;
+    const freshW = valid(row.value2) ? row.value2 / peak * plotW : null;
+    const hatchId = "hatch-" + i;
+    if (row.unranked) parts.push('<defs><pattern id="' + hatchId + '" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="7" height="7" fill="' + color + '"/><line x1="0" y1="0" x2="0" y2="7" stroke="#fff" stroke-width="2" stroke-opacity="0.5"/></pattern></defs>');
+    parts.push('<rect x="' + labelW + '" y="' + (y + 24) + '" width="' + plotW + '" height="' + barH + '" rx="3" fill="' + t.track + '"/>');
+    // Both series share zero; the outline stays visible when fresh is faster.
+    if (freshW != null) parts.push('<rect data-series="fresh" x="' + labelW + '" y="' + (y + 21) + '" width="' + freshW.toFixed(2) + '" height="' + (barH + 6) + '" rx="3" fill="none" stroke="' + color + '" stroke-width="1.5"/>');
+    parts.push('<rect data-series="primary" x="' + labelW + '" y="' + (y + 24) + '" width="' + primaryW.toFixed(2) + '" height="' + barH + '" rx="3" fill="' + (row.unranked ? "url(#" + hatchId + ")" : color) + '"/>');
+    const value = fmt(row.value) + (freshW != null ? " warm / " + fmt(row.value2) + " fresh child" : "");
+    // Labels above the bar stay legible for tiny bars and either page theme.
+    parts.push(text(labelW, y + 14, row.unranked ? "(" + value + ")" : value, 'font-size="12" font-weight="600"'), "</g>");
   });
-
-  parts.push("</svg>");
-  return parts.join("");
+  return [...parts, "</svg>"].join("\n");
 }
-
-export function darkVariant(svg) {
-  return svg; // caller passes theme explicitly per twin; kept for API symmetry
-}
-
-/** Both twins in one call: { light, dark } file contents. */
 export function chartTwin(options) {
-  return {
-    light: barChartSvg({ ...options, theme: "light" }),
-    dark: barChartSvg({ ...options, theme: "dark" }),
-  };
+  return { light: barChartSvg({ ...options, theme: "light" }), dark: barChartSvg({ ...options, theme: "dark" }) };
 }
-
-export function chartPicture(leaf) {
-  return `<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="../charts/${leaf}-dark.svg">\n  <img src="../charts/${leaf}.svg" alt="" width="760">\n</picture>`;
+export function chartPicture(leaf, title = "Benchmark results", chartsHref = "charts") {
+  return '<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="' + chartsHref + '/' + leaf + '-dark.svg">\n  <img src="' + chartsHref + '/' + leaf + '.svg" alt="' + escapeXml(title) + '" width="760">\n</picture>';
 }
-
-export function readmeChartPicture(leaf) {
-  return `<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/${leaf}-dark.svg">\n  <img src="docs/charts/${leaf}.svg" alt="" width="760">\n</picture>`;
+export function readmeChartPicture(leaf, title) {
+  return chartPicture(leaf, title, "docs/charts");
 }

@@ -165,7 +165,7 @@ const SLIM_RULES = [
   },
   {
     re: /^sveld/,
-    slim: "sveld",
+    slim: null,
     desc: "sveld component API extraction; row label states AST-only or resolveTypes mode.",
   },
   {
@@ -223,9 +223,13 @@ function statusMark(status) {
 }
 
 /** Table display name: slimmed label + engine tag + status marker. */
-function displayName(v) {
+export function displayName(v) {
   const rule = slimRuleFor(v.label);
-  return `${rule ? rule.slim : v.label}${engineTag(v)}${statusMark(v.status)}`;
+  return `${rule?.slim ?? v.label}${engineTag(v)}${statusMark(v.status)}`;
+}
+
+export function chartLabel(v) {
+  return `${slimRuleFor(v.label)?.slim ?? v.label}${engineTag(v)}`;
 }
 
 /**
@@ -248,6 +252,19 @@ function classLabel(key) {
   }
   const target = key.startsWith("target:") ? key.slice("target:".length) : null;
   return target ? `${target.toUpperCase()} — separate workload` : "";
+}
+
+/** Shared by tables and charts: never compare different workloads. */
+export function variantClasses(variants = []) {
+  const byClass = new Map();
+  for (const variant of variants) {
+    const key = classKey(variant);
+    if (!byClass.has(key)) byClass.set(key, []);
+    byClass.get(key).push(variant);
+  }
+  return [...byClass].sort(([a], [b]) =>
+    a === b ? 0 : a === "all" ? -1 : b === "all" ? 1 : a.localeCompare(b),
+  ).map(([key, rows]) => ({ key, label: classLabel(key), variants: rows }));
 }
 
 export const RANKING_RULES =
@@ -312,7 +329,7 @@ function renderVariantTable(rawVariants, { title } = {}) {
     lines.push(
       `| Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | ${artifactLabel} | Peak RSS | Throughput |`,
     );
-    lines.push("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |");
+    lines.push("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |");
   }
 
   const base = fastestPrimary(variants);
@@ -320,7 +337,9 @@ function renderVariantTable(rawVariants, { title } = {}) {
     variants.filter(
       (variant) => variant.status === "ok" && Number.isFinite(variant.medianMs),
     ).length >= 2;
-  const sorted = [...variants].sort((a, b) => primaryMs(a) - primaryMs(b));
+  const statusOrder = (v) => v.status === "ok" ? 0 : v.status === "unranked" ? 1 : 2;
+  const sorted = [...variants].sort((a, b) => statusOrder(a) - statusOrder(b) ||
+    (a.medianMs ?? Infinity) - (b.medianMs ?? Infinity));
 
   // Status lives on the name (⚠ unranked, ❌ error, ⏭ skipped) and per-row
   // detail lives in the Notes collapsible below the table — cells that cannot
@@ -348,7 +367,7 @@ function renderVariantTable(rawVariants, { title } = {}) {
         const tp = hasCompetition ? v.throughput : "—";
         if (fresh) {
           lines.push(
-            `| ${name} | ${rowFiles} | ${freshCell(v, fastestFresh)} | ${freshRatio(v, fastestFresh)} | ${warm} | ${formatMs(v.minMs)} | ${formatMs(v.stddevMs)} | ${cv} | ${ratio} | ${artifact} | ${rssCell(v)} | ${tp} |`,
+            `| ${name} | ${rowFiles} | ${freshCell(v, fastestFresh)} | ${hasCompetition ? freshRatio(v, fastestFresh) : "—"} | ${warm} | ${formatMs(v.minMs)} | ${formatMs(v.stddevMs)} | ${cv} | ${ratio} | ${artifact} | ${rssCell(v)} | ${tp} |`,
           );
         } else {
           lines.push(
@@ -361,9 +380,8 @@ function renderVariantTable(rawVariants, { title } = {}) {
         // fabricated time.
         const throughput =
           v.throughput && v.throughput !== "n/a" ? v.throughput : "–";
-        lines.push(
-          `| ${name} | ${rowFiles} | – | – | – | – | – | ${artifact} | ${rssCell(v)} | ${throughput} |`,
-        );
+        const cells = [name, rowFiles, ...(fresh ? ["–", "–"] : []), ...Array(5).fill("–"), artifact, rssCell(v), throughput];
+        lines.push(`| ${cells.join(" | ")} |`);
       }
       noteText = (v.notes || "") + cacheNote;
     } else if (v.status === "unranked") {
@@ -385,10 +403,10 @@ function renderVariantTable(rawVariants, { title } = {}) {
           `| ${name} | ${rowFiles} | ${bracketed} | ${Number.isFinite(v.minMs) ? `(${formatMs(v.minMs)})` : "–"} | – | – | not ranked | ${artifact} | ${rssCell(v)} | – |`,
         );
       }
-    } else if (v.status === "skipped") {
-      lines.push(`| ${name} | ${rowFiles} | skipped | – | – | – | – | – | – |`);
     } else {
-      lines.push(`| ${name} | ${rowFiles} | error | – | – | – | – | – | – |`);
+      const status = v.status === "skipped" ? "skipped" : "error";
+      const cells = [name, rowFiles, ...(fresh ? ["–", "–"] : []), status, ...Array(7).fill("–")];
+      lines.push(`| ${cells.join(" | ")} |`);
       noteText = v.error || v.notes || "";
     }
     if (noteText)
@@ -412,27 +430,15 @@ function renderVariantTable(rawVariants, { title } = {}) {
  * Split variants by comparison class (invocation × threading) and render
  * separate ranked tables. Classes are never mixed in one ranking.
  */
-function renderByThreadingClass(variants) {
+function renderByThreadingClass(variants, renderComparison, group) {
   const lines = [];
-  const byClass = new Map();
-  for (const v of variants) {
-    const k = classKey(v);
-    if (!byClass.has(k)) byClass.set(k, []);
-    byClass.get(k).push(v);
-  }
-
-  // Stable order: the untargeted class first, then targets alphabetically.
-  const keys = [...byClass.keys()].sort((a, b) =>
-    a === "all" ? -1 : b === "all" ? 1 : a.localeCompare(b),
-  );
-
+  const classes = variantClasses(variants);
   const allSorted = [];
-  for (const k of keys) {
-    const group = byClass.get(k);
-    // Only print class heading when multiple classes exist
-    const { lines: tableLines, sorted } = renderVariantTable(group, {
-      title: keys.length > 1 ? classLabel(k) : undefined,
-    });
+  for (const cls of classes) {
+    if (cls.label) lines.push(`##### ${cls.label}`, "");
+    const chart = renderComparison?.(cls, group);
+    if (chart) lines.push(chart, "");
+    const { lines: tableLines, sorted } = renderVariantTable(cls.variants);
     lines.push(...tableLines);
     lines.push("");
     allSorted.push(...sorted);
@@ -453,7 +459,7 @@ function renderRawRuns(sorted) {
           ? ` · fresh child: ${v.freshChildRuns.map(formatMs).join(", ")}`
           : "";
       entries.push(
-        `- **${rule ? rule.slim : v.label}${engineTag(v)}**: ${v.runs.map(formatMs).join(", ")}${fresh}`,
+        `- **${rule?.slim ?? v.label}${engineTag(v)}**: ${v.runs.map(formatMs).join(", ")}${fresh}`,
       );
     }
   }
@@ -480,7 +486,7 @@ function renderToolLegend(surface) {
   const seen = new Map();
   for (const v of variants) {
     const rule = slimRuleFor(v.label);
-    const name = `${rule ? rule.slim : v.label}${engineTag(v)}`;
+    const name = `${rule?.slim ?? v.label}${engineTag(v)}`;
     if (seen.has(name)) continue;
     const desc = rule?.desc ?? (rule && rule.slim !== v.label ? v.label : null);
     if (desc) seen.set(name, desc);
@@ -521,7 +527,7 @@ function renderValidationSummary(surface) {
   return lines;
 }
 
-export function renderSurfaceMarkdown(surface) {
+export function renderSurfaceMarkdown(surface, { renderComparison, includeRankingRules = true } = {}) {
   const lines = [];
   lines.push(`### ${surface.label}`);
   lines.push("");
@@ -550,8 +556,7 @@ export function renderSurfaceMarkdown(surface) {
     }
   }
   lines.push("");
-  lines.push(RANKING_RULES);
-  lines.push("");
+  if (includeRankingRules) lines.push(RANKING_RULES, "");
   lines.push(...renderToolLegend(surface));
   lines.push(...renderValidationSummary(surface));
 
@@ -574,6 +579,8 @@ export function renderSurfaceMarkdown(surface) {
       }
       const { lines: tableLines, sorted } = renderByThreadingClass(
         group.variants,
+        renderComparison,
+        group,
       );
       lines.push(...tableLines);
       lines.push(...renderRawRuns(sorted));
@@ -594,6 +601,7 @@ export function renderSurfaceMarkdown(surface) {
   // Flat surfaces
   const { lines: tableLines, sorted } = renderByThreadingClass(
     surface.variants,
+    renderComparison,
   );
   lines.push(...tableLines);
   lines.push("<details><summary>Methodology</summary>");
@@ -611,7 +619,7 @@ export function renderSurfaceMarkdown(surface) {
     ) {
       const rule = slimRuleFor(v.label);
       lines.push(
-        `- **${rule ? rule.slim : v.label}${engineTag(v)}**: ${v.runs.map(formatMs).join(", ")}`,
+        `- **${rule?.slim ?? v.label}${engineTag(v)}**: ${v.runs.map(formatMs).join(", ")}`,
       );
     }
   }

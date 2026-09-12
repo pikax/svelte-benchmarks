@@ -1,6 +1,14 @@
 # Component metadata
 
-> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm docs`.
+> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm run docs`.
+
+## Results
+
+<details><summary>Ranking rules and measurement definitions</summary>
+
+Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
+
+</details>
 
 - **Generated:** 2026-09-12T10:46:24.868Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
@@ -10,55 +18,60 @@
 - **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557
 - **Source:** `bench-Linux-200-bench.json`
 
-## Results
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/component-meta-component-meta-dark.svg">
-  <img src="charts/component-meta-component-meta.svg" alt="" width="760">
-</picture>
-
 ### Component metadata
 
 Files: **200** · Bytes: **134,760**
 
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
-
 Tools:
 
-- **sveld** — sveld component API extraction; row label states AST-only or resolveTypes mode.
+- **sveld (AST-only)** — sveld component API extraction; row label states AST-only or resolveTypes mode.
+- **sveld (resolveTypes)** — sveld component API extraction; row label states AST-only or resolveTypes mode.
 - **svelte-docinfo** — TypeScript-semantic Svelte component/module metadata extraction.
 - **Verter typeinfo** — @verter/typeinfo decoding @verter/native's dedicated Svelte framework-surface metadata.
 
 ##### SVELD-AST-PROJECT — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/component-meta-bench-linux-200-bench-component-meta-component-me-0r8vvn3-dark.svg">
+  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-0r8vvn3.svg" alt="Component metadata — SVELD-AST-PROJECT — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| sveld | 200 | **78.7 ms** | 70.8 ms | 8.7 ms | 11.0% ⚠ | — | 260 | n/a | — |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| sveld (AST-only) | 200 | **78.7 ms** | 70.8 ms | 8.7 ms | 11.0% ⚠ | — | 260 | n/a | — |
 
 <details><summary>Notes</summary>
 
-- **sveld**: default AST-only extraction; cache disabled | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props
+- **sveld (AST-only)**: default AST-only extraction; cache disabled | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props
 
 </details>
 
 ##### SVELD-RESOLVE-TYPES-PROJECT — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/component-meta-bench-linux-200-bench-component-meta-component-me-17sd8vr-dark.svg">
+  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-17sd8vr.svg" alt="Component metadata — SVELD-RESOLVE-TYPES-PROJECT — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| sveld | 200 | **75.5 ms** | 70.1 ms | 8.1 ms | 10.8% ⚠ | — | 260 | n/a | — |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| sveld (resolveTypes) | 200 | **75.5 ms** | 70.1 ms | 8.1 ms | 10.8% ⚠ | — | 260 | n/a | — |
 
 <details><summary>Notes</summary>
 
-- **sveld**: TypeScript semantic resolution enabled; cache disabled | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props
+- **sveld (resolveTypes)**: TypeScript semantic resolution enabled; cache disabled | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props
 
 </details>
 
 ##### SVELTE-DOCINFO-FILES-NO-DEPENDENCIES — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/component-meta-bench-linux-200-bench-component-meta-component-me-11ekz4e-dark.svg">
+  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-11ekz4e.svg" alt="Component metadata — SVELTE-DOCINFO-FILES-NO-DEPENDENCIES — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | svelte-docinfo | 200 | **653.1 ms** | 641.9 ms | 6.9 ms | 1.1% | — | 260 | n/a | — |
 
 <details><summary>Notes</summary>
@@ -69,8 +82,13 @@ Tools:
 
 ##### VERTER-FRAMEWORK-SURFACE — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/component-meta-bench-linux-200-bench-component-meta-component-me-1f97lmt-dark.svg">
+  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-1f97lmt.svg" alt="Component metadata — VERTER-FRAMEWORK-SURFACE — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter typeinfo | 200 | **229.2 ms** | 223.8 ms | 4.1 ms | 1.8% | — | 260 | n/a | — |
 
 <details><summary>Notes</summary>
@@ -90,8 +108,8 @@ Tools:
 
 Raw runs:
 
-- **sveld**: 93.8 ms, 78.7 ms, 80.6 ms, 75.1 ms, 70.8 ms
-- **sveld**: 89.2 ms, 84.8 ms, 75.5 ms, 72.9 ms, 70.1 ms
+- **sveld (AST-only)**: 93.8 ms, 78.7 ms, 80.6 ms, 75.1 ms, 70.8 ms
+- **sveld (resolveTypes)**: 89.2 ms, 84.8 ms, 75.5 ms, 72.9 ms, 70.1 ms
 - **svelte-docinfo**: 641.9 ms, 653.1 ms, 656.4 ms, 645.1 ms, 657.4 ms
 - **Verter typeinfo**: 230.4 ms, 229.2 ms, 223.8 ms, 233.1 ms, 223.9 ms
 

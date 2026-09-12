@@ -1,6 +1,14 @@
 # LSP / IDE operations
 
-> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm docs`.
+> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm run docs`.
+
+## Results
+
+<details><summary>Ranking rules and measurement definitions</summary>
+
+Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
+
+</details>
 
 - **Generated:** 2026-09-12T10:46:24.868Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
@@ -10,28 +18,22 @@
 - **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557
 - **Source:** `bench-Linux-200-bench.json`
 
-## Results
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/lsp-lsp-dark.svg">
-  <img src="charts/lsp-lsp.svg" alt="" width="760">
-</picture>
-
 ### LSP (editor language server)
 
 Files: **1** · Bytes: **227**
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
 
 Tools:
 
 - **svelte-language-server (JS)** — Official Svelte language server (stdio) from svelte-language-server.
 - **Verter** — verter-lsp — native server from the published npm package; experimental Svelte carrier.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/lsp-bench-linux-200-bench-lsp-lsp-all-dark.svg">
+  <img src="charts/lsp-bench-linux-200-bench-lsp-lsp-all.svg" alt="LSP (editor language server)" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Hover bytes | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter | 1 | **282.2 ms** | 270.9 ms | 47.0 ms | 16.6% ⚠ | 1.00x | 43 | n/a | 4 files/s |
 | svelte-language-server (JS) | 1 | **780.7 ms** | 759.6 ms | 10.4 ms | 1.3% | 2.77x | 43 | n/a | 1 files/s |
 
@@ -57,16 +59,9 @@ Raw runs:
 
 </details>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/lsp-lsp-format-dark.svg">
-  <img src="charts/lsp-lsp-format.svg" alt="" width="760">
-</picture>
-
 ### LSP formatting
 
 Files: **1** · Bytes: **166**
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
 
 Tools:
 
@@ -74,8 +69,13 @@ Tools:
 - **rsvelte-language-server** — @rsvelte/language-server — formatting and native Svelte lint diagnostics; no TypeScript hover/completion.
 - **Verter** — verter-lsp — native server from the published npm package; experimental Svelte carrier.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/lsp-bench-linux-200-bench-lsp-format-lsp-format-all-dark.svg">
+  <img src="charts/lsp-bench-linux-200-bench-lsp-format-lsp-format-all.svg" alt="LSP formatting" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Formatted bytes | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | rsvelte-language-server | 1 | **1.8 ms** | 1.5 ms | 0.7 ms | 39.6% ⚠ | 1.00x | 176 | n/a | 559 files/s |
 | svelte-language-server | 1 | **276.6 ms** | 273.7 ms | 4.2 ms | 1.5% | 154.53x | 176 | n/a | 4 files/s |
 | Verter ⚠ | 1 | (3.1 ms) | (2.6 ms) | – | – | not ranked | (166) | n/a | – |

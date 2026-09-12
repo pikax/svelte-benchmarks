@@ -1,6 +1,14 @@
 # Svelte compiler
 
-> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm docs`.
+> This page is **generated** from committed JSON snapshots (`results/benchmarks/`, `results/real_world/`). Do not edit by hand — run `pnpm run docs`.
+
+## Results
+
+<details><summary>Ranking rules and measurement definitions</summary>
+
+Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
+
+</details>
 
 - **Generated:** 2026-09-12T10:46:24.868Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
@@ -10,20 +18,9 @@
 - **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557
 - **Source:** `bench-Linux-200-bench.json`
 
-## Results
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-compile-dark.svg">
-  <img src="charts/compiler-compile.svg" alt="" width="760">
-</picture>
-
 ### SFC compile (unique contents)
 
 Files: **200** · Bytes: **134,760**
-
-Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.
 
 Tools:
 
@@ -52,9 +49,14 @@ Target: `client` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-prod-class-experim-16hjxvc-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-client-prod-class-experim-16hjxvc.svg" alt="SFC compile (unique contents) — CLIENT · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter native ⏭ | 200 | skipped | – | – | – | – | – | – |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Verter native ⏭ | 200 | skipped | – | – | – | – | – | – | – |
 
 <details><summary>Notes</summary>
 
@@ -64,9 +66,14 @@ Target: `client` · Environment: `production`
 
 ##### SVELTE-5.56.4 — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-4-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-4.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.4 — separate workload" width="760">
+</picture>
+
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.56.4 | 200 | 456.3 ms | 1.00x | **346.5 ms** | 296.5 ms | 35.6 ms | 10.3% ⚠ | — | 366,026 | 118.949 MB | — |
+| svelte/compiler 5.56.4 | 200 | 456.3 ms | — | **346.5 ms** | 296.5 ms | 35.6 ms | 10.3% ⚠ | — | 366,026 | 118.949 MB | — |
 | @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (39.3 ms) | not ranked | (39.1 ms) | (38.9 ms) | – | – | not ranked | (364,246) | 71.574 MB | – |
 
 <details><summary>Notes</summary>
@@ -78,17 +85,22 @@ Target: `client` · Environment: `production`
 
 ##### SVELTE-5.56.8 — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-8-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-8.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.8 — separate workload" width="760">
+</picture>
+
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.56.8 | 200 | 454.4 ms | 1.00x | **331.6 ms** | 297.9 ms | 42.0 ms | 12.7% ⚠ | — | 360,966 | 116.758 MB | — |
-| @rsvelte/compiler (wasm) ⚠ | 200 | (320.0 ms) | not ranked | (280.2 ms) | (276.0 ms) | – | – | not ranked | (360,966) | 167.848 MB | – |
+| svelte/compiler 5.56.8 | 200 | 454.4 ms | — | **331.6 ms** | 297.9 ms | 42.0 ms | 12.7% ⚠ | — | 360,966 | 116.758 MB | — |
 | @rsvelte/native (NAPI) ⚠ | 200 | (113.0 ms) | not ranked | (114.2 ms) | (113.5 ms) | – | – | not ranked | (360,966) | 81.375 MB | – |
+| @rsvelte/compiler (wasm) ⚠ | 200 | (320.0 ms) | not ranked | (280.2 ms) | (276.0 ms) | – | – | not ranked | (360,966) | 167.848 MB | – |
 
 <details><summary>Notes</summary>
 
 - **svelte/compiler 5.56.8**: Official svelte/compiler compile(), generate=client, dev=false, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
-- **@rsvelte/compiler (wasm) ⚠**: rsvelte WASM compile(), generate=client, dev=false, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.
 - **@rsvelte/native (NAPI) ⚠**: rsvelte NAPI compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.
+- **@rsvelte/compiler (wasm) ⚠**: rsvelte WASM compile(), generate=client, dev=false, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.
 
 </details>
 
@@ -97,8 +109,8 @@ Target: `client` · Environment: `production`
 - **svelte/compiler 5.56.4**: 385.0 ms, 346.5 ms, 322.6 ms, 296.5 ms, 370.0 ms · fresh child: 483.3 ms, 449.4 ms, 445.4 ms, 456.3 ms, 459.3 ms
 - **@mrwaip/svelte-rs (NAPI)**: 49.0 ms, 39.1 ms, 39.1 ms, 38.9 ms, 44.9 ms · fresh child: 39.3 ms, 39.0 ms, 39.0 ms, 39.4 ms, 40.1 ms
 - **svelte/compiler 5.56.8**: 390.3 ms, 379.1 ms, 331.6 ms, 297.9 ms, 306.0 ms · fresh child: 439.1 ms, 454.4 ms, 444.9 ms, 467.4 ms, 467.8 ms
-- **@rsvelte/compiler (wasm)**: 297.6 ms, 287.4 ms, 276.0 ms, 280.2 ms, 279.4 ms · fresh child: 317.7 ms, 320.5 ms, 320.0 ms, 318.5 ms, 320.0 ms
 - **@rsvelte/native (NAPI)**: 116.0 ms, 115.7 ms, 114.2 ms, 113.5 ms, 114.1 ms · fresh child: 112.8 ms, 115.2 ms, 113.0 ms, 112.6 ms, 114.2 ms
+- **@rsvelte/compiler (wasm)**: 297.6 ms, 287.4 ms, 276.0 ms, 280.2 ms, 279.4 ms · fresh child: 317.7 ms, 320.5 ms, 320.0 ms, 318.5 ms, 320.0 ms
 
 </details>
 
@@ -108,9 +120,14 @@ Target: `client` · Environment: `development`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-dev-class-experime-16ual2o-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-client-dev-class-experime-16ual2o.svg" alt="SFC compile (unique contents) — CLIENT · development · EXPERIMENTAL-SVELTE — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter native ⏭ | 200 | skipped | – | – | – | – | – | – |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Verter native ⏭ | 200 | skipped | – | – | – | – | – | – | – |
 
 <details><summary>Notes</summary>
 
@@ -120,9 +137,14 @@ Target: `client` · Environment: `development`
 
 ##### SVELTE-5.56.4 — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-dev-class-svelte-5-56-4-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-client-dev-class-svelte-5-56-4.svg" alt="SFC compile (unique contents) — CLIENT · development · SVELTE-5.56.4 — separate workload" width="760">
+</picture>
+
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.56.4 | 200 | 461.6 ms | 1.00x | **309.5 ms** | 305.2 ms | 4.7 ms | 1.5% | — | 474,006 | 118.949 MB | — |
+| svelte/compiler 5.56.4 | 200 | 461.6 ms | — | **309.5 ms** | 305.2 ms | 4.7 ms | 1.5% | — | 474,006 | 118.949 MB | — |
 | @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (41.3 ms) | not ranked | (40.6 ms) | (40.1 ms) | – | – | not ranked | (466,626) | 71.574 MB | – |
 
 <details><summary>Notes</summary>
@@ -134,17 +156,22 @@ Target: `client` · Environment: `development`
 
 ##### SVELTE-5.56.8 — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-dev-class-svelte-5-56-8-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-client-dev-class-svelte-5-56-8.svg" alt="SFC compile (unique contents) — CLIENT · development · SVELTE-5.56.8 — separate workload" width="760">
+</picture>
+
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.56.8 | 200 | 453.8 ms | 1.00x | **310.9 ms** | 303.0 ms | 10.6 ms | 3.4% | — | 468,726 | 116.758 MB | — |
-| @rsvelte/compiler (wasm) ⚠ | 200 | (355.8 ms) | not ranked | (308.5 ms) | (306.6 ms) | – | – | not ranked | (468,726) | 167.848 MB | – |
+| svelte/compiler 5.56.8 | 200 | 453.8 ms | — | **310.9 ms** | 303.0 ms | 10.6 ms | 3.4% | — | 468,726 | 116.758 MB | — |
 | @rsvelte/native (NAPI) ⚠ | 200 | (126.2 ms) | not ranked | (127.2 ms) | (126.0 ms) | – | – | not ranked | (468,726) | 81.375 MB | – |
+| @rsvelte/compiler (wasm) ⚠ | 200 | (355.8 ms) | not ranked | (308.5 ms) | (306.6 ms) | – | – | not ranked | (468,726) | 167.848 MB | – |
 
 <details><summary>Notes</summary>
 
 - **svelte/compiler 5.56.8**: Official svelte/compiler compile(), generate=client, dev=true, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
-- **@rsvelte/compiler (wasm) ⚠**: rsvelte WASM compile(), generate=client, dev=true, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.
 - **@rsvelte/native (NAPI) ⚠**: rsvelte NAPI compile(), generate=client, dev=true, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.
+- **@rsvelte/compiler (wasm) ⚠**: rsvelte WASM compile(), generate=client, dev=true, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.
 
 </details>
 
@@ -153,8 +180,8 @@ Target: `client` · Environment: `development`
 - **svelte/compiler 5.56.4**: 315.5 ms, 305.2 ms, 309.5 ms, 313.7 ms, 305.4 ms · fresh child: 452.5 ms, 462.4 ms, 461.5 ms, 461.6 ms, 476.6 ms
 - **@mrwaip/svelte-rs (NAPI)**: 42.0 ms, 40.5 ms, 40.6 ms, 40.1 ms, 41.2 ms · fresh child: 41.3 ms, 41.4 ms, 41.2 ms, 41.3 ms, 41.1 ms
 - **svelte/compiler 5.56.8**: 330.4 ms, 303.0 ms, 310.9 ms, 311.1 ms, 306.8 ms · fresh child: 453.8 ms, 456.5 ms, 439.6 ms, 444.0 ms, 462.6 ms
-- **@rsvelte/compiler (wasm)**: 311.2 ms, 308.5 ms, 310.7 ms, 306.6 ms, 308.4 ms · fresh child: 346.8 ms, 351.4 ms, 355.8 ms, 360.1 ms, 360.7 ms
 - **@rsvelte/native (NAPI)**: 127.8 ms, 126.6 ms, 127.2 ms, 128.9 ms, 126.0 ms · fresh child: 126.3 ms, 126.3 ms, 124.7 ms, 126.2 ms, 125.0 ms
+- **@rsvelte/compiler (wasm)**: 311.2 ms, 308.5 ms, 310.7 ms, 306.6 ms, 308.4 ms · fresh child: 346.8 ms, 351.4 ms, 355.8 ms, 360.1 ms, 360.7 ms
 
 </details>
 
@@ -164,9 +191,14 @@ Target: `server` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-prod-class-experim-0ngnah0-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-server-prod-class-experim-0ngnah0.svg" alt="SFC compile (unique contents) — SERVER · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter native ⏭ | 200 | skipped | – | – | – | – | – | – |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Verter native ⏭ | 200 | skipped | – | – | – | – | – | – | – |
 
 <details><summary>Notes</summary>
 
@@ -176,9 +208,14 @@ Target: `server` · Environment: `production`
 
 ##### SVELTE-5.56.4 — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-4-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-4.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.4 — separate workload" width="760">
+</picture>
+
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.56.4 | 200 | 389.5 ms | 1.00x | **254.1 ms** | 239.2 ms | 10.3 ms | 4.1% | — | 217,306 | 118.949 MB | — |
+| svelte/compiler 5.56.4 | 200 | 389.5 ms | — | **254.1 ms** | 239.2 ms | 10.3 ms | 4.1% | — | 217,306 | 118.949 MB | — |
 | @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (32.6 ms) | not ranked | (31.4 ms) | (31.3 ms) | – | – | not ranked | (217,846) | 71.574 MB | – |
 
 <details><summary>Notes</summary>
@@ -189,6 +226,11 @@ Target: `server` · Environment: `production`
 </details>
 
 ##### SVELTE-5.56.8 — separate workload
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-8-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-8.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.8 — separate workload" width="760">
+</picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -220,9 +262,14 @@ Target: `server` · Environment: `development`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-dev-class-experime-0rqidlo-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-server-dev-class-experime-0rqidlo.svg" alt="SFC compile (unique contents) — SERVER · development · EXPERIMENTAL-SVELTE — separate workload" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter native ⏭ | 200 | skipped | – | – | – | – | – | – |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Verter native ⏭ | 200 | skipped | – | – | – | – | – | – | – |
 
 <details><summary>Notes</summary>
 
@@ -232,9 +279,14 @@ Target: `server` · Environment: `development`
 
 ##### SVELTE-5.56.4 — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-dev-class-svelte-5-56-4-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-server-dev-class-svelte-5-56-4.svg" alt="SFC compile (unique contents) — SERVER · development · SVELTE-5.56.4 — separate workload" width="760">
+</picture>
+
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.56.4 | 200 | 403.4 ms | 1.00x | **251.6 ms** | 237.7 ms | 10.3 ms | 4.1% | — | 448,986 | 118.949 MB | — |
+| svelte/compiler 5.56.4 | 200 | 403.4 ms | — | **251.6 ms** | 237.7 ms | 10.3 ms | 4.1% | — | 448,986 | 118.949 MB | — |
 | @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (35.1 ms) | not ranked | (33.1 ms) | (32.5 ms) | – | – | not ranked | (438,986) | 71.574 MB | – |
 
 <details><summary>Notes</summary>
@@ -245,6 +297,11 @@ Target: `server` · Environment: `development`
 </details>
 
 ##### SVELTE-5.56.8 — separate workload
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-dev-class-svelte-5-56-8-dark.svg">
+  <img src="charts/compiler-bench-linux-200-bench-compile-server-dev-class-svelte-5-56-8.svg" alt="SFC compile (unique contents) — SERVER · development · SVELTE-5.56.8 — separate workload" width="760">
+</picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
