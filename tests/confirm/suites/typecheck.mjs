@@ -174,6 +174,70 @@ const CASES = [
 `,
   },
   {
+    id: "each-shadow-restoration-ok",
+    expect: "clean",
+    source: `<script lang="ts">
+  const item: string = 'outer';
+  const numbers: number[] = [1, 2];
+</script>
+
+{#each numbers as item (item)}
+  <p data-numbers>{item + 1}</p>
+{/each}
+
+<p data-restored>{item.toUpperCase()}</p>
+`,
+  },
+  {
+    id: "each-shadow-restoration-bad",
+    expect: "error",
+    mustMention: ["toUpperCase", "number"],
+    source: `<script lang="ts">
+  const item: string = 'outer';
+  const numbers: number[] = [1, 2];
+</script>
+
+{#each numbers as item (item)}
+  <!-- @plant-error -->
+  <p>{item.toUpperCase()}</p>
+{/each}
+
+<p>{item.toUpperCase()}</p>
+`,
+  },
+  {
+    id: "snippet-shadow-restoration-ok",
+    expect: "clean",
+    source: `<script lang="ts">
+  const item: string = 'outer';
+</script>
+
+{#snippet cell(item: number)}
+  <td>{item + 1}</td>
+{/snippet}
+
+<tr>{@render cell(2)}</tr>
+<p data-restored>{item.toUpperCase()}</p>
+`,
+  },
+  {
+    id: "snippet-shadow-restoration-bad",
+    expect: "error",
+    mustMention: ["toUpperCase", "number"],
+    source: `<script lang="ts">
+  const item: string = 'outer';
+</script>
+
+{#snippet cell(item: number)}
+  <!-- @plant-error -->
+  <td>{item.toUpperCase()}</td>
+{/snippet}
+
+<tr>{@render cell(2)}</tr>
+<p>{item.toUpperCase()}</p>
+`,
+  },
+  {
     id: "clean-component",
     expect: "clean",
     source: `<script lang="ts">

@@ -178,6 +178,14 @@ function semanticFailureSummary(gate) {
   return failing.join("; ") || gate.reason || "no detail";
 }
 
+function sourceMapFailureSummary(sm) {
+  return (sm?.results ?? [])
+    .filter((r) => r.status === "FAIL")
+    .slice(0, 2)
+    .map((r) => `${r.id}: ${(r.failures ?? [])[0] ?? ""}`)
+    .join("; ");
+}
+
 /**
  * Apply per-cell verdicts to rows, then invalidate classes whose official
  * reference failed. Reference rows are identified by `baseline: true`.
@@ -206,6 +214,22 @@ export function applyCompileValidityGates(variants, compileSemantics, cell) {
       );
       continue;
     }
+    // Source maps are ALWAYS part of the artifact Svelte compilers return, so
+    // coordinate correctness gates the same rows (no on/off dimension
+    // exists). When the runtime plants passed but the maps are wrong, the
+    // source-map failure owns the row's verdict — it is what failed.
+    const sm = gate.sourceMap;
+    // Runtime counters only — the child folds source-map failures into the
+    // overall status, so gate.status alone cannot distinguish the two.
+    const runtimePassed =
+      (gate.failed ?? 0) === 0 && (gate.unknown ?? 0) === 0 && Number.isFinite(gate.passed);
+    if (sm && sm.status === "FAIL" && runtimePassed) {
+      markRowUnranked(
+        row,
+        `⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all ${gate.passed ?? "?"} runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (${sourceMapFailureSummary(sm)}). The timing remains visible but cannot rank until the emitted maps are correct.`,
+      );
+      continue;
+    }
     if (gate.status !== "PASS") {
       markRowUnranked(
         row,
@@ -213,6 +237,9 @@ export function applyCompileValidityGates(variants, compileSemantics, cell) {
       );
     } else {
       row.notes = `${row.notes ? `${row.notes} | ` : ""}✓ runtime semantic validity: ${gate.passed}/${gate.plantCount} plants passed through ${gate.exactPath}`;
+      if (sm?.status === "PASS") {
+        row.notes = `${row.notes ? `${row.notes} | ` : ""}✓ source-map coordinates: ${sm.results.filter((r) => r.status === "PASS").length}/${sm.results.length} anchored tokens traced exactly (LF/CRLF, non-BMP)`;
+      }
     }
   }
 

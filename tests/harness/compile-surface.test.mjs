@@ -175,11 +175,11 @@ test("a failed official reference unrankS every candidate in its class", () => {
 });
 
 test("the plant suite hash is stable and covers runtime + CSS plants", () => {
-  assert.equal(COMPILE_VALIDITY_PLANTS.length + CSS_VALIDITY_PLANTS.length, 28);
+  assert.equal(COMPILE_VALIDITY_PLANTS.length + CSS_VALIDITY_PLANTS.length, 33);
   assert.match(COMPILE_VALIDITY_SUITE_HASH, /^[a-f0-9]{64}$/);
   // Unknown results keep per-plant visibility — never silently absent.
   const unknown = unknownCompileValidityResults("suite could not run");
-  assert.equal(unknown.length, 28);
+  assert.equal(unknown.length, 33);
   assert.ok(unknown.every((r) => r.status === "UNKNOWN" && r.phase === "not-run"));
 });
 

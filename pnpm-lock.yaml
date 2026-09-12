@@ -11,6 +11,9 @@ importers:
       '@bufbuild/protobuf':
         specifier: 2.15.0
         version: 2.15.0
+      '@jridgewell/trace-mapping':
+        specifier: 0.3.31
+        version: 0.3.31
       '@mrwaip/svelte-rs':
         specifier: 0.0.0-canary.13.1
         version: 0.0.0-canary.13.1

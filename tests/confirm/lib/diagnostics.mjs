@@ -152,11 +152,10 @@ export function findExpectErrorPins(filename, source) {
 
 function fileMatches(diagFile, pinFile) {
   if (!diagFile) return false;
-  return (
-    diagFile === pinFile ||
-    diagFile.endsWith(`/${pinFile}`) ||
-    diagFile.endsWith(pinFile)
-  );
+  // Complete path segment only: a bare endsWith(pinFile) attributes
+  // other-script-type-error/App.svelte's diagnostics to
+  // script-type-error/App.svelte.
+  return diagFile === pinFile || diagFile.endsWith(`/${pinFile}`);
 }
 
 function mentions(text, needle) {

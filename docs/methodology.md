@@ -23,6 +23,9 @@ The harness applies the same rule to every implementation on a surface. It does 
 - A missing verdict is `UNKNOWN` and unrankS the row; `UNKNOWN` is not PASS. A failed official reference unrankS every candidate in its compatibility class — the fastest survivor is never promoted into the reference slot.
 - Source-map-on cells assert artifact PRESENCE (executable capability probe + in-timer map checks). Mapping correctness is not verified, so every map-on row is deliberately unranked.
 - Suite identity: every verdict carries the plant suite version and SHA-256 hash, so stale evidence is detectable in stored snapshots.
+- Source-map COORDINATE correctness gates every compile row: anchored generated JS/CSS tokens must trace back to their exact source positions (LF/CRLF variants, non-BMP column pressure, sourcesContent equal to the full component). A shifted, wrong-file, stale or byte-counted map unrankS the row even when every runtime plant passes. The 2026-09-12 probe port surfaced real defects this way: @mrwaip/svelte-rs CSS maps use style-block-relative lines and its server compile omits the JS map entirely; the rsvelte compilers count UTF-8 bytes instead of UTF-16 units after a non-BMP character.
+- Shadowing probes: reactive `$props()` destructuring with alias/defaults/restoration, lexical shadowing by function/arrow parameters, and {#each}/snippet parameter shadowing with restoration of the outer binding — as runtime plants (clean) and typecheck dirty/clean twins (pinned errors inside the shadowed scope).
+- Metadata expectations use exact required/default booleans and structured callback parameter facts (count, per-argument type, optionality); diagnostic attribution requires a complete path segment and, for lint, the planted line.
 
 ## Comparison boundaries
 

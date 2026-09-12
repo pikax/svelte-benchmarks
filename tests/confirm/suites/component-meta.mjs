@@ -11,6 +11,7 @@ import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createSuite } from "../lib/harness.mjs";
+import { checkMetaTypeFacts } from "../lib/meta-type-facts.mjs";
 
 const rootDir = join(dirname(fileURLToPath(import.meta.url)), "../../..");
 
@@ -24,7 +25,7 @@ const CASES = [
 `,
     expect: {
       props: [
-        { name: "title", required: true },
+        { name: "title", required: true, hasDefault: false },
         { name: "count", required: false, hasDefault: true },
       ],
     },
@@ -43,6 +44,40 @@ const CASES = [
       props: [
         { name: "value" },
         { name: "onPing" },
+      ],
+    },
+  },
+  {
+    id: "callback-signatures",
+    source: `<script lang="ts">
+  let {
+    onMove,
+    onToggle,
+  }: {
+    onMove: (x: number, y: number) => void;
+    onToggle?: (value?: boolean) => void;
+  } = $props();
+</script>
+<button onclick={() => { onMove?.(1, 2); onToggle?.(true); }}>go</button>
+`,
+    expect: {
+      props: [
+        {
+          name: "onMove",
+          required: true,
+          typeFacts: {
+            paramCount: 2,
+            params: [{ includes: "number" }, { includes: "number" }],
+          },
+        },
+        {
+          name: "onToggle",
+          required: false,
+          typeFacts: {
+            paramCount: 1,
+            params: [{ includes: "boolean", optional: true }],
+          },
+        },
       ],
     },
   },
@@ -81,20 +116,30 @@ function checkExpect(props, expect, tool) {
   for (const expected of expect.props) {
     const found = props.find((p) => p.name === expected.name);
     assert.ok(found, `${tool}: prop "${expected.name}" missing (got: ${props.map((p) => p.name).join(", ") || "none"})`);
-    if (expected.required === true) {
-      assert.equal(found.required, true, `${tool}: prop "${expected.name}" should be required`);
+    // Exact flags: every compared tool reports requiredness/defaults, so a
+    // missing value is a wrong value — "not true" is not enough.
+    if (typeof expected.required === "boolean") {
+      assert.equal(
+        found.required,
+        expected.required,
+        `${tool}: prop "${expected.name}" required must be exactly ${expected.required} (got ${found.required})`,
+      );
     }
-    if (expected.required === false) {
-      assert.notEqual(found.required, true, `${tool}: prop "${expected.name}" should be optional`);
-    }
-    if (expected.hasDefault) {
-      assert.equal(found.hasDefault, true, `${tool}: prop "${expected.name}" should report a default`);
+    if (typeof expected.hasDefault === "boolean") {
+      assert.equal(
+        found.hasDefault,
+        expected.hasDefault,
+        `${tool}: prop "${expected.name}" hasDefault must be exactly ${expected.hasDefault} (got ${found.hasDefault})`,
+      );
     }
     if (expected.typeIncludes) {
       assert.ok(
         typeMentions(found, expected.typeIncludes),
         `${tool}: prop "${expected.name}" type should mention ${expected.typeIncludes}`,
       );
+    }
+    for (const failure of checkMetaTypeFacts(found.type, expected.typeFacts)) {
+      assert.fail(`${tool}: prop "${expected.name}": ${failure}`);
     }
   }
 }
@@ -240,7 +285,7 @@ export async function runComponentMetaSuite() {
         const normalized = props.members.map((m) => ({
           name: m.name,
           required: m.required ?? m.isRequired,
-          hasDefault: m.default != null || m.defaultValue != null || m.hasDefault,
+          hasDefault: Boolean(m.default != null || m.defaultValue != null || m.hasDefault),
           type: m.typeText ?? m.type,
         }));
         checkExpect(normalized, testCase.expect, "verter-typeinfo");

@@ -53,6 +53,50 @@ function markupOf(source) {
     .trim();
 }
 
+
+/** Render-significant content: regex behavior, pre whitespace, inter-element
+ * spacing, custom properties and quoted strings. The oracle compiles BOTH the
+ * original and the formatted file and requires IDENTICAL server HTML — a
+ * formatter that collapses significant whitespace or rewrites literals
+ * changes observable output. */
+const SEMANTIC_PLANT = `<script>
+const pattern=/alpha+/gi
+const matched=pattern.test('ALPHA')
+</script>
+
+<section data-match={matched}><pre>  alpha
+    beta  </pre><span>left</span> <span>right</span><i class="q"></i></section>
+<style>.q { --plant-gap: 2px; margin: var(--plant-gap); content: "keep  spacing"; }</style>
+`;
+
+async function serverHtml(source) {
+  const { compile } = await import("svelte/compiler");
+  const { render } = await import("svelte/server");
+  const out = compile(source, {
+    filename: "Semantics.svelte",
+    generate: "server",
+    dev: false,
+    css: "external",
+    runes: true,
+  });
+  if (out?.errors?.length) throw new Error(out.errors[0]?.message ?? "compile error");
+  const { writeFileSync: wf, mkdirSync: md, rmSync: rm } = await import("node:fs");
+  const { join } = await import("node:path");
+  const dir = join(rootDir, "work", "confirm", "format-semantics", String(Date.now()));
+  rm(dir, { recursive: true, force: true });
+  md(dir, { recursive: true });
+  const file = join(dir, "S.mjs");
+  wf(file, out.js.code.replaceAll('"svelte/internal/server"', JSON.stringify(
+    (await import("node:url")).pathToFileURL(
+      (await import("node:module")).createRequire(join(rootDir, "package.json")).resolve("svelte/internal/server"),
+    ).href,
+  )));
+  const mod = await import((await import("node:url")).pathToFileURL(file).href + "?x=" + Date.now());
+  const rendered = await render(mod.default, { props: {} });
+  rm(dir, { recursive: true, force: true, maxRetries: 5, retryDelay: 50 });
+  return rendered.html;
+}
+
 export async function runFormatSuite() {
   const suite = createSuite("format");
   const plant = prepareFormatPlant(join(rootDir, "work", "confirm"));
@@ -117,6 +161,23 @@ export async function runFormatSuite() {
         });
         const twice = readFileSync(target, "utf8");
         assert.equal(twice, once, "second exact formatter pass was not idempotent");
+      });
+
+      await suite.run("semantics", tool, async () => {
+        const messySemanticPath = join(dir, "nested", "Semantics.svelte");
+        writeFileSync(messySemanticPath, SEMANTIC_PLANT);
+        runCommand(command.bin, command.args, {
+          cwd: dir,
+          shell,
+          allowNonZeroExit: true,
+        });
+        const before = await serverHtml(SEMANTIC_PLANT);
+        const after = await serverHtml(readFileSync(messySemanticPath, "utf8"));
+        assert.equal(
+          after,
+          before,
+          "formatting changed observable rendered output (significant whitespace, literals or CSS values)",
+        );
       });
 
       await suite.run("parseable", tool, async () => {

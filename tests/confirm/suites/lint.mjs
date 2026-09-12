@@ -36,7 +36,7 @@ const PAIRS = [
   },
   {
     id: "dupe-else-if",
-    dirtyLine: 2,
+    dirtyLine: 3,
     dirty: `{#if value}
   <p>first</p>
 {:else if value}
@@ -108,9 +108,16 @@ export async function runLintSuite() {
           await cleanLint.lintFiles([join(cleanTree, "nested", "Plant.svelte")])
         ).flatMap((r) => r.messages ?? []);
         const dirtyHit = dirtyMessages.some(
-          (m) => m.ruleId === pair.eslintRule || m.ruleId?.endsWith(pair.eslintRule.split("/").pop()),
+          (m) =>
+            (m.ruleId === pair.eslintRule ||
+              m.ruleId?.endsWith(pair.eslintRule.split("/").pop())) &&
+            m.line === pair.dirtyLine,
         );
-        assert.equal(dirtyHit, true, `dirty twin not flagged by ${pair.eslintRule} (got: ${dirtyMessages.map((m) => m.ruleId).join(", ") || "nothing"})`);
+        assert.equal(
+          dirtyHit,
+          true,
+          `dirty twin not flagged by ${pair.eslintRule} at line ${pair.dirtyLine} (got: ${dirtyMessages.map((m) => `${m.ruleId}@${m.line}`).join(", ") || "nothing"})`,
+        );
         const cleanHit = cleanMessages.some((m) => m.ruleId === pair.eslintRule);
         assert.equal(cleanHit, false, "clean twin flagged by the planted rule");
       } finally {

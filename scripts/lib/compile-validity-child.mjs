@@ -26,6 +26,12 @@ import {
   CSS_VALIDITY_PLANTS,
   unknownCompileValidityResults,
 } from "./compile-validity-plants.mjs";
+import {
+  SOURCE_MAP_PLANTS,
+  SOURCE_MAP_SUITE_HASH,
+  SOURCE_MAP_SUITE_VERSION,
+} from "./source-map-validity-plants.mjs";
+import { judgeSourceMapArtifact } from "./source-map-validity-oracle.mjs";
 
 export const COMPILE_VALIDITY_JSON_PREFIX = "@@SVELTE_COMPILE_VALIDITY@@";
 
@@ -452,20 +458,109 @@ export async function runCompileValidityChild(options) {
   const failed = results.filter((r) => r.status === "FAIL").length;
   const unknown = results.filter((r) => r.status === "UNKNOWN").length;
   const passed = results.filter((r) => r.status === "PASS").length;
-  const status = failed > 0 ? "FAIL" : unknown > 0 ? "UNKNOWN" : "PASS";
+
+  // Source-map coordinate tracing: every Svelte compiler always emits maps,
+  // so their CORRECTNESS gates the same rows. Anchored tokens in the
+  // generated JS/CSS must trace back to the exact source positions.
+  const sourceMap = await runSourceMapPlants({ entrypoint, generate, dev, compile });
+  const smFailed = sourceMap.results.filter((r) => r.status === "FAIL").length;
+  const smPassed = sourceMap.results.filter((r) => r.status === "PASS").length;
+
+  const status =
+    failed > 0 || smFailed > 0 ? "FAIL" : unknown > 0 ? "UNKNOWN" : "PASS";
   return {
     ...header,
     status,
     reason:
       status === "PASS"
-        ? `${passed}/${allPlants.length} plants passed`
-        : `${failed} failed, ${unknown} unknown of ${allPlants.length}`,
+        ? `${passed}/${allPlants.length} plants + ${smPassed}/${sourceMap.results.length} source-map anchors passed`
+        : `${failed} failed, ${unknown} unknown of ${allPlants.length}; source-map ${sourceMap.status} (${smFailed} failed)`,
     plantCount: allPlants.length,
     passed,
     failed,
     unknown,
     results,
+    sourceMap: {
+      ...sourceMap,
+      note: "generated JS/CSS tokens traced to exact source coordinates (segment-start, exact file, full sourcesContent)",
+    },
   };
+}
+
+/**
+ * Compile each source-map plant through the entrypoint's exact API and judge
+ * the returned maps. The script token appears twice in generated JS
+ * (declaration + template use); the first (declaration) occurrence is the
+ * anchor, mirroring the runtime declaration anchors.
+ */
+async function runSourceMapPlants({ entrypoint, generate, dev, compile }) {
+  const out = {
+    suiteVersion: SOURCE_MAP_SUITE_VERSION,
+    suiteHash: SOURCE_MAP_SUITE_HASH,
+    status: "UNKNOWN",
+    results: SOURCE_MAP_PLANTS.map((plant) => ({
+      id: plant.id,
+      workload: plant.workload,
+      status: "UNKNOWN",
+      phase: "not-run",
+      failures: [],
+    })),
+  };
+  if (entrypoint === "verter-svelte") {
+    out.reason = "entrypoint has no public Svelte runtime compile API";
+    return out;
+  }
+  for (const [index, plant] of SOURCE_MAP_PLANTS.entries()) {
+    const row = out.results[index];
+    try {
+      row.phase = "compile";
+      const filename = `SM${String(index).padStart(2, "0")}-${plant.id}.svelte`;
+      const result = await compile(plant.source, {
+        filename,
+        generate,
+        dev,
+        css: "external",
+        runes: true,
+      });
+      const js = typeof result?.js === "string" ? result.js : (result?.js?.code ?? result?.code ?? "");
+      const jsMap = result?.js?.map ?? result?.map;
+      const css = typeof result?.css === "string" ? result.css : (result?.css?.code ?? "");
+      const cssMap = result?.css?.map;
+      const failures = [];
+      const jsAnchors = plant.anchors.filter((a) => !a.id.startsWith("css"));
+      const cssAnchors = plant.anchors.filter((a) => a.id.startsWith("css"));
+      const judged = judgeSourceMapArtifact({
+        code: js,
+        map: jsMap,
+        source: plant.source,
+        filename,
+        anchors: jsAnchors.map((a) =>
+          a.id === "script"
+            ? { ...a, generatedOffset: js.indexOf(a.generatedToken) }
+            : a,
+        ),
+      });
+      failures.push(...judged.failures.map((f) => `js.${f}`));
+      if (cssAnchors.length) {
+        const cssJudged = judgeSourceMapArtifact({
+          code: css,
+          map: cssMap,
+          source: plant.source,
+          filename,
+          anchors: cssAnchors,
+        });
+        failures.push(...cssJudged.failures.map((f) => `css.${f}`));
+      }
+      row.failures = failures.slice(0, 5);
+      row.status = failures.length === 0 ? "PASS" : "FAIL";
+    } catch (error) {
+      row.status = "FAIL";
+      row.failures = [String(error instanceof Error ? error.message : error).slice(0, 300)];
+    }
+  }
+  const failed = out.results.filter((r) => r.status === "FAIL").length;
+  out.status = failed > 0 ? "FAIL" : "PASS";
+  return out;
 }
 
 function cliOptions(argv) {

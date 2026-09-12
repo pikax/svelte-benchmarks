@@ -68,6 +68,8 @@
     "publish:ci-results": "node scripts/publish-ci-results.mjs"
   },
   "dependencies": {
+    "@bufbuild/protobuf": "2.15.0",
+    "@jridgewell/trace-mapping": "0.3.31",
     "@mrwaip/svelte-rs": "0.0.0-canary.13.1",
     "@rsvelte/compiler": "0.12.2",
     "@rsvelte/fmt": "0.7.23",
@@ -78,7 +80,6 @@
     "@rsvelte/vite-plugin-svelte": "0.5.2",
     "@rsvelte/vite-plugin-svelte-native": "0.3.14",
     "@sveltejs/vite-plugin-svelte": "7.3.0",
-    "@bufbuild/protobuf": "2.15.0",
     "@typescript-eslint/parser": "8.70.0",
     "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "@verter/native": "0.0.1-beta.3",
@@ -102,10 +103,10 @@
     "svelte2tsx": "0.7.61",
     "typescript": "6.0.3",
     "typescript-go": "npm:typescript@7.0.2",
-    "vite": "8.3.0",
-    "zod": "4.6.2",
     "verter-lsp": "0.0.1-beta.3",
-    "verter-tsc": "0.0.1-beta.3"
+    "verter-tsc": "0.0.1-beta.3",
+    "vite": "8.3.0",
+    "zod": "4.6.2"
   },
   "engines": {
     "node": ">=22"

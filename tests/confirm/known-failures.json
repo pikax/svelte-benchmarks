@@ -39,5 +39,32 @@
   },
   "typecheck/store-type-flow/verter-tsc": {
     "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "component-meta/callback-signatures/verter-typeinfo": {
+    "why": "Verter's published framework surface omits type text for function-typed props at this demand level, so parameter-count/type facts cannot be checked for it."
+  },
+  "typecheck/each-shadow-restoration-bad/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "typecheck/snippet-shadow-restoration-bad/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "format/semantics/prettier": {
+    "why": "Reformatting separates </pre> from the following inline element with a newline, which Svelte renders as a visible space where the original had none — the formatter changes observable output for zero-space inline sequences."
+  },
+  "format/semantics/rsvelte-fmt": {
+    "why": "Reformatting separates </pre> from the following inline element with a newline, which Svelte renders as a visible space where the original had none — the formatter changes observable output for zero-space inline sequences."
+  },
+  "compile/validity-client/mrwaip-svelte-rs": {
+    "why": "CSS source maps use style-block-relative original lines instead of component-document positions (mapped 2:24 where the token is at 9:24)."
+  },
+  "compile/validity-server/mrwaip-svelte-rs": {
+    "why": "Server compile returns no js.map at all — the artifact omits the source map the official compiler always emits."
+  },
+  "compile/validity-client/rsvelte-wasm": {
+    "why": "JS source-map columns count UTF-8 bytes instead of UTF-16 code units (anchors after a non-BMP emoji shift by +2), and the template anchor has no original mapping."
+  },
+  "compile/validity-client/rsvelte-native": {
+    "why": "JS source-map columns count UTF-8 bytes instead of UTF-16 code units (anchors after a non-BMP emoji shift by +2), and the template anchor has no original mapping."
   }
 }

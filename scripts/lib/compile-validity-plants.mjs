@@ -463,6 +463,82 @@ export const COMPILE_VALIDITY_PLANTS = Object.freeze([
   ),
 
   multiPlant(
+    "reactive-props-destructure-shadowing",
+    ["$props() destructure", "function parameter scope", "arrow parameter scope", "prop update", "lexical shadowing"],
+    [
+      {
+        name: "Parent.svelte",
+        source: `<script>
+  import Child from './Child.svelte';
+  let label = $state('outer');
+  export function setLabel(value) { label = value; }
+</script>
+
+<output class="shadow"><Child {label} /></output>`,
+      },
+      {
+        name: "Child.svelte",
+        source: `<script>
+  let { label = 'outer' } = $props();
+  function local(label) { return label; }
+  const inner = ['arrow'].map((label) => label).join(',');
+</script>
+
+<span>{label}|{local('parameter')}|{inner}</span>`,
+      },
+    ],
+    {
+      assertServer: ({ html }) => includes(html, ">outer|parameter|arrow</span>", "server destructured default with shadowing"),
+      assertClient: async ({ mount, text, flush }) => {
+        const app = mount({});
+        eq(text(".shadow span"), "outer|parameter|arrow", "lexical shadowing");
+        app.setLabel("updated");
+        flush();
+        eq(text(".shadow span"), "updated|parameter|arrow", "prop update reaches only the outer binding");
+      },
+    },
+  ),
+
+  multiPlant(
+    "reactive-props-destructure-alias-default",
+    ["$props() destructure", "alias", "destructure default", "$derived", "default restoration"],
+    [
+      {
+        name: "Parent.svelte",
+        source: `<script>
+  import Child from './Child.svelte';
+  let label = $state(undefined);
+  let count = $state(undefined);
+  export function setProps(nextLabel, nextCount) { label = nextLabel; count = nextCount; }
+</script>
+
+<output class="destructure"><Child label={label} count={count} /></output>`,
+      },
+      {
+        name: "Child.svelte",
+        source: `<script>
+  let { label: caption = 'fallback', count = 2 } = $props();
+  const summary = $derived(caption + ':' + count);
+</script>
+
+<b>{caption}|{summary}</b>`,
+      },
+    ],
+    {
+      assertServer: ({ html }) => includes(html, ">fallback|fallback:2</b>", "server destructure defaults"),
+      assertClient: async ({ mount, text, flush }) => {
+        const app = mount({});
+        eq(text(".destructure b"), "fallback|fallback:2", "destructure defaults");
+        app.setProps("next", 7);
+        flush();
+        eq(text(".destructure b"), "next|next:7", "aliased prop and derived update");
+        app.setProps(undefined, undefined);
+        flush();
+        eq(text(".destructure b"), "fallback|fallback:2", "defaults restored after props become undefined");
+      },
+    },
+  ),
+  multiPlant(
     "component-props-child-binding",
     ["component props", "child components", "$bindable across modules"],
     [
@@ -678,6 +754,57 @@ export const CSS_VALIDITY_PLANTS = Object.freeze([
     },
   ),
   plant(
+    "css-cascade-order",
+    ["cascade", "declaration order"],
+    `<script>let v = $state(1);</script>
+<p class="casc">{v}</p>
+<style>.casc { color: red; }
+.other-casc { color: blue; }
+.casc { padding: 1px; }</style>`,
+    {
+      assertCss: ({ css }) => {
+        // Both USED .casc rules survive and keep their document order — a
+        // reordering or dropped rule changes the cascade. The unused rule
+        // must not be live CSS (official parks it in an (unused) comment,
+        // removing it entirely is equally correct).
+        const active = String(css).replace(/\/\*[\s\S]*?\*\//g, "");
+        const firstColor = active.indexOf("color: red");
+        const pad = active.indexOf("padding: 1px");
+        if (firstColor < 0 || pad < 0) throw new Error("expected both .casc declarations to survive");
+        if (pad < firstColor) throw new Error("second .casc rule must come after the first (cascade order)");
+        if (active.includes(".other-casc")) throw new Error("unused selector must not survive as live CSS");
+      },
+    },
+  ),
+  plant(
+    "css-duplicate-declarations",
+    ["duplicate declarations", "last-wins order"],
+    `<script>let v = $state(1);</script>
+<p class="dupe">{v}</p>
+<style>.dupe { color: red; color: blue; }</style>`,
+    {
+      assertCss: ({ css }) => {
+        const red = css.indexOf("color: red");
+        const blue = css.indexOf("color: blue");
+        if (red < 0 || blue < 0) throw new Error("duplicate declarations must both be preserved");
+        if (blue < red) throw new Error("declaration order must be preserved (last-wins semantics)");
+      },
+    },
+  ),
+  plant(
+    "css-custom-property-wiring",
+    ["custom properties", "var() consumption"],
+    `<script>let v = $state(1);</script>
+<p class="cp">{v}</p>
+<style>.cp { --plant-pad: 4px; padding: var(--plant-pad); }</style>`,
+    {
+      assertCss: ({ css }) => {
+        includes(css, "--plant-pad: 4px", "custom property declaration preserved");
+        includes(css, "var(--plant-pad)", "custom property consumed via var()");
+      },
+    },
+  ),
+  plant(
     "css-external-extraction",
     ["css: 'external'", "style extraction"],
     `<p class="e">x</p>
@@ -695,7 +822,7 @@ export const CSS_VALIDITY_PLANTS = Object.freeze([
 /* Suite identity                                                             */
 /* ------------------------------------------------------------------------- */
 
-export const COMPILE_VALIDITY_SUITE_VERSION = "2026-09-12.1";
+export const COMPILE_VALIDITY_SUITE_VERSION = "2026-09-12.2";
 
 function semanticFields(plants) {
   return plants.map(({ id, coverage, source, files }) => ({
