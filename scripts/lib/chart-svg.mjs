@@ -1,22 +1,58 @@
-/** Shared SVG charts; page-level <picture> selects explicit light/dark twins. */
-export function slugify(name) {
-  return String(name).toLowerCase().replace(/[<>]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+// Ported from vue-benchmarks/scripts/lib/chart-svg.mjs; shared geometry and rendering.
+/**
+ * THE shared SVG bar-chart renderer. Every chart in this repository — README
+ * landing blocks, docs/<group>.md pages, docs/real-world*, docs/memory.md —
+ * goes through `barChartSvg`. One code path, one look, one place to fix
+ * rendering quirks.
+ *
+ * Why every chart is a LIGHT/DARK PAIR selected by a <picture> element rather
+ * than one SVG with a media query: these SVGs are loaded as <img> on GitHub,
+ * where Safari does not reliably apply `@media (prefers-color-scheme: dark)`
+ * INSIDE the image — the text colour silently stays wrong for one theme. The
+ * theme decision therefore moves out of the SVG entirely: `barChartSvg` takes
+ * an explicit `theme` and uses only fixed fills (no media queries), the
+ * background stays transparent, and the embedding page picks the right file
+ * with `<picture><source media="(prefers-color-scheme: dark)">`, which every
+ * browser evaluates at the page level. On-bar value labels pick dark or white
+ * ink from the bar colour's own luminance (theme-independent), so a light bar
+ * (Prettier yellow) never carries white text.
+ */
+
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+
+export function slugify(text) {
+  const normalized = String(text)
+    .toLowerCase()
+    .replace(/&lt;/g, " ")
+    .replace(/&gt;/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  if (normalized.length <= 72) return normalized;
+
+  // Long headings can share their first 72 characters; truncating alone made
+  // sibling charts overwrite each other. Keep a readable prefix plus a
+  // deterministic suffix derived from the complete string.
+  let hash = 2166136261;
+  for (let i = 0; i < normalized.length; i++) {
+    hash ^= normalized.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  const suffix = (hash >>> 0).toString(36).padStart(7, "0");
+  return `${normalized.slice(0, 64)}-${suffix}`;
 }
-export function chartFileName(name) {
-  const slug = slugify(name);
-  if (slug.length <= 72) return slug;
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < slug.length; i++) hash = Math.imul(hash ^ slug.charCodeAt(i), 0x01000193) >>> 0;
-  return slug.slice(0, 64) + "-" + hash.toString(36).padStart(7, "0");
-}
+
 export function formatDuration(ms) {
   if (!Number.isFinite(ms)) return "–";
-  if (ms >= 1000) return (ms / 1000).toFixed(ms >= 10000 ? 1 : 2) + " s";
-  return ms.toFixed(ms >= 100 ? 0 : 1) + " ms";
+  if (ms >= 1000) return `${(ms / 1000).toFixed(ms >= 10_000 ? 1 : 2)} s`;
+  if (ms >= 100) return `${ms.toFixed(0)} ms`;
+  return `${ms.toFixed(1)} ms`;
 }
+
+/** Stable per-family colours so a tool is the same hue on every chart. */
 export const TOOL_COLORS = Object.freeze({
   svelte: "#e34b20", rsvelte: "#2563eb", mrwaip: "#7c3aed", verter: "#e11d48",
-  prettier: "#d6a529", eslint: "#6250cf", checkRs: "#0d9488", checkNative: "#b77820",
+  prettier: "#f7b93e", eslint: "#4b32c3", checkRs: "#0d9488", checkNative: "#b77820",
   sveld: "#0891b2", docinfo: "#a855f7", oxc: "#ca8a04", other: "#64748b",
 });
 export function colorForTool(label) {
@@ -29,78 +65,304 @@ export function colorForTool(label) {
   ]) if (n.includes(needle)) return TOOL_COLORS[family];
   return TOOL_COLORS.other;
 }
-export const CHART_THEMES = Object.freeze({
-  light: { ink: "#1f2328", inkSoft: "#59636e", grid: "#eaeef2", track: "#afb8c126" },
-  dark: { ink: "#f0f6fc", inkSoft: "#a6adb7", grid: "#2a313a", track: "#6e768133" },
-});
-export function escapeXml(text) {
-  return String(text).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+
+/**
+ * Fixed ink colours per theme — one set for a light page, one for a dark
+ * page, no media queries inside the SVG. The background stays transparent;
+ * the embedding page chooses the themed file (see the module docblock).
+ */
+export const CHART_THEMES = {
+  light: {
+    label: "#1f2328",
+    muted: "#59636e",
+    track: "#afb8c133", // GitHub light border tone at low alpha
+    grid: "#d0d7de",
+    boundary: "#ffffff",
+    onDarkBar: "#ffffff",
+    onLightBar: "#1f2328",
+  },
+  dark: {
+    label: "#e6edf3",
+    muted: "#9198a1",
+    track: "#6e768166",
+    grid: "#3d444d",
+    boundary: "#0d1117",
+    onDarkBar: "#ffffff",
+    onLightBar: "#1f2328",
+  },
+};
+
+/** WCAG relative luminance of a #rrggbb colour. */
+function luminance(hex) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(String(hex).trim());
+  if (!m) return 0;
+  const chan = (i) => {
+    const c = parseInt(m[1].slice(i, i + 2), 16) / 255;
+    return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * chan(0) + 0.7152 * chan(2) + 0.0722 * chan(4);
 }
-function fitLabel(text, maxWidth, fontPx = 12) {
-  const count = Math.max(4, Math.floor(maxWidth / (0.62 * fontPx)));
-  return text.length <= count ? text : text.slice(0, count - 1) + "…";
+
+/** Ink for text drawn ON a bar of the given colour (theme-independent). */
+function inkOnBar(color, ink) {
+  return luminance(color) > 0.45 ? ink.onLightBar : ink.onDarkBar;
 }
-/** value is the primary median; value2 is the independent fresh-child median. */
-export function barChartSvg({ title, subtitle, unit = "ms", bars, lowerIsBetter = true, maxValue, theme = "light" }) {
-  const t = CHART_THEMES[theme] ?? CHART_THEMES.light;
-  const valid = (v) => Number.isFinite(v) && v >= 0;
-  const rows = bars.filter((r) => valid(r.value) || ["skipped", "error"].includes(r.status))
-    .map((r) => ({ ...r, unranked: Boolean(r.unranked || r.status === "unranked") }));
-  if (!rows.length) return "";
-  const order = (r) => !valid(r.value) ? 2 : r.unranked ? 1 : 0;
-  rows.sort((a, b) => order(a) - order(b) ||
-    (lowerIsBetter ? a.value - b.value : b.value - a.value) || a.label.localeCompare(b.label));
-  const width = 760, labelW = 258, plotW = 478, rowH = 54, barH = 12;
-  const headerH = subtitle ? 84 : 64;
-  const height = headerH + rows.length * rowH + 30;
-  const hasFresh = rows.some((r) => valid(r.value2));
-  const peak = Math.max(Number.EPSILON, unit === "%" ? 100 : 0, valid(maxValue) ? maxValue : 0,
-    ...rows.flatMap((r) => [r.value, r.value2].filter(valid)));
-  const fmt = unit === "ms" ? formatDuration : unit === "%" ? (v) => v.toFixed(0) + "%" : (v) => v.toFixed(1) + " " + unit;
-  const text = (x, y, value, attrs = "", fill = t.ink) =>
-    '<text x="' + x + '" y="' + y + '" fill="' + fill + '" ' + attrs + '>' + escapeXml(value) + '</text>';
-  const better = lowerIsBetter ? "Lower is better" : "Higher is better";
-  const parts = [
-    '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="' + escapeXml(title) + '">',
-    '<title>' + escapeXml(title) + '</title><desc>' + escapeXml((subtitle ?? "") + ". " + better + ". Hatched bars are unranked; unavailable tools have no bar.") + '</desc>',
-    '<style><![CDATA[text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}]]></style>',
-    text(16, 22, fitLabel(title, width - 32, 15), 'font-size="15" font-weight="600"'),
-  ];
-  if (subtitle) parts.push(text(16, 42, fitLabel(subtitle, width - 32), 'font-size="12"', t.inkSoft));
-  parts.push(text(16, headerH - 15, better + (hasFresh ? " · Solid: warm (primary) · Outline: fresh child" : " · Median of measured runs"), 'font-size="11"', t.inkSoft));
-  if (rows.some((r) => valid(r.value))) for (let i = 0; i <= 4; i++) {
-    const x = labelW + plotW * i / 4;
-    parts.push('<line x1="' + x + '" y1="' + (headerH - 2) + '" x2="' + x + '" y2="' + (height - 30) + '" stroke="' + t.grid + '"/>',
-      text(x, height - 10, fmt(peak * i / 4), 'font-size="10" text-anchor="middle"', t.inkSoft));
-  }
-  rows.forEach((row, i) => {
-    const y = headerH + i * rowH, color = colorForTool(row.label);
-    const status = row.status === "skipped" ? "Skipped" : row.status === "error" ? "Error" : row.unranked ? "Unranked" : "";
-    parts.push('<g data-tool="' + escapeXml(row.label) + '"><title>' + escapeXml(row.label + (status ? " · " + status : "") + (row.note ? ": " + row.note : "")) + '</title>',
-      '<circle cx="21" cy="' + (y + 21) + '" r="4" fill="' + color + '"/>',
-      text(32, y + 25, fitLabel(row.label, labelW - 46), 'font-size="12" font-weight="500"'));
-    if (status) parts.push(text(32, y + 41, status, 'font-size="10"', t.inkSoft));
-    if (!valid(row.value)) {
-      parts.push(text(labelW, y + 25, fitLabel(row.note || "No timing available", plotW), 'font-size="11"', t.inkSoft), "</g>");
-      return;
+
+function formatBarValue(value, unit) {
+  if (unit === "%") return `${value.toFixed(0)}%`;
+  if (unit === "MB") return `${value.toFixed(1)} MB`;
+  return formatDuration(value);
+}
+
+/**
+ * Collapse bar entries by label into row groups. A label may carry series:
+ * warm/cold/fresh (range bar), tool/engine (stacked RSS), or a plain value.
+ */
+function groupBars(usable, lowerIsBetter) {
+  const map = new Map();
+  for (const b of usable) {
+    const key = b.label;
+    if (!map.has(key)) {
+      map.set(key, {
+        label: key,
+        ranked: true,
+        warm: null,
+        cold: null,
+        fresh: null,
+        toolRss: null,
+        engineRss: null,
+        value: null,
+      });
     }
-    const primaryW = row.value / peak * plotW;
-    const freshW = valid(row.value2) ? row.value2 / peak * plotW : null;
-    const hatchId = "hatch-" + i;
-    if (row.unranked) parts.push('<defs><pattern id="' + hatchId + '" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="7" height="7" fill="' + color + '"/><line x1="0" y1="0" x2="0" y2="7" stroke="#fff" stroke-width="2" stroke-opacity="0.5"/></pattern></defs>');
-    parts.push('<rect x="' + labelW + '" y="' + (y + 24) + '" width="' + plotW + '" height="' + barH + '" rx="3" fill="' + t.track + '"/>');
-    // Both series share zero; the outline stays visible when fresh is faster.
-    if (freshW != null) parts.push('<rect data-series="fresh" x="' + labelW + '" y="' + (y + 21) + '" width="' + freshW.toFixed(2) + '" height="' + (barH + 6) + '" rx="3" fill="none" stroke="' + color + '" stroke-width="1.5"/>');
-    parts.push('<rect data-series="primary" x="' + labelW + '" y="' + (y + 24) + '" width="' + primaryW.toFixed(2) + '" height="' + barH + '" rx="3" fill="' + (row.unranked ? "url(#" + hatchId + ")" : color) + '"/>');
-    const value = fmt(row.value) + (freshW != null ? " warm / " + fmt(row.value2) + " fresh child" : "");
-    // Labels above the bar stay legible for tiny bars and either page theme.
-    parts.push(text(labelW, y + 14, row.unranked ? "(" + value + ")" : value, 'font-size="12" font-weight="600"'), "</g>");
+    const g = map.get(key);
+    if (b.ranked === false) g.ranked = false;
+    if (b.series === "warm") g.warm = b.value;
+    else if (b.series === "cold") g.cold = b.value;
+    else if (b.series === "fresh") g.fresh = b.value;
+    else if (b.series === "tool") g.toolRss = b.value;
+    else if (b.series === "engine") g.engineRss = b.value;
+    else g.value = b.value;
+  }
+  const groups = [...map.values()].map((g) => {
+    const stackedRss = Number.isFinite(g.toolRss) && Number.isFinite(g.engineRss);
+    const first = Number.isFinite(g.fresh) ? g.fresh : g.cold;
+    const firstLabel = Number.isFinite(g.fresh) ? "fresh child" : "cold";
+    const stacked = Number.isFinite(g.warm) && Number.isFinite(first);
+    const sortValue = stackedRss
+      ? g.toolRss + g.engineRss
+      : stacked
+        ? firstLabel === "fresh child"
+          ? g.warm
+          : first
+        : (g.value ?? first ?? g.warm ?? 0);
+    const barValue = stackedRss
+      ? g.toolRss + g.engineRss
+      : stacked
+        ? Math.max(first, g.warm)
+        : sortValue;
+    return { ...g, first, firstLabel, stacked, stackedRss, sortValue, barValue };
   });
-  return [...parts, "</svg>"].join("\n");
+  groups.sort((a, b) => {
+    if (a.ranked !== b.ranked) return a.ranked ? -1 : 1;
+    return lowerIsBetter ? a.sortValue - b.sortValue : b.sortValue - a.sortValue;
+  });
+  return groups;
 }
+
+/** Approximate text width so labels stay inside the viewBox (Safari clips overflow). */
+function fitLabel(text, maxPx, fontPx) {
+  const em = fontPx * 0.62;
+  const s = String(text);
+  if (s.length * em <= maxPx) return s;
+  const budget = Math.max(1, Math.floor((maxPx - em) / em));
+  return `${s.slice(0, budget)}…`;
+}
+
+function svgText(fill, attrs, content) {
+  const extra = attrs.trim() ? ` ${attrs.trim()}` : "";
+  return `<text fill="${fill}"${extra}>${content}</text>`;
+}
+
+/**
+ * Horizontal bar chart. Speed/RSS: lower is better. Pass rate: higher is
+ * better (`lowerIsBetter: false`, axis 0–100). Unranked bars keep the tool
+ * colour with a hatch overlay and a struck name.
+ *
+ * `bars`: [{ label, value, ranked?, series? }] — series: warm|cold|fresh for
+ * a combined range bar, tool|engine for a stacked RSS bar, absent for plain.
+ * `theme`: "light" | "dark" — publish both files and let the page choose.
+ */
+export function barChartSvg({ title, unit = "ms", bars, lowerIsBetter = true, maxValue, theme = "light" }) {
+  const ink = CHART_THEMES[theme] ?? CHART_THEMES.light;
+  const usable = bars.filter((b) => Number.isFinite(b.value) && b.value >= 0);
+  if (usable.length === 0) return "";
+  const groups = groupBars(usable, lowerIsBetter);
+  const stacked = groups.some((g) => g.stacked);
+  const stackedRss = groups.some((g) => g.stackedRss);
+
+  const padL = 16;
+  const nameX = 36;
+  const labelW = 248;
+  const rightPad = 110;
+  const top = stacked || stackedRss ? 64 : 56;
+  const rowH = 36;
+  const barH = 22;
+  const bottom = 28;
+  const height = top + groups.length * rowH + bottom;
+  const width = 760;
+  const plotW = width - labelW - rightPad;
+  const dataMax = Math.max(...groups.map((g) => g.barValue), Number.EPSILON);
+  const max = Number.isFinite(maxValue) && maxValue > 0 ? maxValue : unit === "%" ? 100 : dataMax;
+  const nameMaxPx = labelW - nameX - 8;
+
+  const escape = (s) =>
+    String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+
+  const plotBottom = height - bottom;
+  const ticks = 4;
+  const axis = [];
+  for (let i = 0; i <= ticks; i++) {
+    const frac = i / ticks;
+    const x = labelW + frac * plotW;
+    const v = max * frac;
+    axis.push(
+      `<line x1="${x}" y1="${top - 8}" x2="${x}" y2="${plotBottom}" stroke="${ink.grid}" stroke-opacity="0.55" />`,
+      svgText(
+        ink.muted,
+        `x="${x}" y="${height - 8}" text-anchor="middle" font-size="11"`,
+        escape(formatBarValue(v, unit)),
+      ),
+    );
+  }
+
+  const hatches = [];
+  const rows = groups.map((g, i) => {
+    const y = top + i * rowH;
+    const color = colorForTool(g.label);
+    const hatchId = `hatch-${i}`;
+    if (g.ranked === false) {
+      hatches.push(
+        `<pattern id="${hatchId}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="8" height="8" fill="${color}"/><line x1="0" y1="0" x2="0" y2="8" stroke="#fff" stroke-width="3" opacity="0.35"/></pattern>`,
+      );
+    }
+    const fill = g.ranked === false ? `url(#${hatchId})` : color;
+    const name = fitLabel(g.label, nameMaxPx, 13);
+    const unranked = g.ranked === false ? " · unranked" : "";
+    const nameOpacity = g.ranked === false ? ` fill-opacity="0.62"` : "";
+
+    let segments = "";
+    let valueLabel;
+    let totalW;
+    if (g.stackedRss) {
+      const toolW = Math.max(0, (g.toolRss / max) * plotW);
+      const engineW = Math.max(0, (g.engineRss / max) * plotW);
+      const totalStack = toolW + engineW;
+      segments = `<rect x="${labelW}" y="${y + 5}" width="${plotW}" height="${barH}" rx="5" fill="${ink.track}"/>
+      <rect x="${labelW}" y="${y + 5}" width="${Math.max(4, toolW).toFixed(1)}" height="${barH}" rx="5" fill="${fill}"/>
+      <rect x="${labelW + toolW}" y="${y + 5}" width="${Math.max(g.engineRss > 0 ? 4 : 0, engineW).toFixed(1)}" height="${barH}" rx="5" fill="${fill}" fill-opacity="0.38"/>`;
+      valueLabel =
+        g.engineRss > 0
+          ? `${formatBarValue(g.toolRss, unit)} + ${formatBarValue(g.engineRss, unit)} = ${formatBarValue(g.barValue, unit)}${unranked}`
+          : `${formatBarValue(g.barValue, unit)}${unranked}`;
+      totalW = Math.max(4, totalStack);
+    } else if (g.stacked) {
+      const warmW = Math.max(4, (g.warm / max) * plotW);
+      const firstW = Math.max(4, (g.first / max) * plotW);
+      const warmIsLonger = g.warm >= g.first;
+      const longW = warmIsLonger ? warmW : firstW;
+      const shortW = warmIsLonger ? firstW : warmW;
+      const longOpacity = warmIsLonger ? "1" : "0.38";
+      const shortOpacity = warmIsLonger ? "0.38" : "1";
+      // One combined range bar: the full rectangle ends at the slower value;
+      // the overlaid rectangle ends at the faster value. This preserves both
+      // directions (including first < warm) without adding the measurements.
+      segments = `<rect x="${labelW}" y="${y + 5}" width="${plotW}" height="${barH}" rx="5" fill="${ink.track}"/>
+      <rect x="${labelW}" y="${y + 5}" width="${longW.toFixed(1)}" height="${barH}" rx="5" fill="${fill}" fill-opacity="${longOpacity}"/>
+      <rect x="${labelW}" y="${y + 5}" width="${shortW.toFixed(1)}" height="${barH}" rx="5" fill="${fill}" fill-opacity="${shortOpacity}"/>
+      <line x1="${labelW + shortW}" y1="${y + 4}" x2="${labelW + shortW}" y2="${y + 28}" stroke="${ink.boundary}" stroke-width="2" stroke-opacity="0.9"/>`;
+      valueLabel = `${formatBarValue(g.warm, unit)} warm / ${formatBarValue(g.first, unit)} ${g.firstLabel}${unranked}`;
+      totalW = longW;
+    } else {
+      totalW = Math.max(4, (g.barValue / max) * plotW);
+      segments = `<rect x="${labelW}" y="${y + 5}" width="${plotW}" height="${barH}" rx="5" fill="${ink.track}"/>
+      <rect x="${labelW}" y="${y + 5}" width="${totalW.toFixed(1)}" height="${barH}" rx="5" fill="${fill}"/>`;
+      valueLabel = formatBarValue(g.barValue, unit) + unranked;
+    }
+    const valueInside = totalW > 96;
+    const valueEl = valueInside
+      ? svgText(
+          inkOnBar(color, ink),
+          `x="${labelW + 8}" y="${y + 21}" font-size="12" font-weight="600"`,
+          escape(valueLabel),
+        )
+      : svgText(
+          ink.label,
+          `x="${labelW + totalW + 8}" y="${y + 21}" font-size="12" font-weight="600"`,
+          escape(valueLabel),
+        );
+    const strike =
+      g.ranked === false
+        ? `<line x1="${nameX}" y1="${y + 16}" x2="${labelW - 8}" y2="${y + 16}" stroke="${ink.label}" stroke-opacity="0.45" />`
+        : "";
+    return `${svgText(ink.muted, `x="${padL}" y="${y + 21}" font-size="11"`, String(i + 1))}
+      ${svgText(ink.label, `x="${nameX}" y="${y + 21}" font-size="13"${nameOpacity}`, escape(name))}
+      ${strike}
+      ${segments}
+      ${valueEl}`;
+  });
+
+  const legendY = 42;
+  const legend = stackedRss
+    ? `<rect x="${padL + 130}" y="${legendY - 9}" width="10" height="10" rx="2" fill="${ink.label}"/>
+  ${svgText(ink.muted, `x="${padL + 144}" y="${legendY}" font-size="11"`, "tool")}
+  <rect x="${padL + 178}" y="${legendY - 9}" width="10" height="10" rx="2" fill="${ink.label}" fill-opacity="0.38"/>
+  ${svgText(ink.muted, `x="${padL + 192}" y="${legendY}" font-size="11"`, "tsgo / tsc")}`
+    : stacked
+      ? `<rect x="${padL + 130}" y="${legendY - 9}" width="10" height="10" rx="2" fill="${ink.label}"/>
+  ${svgText(ink.muted, `x="${padL + 144}" y="${legendY}" font-size="11"`, "warm")}
+  <rect x="${padL + 188}" y="${legendY - 9}" width="10" height="10" rx="2" fill="${ink.label}" fill-opacity="0.38"/>
+  ${svgText(ink.muted, `x="${padL + 202}" y="${legendY}" font-size="11"`, groups.find((g) => g.stacked)?.firstLabel ?? "first")}`
+      : "";
+
+  const better = lowerIsBetter ? "lower is better" : "higher is better";
+  const chartTitle = fitLabel(title, width - padL * 2, 15);
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escape(title)}">
+  <title>${escape(title)} (${better})</title>
+  <style><![CDATA[
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  ]]></style>
+  ${hatches.length ? `<defs>${hatches.join("")}</defs>` : ""}
+  ${svgText(ink.label, `x="${padL}" y="20" font-size="15" font-weight="600"`, escape(chartTitle))}
+  ${svgText(ink.muted, `x="${padL}" y="36" font-size="11"`, escape(better))}
+  ${legend}
+  ${axis.join("\n  ")}
+  ${rows.join("\n  ")}
+</svg>
+`;
+}
+
+export function writeChart(dir, leaf, svg) {
+  mkdirSync(dir, { recursive: true });
+  const path = join(dir, leaf);
+  writeFileSync(path, svg);
+  return path;
+}
+
+export const chartFileName = slugify;
+
 export function chartTwin(options) {
   return { light: barChartSvg({ ...options, theme: "light" }), dark: barChartSvg({ ...options, theme: "dark" }) };
 }
+
+export function escapeXml(text) {
+  return String(text).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+}
+
 export function chartPicture(leaf, title = "Benchmark results", chartsHref = "charts") {
   return '<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="' + chartsHref + '/' + leaf + '-dark.svg">\n  <img src="' + chartsHref + '/' + leaf + '.svg" alt="' + escapeXml(title) + '" width="760">\n</picture>';
 }

@@ -7,6 +7,7 @@ import ts from "typescript";
 import { collectSvelteFiles, readSources, totalBytes } from "../fixtures.mjs";
 import { measureVariants, timedSync, timedAsync } from "../timing.mjs";
 import { loadRsvelteWasm } from "../rsvelte-wasm.mjs";
+import { compileVerterBatch } from "../verter-compile.mjs";
 import { measureFreshChildVariants } from "../compile-fresh-runs.mjs";
 import {
   applyCompileValidityGates,
@@ -303,14 +304,13 @@ async function loadImplementations() {
     };
   }
 
-  // Verter re-probe (executable, not an allowlist): is there a public Svelte
-  // runtime compile API on the installed package? Until one exists, the row
-  // stays skipped — a different Verter operation is not proxied in its place.
+  // Keep the published compileMany path measurable even when it emits invalid
+  // Svelte output. These diagnostic timings are explicitly never ranked.
   const verterNative = loadOptional("@verter/native");
-  const verterSvelteRuntimeAvailable =
+  const verterCompileAvailable =
     !verterNative.error &&
     typeof verterNative.VerterHost === "function" &&
-    typeof verterNative.VerterHost.prototype?.compileManySvelte === "function";
+    typeof verterNative.VerterHost.prototype?.compileMany === "function";
 
   return {
     svelteCompiler,
@@ -320,7 +320,7 @@ async function loadImplementations() {
     rsvelteNative,
     mrwaipCompiler,
     verterNative,
-    verterSvelteRuntimeAvailable,
+    verterCompileAvailable,
   };
 }
 
@@ -901,24 +901,56 @@ export async function buildCompileCellVariants(payload) {
     });
   }
 
-  /* --- Verter (experimental Svelte; probed, currently skipped) --- */
-  if (impls.verterSvelteRuntimeAvailable) {
-    // Reserved: when Verter exposes a public Svelte runtime compile API, the
-    // row is benchmarked through THAT API and gated like every other row.
-    variants.push({
+  /* --- Verter: retain invalid output as measured, explicitly unranked evidence. --- */
+  if (impls.verterCompileAvailable) {
+    const host = new impls.verterNative.VerterHost({ devMode: !isProd, hostCpuThreads: 1 });
+    const note = "VerterHost.compileMany(target=runtime-render, mode=stateless, 1 CPU thread) on the same revised Svelte inputs. Diagnostic timing only: the published path is not validated as a Svelte runtime compiler; invalid/empty output and per-file errors are retained, never ranked.";
+    const variant = {
       id: `verter-stateless-${cell}`,
       label: `Verter compileMany (stateless)`,
       package: "@verter/native",
       target: generate,
       comparisonClass: "experimental-svelte",
       env,
-      threading: "batch",
+      threading: "1t",
       invocation: "in-process",
+      fileCount: primary.files.length,
       artifactLabel: "Code bytes",
       unranked: true,
-      notes: "Verter Svelte runtime compile API detected; wiring not yet validated.",
-      skip: true,
-    });
+      notes: note,
+      prepare: prepareClass(primary),
+      measure: async (pass) => {
+        const entry = passMaterializedInputs(primary.sources, saltOf(primary), pass, primary.cache);
+        let outputs;
+        const { ms } = timedSync(() => {
+          outputs = compileVerterBatch(host, entry.inputs, { generate, dev: !isProd });
+        });
+        // Invalid output is evidence, not a successful compilation. Keep the
+        // completed batch's timing while recording why it cannot be compared.
+        const returned = Array.isArray(outputs) ? outputs : [];
+        const errors = returned.flatMap((out) => out.errors ?? []);
+        const gate = svelteRuntimeGate(returned, entry.inputs, generate, officialOutputs ?? []);
+        const missingRevision = returned.filter((out) => !outputParts(out).css.includes(entry.token)).length;
+        const artifact = returned.reduce((sum, out) => {
+          const { js, css } = outputParts(out);
+          return sum + Buffer.byteLength(js) + Buffer.byteLength(css);
+        }, 0);
+        const outputValid = gate.ok && !errors.length && returned.length === entry.inputs.length && missingRevision === 0;
+        const detail = `${gate.detail}; ${returned.length}/${entry.inputs.length} entries, ${errors.length} compile errors, ${missingRevision} entries missing the CSS revision token`;
+        variant.notes = `${note} | output gate: ${outputValid ? "PASS (still unranked pending adapter validation)" : "FAIL"} — ${detail}${errors.length ? `; first error: ${String(errors[0]).slice(0, 240)}` : ""}`;
+        return {
+          ms, artifact,
+          returnedCount: returned.length,
+          emittedFiles: returned.filter((out) => Boolean(out.code)).length,
+          compileErrorCount: errors.length,
+          compileErrors: errors.slice(0, 3).map((error) => String(error).slice(0, 500)),
+          outputValidation: { status: outputValid ? "PASS" : "FAIL", detail },
+          outputSamples: returned.slice(0, 2).map((out) => ({ filename: out.canonicalId, code: String(out.code ?? "").slice(0, 500) })),
+          cacheHits: returned.filter((out) => out.cacheHit).length,
+        };
+      },
+    };
+    variants.push(variant);
   } else {
     variants.push({
       id: `verter-unavailable-${cell}`,
@@ -927,8 +959,7 @@ export async function buildCompileCellVariants(payload) {
       target: generate,
       comparisonClass: "experimental-svelte",
       env,
-      notes:
-        "No public Svelte runtime compile API; the experimental carrier exposes an IDE projection only. No proxy workload is timed.",
+      notes: impls.verterNative.error ?? "VerterHost.compileMany is unavailable in the installed package.",
       skip: true,
     });
   }
@@ -1119,7 +1150,7 @@ export async function runCompileSurface(fixtureDir, options) {
       `Official: svelte/compiler compile() with runes=${runesLabel}. Generated fixtures force runes; real-world sources use compiler auto-detection.`,
       "MrWaip: @mrwaip/svelte-rs native compiler through its compatible compile() API, ranked inside the pinned svelte-5.56.4 class with svelte/compiler 5.56.4 as the official reference/baseline.",
       "rsvelte: WASM (@rsvelte/compiler) and NAPI (@rsvelte/vite-plugin-svelte-native) paths are separate rows in the svelte-5.56.8 class.",
-      "Verter exposes no public Svelte runtime compile API in the installed package (probed at runtime), so it is reported skipped; its different runtime-render batching API is not substituted.",
+      "Verter's published compileMany runtime-render path receives the same revised Svelte inputs with stateless caching and one CPU thread. Completed passes publish warm/fresh timings even when their code is invalid or entries contain compile errors. They are permanently unranked diagnostic evidence until the adapter is validated; errors, output samples, revision-token failures and runtime-plant verdicts are retained. Only a missing API/package is skipped; a thrown batch failure is an error.",
       "Every warmed/fresh pass compiles a REVISED corpus: a fixed-width comment token plus a used CSS custom-property rule. The timed loop asserts the token reached the emitted CSS, so a cached whole-output result from a previous pass fails the gate. Adapter parity additionally requires every warm and fresh pass to have received a distinct input revision.",
       "Every compiler must return one non-empty code artifact per input file, emit the expected Svelte client/server runtime import, and remove Svelte runes; aggregate byte totals alone are not accepted as proof of coverage.",
       "Fresh child = the first timed row workload in a NEW child process, after excluded Node startup, package imports, adapter construction and input materialisation. It is NOT machine-cold (OS page cache is not flushed) and its ratio never substitutes for the warm verdict.",

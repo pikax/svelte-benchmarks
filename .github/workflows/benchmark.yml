@@ -16,7 +16,7 @@ on:
       bench_runs:
         description: "Measured runs per row"
         required: false
-        default: "5"
+        default: "6"
       bench_warmups:
         description: "Discarded warmups per row (minimum 1)"
         required: false
@@ -36,7 +36,7 @@ concurrency:
 env:
   NM_CACHE_PREFIX: nm-v2
   FIXTURE_COUNT: ${{ github.event.inputs.fixture_count || '200' }}
-  BENCH_RUNS: ${{ github.event.inputs.bench_runs || '5' }}
+  BENCH_RUNS: ${{ github.event.inputs.bench_runs || '6' }}
   BENCH_WARMUPS: ${{ github.event.inputs.bench_warmups || '1' }}
 
 jobs:

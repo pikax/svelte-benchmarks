@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "./helpers.mjs";
 import {
@@ -7,12 +8,63 @@ import {
   materializeMarkedSource,
   revisionToken,
   applyAdapterParity,
+  buildCompileCellVariants,
 } from "../../scripts/lib/surfaces/compile.mjs";
+import { compileVerterBatch } from "../../scripts/lib/verter-compile.mjs";
+import { measureVariants } from "../../scripts/lib/timing.mjs";
+import { measureFreshChildVariants } from "../../scripts/lib/compile-fresh-runs.mjs";
 import { applyCompileValidityGates } from "../../scripts/lib/compile-validity-gates.mjs";
 import { COMPILE_VALIDITY_PLANTS, CSS_VALIDITY_PLANTS, COMPILE_VALIDITY_SUITE_HASH } from "../../scripts/lib/compile-validity-plants.mjs";
 import { unknownCompileValidityResults } from "../../scripts/lib/compile-validity-plants.mjs";
 
 const rootDir = join(import.meta.dirname, "../..");
+
+test("Verter calls the published runtime-render API with raw inputs and explicit stateless options", () => {
+  const source = '<script>let n = $state(0)</script><p>{n}</p>';
+  const outputs = [{ code: "invalid Svelte output", errors: ["unsupported"] }];
+  for (const generate of ["client", "server"]) {
+    const host = { compileMany(files, options) {
+      assert.deepEqual(files, [{ canonicalId: "src/Counter.svelte", source, requestedMode: "stateless" }]);
+      assert.equal(options.target, "runtime-render");
+      assert.equal(options.defaultMode, "stateless");
+      assert.equal(options.compileProfile.ssr, generate === "server");
+      assert.equal(options.compileProfile.isProduction, false);
+      return outputs;
+    } };
+    assert.equal(compileVerterBatch(host, [{ filename: "src\\Counter.svelte", source }], { generate, dev: true }), outputs);
+  }
+});
+
+test("installed Verter publishes warm/fresh diagnostic timings and invalid output stays unranked", async () => {
+  const fixtureDir = mkdtempSync(join(tmpdir(), "svelte-verter-compile-"));
+  try {
+    writeFileSync(join(fixtureDir, "Counter.svelte"), '<script>let count = $state(0);</script><p>{count}</p>');
+    const payload = { generate: "client", env: "production", fixtureDir, classes: [{ id: "svelte-5.56.8", files: ["Counter.svelte"] }] };
+    const variants = await buildCompileCellVariants(payload);
+    const verter = variants.find((v) => v.id.startsWith("verter-"));
+    assert.equal(verter.skip, undefined);
+    assert.equal(verter.unranked, true);
+    const [row] = await measureVariants([verter], { runs: 2, warmups: 1, fileCount: 1, prepareAllBeforeTiming: true });
+    assert.equal(row.status, "unranked");
+    assert.equal(row.runs.length, 2);
+    assert.ok(Number.isFinite(row.medianMs));
+    assert.equal(row.throughput, "n/a");
+    assert.match(row.notes, /output gate: FAIL/);
+    assert.ok(row.metaSamples.every((m) => m.returnedCount === 1 && m.outputValidation.status === "FAIL"));
+    assert.notEqual(row.metaSamples[0].inputSourceHash, row.metaSamples[1].inputSourceHash);
+    const fresh = measureFreshChildVariants([verter], { runs: 1, payload }).byId[verter.id];
+    assert.equal(fresh.freshChildError, undefined);
+    assert.ok(Number.isFinite(fresh.freshChildMedianMs));
+    assert.equal(fresh.freshChildMetaSamples[0].outputValidation.status, "FAIL");
+    assert.notEqual(fresh.freshChildMetaSamples[0].inputSourceHash, row.metaSamples[0].inputSourceHash);
+    Object.assign(row, fresh);
+    applyAdapterParity([row]);
+    assert.equal(row.status, "unranked");
+    assert.match(row.notes, /3 distinct input revisions/);
+  } finally {
+    rmSync(fixtureDir, { recursive: true, force: true });
+  }
+});
 
 test("revision tokens are fixed-width and unique per pass", () => {
   const salt = compileCellSalt("client-prod", "svelte-5.56.8");

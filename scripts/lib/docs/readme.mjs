@@ -45,11 +45,11 @@ function groupSection(group, model, chartsDir) {
     const charts = groupCharts(group, [overview], entry.name.replace(/\.json$/i, ""));
     const informational = [];
     for (const chart of charts) {
-      if (!chart.bars.length) continue;
       if (chart.variants.length < 2 || chart.variants.every((v) => ["skipped", "error"].includes(v.status))) {
         informational.push(chart);
         continue;
       }
+      if (!chart.bars.length) continue;
       // Reuse the exact same asset on the landing and full page.
       writeChartPair(chartsDir, chart);
       lines.push(readmeChartPicture(chart.fileBase, [chart.title, chart.subtitle].filter(Boolean).join(" — ")), "");
@@ -85,7 +85,7 @@ function renderBenchBlock(model, chartsDir, groups) {
   lines.push(
     model.bench.local ? localRunBanner(model.bench) : `Generated **${model.bench.data.generatedAt?.slice(0, 10) ?? "?"}** from the latest published **Linux** JSON snapshot (\`${model.bench.name}\`, ${model.bench.data.fileCount} Svelte files, ${model.bench.data.settings?.runs} runs). See [how to read](docs/how-to-read.md) and [methodology](docs/methodology.md).`,
   );
-  lines.push("", "Each chart covers one workload. Solid bars show the primary median; compiler outlines show fresh-child time. Hatched bars are unranked. Expand a timing table for ratios and memory; skipped and errored tools remain visible.", "");
+  lines.push("", "Each chart covers one workload. Compiler range bars combine warm (solid) and fresh-child (lighter) measurements on the same scale. Hatched bars are unranked. Expand a timing table for ratios and memory; skipped and errored tools remain visible in the tables.", "");
   for (const group of groups) {
     if (group.memoryOnly || group.realWorld) continue;
     const section = groupSection(group, model, chartsDir);

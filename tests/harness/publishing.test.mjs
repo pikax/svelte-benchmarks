@@ -133,12 +133,13 @@ test("chart filenames are deterministic and collision-safe", () => {
 test("svg charts render both themes with fixed fills (no media queries)", () => {
   const bars = [
     { label: "tool a", value: 10 },
-    { label: "tool b", value: 20, value2: 25 },
-    { label: "tool c", value: 5, unranked: true },
+    { label: "tool b", value: 20, series: "warm" },
+    { label: "tool b", value: 25, series: "fresh" },
+    { label: "tool c", value: 5, ranked: false },
   ];
   for (const theme of ["light", "dark"]) {
     const svg = barChartSvg({ title: "T", bars, theme });
-    assert.ok(svg.startsWith("<svg"));
+    assert.ok(svg.startsWith("<?xml"));
     assert.ok(svg.includes('role="img"'));
     assert.ok(svg.includes("CDATA"), "system font stack via CDATA");
     assert.ok(!svg.includes("@media"), "Safari cannot be trusted with media queries inside <img>");

@@ -1,26 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="168" viewBox="0 0 760 168" role="img" aria-label="Typecheck">
-<title>Typecheck</title><desc>EXPERIMENTAL-SVELTE — separate workload. Lower is better. Hatched bars are unranked; unavailable tools have no bar.</desc>
-<style><![CDATA[text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}]]></style>
-<text x="16" y="22" fill="#1f2328" font-size="15" font-weight="600">Typecheck</text>
-<text x="16" y="42" fill="#59636e" font-size="12">EXPERIMENTAL-SVELTE — separate workload</text>
-<text x="16" y="69" fill="#59636e" font-size="11">Lower is better · Median of measured runs</text>
-<line x1="258" y1="82" x2="258" y2="138" stroke="#eaeef2"/>
-<text x="258" y="158" fill="#59636e" font-size="10" text-anchor="middle">0.0 ms</text>
-<line x1="377.5" y1="82" x2="377.5" y2="138" stroke="#eaeef2"/>
-<text x="377.5" y="158" fill="#59636e" font-size="10" text-anchor="middle">12.4 ms</text>
-<line x1="497" y1="82" x2="497" y2="138" stroke="#eaeef2"/>
-<text x="497" y="158" fill="#59636e" font-size="10" text-anchor="middle">24.8 ms</text>
-<line x1="616.5" y1="82" x2="616.5" y2="138" stroke="#eaeef2"/>
-<text x="616.5" y="158" fill="#59636e" font-size="10" text-anchor="middle">37.2 ms</text>
-<line x1="736" y1="82" x2="736" y2="138" stroke="#eaeef2"/>
-<text x="736" y="158" fill="#59636e" font-size="10" text-anchor="middle">49.6 ms</text>
-<g data-tool="verter-tsc"><title>verter-tsc · Unranked: verter-tsc experimental Svelte path; ranked only when it reports the shared .svelte plants. | gate: script=✗ tmpl=✗ corpus=✗ | ⚠ FAILED VALIDATION — planted issue or markup work not observed</title>
-<circle cx="21" cy="105" r="4" fill="#e11d48"/>
-<text x="32" y="109" fill="#1f2328" font-size="12" font-weight="500">verter-tsc</text>
-<text x="32" y="125" fill="#59636e" font-size="10">Unranked</text>
-<defs><pattern id="hatch-0" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="7" height="7" fill="#e11d48"/><line x1="0" y1="0" x2="0" y2="7" stroke="#fff" stroke-width="2" stroke-opacity="0.5"/></pattern></defs>
-<rect x="258" y="108" width="478" height="12" rx="3" fill="#afb8c126"/>
-<rect data-series="primary" x="258" y="108" width="478.00" height="12" rx="3" fill="url(#hatch-0)"/>
-<text x="258" y="98" fill="#1f2328" font-size="12" font-weight="600">(49.6 ms)</text>
-</g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="120" viewBox="0 0 760 120" role="img" aria-label="Typecheck — EXPERIMENTAL-SVELTE">
+  <title>Typecheck — EXPERIMENTAL-SVELTE (lower is better)</title>
+  <style><![CDATA[
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  ]]></style>
+  <defs><pattern id="hatch-0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="8" height="8" fill="#e11d48"/><line x1="0" y1="0" x2="0" y2="8" stroke="#fff" stroke-width="3" opacity="0.35"/></pattern></defs>
+  <text fill="#1f2328" x="16" y="20" font-size="15" font-weight="600">Typecheck — EXPERIMENTAL-SVELTE</text>
+  <text fill="#59636e" x="16" y="36" font-size="11">lower is better</text>
+
+  <line x1="248" y1="48" x2="248" y2="92" stroke="#d0d7de" stroke-opacity="0.55" />
+  <text fill="#59636e" x="248" y="112" text-anchor="middle" font-size="11">0.0 ms</text>
+  <line x1="348.5" y1="48" x2="348.5" y2="92" stroke="#d0d7de" stroke-opacity="0.55" />
+  <text fill="#59636e" x="348.5" y="112" text-anchor="middle" font-size="11">12.4 ms</text>
+  <line x1="449" y1="48" x2="449" y2="92" stroke="#d0d7de" stroke-opacity="0.55" />
+  <text fill="#59636e" x="449" y="112" text-anchor="middle" font-size="11">24.8 ms</text>
+  <line x1="549.5" y1="48" x2="549.5" y2="92" stroke="#d0d7de" stroke-opacity="0.55" />
+  <text fill="#59636e" x="549.5" y="112" text-anchor="middle" font-size="11">37.2 ms</text>
+  <line x1="650" y1="48" x2="650" y2="92" stroke="#d0d7de" stroke-opacity="0.55" />
+  <text fill="#59636e" x="650" y="112" text-anchor="middle" font-size="11">49.6 ms</text>
+  <text fill="#59636e" x="16" y="77" font-size="11">1</text>
+      <text fill="#1f2328" x="36" y="77" font-size="13" fill-opacity="0.62">verter-tsc</text>
+      <line x1="36" y1="72" x2="240" y2="72" stroke="#1f2328" stroke-opacity="0.45" />
+      <rect x="248" y="61" width="402" height="22" rx="5" fill="#afb8c133"/>
+      <rect x="248" y="61" width="402.0" height="22" rx="5" fill="url(#hatch-0)"/>
+      <text fill="#ffffff" x="256" y="77" font-size="12" font-weight="600">49.6 ms · unranked</text>
 </svg>

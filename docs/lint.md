@@ -34,7 +34,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/lint-bench-linux-200-bench-lint-lint-class-eslint-recommended-rules-dark.svg">
-  <img src="charts/lint-bench-linux-200-bench-lint-lint-class-eslint-recommended-rules.svg" alt="Lint — ESLINT-RECOMMENDED-RULES — separate workload" width="760">
+  <img src="charts/lint-bench-linux-200-bench-lint-lint-class-eslint-recommended-rules.svg" alt="Lint — ESLINT-RECOMMENDED-RULES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -55,7 +55,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/lint-bench-linux-200-bench-lint-lint-class-rsvelte-native-rules-dark.svg">
-  <img src="charts/lint-bench-linux-200-bench-lint-lint-class-rsvelte-native-rules.svg" alt="Lint — RSVELTE-NATIVE-RULES — separate workload" width="760">
+  <img src="charts/lint-bench-linux-200-bench-lint-lint-class-rsvelte-native-rules.svg" alt="Lint — RSVELTE-NATIVE-RULES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -72,7 +72,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/lint-bench-linux-200-bench-lint-lint-class-verter-native-diagnostics-dark.svg">
-  <img src="charts/lint-bench-linux-200-bench-lint-lint-class-verter-native-diagnostics.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS — separate workload" width="760">
+  <img src="charts/lint-bench-linux-200-bench-lint-lint-class-verter-native-diagnostics.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |

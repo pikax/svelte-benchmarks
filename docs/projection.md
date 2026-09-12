@@ -32,7 +32,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/projection-bench-linux-200-bench-projection-projection-class-sve-1trvr77-dark.svg">
-  <img src="charts/projection-bench-linux-200-bench-projection-projection-class-sve-1trvr77.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE — separate workload" width="760">
+  <img src="charts/projection-bench-linux-200-bench-projection-projection-class-sve-1trvr77.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | TSX bytes | Peak RSS | Throughput |
@@ -51,7 +51,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/projection-bench-linux-200-bench-projection-projection-class-ver-1iuap19-dark.svg">
-  <img src="charts/projection-bench-linux-200-bench-projection-projection-class-ver-1iuap19.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION — separate workload" width="760">
+  <img src="charts/projection-bench-linux-200-bench-projection-projection-class-ver-1iuap19.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Projection bytes | Peak RSS | Throughput |

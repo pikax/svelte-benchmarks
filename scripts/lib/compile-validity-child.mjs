@@ -16,6 +16,7 @@
  */
 import { createRequire } from "node:module";
 import { loadRsvelteWasm } from "./rsvelte-wasm.mjs";
+import { createVerterCompiler } from "./verter-compile.mjs";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -69,6 +70,11 @@ export const ENTRYPOINTS = {
     runtimePackage: "svelte",
     exactPath: "@rsvelte/vite-plugin-svelte-native compileSync() per plant, css=external, runes=true",
   },
+  "verter-svelte": {
+    label: "Verter compileMany (stateless, unranked)",
+    runtimePackage: "svelte",
+    exactPath: "VerterHost.compileMany(target=runtime-render, mode=stateless, 1 CPU thread) per plant",
+  },
 };
 
 function outputParts(raw) {
@@ -107,6 +113,9 @@ async function loadCompiler(entrypoint) {
     const fn = native.compileSync ?? native.compile;
     if (typeof fn !== "function") throw new Error("no compile/compileSync export");
     return fn;
+  }
+  if (entrypoint === "verter-svelte") {
+    return createVerterCompiler(require("@verter/native").VerterHost);
   }
   throw new Error(`unknown entrypoint ${entrypoint}`);
 }
@@ -506,10 +515,6 @@ async function runSourceMapPlants({ entrypoint, generate, dev, compile }) {
       failures: [],
     })),
   };
-  if (entrypoint === "verter-svelte") {
-    out.reason = "entrypoint has no public Svelte runtime compile API";
-    return out;
-  }
   for (const [index, plant] of SOURCE_MAP_PLANTS.entries()) {
     const row = out.results[index];
     try {

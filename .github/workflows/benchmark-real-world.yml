@@ -13,7 +13,7 @@ on:
       bench_runs:
         description: "Measured runs per row"
         required: false
-        default: "5"
+        default: "6"
       bench_warmups:
         description: "Discarded warmups per row (minimum 1)"
         required: false
@@ -99,7 +99,7 @@ jobs:
         env:
           RUNNER_OS: Linux
           BENCH_PHASE: real-world
-          RUNS: ${{ github.event.inputs.bench_runs || '5' }}
+          RUNS: ${{ github.event.inputs.bench_runs || '6' }}
           WARMUPS: ${{ github.event.inputs.bench_warmups || '1' }}
           FILE_LIMIT: ${{ github.event.inputs.file_limit }}
         run: |

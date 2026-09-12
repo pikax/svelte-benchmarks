@@ -1,6 +1,15 @@
 {
   "$comment": "Keys are suite/case/tool. Entries may be scoped with platforms (array) and path (combined|per-case). A listed failure that starts passing is STALE and fails CI — remove it when the upstream limitation clears. An entry never turns a benchmark validity failure into a ranked PASS.",
   "$comment-discipline": "Expected still failing = accepted+reported; expected passing = stale = exit 1; unexpected failure = exit 1. Package upgrades re-run every plant automatically (versions are exactly pinned in package.json).",
+  "compile/server-render/verter": {
+    "why": "@verter/native 0.0.1-beta.3 compileMany(runtime-render) emits Vue-style modules and leaves Svelte runes uncompiled. The diagnostic timing remains unranked. Remove this entry when valid Svelte server output is observed."
+  },
+  "compile/validity-client/verter-svelte": {
+    "why": "The published compileMany path fails the Svelte client runtime and source-map plants: Vue-style output, unresolved virtual modules, and Svelte syntax rejected by the parser. These are retained as failed validation, not ranked timings."
+  },
+  "compile/validity-server/verter-svelte": {
+    "why": "The published compileMany path fails the Svelte server runtime and source-map plants: Vue-style output, unresolved virtual modules, and uncompiled runes. These are retained as failed validation, not ranked timings."
+  },
   "typecheck/script-type-error/verter-tsc": {
     "why": "The experimental Verter TypeScript carrier does not yet report the shared Svelte plant grammar."
   },

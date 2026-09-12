@@ -81,11 +81,13 @@ function compactTable(variants, { docHref }) {
 }
 
 export function barsFromVariants(variants) {
-  return variants.map((v) => ({
-    label: chartLabel(v), value: ["ok", "unranked"].includes(v.status) ? v.medianMs : undefined,
-    value2: ["ok", "unranked"].includes(v.status) ? v.freshChildMedianMs : undefined,
-    status: v.status, unranked: v.status === "unranked", note: v.error || v.notes,
-  }));
+  return variants.flatMap((v) => {
+    if (!["ok", "unranked"].includes(v.status) || !Number.isFinite(v.medianMs)) return [];
+    const bar = { label: chartLabel(v), ranked: v.status === "ok", value: v.medianMs };
+    return Number.isFinite(v.freshChildMedianMs)
+      ? [{ ...bar, series: "warm" }, { ...bar, series: "fresh", value: v.freshChildMedianMs }]
+      : [bar];
+  });
 }
 
 /** Preserve group AND workload identity in chart data and filenames. */
@@ -94,8 +96,8 @@ export function groupCharts(group, surfaces, sourceName = "") {
     variantClasses(cell.variants).map((cls) => ({
       surfaceId: surface.id, groupId: cell.id, classKey: cls.key, variants: cls.variants,
       fileBase: chartFileName(`${group.id}-${sourceName}-${surface.id}-${cell.id}-${cls.key}`),
-      title: surface.label,
-      subtitle: [cell !== surface ? cell.label : null, cls.label].filter(Boolean).join(" · "),
+      title: surface.id === "compile" ? "Compiler" : surface.label,
+      subtitle: [cell !== surface ? cell.label : null, cls.label.replace(/ — separate workload$/, "")].filter(Boolean).join(" · "),
       bars: barsFromVariants(cls.variants),
     })),
   ));
@@ -104,14 +106,16 @@ export function groupCharts(group, surfaces, sourceName = "") {
 export function writeChartPair(chartsDir, chart) {
   mkdirSync(chartsDir, { recursive: true });
   const twin = chartTwin({
-    title: chart.title,
-    subtitle: chart.subtitle,
+    title: [chart.title, chart.subtitle].filter(Boolean).join(" — "),
     unit: "ms",
     bars: chart.bars,
     lowerIsBetter: true,
   });
-  writeFileSync(join(chartsDir, `${chart.fileBase}.svg`), `${twin.light}\n`);
-  writeFileSync(join(chartsDir, `${chart.fileBase}-dark.svg`), `${twin.dark}\n`);
+  if (!twin.light) return false;
+  const clean = (svg) => `${svg.split(/\r?\n/).map((line) => line.trimEnd()).join("\n").trimEnd()}\n`;
+  writeFileSync(join(chartsDir, `${chart.fileBase}.svg`), clean(twin.light));
+  writeFileSync(join(chartsDir, `${chart.fileBase}-dark.svg`), clean(twin.dark));
+  return true;
 }
 
 export function renderSurfaceWithCharts(group, surface, entry, { chartsDir, chartsHref = "charts" }) {

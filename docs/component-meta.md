@@ -33,7 +33,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/component-meta-bench-linux-200-bench-component-meta-component-me-0r8vvn3-dark.svg">
-  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-0r8vvn3.svg" alt="Component metadata — SVELD-AST-PROJECT — separate workload" width="760">
+  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-0r8vvn3.svg" alt="Component metadata — SVELD-AST-PROJECT" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
@@ -50,7 +50,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/component-meta-bench-linux-200-bench-component-meta-component-me-17sd8vr-dark.svg">
-  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-17sd8vr.svg" alt="Component metadata — SVELD-RESOLVE-TYPES-PROJECT — separate workload" width="760">
+  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-17sd8vr.svg" alt="Component metadata — SVELD-RESOLVE-TYPES-PROJECT" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
@@ -67,7 +67,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/component-meta-bench-linux-200-bench-component-meta-component-me-11ekz4e-dark.svg">
-  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-11ekz4e.svg" alt="Component metadata — SVELTE-DOCINFO-FILES-NO-DEPENDENCIES — separate workload" width="760">
+  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-11ekz4e.svg" alt="Component metadata — SVELTE-DOCINFO-FILES-NO-DEPENDENCIES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
@@ -84,7 +84,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/component-meta-bench-linux-200-bench-component-meta-component-me-1f97lmt-dark.svg">
-  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-1f97lmt.svg" alt="Component metadata — VERTER-FRAMEWORK-SURFACE — separate workload" width="760">
+  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-1f97lmt.svg" alt="Component metadata — VERTER-FRAMEWORK-SURFACE" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |

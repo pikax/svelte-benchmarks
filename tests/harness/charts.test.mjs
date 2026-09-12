@@ -47,17 +47,17 @@ test("charts partition repeated compiler names by group and compatibility class"
 
 test("SVG sorts by warm time and preserves fresh endpoints in both directions", () => {
   const svg = barChartSvg({ title: "compile", bars: [
-    { label: "warm slower", value: 30, value2: 10 }, { label: "warm faster", value: 20, value2: 40 },
-    { label: "failed", value: 1, unranked: true },
+    { label: "warm slower", value: 30, series: "warm" }, { label: "warm slower", value: 10, series: "fresh" },
+    { label: "warm faster", value: 20, series: "warm" }, { label: "warm faster", value: 40, series: "fresh" },
+    { label: "failed", value: 1, ranked: false },
   ] });
   const doc = new JSDOM(svg, { contentType: "image/svg+xml" }).window.document;
-  const rows = [...doc.querySelectorAll("g[data-tool]")];
-  assert.deepEqual(rows.map((r) => r.getAttribute("data-tool")), ["warm faster", "warm slower", "failed"]);
-  const widths = (row) => ["primary", "fresh"].map((series) => Number(row.querySelector(`[data-series="${series}"]`).getAttribute("width")));
-  assert.ok(widths(rows[0])[0] < widths(rows[0])[1]);
-  assert.ok(widths(rows[1])[0] > widths(rows[1])[1]);
-  assert.match(rows[2].textContent, /Unranked/);
-  assert.ok(rows[2].querySelector("pattern"));
+  assert.deepEqual([...doc.querySelectorAll('text[font-size="13"]')].map((el) => el.textContent), ["warm faster", "warm slower", "failed"]);
+  assert.match(svg, /20\.0 ms warm \/ 40\.0 ms fresh child/);
+  assert.match(svg, /30\.0 ms warm \/ 10\.0 ms fresh child/);
+  assert.equal(doc.querySelectorAll('line[stroke-width="2"][stroke-opacity="0.9"]').length, 2);
+  assert.match(svg, /unranked/);
+  assert.ok(doc.querySelector("pattern"));
 });
 
 test("tool colours are stable across pages and variant labels", () => {
@@ -69,15 +69,16 @@ test("tool colours are stable across pages and variant labels", () => {
   assert.notEqual(colorForTool("@rsvelte/compiler"), colorForTool("svelte/compiler"));
 });
 
-test("skipped Verter stays visible without a fabricated zero bar", () => {
+test("skipped Verter stays in the table without a fabricated zero bar", () => {
   const svg = barChartSvg({ title: "compile", bars: [{ label: "Verter native", status: "skipped", note: "No public runtime compile API" }] });
-  assert.match(svg, /Verter native/);
-  assert.match(svg, /Skipped/);
-  assert.doesNotMatch(svg, /data-series/);
+  assert.equal(svg, "");
+  const table = compactTable([variant("Verter native", { status: "skipped", medianMs: undefined })], { docHref: "docs/compiler.md" });
+  assert.match(table, /Verter native/);
+  assert.match(table, /skipped/);
   assert.equal(barChartSvg({ title: "invalid", bars: [{ label: "bad", value: NaN }, { label: "bad", value: -2 }] }), "");
 });
 
-test("SVGs escape text and keep all text outside bars in explicit theme inks", () => {
+test("Vue renderer escapes text and uses explicit theme inks", () => {
   for (const theme of ["light", "dark"]) {
     const svg = barChartSvg({ theme, title: 'A < B & "C"', bars: [{ label: "Verter <native>", value: 0.01 }, { label: "long", value: 10000 }] });
     const doc = new JSDOM(svg, { contentType: "image/svg+xml" }).window.document;
@@ -85,7 +86,7 @@ test("SVGs escape text and keep all text outside bars in explicit theme inks", (
       assert.ok(el.getAttribute("fill")?.startsWith("#"));
       assert.ok(Number(el.getAttribute("x")) >= 0 && Number(el.getAttribute("x")) <= 760);
     }
-    assert.equal(doc.querySelector("title").textContent, 'A < B & "C"');
+    assert.equal(doc.querySelector("title").textContent, 'A < B & "C" (lower is better)');
     assert.doesNotMatch(svg, /NaN|Infinity|@media/);
   }
 });
@@ -121,8 +122,9 @@ test("README selects production groups, reuses docs charts, and keeps Verter vis
   assert.match(readme, /<details><summary>Timing table/);
   for (const match of readme.matchAll(/src="docs\/charts\/([^"]+)"/g)) {
     assert.ok(full.includes(`charts/${match[1]}`));
-    assert.ok(readFileSync(join(chartsDir, match[1]), "utf8").includes("Verter native"));
+    assert.ok(readFileSync(join(chartsDir, match[1]), "utf8").includes("svelte/compiler"));
   }
+  assert.match(full, /Verter native/);
 }));
 
 test("local primary is labelled once and never rendered again as a secondary run", () => withTemp((root) => {

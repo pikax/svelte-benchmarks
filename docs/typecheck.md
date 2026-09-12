@@ -34,7 +34,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-defau-0rhqfbg-dark.svg">
-  <img src="charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-defau-0rhqfbg.svg" alt="Typecheck — DEFAULT-SOURCES — separate workload" width="760">
+  <img src="charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-defau-0rhqfbg.svg" alt="Typecheck — DEFAULT-SOURCES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Diagnostics | Peak RSS | Throughput |
@@ -51,7 +51,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-exper-1aub7ts-dark.svg">
-  <img src="charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-exper-1aub7ts.svg" alt="Typecheck — EXPERIMENTAL-SVELTE — separate workload" width="760">
+  <img src="charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-exper-1aub7ts.svg" alt="Typecheck — EXPERIMENTAL-SVELTE" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Diagnostics | Peak RSS | Throughput |
@@ -68,7 +68,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-ts-svelte-dark.svg">
-  <img src="charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-ts-svelte.svg" alt="Typecheck — TS+SVELTE — separate workload" width="760">
+  <img src="charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-ts-svelte.svg" alt="Typecheck — TS+SVELTE" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Diagnostics | Peak RSS | Throughput |

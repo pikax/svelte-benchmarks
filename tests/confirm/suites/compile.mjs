@@ -9,6 +9,7 @@ import { render } from "svelte/server";
 import { createSuite } from "../lib/harness.mjs";
 import { runCompileValidityChildren } from "../../../scripts/lib/compile-validity-gates.mjs";
 import { loadRsvelteWasm } from "../../../scripts/lib/rsvelte-wasm.mjs";
+import { createVerterCompiler } from "../../../scripts/lib/verter-compile.mjs";
 
 const require = createRequire(import.meta.url);
 const rootDir = join(dirname(fileURLToPath(import.meta.url)), "../../..");
@@ -50,6 +51,7 @@ export async function runCompileSuite() {
     ["svelte-rs", mrwaip.compile],
     ["rsvelte-wasm", wasm.compile],
     ["rsvelte-native", native.compileSync ?? native.compile],
+    ["verter", createVerterCompiler(require("@verter/native").VerterHost)],
   ];
   const compiledDir = join(rootDir, "work", "confirm", "compiled");
   rmSync(compiledDir, { recursive: true, force: true });
@@ -89,12 +91,6 @@ export async function runCompileSuite() {
       assert.match(rendered.html ?? rendered.body ?? "", />Ada:4<\/h1>/);
     });
   }
-  suite.skip(
-    "compile",
-    "server-render",
-    "verter",
-    "No public Svelte runtime compile API; no proxy workload is accepted.",
-  );
 
   // The full runtime semantic plant matrix (the same suite that gates the
   // benchmark rows) as confirmation evidence.

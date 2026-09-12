@@ -66,7 +66,7 @@ Compared paths:
 - `@mrwaip/svelte-rs` through its compiler-compatible NAPI API;
 - `@rsvelte/compiler` Wasm `compile(source, options)` API;
 - `@rsvelte/vite-plugin-svelte-native` NAPI bindings;
-- Verter is reported `skipped` because the installed package exposes an experimental Svelte IDE projection but no public Svelte runtime compile API. Its different runtime-render batching API is not substituted.
+- Verter's published `compileMany` entrypoint runs on the same revised Svelte inputs (`runtime-render`, stateless, one CPU thread). Its warm and fresh-child timings are retained as **unranked diagnostic evidence**, including invalid/empty output and per-file compilation errors. The report records output-validation failures, representative output, error counts, and runtime/source-map plant verdicts. Missing packages/APIs are skipped; a batch that throws is reported as an error. A successful API call is not evidence of valid Svelte output.
 
 Compile version classes are explicit. rsvelte is ranked with the primary `svelte@5.56.8` reference. MrWaip documents parity against `svelte@5.56.4`, so the harness installs that exact official version under `svelte-mrwaip-reference` and ranks those two together. A skipped Verter row is not mixed into either version ranking.
 
@@ -158,7 +158,7 @@ Memory is never sampled inside a speed benchmark. Each tool/sample runs in a fre
 
 Peak RSS delta is the primary resource number. Retained deltas describe memory still live or mapped after work; native allocator pages that remain mapped are not automatically leaks. CPU and wall time are emitted only as diagnostic context because explicit GC and resource isolation perturb timing. No resource report computes a speed ratio.
 
-Compile resource rows use client/production/external-CSS options and stay inside their pinned Svelte compiler-version classes. Projection keeps the svelte2tsx-compatible implementations separate from Verter's IDE projection schema. Verter runtime compile remains skipped because no public Svelte runtime compile API is exposed; a different operation is not substituted.
+Compile resource rows use client/production/external-CSS options and stay inside their pinned Svelte compiler-version classes. Projection keeps the svelte2tsx-compatible implementations separate from Verter's IDE projection schema. Verter's unranked compiler timings and invalid-output evidence live in the compiler report; its isolated compiler memory probe remains unsampled until runtime output is validated.
 
 Published resource reports are Linux-only and require at least three isolated samples per tool. The speed and memory CI jobs use separate runners and artifacts, so their values must not be correlated as if captured during one execution.
 

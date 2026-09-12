@@ -26,7 +26,7 @@ Files: **200** · Bytes: **134,760**
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/bundle-hmr-bench-linux-200-bench-bundle-bundle-class-vite-7-svel-0fso2i1-dark.svg">
-  <img src="charts/bundle-hmr-bench-linux-200-bench-bundle-bundle-class-vite-7-svel-0fso2i1.svg" alt="Vite production bundle (generated Svelte graph) — VITE-7-SVELTE-INTEGRATION-BUILD — separate workload" width="760">
+  <img src="charts/bundle-hmr-bench-linux-200-bench-bundle-bundle-class-vite-7-svel-0fso2i1.svg" alt="Vite production bundle (generated Svelte graph) — VITE-7-SVELTE-INTEGRATION-BUILD" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | bundle bytes | Peak RSS | Throughput |
@@ -64,7 +64,7 @@ Files: **1** · Bytes: **99**
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/bundle-hmr-bench-linux-200-bench-hmr-hmr-class-vite-7-warm-incre-1lyd23z-dark.svg">
-  <img src="charts/bundle-hmr-bench-linux-200-bench-hmr-hmr-class-vite-7-warm-incre-1lyd23z.svg" alt="Warm incremental Svelte transform (Vite HMR compile path) — VITE-7-WARM-INCREMENTAL-SVELTE-TRANSFORM — separate workload" width="760">
+  <img src="charts/bundle-hmr-bench-linux-200-bench-hmr-hmr-class-vite-7-warm-incre-1lyd23z.svg" alt="Warm incremental Svelte transform (Vite HMR compile path) — VITE-7-WARM-INCREMENTAL-SVELTE-TRANSFORM" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | module bytes | Peak RSS | Throughput |

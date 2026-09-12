@@ -1,31 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="222" viewBox="0 0 760 222" role="img" aria-label="Svelte TypeScript projection">
-<title>Svelte TypeScript projection</title><desc>SVELTE2TSX-COMPATIBLE — separate workload. Lower is better. Hatched bars are unranked; unavailable tools have no bar.</desc>
-<style><![CDATA[text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}]]></style>
-<text x="16" y="22" fill="#f0f6fc" font-size="15" font-weight="600">Svelte TypeScript projection</text>
-<text x="16" y="42" fill="#a6adb7" font-size="12">SVELTE2TSX-COMPATIBLE — separate workload</text>
-<text x="16" y="69" fill="#a6adb7" font-size="11">Lower is better · Median of measured runs</text>
-<line x1="258" y1="82" x2="258" y2="192" stroke="#2a313a"/>
-<text x="258" y="212" fill="#a6adb7" font-size="10" text-anchor="middle">0.0 ms</text>
-<line x1="377.5" y1="82" x2="377.5" y2="192" stroke="#2a313a"/>
-<text x="377.5" y="212" fill="#a6adb7" font-size="10" text-anchor="middle">697 ms</text>
-<line x1="497" y1="82" x2="497" y2="192" stroke="#2a313a"/>
-<text x="497" y="212" fill="#a6adb7" font-size="10" text-anchor="middle">1.39 s</text>
-<line x1="616.5" y1="82" x2="616.5" y2="192" stroke="#2a313a"/>
-<text x="616.5" y="212" fill="#a6adb7" font-size="10" text-anchor="middle">2.09 s</text>
-<line x1="736" y1="82" x2="736" y2="192" stroke="#2a313a"/>
-<text x="736" y="212" fill="#a6adb7" font-size="10" text-anchor="middle">2.79 s</text>
-<g data-tool="@rsvelte/svelte2tsx (Wasm)"><title>@rsvelte/svelte2tsx (Wasm): Rust/Wasm drop-in; TypeScript-printer structural parity against official output | gate: ✓ 650/650 valid TSX outputs</title>
-<circle cx="21" cy="105" r="4" fill="#2563eb"/>
-<text x="32" y="109" fill="#f0f6fc" font-size="12" font-weight="500">@rsvelte/svelte2tsx (Wasm)</text>
-<rect x="258" y="108" width="478" height="12" rx="3" fill="#6e768133"/>
-<rect data-series="primary" x="258" y="108" width="86.00" height="12" rx="3" fill="#2563eb"/>
-<text x="258" y="98" fill="#f0f6fc" font-size="12" font-weight="600">501 ms</text>
-</g>
-<g data-tool="svelte2tsx"><title>svelte2tsx: Official svelte2tsx, Svelte 5 TS projection | gate: ✓ 650/650 valid TSX outputs</title>
-<circle cx="21" cy="159" r="4" fill="#e34b20"/>
-<text x="32" y="163" fill="#f0f6fc" font-size="12" font-weight="500">svelte2tsx</text>
-<rect x="258" y="162" width="478" height="12" rx="3" fill="#6e768133"/>
-<rect data-series="primary" x="258" y="162" width="478.00" height="12" rx="3" fill="#e34b20"/>
-<text x="258" y="152" fill="#f0f6fc" font-size="12" font-weight="600">2.79 s</text>
-</g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="156" viewBox="0 0 760 156" role="img" aria-label="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE">
+  <title>Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE (lower is better)</title>
+  <style><![CDATA[
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  ]]></style>
+
+  <text fill="#e6edf3" x="16" y="20" font-size="15" font-weight="600">Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE</text>
+  <text fill="#9198a1" x="16" y="36" font-size="11">lower is better</text>
+
+  <line x1="248" y1="48" x2="248" y2="128" stroke="#3d444d" stroke-opacity="0.55" />
+  <text fill="#9198a1" x="248" y="148" text-anchor="middle" font-size="11">0.0 ms</text>
+  <line x1="348.5" y1="48" x2="348.5" y2="128" stroke="#3d444d" stroke-opacity="0.55" />
+  <text fill="#9198a1" x="348.5" y="148" text-anchor="middle" font-size="11">697 ms</text>
+  <line x1="449" y1="48" x2="449" y2="128" stroke="#3d444d" stroke-opacity="0.55" />
+  <text fill="#9198a1" x="449" y="148" text-anchor="middle" font-size="11">1.39 s</text>
+  <line x1="549.5" y1="48" x2="549.5" y2="128" stroke="#3d444d" stroke-opacity="0.55" />
+  <text fill="#9198a1" x="549.5" y="148" text-anchor="middle" font-size="11">2.09 s</text>
+  <line x1="650" y1="48" x2="650" y2="128" stroke="#3d444d" stroke-opacity="0.55" />
+  <text fill="#9198a1" x="650" y="148" text-anchor="middle" font-size="11">2.79 s</text>
+  <text fill="#9198a1" x="16" y="77" font-size="11">1</text>
+      <text fill="#e6edf3" x="36" y="77" font-size="13">@rsvelte/svelte2tsx (Was…</text>
+
+      <rect x="248" y="61" width="402" height="22" rx="5" fill="#6e768166"/>
+      <rect x="248" y="61" width="72.3" height="22" rx="5" fill="#2563eb"/>
+      <text fill="#e6edf3" x="328.322595069308" y="77" font-size="12" font-weight="600">501 ms</text>
+  <text fill="#9198a1" x="16" y="113" font-size="11">2</text>
+      <text fill="#e6edf3" x="36" y="113" font-size="13">svelte2tsx</text>
+
+      <rect x="248" y="97" width="402" height="22" rx="5" fill="#6e768166"/>
+      <rect x="248" y="97" width="402.0" height="22" rx="5" fill="#e34b20"/>
+      <text fill="#ffffff" x="256" y="113" font-size="12" font-weight="600">2.79 s</text>
 </svg>

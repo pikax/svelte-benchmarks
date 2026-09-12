@@ -35,6 +35,7 @@ export const COMPILE_VALIDITY_ENTRYPOINTS = [
   "mrwaip-svelte-rs",
   "rsvelte-wasm",
   "rsvelte-native",
+  "verter-svelte",
 ];
 
 function parseChildPayload(text) {
@@ -158,6 +159,7 @@ function semanticEntrypointForRow(row) {
   if (id.startsWith("mrwaip")) return "mrwaip-svelte-rs";
   if (id.startsWith("rsvelte-wasm")) return "rsvelte-wasm";
   if (id.startsWith("rsvelte-native")) return "rsvelte-native";
+  if (id.startsWith("verter")) return "verter-svelte";
   return null;
 }
 

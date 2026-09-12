@@ -49,11 +49,6 @@ Target: `client` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-prod-class-experim-16hjxvc-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-client-prod-class-experim-16hjxvc.svg" alt="SFC compile (unique contents) — CLIENT · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 200 | skipped | – | – | – | – | – | – | – |
@@ -68,7 +63,7 @@ Target: `client` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-4-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-4.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-4.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.4" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -87,7 +82,7 @@ Target: `client` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-8-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-8.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-8.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.8" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -120,11 +115,6 @@ Target: `client` · Environment: `development`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-dev-class-experime-16ual2o-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-client-dev-class-experime-16ual2o.svg" alt="SFC compile (unique contents) — CLIENT · development · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 200 | skipped | – | – | – | – | – | – | – |
@@ -139,7 +129,7 @@ Target: `client` · Environment: `development`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-dev-class-svelte-5-56-4-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-client-dev-class-svelte-5-56-4.svg" alt="SFC compile (unique contents) — CLIENT · development · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="charts/compiler-bench-linux-200-bench-compile-client-dev-class-svelte-5-56-4.svg" alt="Compiler — CLIENT · development · SVELTE-5.56.4" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -158,7 +148,7 @@ Target: `client` · Environment: `development`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-client-dev-class-svelte-5-56-8-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-client-dev-class-svelte-5-56-8.svg" alt="SFC compile (unique contents) — CLIENT · development · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="charts/compiler-bench-linux-200-bench-compile-client-dev-class-svelte-5-56-8.svg" alt="Compiler — CLIENT · development · SVELTE-5.56.8" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -191,11 +181,6 @@ Target: `server` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-prod-class-experim-0ngnah0-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-server-prod-class-experim-0ngnah0.svg" alt="SFC compile (unique contents) — SERVER · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 200 | skipped | – | – | – | – | – | – | – |
@@ -210,7 +195,7 @@ Target: `server` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-4-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-4.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-4.svg" alt="Compiler — SERVER · production · SVELTE-5.56.4" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -229,7 +214,7 @@ Target: `server` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-8-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-8.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-8.svg" alt="Compiler — SERVER · production · SVELTE-5.56.8" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -262,11 +247,6 @@ Target: `server` · Environment: `development`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-dev-class-experime-0rqidlo-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-server-dev-class-experime-0rqidlo.svg" alt="SFC compile (unique contents) — SERVER · development · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 200 | skipped | – | – | – | – | – | – | – |
@@ -281,7 +261,7 @@ Target: `server` · Environment: `development`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-dev-class-svelte-5-56-4-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-server-dev-class-svelte-5-56-4.svg" alt="SFC compile (unique contents) — SERVER · development · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="charts/compiler-bench-linux-200-bench-compile-server-dev-class-svelte-5-56-4.svg" alt="Compiler — SERVER · development · SVELTE-5.56.4" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -300,7 +280,7 @@ Target: `server` · Environment: `development`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/compiler-bench-linux-200-bench-compile-server-dev-class-svelte-5-56-8-dark.svg">
-  <img src="charts/compiler-bench-linux-200-bench-compile-server-dev-class-svelte-5-56-8.svg" alt="SFC compile (unique contents) — SERVER · development · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="charts/compiler-bench-linux-200-bench-compile-server-dev-class-svelte-5-56-8.svg" alt="Compiler — SERVER · development · SVELTE-5.56.8" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |

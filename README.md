@@ -9,7 +9,7 @@ the official tools and the native alternatives (`@mrwaip/svelte-rs`,
 ## The contract
 
 - **Performance evidence AND correctness evidence.** A tool never gets a
-  performance advantage from doing less work: every timed row passes surface
+  performance advantage from doing less work: every ranked row passes surface
   work gates, and compiler rows are additionally gated by a Svelte 5 runtime
   semantic plant suite (28 plants) executed in isolated child processes after
   timing.
@@ -21,12 +21,15 @@ the official tools and the native alternatives (`@mrwaip/svelte-rs`,
 - **A failed candidate stays visible** with its measured time (bracketed) but
   unranked. `UNKNOWN` correctness is not `PASS`. Missing functionality is
   `skipped` — a different API/workload is never substituted.
+  Verter's published compiler entrypoint is exercised on Svelte inputs as
+  unranked diagnostic evidence, retaining invalid output and compilation errors.
 - **Warm median is the primary metric.** Compiler rows also publish a
   separately sampled **Fresh child** column (first timed workload in a new
   child process; startup/imports/adapter setup excluded — not machine-cold).
 - **No tool can win by caching.** Every pass compiles a revised corpus
   (fixed-width token + used CSS custom-property rule); the timed loop asserts
-  the token reached the emitted artifact.
+  the token reached the emitted artifact for ranked compilers. Verter's
+  diagnostic pass records a missing output token as failed validation.
 - **Published reference numbers are Linux CI snapshots only.** Local runs are
   same-machine comparisons and can never silently overwrite published results.
 
@@ -34,7 +37,7 @@ the official tools and the native alternatives (`@mrwaip/svelte-rs`,
 
 | Surface | Tools |
 | --- | --- |
-| Compile (client/server × prod/dev) | `svelte/compiler` (5.56.8 + pinned 5.56.4 reference), `@mrwaip/svelte-rs`, `@rsvelte/compiler` (Wasm), `@rsvelte/vite-plugin-svelte-native` (NAPI) |
+| Compile (client/server × prod/dev) | `svelte/compiler` (5.56.8 + pinned 5.56.4 reference), `@mrwaip/svelte-rs`, `@rsvelte/compiler` (Wasm), `@rsvelte/vite-plugin-svelte-native` (NAPI), Verter `compileMany` (unranked diagnostics) |
 | Projection (svelte2tsx) | `svelte2tsx`, `@rsvelte/svelte2tsx`, Verter IDE projection (separate schema class) |
 | Typecheck | `svelte-check`, `svelte-check-rs`, `svelte-check-native`, `rsvelte-check`, `verter-tsc` (tsc/tsgo engines as row properties) |
 | Format | Prettier + prettier-plugin-svelte, `@rsvelte/fmt` |
@@ -98,7 +101,7 @@ publication workflow (`pnpm pull:ci-results` / `pnpm publish:ci-results`).
 <!-- svelte-bench: begin:BENCHMARK_RESULTS -->
 Generated **2026-09-12** from the latest published **Linux** JSON snapshot (`bench-Linux-200-bench.json`, 200 Svelte files, 5 runs). See [how to read](docs/how-to-read.md) and [methodology](docs/methodology.md).
 
-Each chart covers one workload. Solid bars show the primary median; compiler outlines show fresh-child time. Hatched bars are unranked. Expand a timing table for ratios and memory; skipped and errored tools remain visible.
+Each chart covers one workload. Compiler range bars combine warm (solid) and fresh-child (lighter) measurements on the same scale. Hatched bars are unranked. Expand a timing table for ratios and memory; skipped and errored tools remain visible in the tables.
 
 ### Svelte compiler
 
@@ -106,7 +109,7 @@ Each chart covers one workload. Solid bars show the primary median; compiler out
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-4-dark.svg">
-  <img src="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-4.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-4.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.4" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>
@@ -122,7 +125,7 @@ Each chart covers one workload. Solid bars show the primary median; compiler out
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-8-dark.svg">
-  <img src="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-8.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-8.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.8" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>
@@ -139,7 +142,7 @@ Each chart covers one workload. Solid bars show the primary median; compiler out
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-4-dark.svg">
-  <img src="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-4.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-4.svg" alt="Compiler — SERVER · production · SVELTE-5.56.4" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>
@@ -155,7 +158,7 @@ Each chart covers one workload. Solid bars show the primary median; compiler out
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-8-dark.svg">
-  <img src="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-8.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-8.svg" alt="Compiler — SERVER · production · SVELTE-5.56.8" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>
@@ -185,7 +188,7 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/charts/projection-bench-linux-200-bench-projection-projection-class-sve-1trvr77-dark.svg">
-  <img src="docs/charts/projection-bench-linux-200-bench-projection-projection-class-sve-1trvr77.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE — separate workload" width="760">
+  <img src="docs/charts/projection-bench-linux-200-bench-projection-projection-class-sve-1trvr77.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>
@@ -211,7 +214,7 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-ts-svelte-dark.svg">
-  <img src="docs/charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-ts-svelte.svg" alt="Typecheck — TS+SVELTE — separate workload" width="760">
+  <img src="docs/charts/typecheck-bench-linux-200-bench-typecheck-typecheck-target-ts-svelte.svg" alt="Typecheck — TS+SVELTE" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>
@@ -261,7 +264,7 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/charts/lint-bench-linux-200-bench-lint-lint-class-eslint-recommended-rules-dark.svg">
-  <img src="docs/charts/lint-bench-linux-200-bench-lint-lint-class-eslint-recommended-rules.svg" alt="Lint — ESLINT-RECOMMENDED-RULES — separate workload" width="760">
+  <img src="docs/charts/lint-bench-linux-200-bench-lint-lint-class-eslint-recommended-rules.svg" alt="Lint — ESLINT-RECOMMENDED-RULES" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>
@@ -340,7 +343,7 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/charts/bundle-hmr-bench-linux-200-bench-bundle-bundle-class-vite-7-svel-0fso2i1-dark.svg">
-  <img src="docs/charts/bundle-hmr-bench-linux-200-bench-bundle-bundle-class-vite-7-svel-0fso2i1.svg" alt="Vite production bundle (generated Svelte graph) — VITE-7-SVELTE-INTEGRATION-BUILD — separate workload" width="760">
+  <img src="docs/charts/bundle-hmr-bench-linux-200-bench-bundle-bundle-class-vite-7-svel-0fso2i1.svg" alt="Vite production bundle (generated Svelte graph) — VITE-7-SVELTE-INTEGRATION-BUILD" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>
@@ -354,7 +357,7 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/charts/bundle-hmr-bench-linux-200-bench-hmr-hmr-class-vite-7-warm-incre-1lyd23z-dark.svg">
-  <img src="docs/charts/bundle-hmr-bench-linux-200-bench-hmr-hmr-class-vite-7-warm-incre-1lyd23z.svg" alt="Warm incremental Svelte transform (Vite HMR compile path) — VITE-7-WARM-INCREMENTAL-SVELTE-TRANSFORM — separate workload" width="760">
+  <img src="docs/charts/bundle-hmr-bench-linux-200-bench-hmr-hmr-class-vite-7-warm-incre-1lyd23z.svg" alt="Warm incremental Svelte transform (Vite HMR compile path) — VITE-7-WARM-INCREMENTAL-SVELTE-TRANSFORM" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>

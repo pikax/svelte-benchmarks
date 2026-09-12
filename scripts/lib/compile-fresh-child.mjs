@@ -42,7 +42,10 @@ async function main() {
 
   const start = performance.now();
   const out = await variant.measure(pass);
-  const ms = performance.now() - start;
+  const elapsed = performance.now() - start;
+  // Use the adapter's timer, just as the warm sampler does. Output-validation
+  // evidence collected after that timer must not inflate only the fresh run.
+  const ms = typeof out === "number" ? out : Number.isFinite(out.ms) ? out.ms : elapsed;
   const msRounded = Number(ms.toFixed(3));
 
   const measuredMeta =

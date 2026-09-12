@@ -44,7 +44,7 @@
     "bench:real-world": "node scripts/bench-real-world.mjs",
     "bench:real-world:quick": "node scripts/bench-real-world.mjs --projects smui --file-limit 60 --runs 2 --warmups 1",
     "bench:real-world:smoke": "node scripts/bench-real-world.mjs --file-limit 5 --runs 1 --warmups 1",
-    "bench:real-world:full": "node scripts/bench-real-world.mjs --runs 5 --warmups 1",
+    "bench:real-world:full": "node scripts/bench-real-world.mjs --runs 6 --warmups 1",
     "e2e:setup": "node scripts/e2e-vscode/setup-workspaces.mjs",
     "e2e:install-extensions": "node scripts/e2e-vscode/install-extensions.mjs",
     "e2e:vscode": "node scripts/e2e-vscode/run.mjs --with-setup",

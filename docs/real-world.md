@@ -53,11 +53,6 @@ Target: `client` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-11zo403-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-11zo403.svg" alt="SFC compile (unique contents) — CLIENT · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 287 | skipped | – | – | – | – | – | – | – |
@@ -72,7 +67,7 @@ Target: `client` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0pz5r37-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0pz5r37.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0pz5r37.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.4" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -91,7 +86,7 @@ Target: `client` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0tb0zev-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0tb0zev.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0tb0zev.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.8" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -124,11 +119,6 @@ Target: `server` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1q4nvvz-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1q4nvvz.svg" alt="SFC compile (unique contents) — SERVER · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 287 | skipped | – | – | – | – | – | – | – |
@@ -143,7 +133,7 @@ Target: `server` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1lmz2af-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1lmz2af.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1lmz2af.svg" alt="Compiler — SERVER · production · SVELTE-5.56.4" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -162,7 +152,7 @@ Target: `server` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1ib3tyr-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1ib3tyr.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1ib3tyr.svg" alt="Compiler — SERVER · production · SVELTE-5.56.8" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -222,7 +212,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0socado-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0socado.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE — separate workload" width="760">
+  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0socado.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | TSX bytes | Peak RSS | Throughput |
@@ -241,7 +231,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1eudhku-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1eudhku.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION — separate workload" width="760">
+  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1eudhku.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Projection bytes | Peak RSS | Throughput |
@@ -333,11 +323,6 @@ Tools:
 
 ##### ESLINT-RECOMMENDED-RULES — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0cc84hw-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-0cc84hw.svg" alt="Lint — ESLINT-RECOMMENDED-RULES — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | eslint-plugin-svelte (1T API) ❌ | 287 | error | – | – | – | – | – | – | – |
@@ -356,7 +341,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-19b8jpw-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-19b8jpw.svg" alt="Lint — RSVELTE-NATIVE-RULES — separate workload" width="760">
+  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-19b8jpw.svg" alt="Lint — RSVELTE-NATIVE-RULES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -373,7 +358,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1g7w9gu-dark.svg">
-  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1g7w9gu.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS — separate workload" width="760">
+  <img src="charts/real-world-carbon-components-svelte-real-world-linux-carbon-comp-1g7w9gu.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -448,11 +433,6 @@ Target: `client` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-07brceb-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-07brceb.svg" alt="SFC compile (unique contents) — CLIENT · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 183 | skipped | – | – | – | – | – | – | – |
@@ -467,7 +447,7 @@ Target: `client` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0o229ib-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0o229ib.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0o229ib.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.4" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -486,7 +466,7 @@ Target: `client` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0rdxhtz-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0rdxhtz.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0rdxhtz.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.8" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -519,11 +499,6 @@ Target: `server` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-1mtjwbz-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-1mtjwbz.svg" alt="SFC compile (unique contents) — SERVER · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 183 | skipped | – | – | – | – | – | – | – |
@@ -538,7 +513,7 @@ Target: `server` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0wl451z-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0wl451z.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0wl451z.svg" alt="Compiler — SERVER · production · SVELTE-5.56.4" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -557,7 +532,7 @@ Target: `server` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0t98wqb-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0t98wqb.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-comp-0t98wqb.svg" alt="Compiler — SERVER · production · SVELTE-5.56.8" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -617,7 +592,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-proj-0b8h51o-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-proj-0b8h51o.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE — separate workload" width="760">
+  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-proj-0b8h51o.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | TSX bytes | Peak RSS | Throughput |
@@ -636,7 +611,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-proj-1vneav2-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-proj-1vneav2.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION — separate workload" width="760">
+  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-proj-1vneav2.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Projection bytes | Peak RSS | Throughput |
@@ -730,7 +705,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-lint-1tcgxz8-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-lint-1tcgxz8.svg" alt="Lint — ESLINT-RECOMMENDED-RULES — separate workload" width="760">
+  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-lint-1tcgxz8.svg" alt="Lint — ESLINT-RECOMMENDED-RULES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -751,7 +726,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-lint-1ls505w-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-lint-1ls505w.svg" alt="Lint — RSVELTE-NATIVE-RULES — separate workload" width="760">
+  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-lint-1ls505w.svg" alt="Lint — RSVELTE-NATIVE-RULES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -768,7 +743,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-lint-0ryghf2-dark.svg">
-  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-lint-0ryghf2.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS — separate workload" width="760">
+  <img src="charts/real-world-flowbite-svelte-real-world-linux-flowbite-svelte-lint-0ryghf2.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -846,11 +821,6 @@ Target: `client` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-compile-client-0g1kspv-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-compile-client-0g1kspv.svg" alt="SFC compile (unique contents) — CLIENT · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 649 | skipped | – | – | – | – | – | – | – |
@@ -862,11 +832,6 @@ Target: `client` · Environment: `production`
 </details>
 
 ##### SVELTE-5.56.4 — separate workload
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-compile-client-0l7yn7n-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-compile-client-0l7yn7n.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.4 — separate workload" width="760">
-</picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -881,11 +846,6 @@ Target: `client` · Environment: `production`
 </details>
 
 ##### SVELTE-5.56.8 — separate workload
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-compile-client-0ojtvjb-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-compile-client-0ojtvjb.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.8 — separate workload" width="760">
-</picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -908,11 +868,6 @@ Target: `server` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-compile-server-04jjrdb-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-compile-server-04jjrdb.svg" alt="SFC compile (unique contents) — SERVER · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 649 | skipped | – | – | – | – | – | – | – |
@@ -924,11 +879,6 @@ Target: `server` · Environment: `production`
 </details>
 
 ##### SVELTE-5.56.4 — separate workload
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-compile-server-0y7dnnb-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-compile-server-0y7dnnb.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.4 — separate workload" width="760">
-</picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -943,11 +893,6 @@ Target: `server` · Environment: `production`
 </details>
 
 ##### SVELTE-5.56.8 — separate workload
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-compile-server-0uvifbn-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-compile-server-0uvifbn.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.8 — separate workload" width="760">
-</picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -997,7 +942,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-projection-pro-110xcq4-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-projection-pro-110xcq4.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE — separate workload" width="760">
+  <img src="charts/real-world-open-webui-real-world-linux-open-webui-projection-pro-110xcq4.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | TSX bytes | Peak RSS | Throughput |
@@ -1016,7 +961,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-projection-pro-1j6ermm-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-projection-pro-1j6ermm.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION — separate workload" width="760">
+  <img src="charts/real-world-open-webui-real-world-linux-open-webui-projection-pro-1j6ermm.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Projection bytes | Peak RSS | Throughput |
@@ -1109,7 +1054,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-lint-lint-clas-1gxzjl0-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-lint-lint-clas-1gxzjl0.svg" alt="Lint — ESLINT-RECOMMENDED-RULES — separate workload" width="760">
+  <img src="charts/real-world-open-webui-real-world-linux-open-webui-lint-lint-clas-1gxzjl0.svg" alt="Lint — ESLINT-RECOMMENDED-RULES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -1130,7 +1075,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-lint-lint-clas-0liko6s-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-lint-lint-clas-0liko6s.svg" alt="Lint — RSVELTE-NATIVE-RULES — separate workload" width="760">
+  <img src="charts/real-world-open-webui-real-world-linux-open-webui-lint-lint-clas-0liko6s.svg" alt="Lint — RSVELTE-NATIVE-RULES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -1147,7 +1092,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-open-webui-real-world-linux-open-webui-lint-lint-clas-1w1h826-dark.svg">
-  <img src="charts/real-world-open-webui-real-world-linux-open-webui-lint-lint-clas-1w1h826.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS — separate workload" width="760">
+  <img src="charts/real-world-open-webui-real-world-linux-open-webui-lint-lint-clas-1w1h826.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -1225,11 +1170,6 @@ Target: `client` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-compile-client-pro-0bc8mgv-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-compile-client-pro-0bc8mgv.svg" alt="SFC compile (unique contents) — CLIENT · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 2,432 | skipped | – | – | – | – | – | – | – |
@@ -1241,11 +1181,6 @@ Target: `client` · Environment: `production`
 </details>
 
 ##### SVELTE-5.56.4 — separate workload
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-compile-client-pro-00v1lgn-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-compile-client-pro-00v1lgn.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.4 — separate workload" width="760">
-</picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -1260,11 +1195,6 @@ Target: `client` · Environment: `production`
 </details>
 
 ##### SVELTE-5.56.8 — separate workload
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-compile-client-pro-1wkaf43-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-compile-client-pro-1wkaf43.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.8 — separate workload" width="760">
-</picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -1287,11 +1217,6 @@ Target: `server` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-compile-server-pro-11k1iub-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-compile-server-pro-11k1iub.svg" alt="SFC compile (unique contents) — SERVER · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 2,432 | skipped | – | – | – | – | – | – | – |
@@ -1303,11 +1228,6 @@ Target: `server` · Environment: `production`
 </details>
 
 ##### SVELTE-5.56.4 — separate workload
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-compile-server-pro-1jrtykj-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-compile-server-pro-1jrtykj.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.4 — separate workload" width="760">
-</picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -1322,11 +1242,6 @@ Target: `server` · Environment: `production`
 </details>
 
 ##### SVELTE-5.56.8 — separate workload
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-compile-server-pro-1n3p6w7-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-compile-server-pro-1n3p6w7.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.8 — separate workload" width="760">
-</picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -1378,7 +1293,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-projection-project-0pdb814-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-projection-project-0pdb814.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE — separate workload" width="760">
+  <img src="charts/real-world-platform-real-world-linux-platform-projection-project-0pdb814.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | TSX bytes | Peak RSS | Throughput |
@@ -1397,7 +1312,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-projection-project-1h6k0fm-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-projection-project-1h6k0fm.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION — separate workload" width="760">
+  <img src="charts/real-world-platform-real-world-linux-platform-projection-project-1h6k0fm.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Projection bytes | Peak RSS | Throughput |
@@ -1489,11 +1404,6 @@ Tools:
 
 ##### ESLINT-RECOMMENDED-RULES — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-lint-lint-class-es-13tdm8o-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-lint-lint-class-es-13tdm8o.svg" alt="Lint — ESLINT-RECOMMENDED-RULES — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | eslint-plugin-svelte (1T API) ❌ | 2,462 | error | – | – | – | – | – | – | – |
@@ -1512,7 +1422,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-lint-lint-class-rs-0eec7c8-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-lint-lint-class-rs-0eec7c8.svg" alt="Lint — RSVELTE-NATIVE-RULES — separate workload" width="760">
+  <img src="charts/real-world-platform-real-world-linux-platform-lint-lint-class-rs-0eec7c8.svg" alt="Lint — RSVELTE-NATIVE-RULES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -1529,7 +1439,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-platform-real-world-linux-platform-lint-lint-class-ve-1druh42-dark.svg">
-  <img src="charts/real-world-platform-real-world-linux-platform-lint-lint-class-ve-1druh42.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS — separate workload" width="760">
+  <img src="charts/real-world-platform-real-world-linux-platform-lint-lint-class-ve-1druh42.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -1604,11 +1514,6 @@ Target: `client` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-compile-client-prod-class--1g0llnj-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-compile-client-prod-class--1g0llnj.svg" alt="SFC compile (unique contents) — CLIENT · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 126 | skipped | – | – | – | – | – | – | – |
@@ -1623,7 +1528,7 @@ Target: `client` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-compile-client-prod-class--0aee493-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-compile-client-prod-class--0aee493.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="charts/real-world-smui-real-world-linux-smui-compile-client-prod-class--0aee493.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.4" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -1642,7 +1547,7 @@ Target: `client` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-compile-client-prod-class--072ivxf-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-compile-client-prod-class--072ivxf.svg" alt="SFC compile (unique contents) — CLIENT · production · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="charts/real-world-smui-real-world-linux-smui-compile-client-prod-class--072ivxf.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.8" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -1675,11 +1580,6 @@ Target: `server` · Environment: `production`
 
 ##### EXPERIMENTAL-SVELTE — separate workload
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-compile-server-prod-class--178tb2b-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-compile-server-prod-class--178tb2b.svg" alt="SFC compile (unique contents) — SERVER · production · EXPERIMENTAL-SVELTE — separate workload" width="760">
-</picture>
-
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Verter native ⏭ | 126 | skipped | – | – | – | – | – | – | – |
@@ -1694,7 +1594,7 @@ Target: `server` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-compile-server-prod-class--1siyxcz-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-compile-server-prod-class--1siyxcz.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.4 — separate workload" width="760">
+  <img src="charts/real-world-smui-real-world-linux-smui-compile-server-prod-class--1siyxcz.svg" alt="Compiler — SERVER · production · SVELTE-5.56.4" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -1713,7 +1613,7 @@ Target: `server` · Environment: `production`
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-compile-server-prod-class--1vuu5on-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-compile-server-prod-class--1vuu5on.svg" alt="SFC compile (unique contents) — SERVER · production · SVELTE-5.56.8 — separate workload" width="760">
+  <img src="charts/real-world-smui-real-world-linux-smui-compile-server-prod-class--1vuu5on.svg" alt="Compiler — SERVER · production · SVELTE-5.56.8" width="760">
 </picture>
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
@@ -1773,7 +1673,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-projection-projection-clas-0xidrig-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-projection-projection-clas-0xidrig.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE — separate workload" width="760">
+  <img src="charts/real-world-smui-real-world-linux-smui-projection-projection-clas-0xidrig.svg" alt="Svelte TypeScript projection — SVELTE2TSX-COMPATIBLE" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | TSX bytes | Peak RSS | Throughput |
@@ -1792,7 +1692,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-projection-projection-clas-0kftj2q-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-projection-projection-clas-0kftj2q.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION — separate workload" width="760">
+  <img src="charts/real-world-smui-real-world-linux-smui-projection-projection-clas-0kftj2q.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Projection bytes | Peak RSS | Throughput |
@@ -1886,7 +1786,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-lint-lint-class-eslint-rec-0aff248-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-lint-lint-class-eslint-rec-0aff248.svg" alt="Lint — ESLINT-RECOMMENDED-RULES — separate workload" width="760">
+  <img src="charts/real-world-smui-real-world-linux-smui-lint-lint-class-eslint-rec-0aff248.svg" alt="Lint — ESLINT-RECOMMENDED-RULES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -1907,7 +1807,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-lint-lint-class-rsvelte-na-04tm8y0-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-lint-lint-class-rsvelte-na-04tm8y0.svg" alt="Lint — RSVELTE-NATIVE-RULES — separate workload" width="760">
+  <img src="charts/real-world-smui-real-world-linux-smui-lint-lint-class-rsvelte-na-04tm8y0.svg" alt="Lint — RSVELTE-NATIVE-RULES" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
@@ -1924,7 +1824,7 @@ Tools:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/real-world-smui-real-world-linux-smui-lint-lint-class-verter-nat-15jf876-dark.svg">
-  <img src="charts/real-world-smui-real-world-linux-smui-lint-lint-class-verter-nat-15jf876.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS — separate workload" width="760">
+  <img src="charts/real-world-smui-real-world-linux-smui-lint-lint-class-verter-nat-15jf876.svg" alt="Lint — VERTER-NATIVE-DIAGNOSTICS" width="760">
 </picture>
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |

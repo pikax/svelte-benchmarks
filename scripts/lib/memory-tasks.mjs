@@ -64,7 +64,7 @@ export function buildMemoryTasks(fixtureDir, options = {}) {
       package: "@verter/native",
       surface: "compile",
       comparisonClass: "verter-runtime-compile",
-      skip: "No public Svelte runtime compile API; no proxy workload is sampled.",
+      skip: "Runtime output is not validated. Unranked compileMany diagnostic timings are retained in the compiler report; this memory probe is not sampled.",
     },
     {
       id: "memory-svelte2tsx",
