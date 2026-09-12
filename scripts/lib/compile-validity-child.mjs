@@ -17,6 +17,7 @@
 import { createRequire } from "node:module";
 import { loadRsvelteWasm } from "./rsvelte-wasm.mjs";
 import { createVerterCompiler } from "./verter-compile.mjs";
+import { pkgVersion } from "./versions.mjs";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -40,24 +41,18 @@ const require = createRequire(import.meta.url);
 const rootDir = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
 /**
- * runtimePackage: the Svelte runtime whose semantics this entrypoint's
- * compatibility class targets. The compiled output is executed against THAT
- * runtime, never against whichever svelte is fastest to import.
+ * Every compiler's output is executed against the one installed Svelte runtime.
+ * An older compatibility target does not qualify a candidate for ranking.
  */
 export const ENTRYPOINTS = {
   "svelte-official": {
-    label: "svelte/compiler 5.56.8",
+    label: `svelte/compiler ${pkgVersion("svelte")}`,
     runtimePackage: "svelte",
     exactPath: "svelte/compiler compile() per plant, css=external, runes=true",
   },
-  "svelte-mrwaip-reference": {
-    label: "svelte/compiler 5.56.4 (pinned reference)",
-    runtimePackage: "svelte-mrwaip-reference",
-    exactPath: "svelte-mrwaip-reference/compiler compile() per plant, css=external, runes=true",
-  },
   "mrwaip-svelte-rs": {
     label: "@mrwaip/svelte-rs (NAPI)",
-    runtimePackage: "svelte-mrwaip-reference",
+    runtimePackage: "svelte",
     exactPath: "@mrwaip/svelte-rs compile() per plant, css=external, runes=true",
   },
   "rsvelte-wasm": {
@@ -93,9 +88,6 @@ function outputParts(raw) {
 async function loadCompiler(entrypoint) {
   if (entrypoint === "svelte-official") {
     return (await import("svelte/compiler")).compile;
-  }
-  if (entrypoint === "svelte-mrwaip-reference") {
-    return (await import("svelte-mrwaip-reference/compiler")).compile;
   }
   if (entrypoint === "mrwaip-svelte-rs") {
     return (await import("@mrwaip/svelte-rs/compiler")).compile;

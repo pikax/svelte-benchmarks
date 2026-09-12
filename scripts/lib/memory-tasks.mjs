@@ -1,3 +1,4 @@
+import { pkgVersion } from "./versions.mjs";
 import { resolve } from "node:path";
 import { collectSvelteFiles } from "./fixtures.mjs";
 
@@ -14,11 +15,11 @@ export function buildMemoryTasks(fixtureDir, options = {}) {
 
   return [
     {
-      id: "memory-svelte-5.56.8-client",
-      label: "svelte/compiler 5.56.8",
+      id: "memory-svelte-client",
+      label: `svelte/compiler ${pkgVersion("svelte")}`,
       package: "svelte",
       surface: "compile",
-      comparisonClass: "svelte-5.56.8-client-production",
+      comparisonClass: "svelte-client-production",
       handler: "compile",
       payload: { ...payload, implementation: "svelte" },
     },
@@ -27,7 +28,7 @@ export function buildMemoryTasks(fixtureDir, options = {}) {
       label: "@rsvelte/compiler (Wasm)",
       package: "@rsvelte/compiler",
       surface: "compile",
-      comparisonClass: "svelte-5.56.8-client-production",
+      comparisonClass: "svelte-client-production",
       handler: "compile",
       payload: { ...payload, implementation: "rsvelte-wasm" },
     },
@@ -36,25 +37,16 @@ export function buildMemoryTasks(fixtureDir, options = {}) {
       label: "@rsvelte/native (NAPI)",
       package: "@rsvelte/vite-plugin-svelte-native",
       surface: "compile",
-      comparisonClass: "svelte-5.56.8-client-production",
+      comparisonClass: "svelte-client-production",
       handler: "compile",
       payload: { ...payload, implementation: "rsvelte-native" },
-    },
-    {
-      id: "memory-svelte-5.56.4-client",
-      label: "svelte/compiler 5.56.4",
-      package: "svelte-mrwaip-reference",
-      surface: "compile",
-      comparisonClass: "svelte-5.56.4-client-production",
-      handler: "compile",
-      payload: { ...payload, implementation: "svelte-mrwaip-reference" },
     },
     {
       id: "memory-mrwaip-client",
       label: "@mrwaip/svelte-rs (NAPI)",
       package: "@mrwaip/svelte-rs",
       surface: "compile",
-      comparisonClass: "svelte-5.56.4-client-production",
+      comparisonClass: "svelte-client-production",
       handler: "compile",
       payload: { ...payload, implementation: "mrwaip" },
     },

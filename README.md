@@ -13,11 +13,10 @@ the official tools and the native alternatives (`@mrwaip/svelte-rs`,
   work gates, and compiler rows are additionally gated by a Svelte 5 runtime
   semantic plant suite (28 plants) executed in isolated child processes after
   timing.
-- **Official Svelte is the reference** of each compatibility class. Candidates
-  may target different Svelte patch releases (`svelte-5.56.8`,
-  `svelte-5.56.4`); each class carries its own pinned official reference, and a
-  failed reference unranks the whole class — the fastest survivor is never
-  promoted into the reference slot.
+- **The latest official Svelte is the sole compiler reference.** Every compiler
+  uses the same inputs and is validated against the same installed Svelte
+  runtime. The exact version is pinned in the root dependency and recorded in
+  each run. A failed reference unranks the whole comparison.
 - **A failed candidate stays visible** with its measured time (bracketed) but
   unranked. `UNKNOWN` correctness is not `PASS`. Missing functionality is
   `skipped` — a different API/workload is never substituted.
@@ -37,7 +36,7 @@ the official tools and the native alternatives (`@mrwaip/svelte-rs`,
 
 | Surface | Tools |
 | --- | --- |
-| Compile (client/server × prod/dev) | `svelte/compiler` (5.56.8 + pinned 5.56.4 reference), `@mrwaip/svelte-rs`, `@rsvelte/compiler` (Wasm), `@rsvelte/vite-plugin-svelte-native` (NAPI), Verter `compileMany` (unranked diagnostics) |
+| Compile (client/server × prod/dev) | `svelte/compiler` (latest official release), `@mrwaip/svelte-rs`, `@rsvelte/compiler` (Wasm), `@rsvelte/vite-plugin-svelte-native` (NAPI), Verter `compileMany` (unranked diagnostics) |
 | Projection (svelte2tsx) | `svelte2tsx`, `@rsvelte/svelte2tsx`, Verter IDE projection (separate schema class) |
 | Typecheck | `svelte-check`, `svelte-check-rs`, `svelte-check-native`, `rsvelte-check`, `verter-tsc` (tsc/tsgo engines as row properties) |
 | Format | Prettier + prettier-plugin-svelte, `@rsvelte/fmt` |
@@ -108,57 +107,28 @@ Each chart covers one workload. Compiler range bars combine warm (solid) and fre
 > [Full results, raw samples and validation evidence →](docs/compiler.md)
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-4-dark.svg">
-  <img src="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-4.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.4" width="760">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-dark.svg">
+  <img src="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte.svg" alt="Compiler — CLIENT · production · Svelte runtime" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>
 
 | Tool | Fresh child | **Warm (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.56.4 | 456 ms | **346 ms** | — | 118.9 MB |
-| @mrwaip/svelte-rs (NAPI) ⚠ | 39.3 ms | (39.1 ms) | not ranked | 71.6 MB |
-
-⚠ bracketed rows are measured but unranked — see [the full page](docs/compiler.md) for why.
-
-</details>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-8-dark.svg">
-  <img src="docs/charts/compiler-bench-linux-200-bench-compile-client-prod-class-svelte-5-56-8.svg" alt="Compiler — CLIENT · production · SVELTE-5.56.8" width="760">
-</picture>
-
-<details><summary>Timing table and memory</summary>
-
-| Tool | Fresh child | **Warm (primary)** | vs fastest | Peak RSS |
-| --- | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.56.8 | 454 ms | **332 ms** | — | 116.8 MB |
+| svelte/compiler 5.57.0 | 454 ms | **332 ms** | — | 116.8 MB |
 | @rsvelte/native (NAPI) ⚠ | 113 ms | (114 ms) | not ranked | 81.4 MB |
 | @rsvelte/compiler (wasm) ⚠ | 320 ms | (280 ms) | not ranked | 167.8 MB |
+| @mrwaip/svelte-rs (NAPI) ⏭ | – | skipped | — | — |
 
 ⚠ bracketed rows are measured but unranked — see [the full page](docs/compiler.md) for why.
+
+**@mrwaip/svelte-rs (NAPI) ⏭:** Awaiting rerun against the current Svelte reference. This historical result used a retired reference; its original samples and validation remain in the source JSON.
 
 </details>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-4-dark.svg">
-  <img src="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-4.svg" alt="Compiler — SERVER · production · SVELTE-5.56.4" width="760">
-</picture>
-
-<details><summary>Timing table and memory</summary>
-
-| Tool | Fresh child | **Warm (primary)** | vs fastest | Peak RSS |
-| --- | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.56.4 | 390 ms | **254 ms** | — | 118.9 MB |
-| @mrwaip/svelte-rs (NAPI) ⚠ | 32.6 ms | (31.4 ms) | not ranked | 71.6 MB |
-
-⚠ bracketed rows are measured but unranked — see [the full page](docs/compiler.md) for why.
-
-</details>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-8-dark.svg">
-  <img src="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-5-56-8.svg" alt="Compiler — SERVER · production · SVELTE-5.56.8" width="760">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte-dark.svg">
+  <img src="docs/charts/compiler-bench-linux-200-bench-compile-server-prod-class-svelte.svg" alt="Compiler — SERVER · production · Svelte runtime" width="760">
 </picture>
 
 <details><summary>Timing table and memory</summary>
@@ -167,7 +137,10 @@ Each chart covers one workload. Compiler range bars combine warm (solid) and fre
 | --- | ---: | ---: | ---: | ---: |
 | @rsvelte/native (NAPI) | 83.1 ms | **81.6 ms** | 1.00x | 81.4 MB |
 | @rsvelte/compiler (wasm) | 241 ms | **208 ms** | 2.55x | 167.8 MB |
-| svelte/compiler 5.56.8 | 390 ms | **258 ms** | 3.16x | 116.8 MB |
+| svelte/compiler 5.57.0 | 390 ms | **258 ms** | 3.16x | 116.8 MB |
+| @mrwaip/svelte-rs (NAPI) ⏭ | – | skipped | — | — |
+
+**@mrwaip/svelte-rs (NAPI) ⏭:** Awaiting rerun against the current Svelte reference. This historical result used a retired reference; its original samples and validation remain in the source JSON.
 
 </details>
 
@@ -177,7 +150,7 @@ Each chart covers one workload. Compiler range bars combine warm (solid) and fre
 | --- | --- | ---: | --- |
 | Verter native | experimental-svelte | — | skipped |
 
-**Verter native:** No public Svelte runtime compile API; the experimental carrier exposes an IDE projection only. No proxy workload is timed.
+**Verter native:** This snapshot predates the Verter compileMany diagnostic pass. That published entrypoint now runs unranked; timings will appear after a new benchmark run.
 
 Development builds and all validation evidence: [full compiler results](docs/compiler.md).
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
@@ -36,7 +36,7 @@ function parseArgs(argv) {
   return args;
 }
 
-async function selectSurfaceFiles(resolved, surfaceId) {
+export async function selectSurfaceFiles(resolved, surfaceId) {
   if (surfaceId !== "compile" && surfaceId !== "projection") {
     return { files: resolved.files, excluded: [] };
   }
@@ -44,65 +44,17 @@ async function selectSurfaceFiles(resolved, surfaceId) {
   const excluded = [];
   if (surfaceId === "compile") {
     const { compile } = await import("svelte/compiler");
-    const { compile: compileMrwaipReference } =
-      await import("svelte-mrwaip-reference/compiler");
-    const references = [
-      { comparisonClass: "svelte-5.56.8", compile },
-      {
-        comparisonClass: "svelte-5.56.4",
-        compile: compileMrwaipReference,
-      },
-    ];
-    const comparisonFiles = Object.fromEntries(
-      references.map(({ comparisonClass }) => [comparisonClass, []]),
-    );
-    const excludedByClass = Object.fromEntries(
-      references.map(({ comparisonClass }) => [comparisonClass, []]),
-    );
     for (const file of resolved.files) {
-      const source = readFileSync(join(resolved.dir, file), "utf8");
-      let acceptedSomewhere = false;
-      for (const reference of references) {
-        try {
-          for (const generate of ["client", "server"]) {
-            reference.compile(source, {
-              filename: file,
-              generate,
-              dev: false,
-              css: "external",
-            });
-          }
-          comparisonFiles[reference.comparisonClass].push(file);
-          acceptedSomewhere = true;
-        } catch (error) {
-          excludedByClass[reference.comparisonClass].push({
-            file,
-            reason: error instanceof Error ? error.message : String(error),
-          });
+      try {
+        const source = readFileSync(join(resolved.dir, file), "utf8");
+        for (const generate of ["client", "server"]) {
+          compile(source, { filename: file, generate, dev: false, css: "external" });
         }
-      }
-      if (acceptedSomewhere) accepted.push(file);
-      else {
-        excluded.push({
-          file,
-          reason: references
-            .map(({ comparisonClass }) => {
-              const entry = excludedByClass[comparisonClass].at(-1);
-              return `${comparisonClass}: ${entry?.reason ?? "rejected"}`;
-            })
-            .join(" | "),
-        });
+        accepted.push(file);
+      } catch (error) {
+        excluded.push({ file, reason: error instanceof Error ? error.message : String(error) });
       }
     }
-    for (const reference of references) {
-      const count = comparisonFiles[reference.comparisonClass].length;
-      if (count === 0) {
-        throw new Error(
-          `compile: ${reference.comparisonClass} official reference accepted 0/${resolved.files.length} inputs`,
-        );
-      }
-    }
-    return { files: accepted, excluded, comparisonFiles, excludedByClass };
   } else {
     const { svelte2tsx } = await import("svelte2tsx");
     for (const file of resolved.files) {
@@ -145,15 +97,14 @@ async function selectSurfaceFiles(resolved, surfaceId) {
 }
 
 function stageFlat(resolved, files, workRoot, surfaceId) {
-  const dir = join(workRoot, resolved.project.id, surfaceId, "corpus");
-  mkdirSync(dir, { recursive: true });
-  const stagedByFile = {};
+  const parent = join(workRoot, resolved.project.id, surfaceId);
+  mkdirSync(parent, { recursive: true });
+  const dir = mkdtempSync(join(parent, "corpus-"));
   files.forEach((file, index) => {
     const stagedName = `${String(index).padStart(5, "0")}--${basename(file)}`;
     copyFileSync(join(resolved.dir, file), join(dir, stagedName));
-    stagedByFile[file] = stagedName;
   });
-  return { dir, stagedByFile };
+  return dir;
 }
 
 async function main() {
@@ -166,8 +117,7 @@ async function main() {
     throw new Error(`${resolved.selector}: ${resolved.reason}`);
   const workRoot = resolve(rootDir, args.work);
   const selection = await selectSurfaceFiles(resolved, args.surface);
-  const staged = stageFlat(resolved, selection.files, workRoot, args.surface);
-  const fixtureDir = staged.dir;
+  const fixtureDir = stageFlat(resolved, selection.files, workRoot, args.surface);
   const options = {
     runs: args.runs,
     warmups: Math.max(1, args.warmups),
@@ -178,14 +128,6 @@ async function main() {
     compileRunes: "auto",
     workRoot: join(workRoot, resolved.project.id, args.surface, "work"),
   };
-  if (selection.comparisonFiles) {
-    options.compileFilesByClass = Object.fromEntries(
-      Object.entries(selection.comparisonFiles).map(([key, files]) => [
-        key,
-        files.map((file) => staged.stagedByFile[file]),
-      ]),
-    );
-  }
   mkdirSync(options.workRoot, { recursive: true });
 
   let surface;
@@ -211,33 +153,11 @@ async function main() {
     configuredFiles: resolved.files.length,
     measuredFiles: selection.files.length,
     excluded: selection.excluded.length,
-    ...(selection.comparisonFiles
-      ? {
-          measuredFilesByClass: Object.fromEntries(
-            Object.entries(selection.comparisonFiles).map(([key, files]) => [
-              key,
-              files.length,
-            ]),
-          ),
-          excludedByClass: Object.fromEntries(
-            Object.entries(selection.excludedByClass).map(([key, entries]) => [
-              key,
-              entries.length,
-            ]),
-          ),
-          exclusionExamplesByClass: Object.fromEntries(
-            Object.entries(selection.excludedByClass).map(([key, entries]) => [
-              key,
-              entries.slice(0, 10),
-            ]),
-          ),
-        }
-      : {}),
     exclusionRule:
-      selection.excluded.length > 0 || selection.comparisonFiles
+      selection.excluded.length > 0
         ? args.surface === "compile"
-          ? "Each compiler version class uses only inputs accepted by its own pinned official reference; rejection by another version class does not remove the input"
-          : `${args.surface}: inputs rejected by the applicable official reference API before timing are excluded equally for every tool`
+          ? "Inputs rejected by the latest official Svelte compiler are excluded equally for every compiler"
+          : "Inputs rejected by the applicable official reference API before timing are excluded equally for every tool"
         : null,
     exclusionExamples: selection.excluded.slice(0, 10),
   };
@@ -246,7 +166,7 @@ async function main() {
   writeFileSync(out, `${JSON.stringify(surface, null, 2)}\n`);
 }
 
-main().catch((error) => {
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch((error) => {
   console.error(
     error instanceof Error ? (error.stack ?? error.message) : String(error),
   );

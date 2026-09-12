@@ -7,6 +7,7 @@ import ts from "typescript";
 import { collectSvelteFiles, readSources, totalBytes } from "../fixtures.mjs";
 import { measureVariants, timedSync, timedAsync } from "../timing.mjs";
 import { loadRsvelteWasm } from "../rsvelte-wasm.mjs";
+import { pkgVersion } from "../versions.mjs";
 import { compileVerterBatch } from "../verter-compile.mjs";
 import { measureFreshChildVariants } from "../compile-fresh-runs.mjs";
 import {
@@ -275,15 +276,6 @@ async function loadImplementations() {
       };
     }
   }
-  let mrwaipReference;
-  try {
-    mrwaipReference = await import("svelte-mrwaip-reference/compiler");
-  } catch (error) {
-    mrwaipReference = {
-      error: error instanceof Error ? error.message : String(error),
-    };
-  }
-
   // rsvelte wasm — shared loader (binary name changed across releases).
   let rsvelteWasm = null;
   let rsvelteWasmError = null;
@@ -314,7 +306,6 @@ async function loadImplementations() {
 
   return {
     svelteCompiler,
-    mrwaipReference,
     rsvelteWasm,
     rsvelteWasmError,
     rsvelteNative,
@@ -329,7 +320,7 @@ async function loadImplementations() {
  * by the parent (warm measurement) and the fresh-child process so both run
  * the exact same per-pass materialisation and adapters.
  *
- * payload: { generate, env, fixtureDir, classes: [{id, files}], runes }
+ * payload: { generate, env, fixtureDir, files, runes }
  */
 export async function buildCompileCellVariants(payload) {
   const { generate, env } = payload;
@@ -339,20 +330,17 @@ export async function buildCompileCellVariants(payload) {
   const runesLabel = payload.runes === "auto" ? "auto" : "true";
   const impls = await loadImplementations();
 
-  const classes = payload.classes.map((cls) => ({
-    id: cls.id,
-    files: cls.files,
-    sources: readSources(payload.fixtureDir, cls.files),
+  const primary = {
+    id: "svelte",
+    files: payload.files,
+    sources: readSources(payload.fixtureDir, payload.files),
     cache: new Map(),
-  }));
-  const classById = new Map(classes.map((c) => [c.id, c]));
-  const primary = classById.get("svelte-5.56.8") ?? classes[0];
-  const mrwaipClass = classById.get("svelte-5.56.4");
+  };
+  const svelteVersion = pkgVersion("svelte");
 
   const variants = [];
-  // Reference outputs for CSS-presence parity inside a class.
+  // Reference outputs for CSS-presence parity across every compiler.
   let officialOutputs = null;
-  let mrwaipReferenceOutputs = null;
   if (
     !impls.svelteCompiler.error &&
     typeof impls.svelteCompiler.compile === "function"
@@ -367,22 +355,6 @@ export async function buildCompileCellVariants(payload) {
       }),
     );
   }
-  if (
-    mrwaipClass &&
-    !impls.mrwaipReference.error &&
-    typeof impls.mrwaipReference.compile === "function"
-  ) {
-    mrwaipReferenceOutputs = mrwaipClass.sources.map((f) =>
-      impls.mrwaipReference.compile(f.source, {
-        filename: f.filename,
-        generate,
-        dev: !isProd,
-        css: "external",
-        ...runesOption,
-      }),
-    );
-  }
-
   const saltOf = (cls) => compileCellSalt(cell, cls.id);
   const prepareClass = (cls) => (pass) => {
     const entry = passMaterializedInputs(cls.sources, saltOf(cls), pass, cls.cache);
@@ -402,7 +374,7 @@ export async function buildCompileCellVariants(payload) {
   };
 
 
-  /* --- Official svelte/compiler (baseline of the 5.56.8 class) --- */
+  /* --- Official svelte/compiler (sole official baseline) --- */
   if (officialOutputs) {
     const compileOfficial = (f, dev) =>
       impls.svelteCompiler.compile(f.source, {
@@ -418,12 +390,12 @@ export async function buildCompileCellVariants(payload) {
     );
     variants.push({
       id: `svelte-official-1t-${cell}`,
-      label: `svelte/compiler 5.56.8 (1T)`,
+      label: `svelte/compiler ${svelteVersion} (1T)`,
       package: "svelte",
       target: generate,
-      comparisonClass: "svelte-5.56.8",
+      comparisonClass: "svelte",
       baseline: true,
-      baselineLabel: "Svelte 5.56.8 (official)",
+      baselineLabel: `Svelte ${svelteVersion} (official)`,
       env,
       threading: "1t",
       invocation: "in-process",
@@ -475,10 +447,10 @@ export async function buildCompileCellVariants(payload) {
   } else {
     variants.push({
       id: `svelte-official-unavailable-${cell}`,
-      label: `svelte/compiler 5.56.8`,
+      label: `svelte/compiler ${svelteVersion}`,
       package: "svelte",
       target: generate,
-      comparisonClass: "svelte-5.56.8",
+      comparisonClass: "svelte",
       fileCount: primary.files.length,
       env,
       notes: `Could not load: ${impls.svelteCompiler.error ?? "no compile export"}`,
@@ -486,89 +458,8 @@ export async function buildCompileCellVariants(payload) {
     });
   }
 
-  /* --- Pinned official 5.56.4 reference (baseline of the mrwaip class) --- */
-  if (mrwaipClass && mrwaipReferenceOutputs) {
-    const compileReference = (f, dev) =>
-      impls.mrwaipReference.compile(f.source, {
-        filename: f.filename,
-        generate,
-        dev,
-        css: "external",
-        ...runesOption,
-      });
-    const gate = mergeGates(
-      svelteRuntimeGate(
-        mrwaipReferenceOutputs,
-        mrwaipClass.sources,
-        generate,
-        mrwaipReferenceOutputs,
-      ),
-      optionSensitivityGate(mrwaipClass.sources, compileReference),
-    );
-    variants.push({
-      id: `svelte-mrwaip-reference-${cell}`,
-      label: `svelte/compiler 5.56.4 (1T)`,
-      package: "svelte-mrwaip-reference",
-      target: generate,
-      comparisonClass: "svelte-5.56.4",
-      baseline: true,
-      baselineLabel: "Svelte 5.56.4 (official)",
-      env,
-      threading: "1t",
-      invocation: "in-process",
-      fileCount: mrwaipClass.files.length,
-      unranked: !gate.ok,
-      notes: `Pinned official reference for @mrwaip/svelte-rs; generate=${generate}, dev=${!isProd}, css=external | runtime gate: ${gate.ok ? "✓" : "✗"} ${gate.detail}`,
-      artifactLabel: "Code bytes",
-      prepare: prepareClass(mrwaipClass),
-      measure: async (pass) => {
-        const entry = passMaterializedInputs(
-          mrwaipClass.sources,
-          saltOf(mrwaipClass),
-          pass,
-          mrwaipClass.cache,
-        );
-        let work = 0;
-        const { ms } = timedSync(() => {
-          for (const f of entry.inputs) {
-            const result = impls.mrwaipReference.compile(f.source, {
-              filename: f.filename,
-              generate,
-              dev: !isProd,
-              css: "external",
-                            ...runesOption,
-            });
-            const jsLen = result?.js?.code?.length ?? 0;
-            const cssLen = result?.css?.code?.length ?? 0;
-            const produced = jsLen + cssLen;
-            if (produced <= 0) {
-              throw new Error(
-                `svelte/compiler 5.56.4 produced no code for ${f.filename}`,
-              );
-            }
-            assertTokenIn(result?.css?.code, entry.token, f.filename);
-            work += produced;
-          }
-        });
-        return { ms, artifact: work };
-      },
-    });
-  } else if (mrwaipClass) {
-    variants.push({
-      id: `svelte-mrwaip-reference-unavailable-${cell}`,
-      label: `svelte/compiler 5.56.4`,
-      package: "svelte-mrwaip-reference",
-      target: generate,
-      comparisonClass: "svelte-5.56.4",
-      fileCount: mrwaipClass.files.length,
-      env,
-      notes: impls.mrwaipReference.error ?? "compile export not found",
-      skip: true,
-    });
-  }
-
   /* --- @mrwaip/svelte-rs (native NAPI) --- */
-  if (mrwaipClass && !impls.mrwaipCompiler.error && typeof impls.mrwaipCompiler.compile === "function") {
+  if (!impls.mrwaipCompiler.error && typeof impls.mrwaipCompiler.compile === "function") {
     const mrwaipOptions = (f, dev) => ({
       filename: f.filename,
       generate,
@@ -578,12 +469,12 @@ export async function buildCompileCellVariants(payload) {
     });
     let mrwaipGate;
     try {
-      const outputs = mrwaipClass.sources.map((f) =>
+      const outputs = primary.sources.map((f) =>
         impls.mrwaipCompiler.compile(f.source, mrwaipOptions(f, !isProd)),
       );
       mrwaipGate = mergeGates(
-        svelteRuntimeGate(outputs, mrwaipClass.sources, generate, mrwaipReferenceOutputs),
-        optionSensitivityGate(mrwaipClass.sources, (f, dev) =>
+        svelteRuntimeGate(outputs, primary.sources, generate, officialOutputs),
+        optionSensitivityGate(primary.sources, (f, dev) =>
           impls.mrwaipCompiler.compile(f.source, mrwaipOptions(f, dev)),
         ),
       );
@@ -598,21 +489,21 @@ export async function buildCompileCellVariants(payload) {
       label: `@mrwaip/svelte-rs (NAPI)`,
       package: "@mrwaip/svelte-rs",
       target: generate,
-      comparisonClass: "svelte-5.56.4",
+      comparisonClass: "svelte",
       env,
       threading: "1t",
       invocation: "in-process",
-      fileCount: mrwaipClass.files.length,
+      fileCount: primary.files.length,
       artifactLabel: "Code bytes",
       unranked: !mrwaipGate.ok,
       notes: `@mrwaip/svelte-rs compile(), generate=${generate}, dev=${!isProd}, css=external | runtime gate: ${mrwaipGate.ok ? "✓" : "✗"} ${mrwaipGate.detail}`,
-      prepare: prepareClass(mrwaipClass),
+      prepare: prepareClass(primary),
       measure: async (pass) => {
         const entry = passMaterializedInputs(
-          mrwaipClass.sources,
-          saltOf(mrwaipClass),
+          primary.sources,
+          saltOf(primary),
           pass,
-          mrwaipClass.cache,
+          primary.cache,
         );
         let work = 0;
         const { ms } = timedSync(() => {
@@ -635,14 +526,14 @@ export async function buildCompileCellVariants(payload) {
         return { ms, artifact: work };
       },
     });
-  } else if (mrwaipClass) {
+  } else {
     variants.push({
       id: `mrwaip-svelte-rs-unavailable-${cell}`,
       label: `@mrwaip/svelte-rs`,
       package: "@mrwaip/svelte-rs",
       target: generate,
-      comparisonClass: "svelte-5.56.4",
-      fileCount: mrwaipClass.files.length,
+      comparisonClass: "svelte",
+      fileCount: primary.files.length,
       env,
       notes: impls.mrwaipCompiler.error
         ? `Could not load: ${impls.mrwaipCompiler.error}`
@@ -701,7 +592,7 @@ export async function buildCompileCellVariants(payload) {
       label: `@rsvelte/compiler wasm (1T)`,
       package: "@rsvelte/compiler",
       target: generate,
-      comparisonClass: "svelte-5.56.8",
+      comparisonClass: "svelte",
       env,
       threading: "1t",
       invocation: "in-process",
@@ -766,7 +657,7 @@ export async function buildCompileCellVariants(payload) {
       label: `@rsvelte/compiler wasm`,
       package: "@rsvelte/compiler",
       target: generate,
-      comparisonClass: "svelte-5.56.8",
+      comparisonClass: "svelte",
       fileCount: primary.files.length,
       env,
       notes: impls.rsvelteWasmError
@@ -822,7 +713,7 @@ export async function buildCompileCellVariants(payload) {
       label: `@rsvelte/native NAPI (1T)`,
       package: "@rsvelte/vite-plugin-svelte-native",
       target: generate,
-      comparisonClass: "svelte-5.56.8",
+      comparisonClass: "svelte",
       env,
       threading: "1t",
       invocation: "in-process",
@@ -891,7 +782,7 @@ export async function buildCompileCellVariants(payload) {
       label: `@rsvelte/native NAPI`,
       package: "@rsvelte/vite-plugin-svelte-native",
       target: generate,
-      comparisonClass: "svelte-5.56.8",
+      comparisonClass: "svelte",
       fileCount: primary.files.length,
       env,
       notes: impls.rsvelteNative.error
@@ -1038,28 +929,7 @@ export function applyAdapterParity(rows) {
  */
 export async function runCompileSurface(fixtureDir, options) {
   const files = collectSvelteFiles(fixtureDir, options.fileLimit);
-  const sources = readSources(fixtureDir, files);
   const bytes = totalBytes(fixtureDir, files);
-  const filesForClass = (comparisonClass) => {
-    const selected = options.compileFilesByClass?.[comparisonClass];
-    if (!selected) return files;
-    const known = new Set(files);
-    const unknown = selected.filter((file) => !known.has(file));
-    if (unknown.length > 0) {
-      throw new Error(
-        `${comparisonClass} contains unstaged compile inputs: ${unknown.slice(0, 3).join(", ")}`,
-      );
-    }
-    if (selected.length === 0) {
-      throw new Error(`${comparisonClass} contains no compile inputs`);
-    }
-    return selected;
-  };
-  const primaryFiles = filesForClass("svelte-5.56.8");
-  const primarySources = readSources(fixtureDir, primaryFiles);
-  const mrwaipFiles = filesForClass("svelte-5.56.4");
-  const mrwaipSources = readSources(fixtureDir, mrwaipFiles);
-
   const generates = (options.compileTargets ?? "client,server")
     .split(",")
     .map((s) => s.trim())
@@ -1079,10 +949,7 @@ export async function runCompileSurface(fixtureDir, options) {
           env,
           fixtureDir,
           runes: options.compileRunes ?? "true",
-          classes: [
-            { id: "svelte-5.56.8", files: primaryFiles },
-            { id: "svelte-5.56.4", files: mrwaipFiles },
-          ],
+          files,
         };
         const variants = await buildCompileCellVariants(payload);
 
@@ -1146,16 +1013,16 @@ export async function runCompileSurface(fixtureDir, options) {
     },
     methodology: [
       "Matrix: generate ∈ {client, server} × env ∈ {production, development} × source-map ∈ {off, on} (off by default).",
-      "Within each pinned compiler-version class, every tool receives the same in-memory Svelte SFC corpus. Real-world eligibility is decided independently by that class's official reference and per-row file counts remain visible.",
+      "Every compiler receives the same in-memory Svelte SFC corpus. The latest official Svelte compiler is the sole reference and decides real-world eligibility for every tool.",
       `Official: svelte/compiler compile() with runes=${runesLabel}. Generated fixtures force runes; real-world sources use compiler auto-detection.`,
-      "MrWaip: @mrwaip/svelte-rs native compiler through its compatible compile() API, ranked inside the pinned svelte-5.56.4 class with svelte/compiler 5.56.4 as the official reference/baseline.",
-      "rsvelte: WASM (@rsvelte/compiler) and NAPI (@rsvelte/vite-plugin-svelte-native) paths are separate rows in the svelte-5.56.8 class.",
+      "MrWaip: @mrwaip/svelte-rs native compiler through its compatible compile() API, validated against the same latest Svelte runtime and official baseline as every other compiler.",
+      "rsvelte: WASM (@rsvelte/compiler) and NAPI (@rsvelte/vite-plugin-svelte-native) paths are separate rows against the same official Svelte baseline.",
       "Verter's published compileMany runtime-render path receives the same revised Svelte inputs with stateless caching and one CPU thread. Completed passes publish warm/fresh timings even when their code is invalid or entries contain compile errors. They are permanently unranked diagnostic evidence until the adapter is validated; errors, output samples, revision-token failures and runtime-plant verdicts are retained. Only a missing API/package is skipped; a thrown batch failure is an error.",
       "Every warmed/fresh pass compiles a REVISED corpus: a fixed-width comment token plus a used CSS custom-property rule. The timed loop asserts the token reached the emitted CSS, so a cached whole-output result from a previous pass fails the gate. Adapter parity additionally requires every warm and fresh pass to have received a distinct input revision.",
       "Every compiler must return one non-empty code artifact per input file, emit the expected Svelte client/server runtime import, and remove Svelte runes; aggregate byte totals alone are not accepted as proof of coverage.",
       "Fresh child = the first timed row workload in a NEW child process, after excluded Node startup, package imports, adapter construction and input materialisation. It is NOT machine-cold (OS page cache is not flushed) and its ratio never substitutes for the warm verdict.",
       "Source maps: every compared Svelte 5 compiler ALWAYS emits js.map/css.map from compile() (no off/on flag exists — the 'sourcemap' option is a chained-map INPUT), so an off/on matrix would measure the harness, not the tools. Instead the maps' COORDINATE CORRECTNESS gates every row: anchored tokens in generated JS/CSS must trace back to their exact source positions (segment fallback allowed, exact line/column required, sourcesContent equal to the full component), across LF/CRLF and non-BMP-shifted columns. Wrong-file, shifted, stale or byte-counted maps unrank the row.",
-      "Runtime semantic validity: a 28-plant Svelte 5 suite (props/state/derived/bindable/bindings/events/each-keyed/await/snippets/stores/actions/context/dynamic components/{@html}/SVG/module script/legacy syntax + CSS semantics) runs per entrypoint per cell in isolated child processes after timing; non-PASS rows unrank, and a failed official reference unrankS every candidate in its compatibility class (no survivor promotion).",
+      "Runtime semantic validity: a 28-plant Svelte 5 suite (props/state/derived/bindable/bindings/events/each-keyed/await/snippets/stores/actions/context/dynamic components/{@html}/SVG/module script/legacy syntax + CSS semantics) runs per entrypoint per cell in isolated child processes after timing; non-PASS rows unrank, and a failed official reference unranks every candidate in the comparison (no survivor promotion).",
       "Tool order is rotated on every warmup and measured run. A row is unranked unless the measured runs cover every active execution position; ranking metric is the median of warmed runs.",
     ],
     freshChildMeasurement: {

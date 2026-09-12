@@ -129,18 +129,8 @@ const SLIM_RULES = [
     desc: "ESLint CLI + eslint-plugin-svelte recommended rules.",
   },
   {
-    re: /^svelte\/compiler 5\.56\.4/,
-    slim: "svelte/compiler 5.56.4",
-    desc: "Pinned official reference for @mrwaip/svelte-rs, which documents parity against Svelte 5.56.4.",
-  },
-  {
-    re: /^svelte\/compiler 5\.56\.8/,
-    slim: "svelte/compiler 5.56.8",
-    desc: "Primary official Svelte compiler reference used by the rsvelte packages in this harness.",
-  },
-  {
     re: /^svelte\/compiler/,
-    slim: "svelte/compiler",
+    slim: null,
     desc: "Official svelte/compiler compile() API, single-threaded.",
   },
   {
@@ -201,7 +191,11 @@ const SLIM_RULES = [
 ];
 
 function slimRuleFor(rawLabel) {
-  return SLIM_RULES.find((r) => r.re.test(String(rawLabel ?? "")));
+  const rule = SLIM_RULES.find((r) => r.re.test(String(rawLabel ?? "")));
+  // Retain the recorded Svelte version without the redundant single-thread tag.
+  return rule?.slim === null
+    ? { ...rule, slim: String(rawLabel).replace(/\s*\(1T\)$/, "") }
+    : rule;
 }
 
 /**
@@ -247,6 +241,7 @@ function classKey(v) {
 }
 
 function classLabel(key) {
+  if (key === "class:svelte") return "Svelte runtime";
   if (key.startsWith("class:")) {
     return `${key.slice("class:".length).toUpperCase()} — separate workload`;
   }
@@ -268,7 +263,7 @@ export function variantClasses(variants = []) {
 }
 
 export const RANKING_RULES =
-  "Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.";
+  "Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — the latest official Svelte compiler is the sole compiler baseline, and a failed reference unranks the whole comparison rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.";
 
 function hasFreshChild(variants) {
   return variants.some((v) => Number.isFinite(v.freshChildMedianMs));

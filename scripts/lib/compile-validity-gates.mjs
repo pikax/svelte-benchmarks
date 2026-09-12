@@ -31,7 +31,6 @@ export const COMPILE_VALIDITY_JSON_PREFIX = "@@SVELTE_COMPILE_VALIDITY@@";
 
 export const COMPILE_VALIDITY_ENTRYPOINTS = [
   "svelte-official",
-  "svelte-mrwaip-reference",
   "mrwaip-svelte-rs",
   "rsvelte-wasm",
   "rsvelte-native",
@@ -155,7 +154,6 @@ function semanticEntrypointForRow(row) {
   if (row.validityEntrypoint) return row.validityEntrypoint;
   const id = String(row.id ?? "");
   if (id.startsWith("svelte-official")) return "svelte-official";
-  if (id.startsWith("svelte-mrwaip-reference")) return "svelte-mrwaip-reference";
   if (id.startsWith("mrwaip")) return "mrwaip-svelte-rs";
   if (id.startsWith("rsvelte-wasm")) return "rsvelte-wasm";
   if (id.startsWith("rsvelte-native")) return "rsvelte-native";
@@ -264,7 +262,7 @@ export function applyCompileValidityGates(variants, compileSemantics, cell) {
         continue;
       markRowUnranked(
         row,
-        `⚠ COMPARISON REFERENCE INVALID — the pinned official reference for class ${cls} did not pass its own gates (${reference.status}); no candidate ratio in the class may rank.`,
+        `⚠ COMPARISON REFERENCE INVALID — the official Svelte reference for class ${cls} did not pass its own gates (${reference.status}); no candidate ratio in the class may rank.`,
       );
     }
   }

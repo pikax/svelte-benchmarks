@@ -9,6 +9,7 @@
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { singleSvelteReference } from "./svelte-reference.mjs";
 
 /** Groups = one docs page each; every group states its own ranking rules. */
 export const GROUPS = Object.freeze([
@@ -123,7 +124,7 @@ function snapshotEntries(dir, { local = false } = {}) {
         ? {
             name,
             file,
-            data,
+            data: singleSvelteReference(data),
             local,
             generatedAt: data.generatedAt ?? "",
             mtime: statSync(file).mtimeMs,

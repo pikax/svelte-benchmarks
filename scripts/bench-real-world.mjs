@@ -223,7 +223,7 @@ dependency installs, project builds, tests, or lifecycle scripts are executed.
       "Rank tools only within the same corpus and surface; never compare throughput across projects or merge rows from different runners.",
       "Real-world runs are source-only: the harness executes no third-party install, build, test, or lifecycle scripts.",
       "Sources are copied without byte changes into a flat, deterministic staging directory. This prevents destructive formatters from touching checkouts; source-only tools do not resolve imports.",
-      "Compile and projection first ask the applicable official reference APIs to accept each raw, unpreprocessed input. Compile eligibility is independent per pinned version class; projection has one official schema. Exclusions are counted and candidate-only failures remain visible.",
+      "Compile and projection first ask the applicable official reference APIs to accept each raw, unpreprocessed input. The latest official Svelte compiler decides compile eligibility for every tool; projection has one official schema. Exclusions are counted and candidate-only failures remain visible.",
       "Compile, projection, format, and lint use the same correctness/coverage gates as generated fixtures. Generated fixtures remain the primary ranking corpus because their planted bugs make those gates controlled.",
       Number.isFinite(args.fileLimit)
         ? `⚠ TRUNCATED: each corpus is the first ${args.fileLimit} paths alphabetically. This is for debugging, not publication.`

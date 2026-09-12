@@ -17,6 +17,7 @@ import { attachMemoryToBench, GROUPS, loadPublished, sourcesForGroup, localRunBa
 import { writeGroupDoc, renderSurfaceWithCharts } from "./lib/docs/render.mjs";
 import { updateReadme } from "./lib/docs/readme.mjs";
 import { RANKING_RULES } from "./lib/report.mjs";
+import { renderMemoryMarkdown } from "./lib/memory-report.mjs";
 
 const rootDir = join(import.meta.dirname, "..");
 
@@ -31,6 +32,7 @@ function write(target, content) {
 
 function generateDocs({ includeLocal = false } = {}) {
   const model = loadPublished(rootDir, process.env, { includeLocal });
+  if (model.memory) write(join(rootDir, "MEMORY.md"), renderMemoryMarkdown(model.memory.data));
 
   // Inject isolated-probe Peak RSS onto the primary bench rows so timing
   // tables carry a memory column without a sampler running beside a timer.

@@ -11,6 +11,10 @@ import {
   buildCompileCellVariants,
 } from "../../scripts/lib/surfaces/compile.mjs";
 import { compileVerterBatch } from "../../scripts/lib/verter-compile.mjs";
+import { pkgVersion } from "../../scripts/lib/versions.mjs";
+import { ENTRYPOINTS } from "../../scripts/lib/compile-validity-child.mjs";
+import { buildMemoryTasks } from "../../scripts/lib/memory-tasks.mjs";
+import { selectSurfaceFiles } from "../../scripts/run-real-world-surface.mjs";
 import { measureVariants } from "../../scripts/lib/timing.mjs";
 import { measureFreshChildVariants } from "../../scripts/lib/compile-fresh-runs.mjs";
 import { applyCompileValidityGates } from "../../scripts/lib/compile-validity-gates.mjs";
@@ -18,6 +22,34 @@ import { COMPILE_VALIDITY_PLANTS, CSS_VALIDITY_PLANTS, COMPILE_VALIDITY_SUITE_HA
 import { unknownCompileValidityResults } from "../../scripts/lib/compile-validity-plants.mjs";
 
 const rootDir = join(import.meta.dirname, "../..");
+
+test("all compilers share one official reference, runtime and revised corpus", async () => {
+  const fixtureDir = mkdtempSync(join(tmpdir(), "svelte-single-reference-"));
+  try {
+    writeFileSync(join(fixtureDir, "Current.svelte"), '<script>let count = $state(0)</script><p>{count}</p>');
+    writeFileSync(join(fixtureDir, "Broken.svelte"), '<script>let =</script>');
+    const selection = await selectSurfaceFiles({ dir: fixtureDir, files: ["Broken.svelte", "Current.svelte"] }, "compile");
+    assert.deepEqual(selection.files, ["Current.svelte"]);
+    assert.deepEqual(selection.excluded.map((r) => r.file), ["Broken.svelte"]);
+    assert.equal(selection.comparisonFiles, undefined);
+    const variants = await buildCompileCellVariants({ generate: "client", env: "production", fixtureDir, files: selection.files });
+    assert.equal(variants.filter((v) => v.package === "svelte").length, 1);
+    assert.equal(variants.filter((v) => v.baseline).length, 1);
+    assert.equal(variants.length, 5);
+    assert.ok(variants.find((v) => v.baseline).label.includes(pkgVersion("svelte")));
+    assert.deepEqual([...new Set(variants.filter((v) => v.package !== "@verter/native").map((v) => v.comparisonClass))], ["svelte"]);
+    const inputs = await Promise.all(variants.map((v) => v.prepare({ phase: "measure", iteration: 0 })));
+    assert.equal(new Set(inputs.map((r) => r.inputSourceHash)).size, 1);
+    assert.ok(inputs.every((r) => r.inputCount === 1));
+    assert.deepEqual([...new Set(Object.values(ENTRYPOINTS).map((v) => v.runtimePackage))], ["svelte"]);
+    assert.equal(Object.values(ENTRYPOINTS).length, 5);
+    const memory = buildMemoryTasks(fixtureDir).filter((r) => r.surface === "compile");
+    assert.equal(memory.filter((r) => r.package === "svelte").length, 1);
+    assert.deepEqual([...new Set(memory.filter((r) => !r.skip).map((r) => r.comparisonClass))], ["svelte-client-production"]);
+  } finally {
+    rmSync(fixtureDir, { recursive: true, force: true });
+  }
+});
 
 test("Verter calls the published runtime-render API with raw inputs and explicit stateless options", () => {
   const source = '<script>let n = $state(0)</script><p>{n}</p>';
@@ -39,7 +71,7 @@ test("installed Verter publishes warm/fresh diagnostic timings and invalid outpu
   const fixtureDir = mkdtempSync(join(tmpdir(), "svelte-verter-compile-"));
   try {
     writeFileSync(join(fixtureDir, "Counter.svelte"), '<script>let count = $state(0);</script><p>{count}</p>');
-    const payload = { generate: "client", env: "production", fixtureDir, classes: [{ id: "svelte-5.56.8", files: ["Counter.svelte"] }] };
+    const payload = { generate: "client", env: "production", fixtureDir, files: ["Counter.svelte"] };
     const variants = await buildCompileCellVariants(payload);
     const verter = variants.find((v) => v.id.startsWith("verter-"));
     assert.equal(verter.skip, undefined);
@@ -67,7 +99,7 @@ test("installed Verter publishes warm/fresh diagnostic timings and invalid outpu
 });
 
 test("revision tokens are fixed-width and unique per pass", () => {
-  const salt = compileCellSalt("client-prod", "svelte-5.56.8");
+  const salt = compileCellSalt("client-prod", "svelte");
   const warmup = revisionToken(salt, { phase: "warmup", iteration: 0 });
   const measure0 = revisionToken(salt, { phase: "measure", iteration: 0 });
   const measure1 = revisionToken(salt, { phase: "measure", iteration: 1 });
@@ -79,12 +111,12 @@ test("revision tokens are fixed-width and unique per pass", () => {
   assert.equal(measure0.length, measure1.length);
   // Cell/class salts differ so classes cannot lend each other cache entries.
   assert.notEqual(
-    compileCellSalt("client-prod", "svelte-5.56.8"),
-    compileCellSalt("client-prod", "svelte-5.56.4"),
+    compileCellSalt("client-prod", "svelte"),
+    compileCellSalt("client-prod", "experimental"),
   );
   assert.notEqual(
-    compileCellSalt("client-prod", "svelte-5.56.8"),
-    compileCellSalt("server-prod", "svelte-5.56.8"),
+    compileCellSalt("client-prod", "svelte"),
+    compileCellSalt("server-prod", "svelte"),
   );
 });
 
@@ -169,7 +201,7 @@ test("validity gates: missing verdict, FAIL, and source-map-on all unrank", () =
   const semantics = { matrix };
   const rows = [
     { id: "svelte-official-1t-client-prod", label: "official", status: "ok", throughput: "x", notes: "", baseline: true },
-    { id: "mrwaip-svelte-rs-client-prod", label: "mrwaip", status: "ok", throughput: "x", notes: "", comparisonClass: "svelte-5.56.4", baseline: true },
+    { id: "mrwaip-svelte-rs-client-prod", label: "mrwaip", status: "ok", throughput: "x", notes: "",  },
     { id: "rsvelte-wasm-1t-client-prod", label: "wasm", status: "ok", throughput: "x", notes: "" },
     { id: "rsvelte-native-1t-client-prod", label: "native", status: "ok", throughput: "x", notes: "" },
     { id: "svelte-official-1t-client-prod-smon", label: "official sm", status: "ok", throughput: "x", notes: "", sourceMap: true },
@@ -181,7 +213,7 @@ test("validity gates: missing verdict, FAIL, and source-map-on all unrank", () =
   });
   // official PASSes with an affirmative note
   assert.match(rows[0].notes, /✓ runtime semantic validity/);
-  // mrwaip FAILs its own plants AND is its class reference → class invalid
+  // mrwaip FAILs its own plants against the same official reference
   assert.equal(rows[1].status, "unranked");
   assert.match(rows[1].notes, /RUNTIME SEMANTIC VALIDITY FAIL/);
   // wasm/native have NO verdict for their entrypoint → UNKNOWN, unranked

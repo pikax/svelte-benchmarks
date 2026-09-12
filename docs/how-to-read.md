@@ -5,7 +5,8 @@
 - A suite with fewer runs than active variants cannot cover every execution position; those diagnostic timings are bracketed and unranked.
 - Name markers: **⚠** measured but unranked · **❌** measurement error · **⏭** skipped or unavailable.
 - Charts use the Vue benchmark renderer with stable colours for each tool family (Svelte orange, rsvelte blue, Verter red). Compiler range bars show **warm median** in solid fill and **fresh child** in lighter fill, both starting at zero. Values label both endpoints; hatched bars and struck names are unranked. Skipped and errored tools stay visible in the tables without an invented timing.
-- The README shows production compiler workloads with separate charts for each compatibility class. Expand a timing table for ratios and memory, or follow the full-results link for development builds, notes, and validation evidence. A class with fewer than two valid measurements has no speed ratio.
+- The README shows production compiler workloads against one latest official Svelte reference. Expand a timing table for ratios and memory, or follow the full-results link for development builds, notes, and validation evidence. A class with fewer than two valid measurements has no speed ratio.
+- Historical results tied to a retired Svelte reference show as awaiting a rerun. Their original samples stay in the source JSON; they are not reused as evidence for the current runtime.
 - A bracketed time remains useful evidence, but it is excluded from `vs fastest` and throughput comparisons.
 - **(JS)** identifies the JavaScript TypeScript engine. Untagged native rows may use tsgo; cross-engine ratios include that difference.
 - CLI, in-process, thread count, and cache mode are row properties. Compare like modes before attributing a difference to the tool implementation.

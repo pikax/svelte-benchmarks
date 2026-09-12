@@ -59,16 +59,6 @@ async function compile(payload) {
         css: "external",
         runes: true,
       });
-  } else if (payload.implementation === "svelte-mrwaip-reference") {
-    const module = await import("svelte-mrwaip-reference/compiler");
-    compileOne = (file) =>
-      module.compile(file.source, {
-        filename: file.filename,
-        generate: "client",
-        dev: false,
-        css: "external",
-        runes: true,
-      });
   } else if (payload.implementation === "mrwaip") {
     const module = await import("@mrwaip/svelte-rs/compiler");
     compileOne = (file) =>

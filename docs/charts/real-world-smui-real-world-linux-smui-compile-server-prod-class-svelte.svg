@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200" role="img" aria-label="Compiler — SERVER · production · SVELTE-5.56.8">
-  <title>Compiler — SERVER · production · SVELTE-5.56.8 (lower is better)</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200" role="img" aria-label="Compiler — SERVER · production · Svelte runtime">
+  <title>Compiler — SERVER · production · Svelte runtime (lower is better)</title>
   <style><![CDATA[
     text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
   ]]></style>
 
-  <text fill="#1f2328" x="16" y="20" font-size="15" font-weight="600">Compiler — SERVER · production · SVELTE-5.56.8</text>
+  <text fill="#1f2328" x="16" y="20" font-size="15" font-weight="600">Compiler — SERVER · production · Svelte runtime</text>
   <text fill="#59636e" x="16" y="36" font-size="11">lower is better</text>
   <rect x="146" y="33" width="10" height="10" rx="2" fill="#1f2328"/>
   <text fill="#59636e" x="160" y="42" font-size="11">warm</text>
@@ -38,7 +38,7 @@
       <line x1="474.8057943187689" y1="104" x2="474.8057943187689" y2="128" stroke="#ffffff" stroke-width="2" stroke-opacity="0.9"/>
       <text fill="#ffffff" x="256" y="121" font-size="12" font-weight="600">416 ms warm / 445 ms fresh child</text>
   <text fill="#59636e" x="16" y="157" font-size="11">3</text>
-      <text fill="#1f2328" x="36" y="157" font-size="13">svelte/compiler 5.56.8</text>
+      <text fill="#1f2328" x="36" y="157" font-size="13">svelte/compiler 5.57.0</text>
 
       <rect x="248" y="141" width="402" height="22" rx="5" fill="#afb8c133"/>
       <rect x="248" y="141" width="402.0" height="22" rx="5" fill="#e34b20" fill-opacity="0.38"/>

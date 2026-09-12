@@ -18,9 +18,11 @@ import {
 } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { pkgVersion } from "../lib/versions.mjs";
 
 const rootDir = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const e2eRoot = join(rootDir, "fixtures", "e2e");
+const svelteVersion = pkgVersion("svelte");
 
 /** Planted hover marker — same identifier as the LSP surface. */
 export const PROBE_SYMBOL = "benchMarker";
@@ -86,7 +88,7 @@ function writeSvelteProjectFiles(dir, { name }) {
         private: true,
         type: "module",
         name,
-        dependencies: { svelte: "5.56.8" },
+        dependencies: { svelte: svelteVersion },
       },
       null,
       2,
@@ -171,7 +173,7 @@ function setupMonorepo() {
         type: "module",
         name: "@e2e/ui",
         exports: { "./Button.svelte": "./src/Button.svelte" },
-        dependencies: { svelte: "5.56.8" },
+        dependencies: { svelte: svelteVersion },
       },
       null,
       2,
@@ -198,7 +200,7 @@ function setupMonorepo() {
         private: true,
         type: "module",
         name: "@e2e/app",
-        dependencies: { "@e2e/ui": "workspace:*", svelte: "5.56.8" },
+        dependencies: { "@e2e/ui": "workspace:*", svelte: svelteVersion },
       },
       null,
       2,

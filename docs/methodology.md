@@ -58,7 +58,7 @@ The matrix is:
 - target: `client` or `server`;
 - environment: `production` or `development`;
 
-Within a pinned compiler-version class, every row compiles the same in-memory sources in a cell. Real-world eligibility is established independently by that class's official compiler, and the report shows each row's file count. Each input must return its own non-empty code artifact; a large aggregate from only part of the corpus is not accepted as coverage.
+Every compiler row compiles the same in-memory sources in a cell. The latest official Svelte compiler establishes real-world eligibility for every tool, and the report shows each row's file count. Each input must return its own non-empty code artifact; a large aggregate from only part of the corpus is not accepted as coverage.
 
 Compared paths:
 
@@ -68,7 +68,7 @@ Compared paths:
 - `@rsvelte/vite-plugin-svelte-native` NAPI bindings;
 - Verter's published `compileMany` entrypoint runs on the same revised Svelte inputs (`runtime-render`, stateless, one CPU thread). Its warm and fresh-child timings are retained as **unranked diagnostic evidence**, including invalid/empty output and per-file compilation errors. The report records output-validation failures, representative output, error counts, and runtime/source-map plant verdicts. Missing packages/APIs are skipped; a batch that throws is reported as an error. A successful API call is not evidence of valid Svelte output.
 
-Compile version classes are explicit. rsvelte is ranked with the primary `svelte@5.56.8` reference. MrWaip documents parity against `svelte@5.56.4`, so the harness installs that exact official version under `svelte-mrwaip-reference` and ranks those two together. A skipped Verter row is not mixed into either version ranking.
+The latest official Svelte release is the sole compiler baseline and runtime. Its exact version is pinned in the root dependency for reproducibility and read from the installed package for labels and generated workspaces. MrWaip and rsvelte must pass against that same runtime; compatibility with an older release does not qualify a result for ranking. Verter remains a timed, unranked diagnostic pass.
 
 Every compiler output must parse as JavaScript, emit the expected Svelte client/server runtime import, retain the fixture's unique marker, match the applicable official reference's external-CSS presence, and must not leave a `$state(...)` call uncompiled. Production and development output must differ. Matching reference CSS avoids mistaking an SVG-internal `<style>` element for a component stylesheet. The rsvelte Wasm matrix uses the option-bearing `compile()` API; its `compile_client`/`compile_server` convenience calls are not used because they cannot represent the shared dev and CSS options.
 
@@ -158,7 +158,7 @@ Memory is never sampled inside a speed benchmark. Each tool/sample runs in a fre
 
 Peak RSS delta is the primary resource number. Retained deltas describe memory still live or mapped after work; native allocator pages that remain mapped are not automatically leaks. CPU and wall time are emitted only as diagnostic context because explicit GC and resource isolation perturb timing. No resource report computes a speed ratio.
 
-Compile resource rows use client/production/external-CSS options and stay inside their pinned Svelte compiler-version classes. Projection keeps the svelte2tsx-compatible implementations separate from Verter's IDE projection schema. Verter's unranked compiler timings and invalid-output evidence live in the compiler report; its isolated compiler memory probe remains unsampled until runtime output is validated.
+Compile resource rows use client/production/external-CSS options and use the same latest official Svelte reference. Projection keeps the svelte2tsx-compatible implementations separate from Verter's IDE projection schema. Verter's unranked compiler timings and invalid-output evidence live in the compiler report; its isolated compiler memory probe remains unsampled until runtime output is validated.
 
 Published resource reports are Linux-only and require at least three isolated samples per tool. The speed and memory CI jobs use separate runners and artifacts, so their values must not be correlated as if captured during one execution.
 
@@ -190,7 +190,7 @@ Tags are paired with expected 40-character commit SHAs. Fetch fails if a tag mov
 
 Real-world runs are source-only. No third-party dependency, install script, build, test, or lifecycle hook is executed. Sources are copied byte-for-byte into a deterministic flat staging directory so destructive formatters cannot mutate checkouts. Compile, projection, format, and lint do not resolve project imports, so flattening changes filenames but not the measured source bytes.
 
-Project preprocessors are not installed. Before compile and projection timing, the corresponding official reference APIs are run over every raw source. Projection uses one official schema. Each compile version class uses only the files accepted by its own pinned official compiler; rejection by the older reference cannot shrink the newer class. Exclusions and per-row file counts are reported. This defines the direct-API workload without hiding a failure unique to a candidate implementation.
+Project preprocessors are not installed. Before compile and projection timing, the corresponding official reference APIs are run over every raw source. Projection uses one official schema. All compilers receive the same files accepted by the latest official Svelte compiler. Exclusions and per-row file counts are reported. This defines the direct-API workload without hiding a failure unique to a candidate implementation.
 
 The workflow shards by project, never by surface: every tool and surface for one project stays on one runner. Rankings are within one project and one surface only. A `--file-limit` takes an alphabetical prefix and is marked as truncated; published runs use complete corpora.
 

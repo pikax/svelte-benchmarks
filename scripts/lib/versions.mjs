@@ -7,7 +7,7 @@ import { runCommand, resolveBin } from "./timing.mjs";
 const require = createRequire(import.meta.url);
 const rootDir = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
-function pkgVersion(name, fallback = "unknown") {
+export function pkgVersion(name, fallback = "unknown") {
   const direct = join(
     rootDir,
     "node_modules",
@@ -72,7 +72,6 @@ export function collectVersions() {
   return {
     node: process.version,
     svelte: pkgVersion("svelte"),
-    "svelte-mrwaip-reference": pkgVersion("svelte-mrwaip-reference"),
     "svelte-check": pkgVersion("svelte-check"),
     "svelte-check-rs": pkgVersion("svelte-check-rs"),
     "svelte-check-native": pkgVersion("svelte-check-native"),

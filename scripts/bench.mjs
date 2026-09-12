@@ -36,7 +36,7 @@ function parseArgs(argv) {
     fixture: "fixtures/200",
     surfaces:
       "compile,projection,typecheck,format,lint,component-meta,lsp,lsp-format",
-    runs: 6,
+    runs: 5,
     warmups: 1,
     fileLimit: Infinity,
     checkFileLimit: 200,
@@ -166,7 +166,7 @@ async function main() {
 Options:
   --fixture PATH           Fixture directory (default: fixtures/200 UNIQUE)
   --surfaces LIST          compile,projection,typecheck,format,lint,component-meta,lsp,lsp-format,bundle,hmr
-  --runs N                 Measured runs (default: 6)
+  --runs N                 Measured runs (default: 5)
   --warmups N              Discarded warmup runs (default: 1, minimum: 1)
   --file-limit N           Max files for compile/format/lint
   --check-file-limit N     Max SFCs for typecheck (default: 200)
