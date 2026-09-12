@@ -8,6 +8,7 @@ import ts from "typescript";
 import { render } from "svelte/server";
 import { createSuite } from "../lib/harness.mjs";
 import { runCompileValidityChildren } from "../../../scripts/lib/compile-validity-gates.mjs";
+import { loadRsvelteWasm } from "../../../scripts/lib/rsvelte-wasm.mjs";
 
 const require = createRequire(import.meta.url);
 const rootDir = join(dirname(fileURLToPath(import.meta.url)), "../../..");
@@ -42,15 +43,7 @@ export async function runCompileSuite() {
   };
   const official = await import("svelte/compiler");
   const mrwaip = await import("@mrwaip/svelte-rs/compiler");
-  const wasm = await import("@rsvelte/compiler");
-  const wasmPackage = require.resolve("@rsvelte/compiler/package.json", {
-    paths: [rootDir],
-  });
-  const wasmBytes = readFileSync(
-    join(dirname(wasmPackage), "rsvelte_lint_bg.wasm"),
-  );
-  if (typeof wasm.initSync === "function") wasm.initSync({ module: wasmBytes });
-  else await wasm.default({ module: wasmBytes });
+  const wasm = await loadRsvelteWasm();
   const native = require("@rsvelte/vite-plugin-svelte-native");
   const implementations = [
     ["svelte", official.compile],

@@ -1,72 +1,6 @@
 {
   "$comment": "Keys are suite/case/tool. Entries may be scoped with platforms (array) and path (combined|per-case). A listed failure that starts passing is STALE and fails CI — remove it when the upstream limitation clears. An entry never turns a benchmark validity failure into a ranked PASS.",
   "$comment-discipline": "Expected still failing = accepted+reported; expected passing = stale = exit 1; unexpected failure = exit 1. Package upgrades re-run every plant automatically (versions are exactly pinned in package.json).",
-  "typecheck/script-type-error/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
-  "typecheck/template-wrong-boolean/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
-  "typecheck/missing-required-prop/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
-  "typecheck/wrong-prop-type/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
-  "typecheck/unknown-prop/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
-  "typecheck/bind-value-type/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
-  "typecheck/snippet-parameter-type/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
-  "typecheck/each-destructuring-type/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
-  "typecheck/store-type-flow/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
-  "typecheck/clean-component/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
-  "typecheck/clean-generics/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
-  },
   "typecheck/script-type-error/verter-tsc": {
     "why": "The experimental Verter TypeScript carrier does not yet report the shared Svelte plant grammar."
   },
@@ -75,12 +9,6 @@
   },
   "format/coverage/oxfmt": {
     "why": "The pinned Oxfmt release excludes .svelte files; the gate prevents timing a no-op."
-  },
-  "typecheck/callback-prop-type/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
   },
   "typecheck/missing-required-prop/svelte-check-rs": {
     "why": "svelte-check-rs reports the missing-required-prop error without a usable location (line 0), so pin-based scoring cannot accept it."
@@ -111,11 +39,5 @@
   },
   "typecheck/store-type-flow/verter-tsc": {
     "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
-  "typecheck/discriminated-union-narrowing/rsvelte-check": {
-    "platforms": [
-      "win32"
-    ],
-    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
   }
 }

@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { measureMemory } from "./lib/memory.mjs";
+import { loadRsvelteWasm } from "./lib/rsvelte-wasm.mjs";
 
 const require = createRequire(import.meta.url);
 
@@ -92,18 +93,7 @@ async function compile(payload) {
         runes: true,
       });
   } else if (payload.implementation === "rsvelte-wasm") {
-    const module = await import("@rsvelte/compiler");
-    const packageJson = require.resolve("@rsvelte/compiler/package.json");
-    const wasm = readFileSync(
-      join(dirname(packageJson), "rsvelte_lint_bg.wasm"),
-    );
-    if (typeof module.initSync === "function")
-      module.initSync({ module: wasm });
-    else if (typeof module.default === "function") {
-      await module.default({ module: wasm });
-    } else if (typeof module.initialize === "function") {
-      await module.initialize();
-    }
+    const module = await loadRsvelteWasm();
     const fn = module.compile ?? module.compile_client ?? module.compileClient;
     if (typeof fn !== "function")
       throw new Error("Wasm compile API unavailable");

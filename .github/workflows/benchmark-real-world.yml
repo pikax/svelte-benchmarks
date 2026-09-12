@@ -83,7 +83,7 @@ jobs:
       - name: Harness self-tests
         run: pnpm test:harness
       - name: Restore pinned checkout cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: fixtures/real/${{ matrix.project }}
           key: svelte-real-v1-${{ matrix.project }}-${{ hashFiles('scripts/lib/real-world/projects.mjs') }}
@@ -142,7 +142,7 @@ jobs:
           ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: pnpm/action-setup@v6
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           pattern: results-real-world-*
           merge-multiple: true

@@ -69,6 +69,24 @@ export function parseDiagnostics(rawText) {
       });
       continue;
     }
+    // rsvelte-check 0.5.28+ single-line grammar:
+    //   ERROR <file>:<line>:<col> (ts): <message>
+    const rsvelteCheck =
+      /^ERROR\s+(\S+\.(?:svelte|ts)):(\d+):(\d+)\s+\((ts|js|svelte)\):\s*(.*)$/i.exec(
+        line,
+      );
+    if (rsvelteCheck) {
+      diagnostics.push({
+        file: rsvelteCheck[1].replaceAll("\\", "/"),
+        line: Number(rsvelteCheck[2]),
+        col: Number(rsvelteCheck[3]),
+        severity: "error",
+        code: rsvelteCheck[4].toUpperCase(),
+        message: rsvelteCheck[5],
+        raw: line,
+      });
+      continue;
+    }
     const rsvelte = /^error:(\d+):(\d+)\s+\[(TS\d+)\]\s*(.*)$/i.exec(line);
     if (rsvelte) {
       diagnostics.push({

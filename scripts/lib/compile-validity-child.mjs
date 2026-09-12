@@ -15,6 +15,7 @@
  * times.
  */
 import { createRequire } from "node:module";
+import { loadRsvelteWasm } from "./rsvelte-wasm.mjs";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -88,15 +89,7 @@ async function loadCompiler(entrypoint) {
     return (await import("@mrwaip/svelte-rs/compiler")).compile;
   }
   if (entrypoint === "rsvelte-wasm") {
-    const wasm = await import("@rsvelte/compiler");
-    const pkgJson = require.resolve("@rsvelte/compiler/package.json", {
-      paths: [rootDir],
-    });
-    const wasmBytes = readFileSync(
-      join(dirname(pkgJson), "rsvelte_lint_bg.wasm"),
-    );
-    if (typeof wasm.initSync === "function") wasm.initSync({ module: wasmBytes });
-    else await wasm.default({ module: wasmBytes });
+    const wasm = await loadRsvelteWasm();
     if (typeof wasm.compile !== "function") throw new Error("no compile export");
     return (source, options) => {
       const out = wasm.compile(source, options);

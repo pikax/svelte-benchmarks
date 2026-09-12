@@ -6,6 +6,7 @@ import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { collectSvelteFiles, readSources, totalBytes } from "../fixtures.mjs";
 import { measureVariants, timedSync, timedAsync } from "../timing.mjs";
+import { loadRsvelteWasm } from "../rsvelte-wasm.mjs";
 import { measureFreshChildVariants } from "../compile-fresh-runs.mjs";
 import {
   applyCompileValidityGates,
@@ -282,24 +283,11 @@ async function loadImplementations() {
     };
   }
 
-  // rsvelte wasm — prefer initSync with the bundled .wasm bytes so Node does
-  // not try to fetch() a file: URL (which fails under undici on Node 22+).
+  // rsvelte wasm — shared loader (binary name changed across releases).
   let rsvelteWasm = null;
   let rsvelteWasmError = null;
   try {
-    rsvelteWasm = await import("@rsvelte/compiler");
-    const pkgJson = require.resolve("@rsvelte/compiler/package.json", {
-      paths: [rootDir],
-    });
-    const wasmPath = join(dirname(pkgJson), "rsvelte_lint_bg.wasm");
-    const wasmBytes = readFileSync(wasmPath);
-    if (typeof rsvelteWasm.initSync === "function") {
-      rsvelteWasm.initSync({ module: wasmBytes });
-    } else if (typeof rsvelteWasm.default === "function") {
-      await rsvelteWasm.default({ module: wasmBytes });
-    } else if (typeof rsvelteWasm.init === "function") {
-      await rsvelteWasm.init({ module: wasmBytes });
-    }
+    rsvelteWasm = await loadRsvelteWasm();
   } catch (error) {
     rsvelteWasmError = error instanceof Error ? error.message : String(error);
   }

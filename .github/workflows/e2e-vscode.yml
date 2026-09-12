@@ -53,7 +53,7 @@ jobs:
         run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
 
       - name: Cache VS Code download
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .vscode-test
           key: vscode-test-${{ runner.os }}-stable-${{ steps.cache-period.outputs.month }}
@@ -61,7 +61,7 @@ jobs:
             vscode-test-${{ runner.os }}-stable-
 
       - name: Cache marketplace extensions
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.vscode/extensions
           key: svelte-vscode-exts-${{ runner.os }}-${{ github.event.inputs.svelte_extension }}-${{ github.event.inputs.verter_extension }}

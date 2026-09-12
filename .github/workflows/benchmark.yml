@@ -58,7 +58,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Cache node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: node_modules
           key: ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-${{ github.sha }}
@@ -95,7 +95,7 @@ jobs:
           cache: pnpm
 
       - name: Restore node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: node_modules
           key: ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-${{ github.sha }}
@@ -108,7 +108,7 @@ jobs:
           test -d node_modules/.bin
 
       - name: Download fixtures
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: fixtures-bench-linux
           path: fixtures
@@ -173,7 +173,7 @@ jobs:
           cache: pnpm
 
       - name: Restore node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: node_modules
           key: ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-${{ github.sha }}
@@ -186,7 +186,7 @@ jobs:
           test -d node_modules/.bin
 
       - name: Download fixtures
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: fixtures-bench-linux
           path: fixtures
@@ -233,7 +233,7 @@ jobs:
           cache: pnpm
 
       - name: Restore node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: node_modules
           key: ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-${{ github.sha }}
@@ -298,7 +298,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Download all result artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           pattern: results-*
           merge-multiple: true
