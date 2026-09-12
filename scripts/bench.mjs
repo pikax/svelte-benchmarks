@@ -10,6 +10,7 @@
  * Tool order is rotated on every warmup and measured run.
  */
 
+import { execSync } from "node:child_process";
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import { dirname, join, resolve } from "node:path";
@@ -42,6 +43,7 @@ function parseArgs(argv) {
     lintFileLimit: Infinity,
     compileTargets: "client,server",
     compileEnvs: "production,development",
+    compileSourceMaps: "off",
     json: "",
     out: "",
     work: "work",
@@ -77,6 +79,9 @@ function parseArgs(argv) {
       case "--compile-envs":
         args.compileEnvs = next();
         break;
+      case "--compile-sourcemaps":
+        args.compileSourceMaps = next();
+        break;
       case "--json":
         args.json = next();
         break;
@@ -105,6 +110,47 @@ function githubRunUrl() {
   return `${server}/${repo}/actions/runs/${runId}`;
 }
 
+/**
+ * Reproducibility record. `dirty` marks a non-clean worktree: a dirty run is
+ * never publishable as a reference number because its exact source does not
+ * exist anywhere.
+ */
+function benchmarkCommit() {
+  const sha = process.env.GITHUB_SHA ?? "";
+  return {
+    sha,
+    ref: process.env.GITHUB_REF_NAME ?? "",
+    repository: process.env.GITHUB_REPOSITORY ?? "",
+    runUrl: githubRunUrl(),
+    dirty: gitDirty(),
+    shaLocal: sha ? "" : gitSha(),
+  };
+}
+
+function gitSha() {
+  try {
+    return execSync("git rev-parse HEAD", { cwd: rootDir, encoding: "utf8" }).trim();
+  } catch {
+    return "";
+  }
+}
+
+function gitDirty() {
+  try {
+    return execSync("git status --porcelain", { cwd: rootDir, encoding: "utf8" }).trim().length > 0;
+  } catch {
+    return null; // unknown, not claimed clean
+  }
+}
+
+function pnpmVersion() {
+  try {
+    return execSync("pnpm --version", { cwd: rootDir, encoding: "utf8" }).trim();
+  } catch {
+    return "unknown";
+  }
+}
+
 function countVariants(surface) {
   if (Array.isArray(surface.groups)) {
     return surface.groups.flatMap((g) => g.variants ?? []);
@@ -127,6 +173,7 @@ Options:
   --lint-file-limit N      Max SFCs for lint (default: all)
   --compile-targets LIST   client,server (SFC compile only)
   --compile-envs LIST      production,development
+  --compile-sourcemaps LIST accepted for compatibility; ignored — Svelte compilers always emit maps (no honest off/on dimension exists)
   --json FILE              Write JSON
   --out FILE               Write markdown
   --work DIR               Work directory
@@ -201,6 +248,7 @@ Corpus notes:
       : fileCount || Infinity,
     compileTargets: args.compileTargets,
     compileEnvs: args.compileEnvs,
+    compileSourceMaps: args.compileSourceMaps,
     workRoot,
   };
 
@@ -270,6 +318,7 @@ Corpus notes:
       lintFileLimit: options.lintFileLimit,
       compileTargets: options.compileTargets,
       compileEnvs: options.compileEnvs,
+      compileSourceMaps: options.compileSourceMaps,
       surfaces: surfaceIds,
     },
     runner: {
@@ -282,12 +331,8 @@ Corpus notes:
       totalmem: os.totalmem(),
       node: process.version,
     },
-    commit: {
-      sha: process.env.GITHUB_SHA ?? "",
-      ref: process.env.GITHUB_REF_NAME ?? "",
-      repository: process.env.GITHUB_REPOSITORY ?? "",
-      runUrl: githubRunUrl(),
-    },
+    commit: benchmarkCommit(),
+    pnpm: pnpmVersion(),
     versions: collectVersions(),
     methodology: buildMethodologyNotes(),
     surfaces,

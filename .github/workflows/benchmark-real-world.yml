@@ -125,28 +125,42 @@ jobs:
           retention-days: 30
 
   update-readme:
-    name: Publish real-world summaries
+    name: Publish real-world snapshots + docs
     needs: project
+    # Full-corpus runs only (a --projects/--file-limit dispatch is a probe and
+    # must never become the published reference dataset). Partial-safe: any
+    # successful project publishes; a failed project's PREVIOUS snapshot is
+    # preserved by publish-ci-results' latest-run-only semantics per side.
     if: github.ref == 'refs/heads/main' && needs.project.result == 'success' && github.event.inputs.projects == '' && github.event.inputs.file_limit == ''
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v7
         with:
           ref: main
-      - uses: actions/download-artifact@v4
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: pnpm/action-setup@v6
+      - uses: actions/download-artifact@v7
         with:
           pattern: results-real-world-*
           merge-multiple: true
-          path: results
+          path: results-dl
       - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
-      - name: Update README and full reports
-        run: node scripts/update-readme.mjs --dir results
-      - name: Commit published results
+          cache: pnpm
+      - name: Install dependencies (docs generation only)
+        run: pnpm install --frozen-lockfile
+      # Snapshot raw JSON first, then generate docs from it; ONE commit.
+      - name: Snapshot latest real-world artifacts
+        run: node scripts/publish-ci-results.mjs --from ./results-dl --scope real-world
+      - name: Generate README blocks + docs/ from the JSON snapshots
+        run: node scripts/generate-docs.mjs
+      - name: Commit published results (single commit, skip ci)
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: publish real-world benchmark results [skip ci]"
-          file_pattern: README.md docs/results/*.md
+          commit_options: "--no-verify --quiet"
+          file_pattern: README.md docs/*.md docs/charts/*.svg results/real_world/*

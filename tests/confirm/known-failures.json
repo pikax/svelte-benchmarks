@@ -1,16 +1,121 @@
 {
-  "$comment": "Keys are suite/case/tool. A listed failure that starts passing is stale and fails CI.",
-  "typecheck/plants/rsvelte-check": {
-    "platforms": ["win32"],
-    "reason": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  "$comment": "Keys are suite/case/tool. Entries may be scoped with platforms (array) and path (combined|per-case). A listed failure that starts passing is STALE and fails CI — remove it when the upstream limitation clears. An entry never turns a benchmark validity failure into a ranked PASS.",
+  "$comment-discipline": "Expected still failing = accepted+reported; expected passing = stale = exit 1; unexpected failure = exit 1. Package upgrades re-run every plant automatically (versions are exactly pinned in package.json).",
+  "typecheck/script-type-error/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
   },
-  "typecheck/plants/verter-tsc": {
-    "reason": "The experimental Verter TypeScript carrier does not yet report both shared Svelte plants."
+  "typecheck/template-wrong-boolean/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
   },
-  "lint/html-plant/verter": {
-    "reason": "Verter does not expose the shared raw-HTML diagnostic through this host API yet."
+  "typecheck/missing-required-prop/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
   },
-  "format/markup-rewrite/oxfmt": {
-    "reason": "The pinned Oxfmt release excludes .svelte files; the gate prevents timing a no-op."
+  "typecheck/wrong-prop-type/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  },
+  "typecheck/unknown-prop/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  },
+  "typecheck/bind-value-type/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  },
+  "typecheck/snippet-parameter-type/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  },
+  "typecheck/each-destructuring-type/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  },
+  "typecheck/store-type-flow/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  },
+  "typecheck/clean-component/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  },
+  "typecheck/clean-generics/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  },
+  "typecheck/script-type-error/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not yet report the shared Svelte plant grammar."
+  },
+  "lint/html-injection/verter": {
+    "why": "Verter does not expose the shared raw-HTML diagnostic through this host API yet."
+  },
+  "format/coverage/oxfmt": {
+    "why": "The pinned Oxfmt release excludes .svelte files; the gate prevents timing a no-op."
+  },
+  "typecheck/callback-prop-type/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
+  },
+  "typecheck/missing-required-prop/svelte-check-rs": {
+    "why": "svelte-check-rs reports the missing-required-prop error without a usable location (line 0), so pin-based scoring cannot accept it."
+  },
+  "typecheck/template-wrong-boolean/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "typecheck/missing-required-prop/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "typecheck/wrong-prop-type/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "typecheck/unknown-prop/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "typecheck/callback-prop-type/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "typecheck/snippet-parameter-type/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "typecheck/each-destructuring-type/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "typecheck/discriminated-union-narrowing/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "typecheck/store-type-flow/verter-tsc": {
+    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
+  },
+  "typecheck/discriminated-union-narrowing/rsvelte-check": {
+    "platforms": [
+      "win32"
+    ],
+    "why": "The published Windows tsgo backend currently cannot spawn as a Win32 executable."
   }
 }

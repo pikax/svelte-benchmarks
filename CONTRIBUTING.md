@@ -25,7 +25,9 @@ pnpm smoke
 
 CI is Linux-only. Run the same commands locally if Windows or macOS behavior matters.
 
-Do not commit generated `fixtures/**`, local `results/**`, `work/**`, `work-real/**`, or `node_modules/` content. The tracked `.gitkeep` files and Linux reports published by CI are the exceptions.
+Do not commit generated `fixtures/**`, local `results/**` root files, `work/**`, `work-real/**`, or `node_modules/` content. The exceptions are the tracked `.gitkeep`/`README.md` markers and the canonical Linux snapshot directories `results/benchmarks/` and `results/real_world/`, which are written only by the CI publish job.
+
+Generated documentation (README marker blocks, docs pages, charts) comes from `pnpm docs` reading those snapshots — never hand-maintain a benchmark table. `pnpm docs:local` renders local runs behind banners and can never displace published reference numbers.
 
 ## Fairness rules
 
@@ -55,8 +57,8 @@ These rules are adapted from `vue-benchmarks` and apply to every ranked surface:
 | `tests/harness/`                             | Self-tests for measurement, validation, and reporting rules |
 | `tests/confirm/`                             | Untimed correctness checks against real Svelte tools        |
 | `.github/workflows/test.yml`                 | Harness and correctness validation on PRs and `main`        |
-| `.github/workflows/pr.yml`                   | Non-publishing PR throughput smoke                          |
-| `.github/workflows/benchmark.yml`            | Manual generated-corpus measurement and publishing          |
+| `.github/workflows/pr.yml`                   | Non-publishing PR validation: harness self-tests + smoke    |
+| `.github/workflows/benchmark.yml`            | Manual measurement (bench/memory/confirm) + partial-safe publish |
 | `.github/workflows/benchmark-real-world.yml` | Manual per-project source measurement and publishing        |
 | `.github/workflows/e2e-vscode.yml`           | Manual Svelte VS Code extension-host measurement            |
 
@@ -79,3 +81,9 @@ The generated benchmark deliberately keeps all tools and surfaces in one job. Th
 ## License
 
 Contributions are licensed under the [MIT License](LICENSE).
+
+## Publishing workflow
+
+1. A maintainer dispatches `benchmark.yml` (and/or `benchmark-real-world.yml`) on `main`.
+2. The publish job snapshots raw JSON into `results/benchmarks/` / `results/real_world/` (`scripts/publish-ci-results.mjs`), regenerates docs (`scripts/generate-docs.mjs`), and creates exactly one `[skip ci]` commit. A failed job never replaces good published content.
+3. Locally, `pnpm pull:ci-results` + `pnpm docs` reproduce the same pages from CI artifacts.

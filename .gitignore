@@ -18,9 +18,13 @@ node_modules/
 /work-real/
 /work-real-*/
 
-# Local and CI report outputs (README markers hold published summaries)
+# Local and CI report outputs stay run-local; ONLY the canonical snapshot
+# directories below are committed (JSON evidence for generated docs).
 /results/*
 !/results/.gitkeep
+!/results/README.md
+!/results/benchmarks/
+!/results/real_world/
 
 # VS Code test runner download cache
 .vscode-test/

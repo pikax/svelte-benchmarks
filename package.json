@@ -52,8 +52,6 @@
     "bench:ide": "node scripts/ide-bench.mjs",
     "bench:ide:list": "node scripts/ide-bench.mjs --list",
     "bench:ide:quick": "node scripts/ide-bench.mjs --suite hover,formatting --server all --runs 1",
-    "update-readme": "node scripts/update-readme.mjs",
-    "update-memory-readme": "node scripts/update-memory-readme.mjs",
     "test:harness": "node tests/harness/run.mjs",
     "confirm": "node tests/confirm/run.mjs",
     "confirm:compile": "node tests/confirm/run.mjs --surfaces compile",
@@ -63,7 +61,11 @@
     "confirm:format": "node tests/confirm/run.mjs --surfaces format",
     "confirm:component-meta": "node tests/confirm/run.mjs --surfaces component-meta",
     "smoke": "node scripts/generate.mjs --counts 20 && node scripts/bench.mjs --fixture fixtures/20 --runs 2 --warmups 1 --surfaces compile,projection,typecheck,format,lint,component-meta,lsp,lsp-format,bundle,hmr --check-file-limit 20",
-    "prepublishOnly": "node -e \"console.error('This package is private and not published to npm.'); process.exit(1)\""
+    "prepublishOnly": "node -e \"console.error('This package is private and not published to npm.'); process.exit(1)\"",
+    "docs": "node scripts/generate-docs.mjs",
+    "docs:local": "node scripts/generate-docs.mjs --include-local",
+    "pull:ci-results": "node scripts/pull-ci-results.mjs",
+    "publish:ci-results": "node scripts/publish-ci-results.mjs"
   },
   "dependencies": {
     "@mrwaip/svelte-rs": "0.0.0-canary.13.1",
@@ -108,5 +110,8 @@
   "engines": {
     "node": ">=22"
   },
-  "packageManager": "pnpm@10.14.0"
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "jsdom": "30.0.1"
+  }
 }

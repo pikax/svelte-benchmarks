@@ -1,5 +1,17 @@
 import v8 from "node:v8";
 
+/**
+ * Below this wall-clock window, process.cpuUsage() quantisation makes CPU
+ * numbers fiction (measured: a ~1 ms window reports 0 ms/0%, a ~2 ms window
+ * 15 ms/773%). Short probes report cpuMs = null → "n/a", never a confident 0.
+ * Override with MEM_CPU_FLOOR_MS.
+ */
+export const CPU_FLOOR_MS = Number.parseInt(
+  process.env.MEM_CPU_FLOOR_MS ??
+    (process.platform === "win32" ? "50" : process.platform === "darwin" ? "30" : "20"),
+  10,
+);
+
 export function forceGc() {
   if (typeof globalThis.gc !== "function") {
     throw new Error("memory worker requires node --expose-gc");
@@ -44,6 +56,7 @@ export async function measureMemory(fn) {
   const wallMs = Number(process.hrtime.bigint() - wallStart) / 1e6;
   const cpuMs = (cpu.user + cpu.system) / 1000;
   const observedPeak = Math.max(baseline.rss, retained.rss, exactPeak ?? 0);
+  const cpuReliable = wallMs >= CPU_FLOOR_MS;
 
   return {
     status: "ok",
@@ -62,7 +75,11 @@ export async function measureMemory(fn) {
     mallocedDeltaMb: bytesToMb(
       Math.max(0, retained.malloced - baseline.malloced),
     ),
-    cpuMs: Number(cpuMs.toFixed(3)),
+    // CPU is context only — never a speed ranking. Below the accounting
+    // floor it is null rather than a fabricated confident zero.
+    cpuMs: cpuReliable ? Number(cpuMs.toFixed(3)) : null,
+    cpuReliable,
+    cpuFloorMs: CPU_FLOOR_MS,
     wallMs: Number(wallMs.toFixed(3)),
   };
 }

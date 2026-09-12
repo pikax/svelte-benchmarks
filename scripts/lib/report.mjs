@@ -251,7 +251,38 @@ function classLabel(key) {
 }
 
 export const RANKING_RULES =
-  "Ranked on the **median of measured runs** (each after ≥1 discarded warmup; no cold column — it would measure JIT warmup). One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes. Every active variant must visit every execution position; shorter diagnostic runs are unranked. A class with fewer than two valid rows is informational: no fastest ratio or ranked throughput is shown. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.";
+  "Ranked on the **median of measured runs** — Warm is the primary ordering and ranking metric. Compiler rows additionally publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, after excluded process startup, package imports and adapter setup. It is not called Cold (the OS page cache is not flushed) and its ratio never substitutes for the warm verdict. One table per comparable workload class: engine, invocation and threading remain row properties; target or explicitly different work may split classes — a pinned official Svelte reference is the baseline of its compatibility class, and a failed reference unranks the whole class rather than promoting a survivor. Every active variant must visit every execution position; shorter runs are unranked. A class with fewer than two valid rows is informational. Rows tagged **(JS)** run the JavaScript TypeScript compiler. Name markers: ⚠ failed validation (time bracketed, unranked) · ❌ error · ⏭ skipped. A row above CV 50% with at least three samples is bracketed as TOO NOISY TO RANK, baseline included.";
+
+function hasFreshChild(variants) {
+  return variants.some((v) => Number.isFinite(v.freshChildMedianMs));
+}
+
+/**
+ * Fresh-child quartet cell: median (min/stddev/CV under it in Notes) plus a
+ * "vs fastest fresh child" ratio that is NEVER ranked independently — a noisy
+ * fresh series only forfeits its own ratio; warm stays independently ranked.
+ */
+function freshCell(v, fastestFresh) {
+  if (!Number.isFinite(v.freshChildMedianMs)) return "–";
+  const noisy =
+    Number.isFinite(v.freshChildCvPct) &&
+    v.freshChildCvPct > NOISE_CV_LIMIT_PCT &&
+    Array.isArray(v.freshChildRuns) &&
+    v.freshChildRuns.length >= NOISE_CV_MIN_SAMPLES;
+  const value = formatMs(v.freshChildMedianMs);
+  return noisy ? `${value} ⚠` : value;
+}
+
+function freshRatio(v, fastestFresh) {
+  if (!Number.isFinite(v.freshChildMedianMs) || !Number.isFinite(fastestFresh))
+    return "–";
+  if (v.status !== "ok") return "not ranked";
+  return `${(v.freshChildMedianMs / fastestFresh).toFixed(2)}x`;
+}
+
+function rssCell(v) {
+  return Number.isFinite(v.rssMaxMb) ? `${v.rssMaxMb} MB` : "n/a";
+}
 
 /**
  * Render one ranking table for a homogeneous set of variants.
@@ -266,10 +297,23 @@ function renderVariantTable(rawVariants, { title } = {}) {
   }
   const artifactLabel =
     variants.find((v) => v.artifactLabel)?.artifactLabel ?? "Artifact";
-  lines.push(
-    `| Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | ${artifactLabel} | Throughput |`,
+  const fresh = hasFreshChild(variants);
+  const fastestFresh = Math.min(
+    ...variants
+      .filter((v) => v.status === "ok" && Number.isFinite(v.freshChildMedianMs))
+      .map((v) => v.freshChildMedianMs),
   );
-  lines.push("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |");
+  if (fresh) {
+    lines.push(
+      `| Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | ${artifactLabel} | Peak RSS | Throughput |`,
+    );
+    lines.push("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |");
+  } else {
+    lines.push(
+      `| Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | ${artifactLabel} | Peak RSS | Throughput |`,
+    );
+    lines.push("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |");
+  }
 
   const base = fastestPrimary(variants);
   const hasCompetition =
@@ -299,9 +343,18 @@ function renderVariantTable(rawVariants, { title } = {}) {
         artifact = v.artifactMedian.toLocaleString();
       }
       if (Number.isFinite(v.medianMs)) {
-        lines.push(
-          `| ${name} | ${rowFiles} | **${formatMs(v.medianMs)}** | ${formatMs(v.minMs)} | ${formatMs(v.stddevMs)} | ${cv} | ${hasCompetition ? timesSlower(base, v.medianMs) : "—"} | ${artifact} | ${hasCompetition ? v.throughput : "—"} |`,
-        );
+        const warm = `**${formatMs(v.medianMs)}**`;
+        const ratio = hasCompetition ? timesSlower(base, v.medianMs) : "—";
+        const tp = hasCompetition ? v.throughput : "—";
+        if (fresh) {
+          lines.push(
+            `| ${name} | ${rowFiles} | ${freshCell(v, fastestFresh)} | ${freshRatio(v, fastestFresh)} | ${warm} | ${formatMs(v.minMs)} | ${formatMs(v.stddevMs)} | ${cv} | ${ratio} | ${artifact} | ${rssCell(v)} | ${tp} |`,
+          );
+        } else {
+          lines.push(
+            `| ${name} | ${rowFiles} | ${warm} | ${formatMs(v.minMs)} | ${formatMs(v.stddevMs)} | ${cv} | ${ratio} | ${artifact} | ${rssCell(v)} | ${tp} |`,
+          );
+        }
       } else {
         // An ok row with no duration is a ratio or informational row — its
         // value sits in the artifact column (or the notes), never in a
@@ -309,7 +362,7 @@ function renderVariantTable(rawVariants, { title } = {}) {
         const throughput =
           v.throughput && v.throughput !== "n/a" ? v.throughput : "–";
         lines.push(
-          `| ${name} | ${rowFiles} | – | – | – | – | – | ${artifact} | ${throughput} |`,
+          `| ${name} | ${rowFiles} | – | – | – | – | – | ${artifact} | ${rssCell(v)} | ${throughput} |`,
         );
       }
       noteText = (v.notes || "") + cacheNote;
@@ -323,9 +376,15 @@ function renderVariantTable(rawVariants, { title } = {}) {
       const artifact = Number.isFinite(v.artifactMedian)
         ? `(${v.artifactMedian.toLocaleString()})`
         : "–";
-      lines.push(
-        `| ${name} | ${rowFiles} | ${bracketed} | ${Number.isFinite(v.minMs) ? `(${formatMs(v.minMs)})` : "–"} | – | – | not ranked | ${artifact} | – |`,
-      );
+      if (fresh) {
+        lines.push(
+          `| ${name} | ${rowFiles} | ${Number.isFinite(v.freshChildMedianMs) ? `(${formatMs(v.freshChildMedianMs)})` : "–"} | not ranked | ${bracketed} | ${Number.isFinite(v.minMs) ? `(${formatMs(v.minMs)})` : "–"} | – | – | not ranked | ${artifact} | ${rssCell(v)} | – |`,
+        );
+      } else {
+        lines.push(
+          `| ${name} | ${rowFiles} | ${bracketed} | ${Number.isFinite(v.minMs) ? `(${formatMs(v.minMs)})` : "–"} | – | – | not ranked | ${artifact} | ${rssCell(v)} | – |`,
+        );
+      }
     } else if (v.status === "skipped") {
       lines.push(`| ${name} | ${rowFiles} | skipped | – | – | – | – | – | – |`);
     } else {
@@ -389,8 +448,12 @@ function renderRawRuns(sorted) {
       Array.isArray(v.runs)
     ) {
       const rule = slimRuleFor(v.label);
+      const fresh =
+        Array.isArray(v.freshChildRuns) && v.freshChildRuns.length
+          ? ` · fresh child: ${v.freshChildRuns.map(formatMs).join(", ")}`
+          : "";
       entries.push(
-        `- **${rule ? rule.slim : v.label}${engineTag(v)}**: ${v.runs.map(formatMs).join(", ")}`,
+        `- **${rule ? rule.slim : v.label}${engineTag(v)}**: ${v.runs.map(formatMs).join(", ")}${fresh}`,
       );
     }
   }
@@ -429,6 +492,35 @@ function renderToolLegend(surface) {
   return lines;
 }
 
+/**
+ * Compact validation evidence block: per-cell entrypoint verdicts from the
+ * plant suites. Full per-plant results stay in the JSON snapshot — the page
+ * shows what gated the ranking and where to audit it.
+ */
+function renderValidationSummary(surface) {
+  const validation = surface.validation;
+  if (!validation) return [];
+  const lines = [];
+  const sem = validation.compileSemantics;
+  if (sem?.matrix) {
+    lines.push("Validation (runtime semantic plants):", "");
+    lines.push(
+      `Suite ${sem.suiteVersion} · hash ${String(sem.suiteHash).slice(0, 12)} · ${Object.keys(sem.matrix).length} cell(s)`,
+    );
+    lines.push("");
+    lines.push("| Cell | Status | Entrypoint verdicts |");
+    lines.push("| --- | --- | --- |");
+    for (const [key, cell] of Object.entries(sem.matrix)) {
+      const verdicts = Object.entries(cell.entrypoints ?? {})
+        .map(([id, r]) => `${id}: ${r.status}`)
+        .join(" · ");
+      lines.push(`| ${key} | ${cell.status} | ${verdicts} |`);
+    }
+    lines.push("");
+  }
+  return lines;
+}
+
 export function renderSurfaceMarkdown(surface) {
   const lines = [];
   lines.push(`### ${surface.label}`);
@@ -461,6 +553,7 @@ export function renderSurfaceMarkdown(surface) {
   lines.push(RANKING_RULES);
   lines.push("");
   lines.push(...renderToolLegend(surface));
+  lines.push(...renderValidationSummary(surface));
 
   // Compile matrix (and any future grouped surface)
   if (Array.isArray(surface.groups) && surface.groups.length > 0) {
@@ -572,7 +665,8 @@ export function renderFullMarkdown(data) {
 export function buildMethodologyNotes() {
   return [
     "Primary ranking metric is the **median of measured runs**. Every measured run is preceded by at least one discarded warmup pass (enforced — `--warmups 0` is clamped to 1).",
-    "There is **no cold column**. An unwarmed first run costs a JS compiler ~3.2x its steady state and a native compiler nothing, so ranking on it measures V8 warmup rather than the tool.",
+    "Warm median is the primary ranking metric. Compiler rows also publish a separately sampled **Fresh child** column — the first timed row workload in a new child process with startup/imports/adapter setup excluded. It is not machine-cold (OS page cache is not flushed) and never substitutes for the warm verdict.",
+    "Every warmed/fresh compile pass receives a REVISED corpus (fixed-width token + used CSS custom-property rule); the timed loop asserts the token reached the emitted CSS, so returning a cached whole-output result from an earlier pass fails the gate.",
     "Min / std dev / CV% are reported per row. CV% > 10 is flagged ⚠. Above CV 50%, a row with at least three samples is TOO NOISY TO RANK: its time is bracketed and excluded, baseline included. Two-sample rows remain flagged rather than excluded because there is no third observation to identify an outlier.",
     "Measured order rotates deterministically. If the run count is too small for every active variant to visit every execution position, all affected timings remain visible but unranked.",
     "Each comparable workload class is one table. Engine, invocation and threading are row properties, while genuinely different targets or work sets use separate classes: a CLI pays process startup on every run, and a thread pool is not a single thread.",

@@ -84,6 +84,22 @@ export function effectiveWarmups(warmups) {
   return Math.max(MIN_WARMUPS, n);
 }
 
+/**
+ * Warmup count for a table whose DISCARDED WARM PASS is the surface's own
+ * untimed gate or preflight execution.
+ *
+ * Some surfaces already execute every cell once, untimed, before any timing —
+ * the bundle corpus-compile gate builds each cell, the HMR gate probe starts
+ * each cell's server. Those passes run the identical code path a dedicated
+ * warmup would, so a warmup on top repeats seconds-to-minutes of work per cell
+ * purely to warm caches that are already warm.
+ *
+ * DELIBERATELY NOT the number 0. A numeric zero is indistinguishable from CLI
+ * `--warmups 0`, which effectiveWarmups MUST clamp to 1. A sentinel the clamp
+ * cannot see is the only shape that can carry the intent through.
+ */
+export const GATE_IS_THE_WARM_PASS = "gate-is-the-warm-pass";
+
 /** Summary stats over measured runs. Primary metric is the median. */
 function summarize(all) {
   const med = median(all);
@@ -115,6 +131,17 @@ function rotate(list, by) {
   if (list.length === 0) return list;
   const k = ((by % list.length) + list.length) % list.length;
   return [...list.slice(k), ...list.slice(0, k)];
+}
+
+/**
+ * Paired forward/reverse schedule: every COMPLETE PAIR of runs places each
+ * variant in every position exactly twice. Unlike plain rotation this balances
+ * short series (runs < variants) too, which is why the fresh-child sampler and
+ * deliberately short tables use it.
+ */
+export function pairedOrder(list, iteration) {
+  const base = rotate(list, Math.floor(iteration / 2));
+  return iteration % 2 === 0 ? base : [...base].reverse();
 }
 
 /**
@@ -153,10 +180,90 @@ export async function measureSeries(measure, { runs = 3, warmups = 1 } = {}) {
  */
 export async function measureVariants(
   variants,
-  { runs = 3, warmups = 1, fileCount } = {},
+  {
+    runs = 3,
+    warmups = 1,
+    fileCount,
+    prepareAllBeforeTiming = false,
+    balancedShortRuns = false,
+    orderLog,
+  } = {},
 ) {
   const active = variants.filter((v) => !v.skip);
-  const warmupPasses = effectiveWarmups(warmups);
+  // The sentinel is checked BEFORE the clamp: it must never be expressible as
+  // a number, because numeric 0 is CLI `--warmups 0` and clamps to 1.
+  const warmupPasses =
+    warmups === GATE_IS_THE_WARM_PASS ? 0 : effectiveWarmups(warmups);
+
+  for (let w = 0; w < warmupPasses; w++) {
+    const pass = { phase: "warmup", iteration: w };
+    if (prepareAllBeforeTiming) {
+      for (const v of active) {
+        try {
+          await v.prepare?.(pass);
+        } catch (error) {
+          v._error = error instanceof Error ? error.message : String(error);
+        }
+      }
+    }
+    const ordered = balancedShortRuns
+      ? pairedOrder(active, w)
+      : rotate(active, w);
+    orderLog?.warmups?.push(ordered.map((v) => v.id));
+    for (const v of ordered) {
+      try {
+        await v.measure(pass);
+      } catch (error) {
+        // Warmup failures must not abort the suite; mark for measured phase.
+        v._error = error instanceof Error ? error.message : String(error);
+      }
+    }
+  }
+
+  const runsById = new Map(active.map((v) => [v.id, []]));
+  const metaById = new Map(active.map((v) => [v.id, []]));
+
+  for (let i = 0; i < runs; i++) {
+    const pass = { phase: "measure", iteration: i };
+    const preparedById = new Map();
+    if (prepareAllBeforeTiming) {
+      for (const v of active) {
+        try {
+          const prepared = await v.prepare?.(pass);
+          if (prepared) preparedById.set(v.id, prepared);
+        } catch (error) {
+          v._error = error instanceof Error ? error.message : String(error);
+        }
+      }
+    }
+    const ordered = balancedShortRuns
+      ? pairedOrder(active, i)
+      : rotate(active, i);
+    orderLog?.runs?.push(ordered.map((v) => v.id));
+    for (const v of ordered) {
+      try {
+        const out = await v.measure(pass);
+        if (typeof out === "number") {
+          runsById.get(v.id).push(Number(out.toFixed(3)));
+        } else {
+          runsById.get(v.id).push(Number(out.ms.toFixed(3)));
+          const { ms: _ms, meta, ...rest } = out;
+          const measured = meta ?? (Object.keys(rest).length ? rest : null);
+          const prepared = preparedById.get(v.id);
+          const payload =
+            prepared || measured
+              ? { ...(prepared ?? {}), ...(measured ?? {}) }
+              : null;
+          if (payload) metaById.get(v.id).push(payload);
+        }
+      } catch (error) {
+        // Record as error later via sentinel — store NaN and attach error
+        runsById.get(v.id).push(Number.NaN);
+        v._error = error instanceof Error ? error.message : String(error);
+      }
+    }
+  }
+
   const positionCoverageComplete = active.length < 2 || runs >= active.length;
   const comparisonKey = (variant) =>
     variant.comparisonClass
@@ -170,42 +277,6 @@ export async function measureVariants(
     peerCounts.set(key, (peerCounts.get(key) ?? 0) + 1);
   }
 
-  for (let w = 0; w < warmupPasses; w++) {
-    for (const v of rotate(active, w)) {
-      try {
-        await v.measure({ phase: "warmup", iteration: w });
-      } catch (error) {
-        // Warmup failures must not abort the suite; mark for measured phase.
-        v._error = error instanceof Error ? error.message : String(error);
-      }
-    }
-  }
-
-  const runsById = new Map(active.map((v) => [v.id, []]));
-  const metaById = new Map(active.map((v) => [v.id, []]));
-
-  for (let i = 0; i < runs; i++) {
-    // Rotate by run index: over runs >= variants every tool visits every slot.
-    const ordered = rotate(active, i);
-    for (const v of ordered) {
-      try {
-        const out = await v.measure({ phase: "measure", iteration: i });
-        if (typeof out === "number") {
-          runsById.get(v.id).push(Number(out.toFixed(3)));
-        } else {
-          runsById.get(v.id).push(Number(out.ms.toFixed(3)));
-          const { ms: _ms, meta, ...rest } = out;
-          const payload = meta ?? (Object.keys(rest).length ? rest : null);
-          if (payload) metaById.get(v.id).push(payload);
-        }
-      } catch (error) {
-        // Record as error later via sentinel — store NaN and attach error
-        runsById.get(v.id).push(Number.NaN);
-        v._error = error instanceof Error ? error.message : String(error);
-      }
-    }
-  }
-
   const baseRow = (v) => ({
     id: v.id,
     label: v.label,
@@ -213,9 +284,16 @@ export async function measureVariants(
     target: v.target,
     comparisonClass: v.comparisonClass,
     env: v.env,
+    sourceMap: v.sourceMap,
     threading: v.threading,
     invocation: v.invocation,
     artifactPolarity: v.artifactPolarity,
+    // Optional explicit reference row. Official Svelte is the denominator for
+    // its compatibility class; candidates never redefine the baseline by being
+    // fastest, and a failed reference invalidates the class rather than
+    // promoting the next survivor.
+    baseline: Boolean(v.baseline),
+    baselineLabel: v.baselineLabel,
     // Underlying engine (e.g. tsc-js vs tsgo). Kept visible as a row property.
     engine: v.engine,
     // What the surface counts as "work produced" (e.g. "code bytes",
@@ -275,6 +353,17 @@ export async function measureVariants(
         .filter((x) => Number.isFinite(x));
       if (artifacts.length) {
         series.artifactMedian = Number(median(artifacts).toFixed(0));
+      }
+      // Peak RSS captured beside the timed work (fresh child probes and CLI
+      // rows report it per run). Median across runs → rssMaxMb on the row so
+      // the timing tables can carry a memory column without a second sampler
+      // running during measurement.
+      const rss = metas
+        .map((m) => m.rssBytes)
+        .filter((x) => Number.isFinite(x) && x > 0);
+      if (rss.length) {
+        series.rssMaxMb = Number((median(rss) / (1024 * 1024)).toFixed(1));
+        series.rssRunsMb = rss.map((b) => Number((b / (1024 * 1024)).toFixed(1)));
       }
     }
     const tooNoisy =
@@ -373,4 +462,59 @@ export function resolveBin(name, fromDir = process.cwd()) {
     current = dirname(current);
   }
   throw new Error(`Could not resolve bin: ${name}`);
+}
+
+/**
+ * Per-surface run-budget disclosures, applied by the caller after a surface
+ * returns. Mutates the surface; returns it for chaining.
+ *
+ * Both notes are keyed on each ROW's actual sample count (`row.runs`), never
+ * on the surface-wide requested count. A surface may deliberately run one of
+ * its tables ABOVE the cap, and against such rows a surface-wide wording would
+ * publish two falsehoods at once: a methodology note claiming "capped at 2"
+ * over rows carrying five samples, and a "SINGLE MEASURED RUN" stamp on rows
+ * with five. A loud disclosure that is wrong is worse than none.
+ *
+ * @param {object} surface the surface result (variants + methodology)
+ * @param {{surfaceId: string, runs: number, requested: number}} opts
+ *        `runs` is the capped per-surface run count actually passed to the
+ *        surface, `requested` the caller's --runs.
+ */
+export function appendRunBudgetDisclosures(
+  surface,
+  { surfaceId, runs, requested },
+) {
+  const rows = surface.variants ?? [];
+  const sampleCounts = [
+    ...new Set(
+      rows.filter((r) => Array.isArray(r.runs)).map((r) => r.runs.length),
+    ),
+  ].sort((a, b) => a - b);
+
+  if (runs < requested) {
+    const beyondCap = sampleCounts.some((n) => n > runs);
+    (surface.methodology ??= []).push(
+      `Measured runs capped at ${runs} for this surface (requested ${requested}; per-surface runtime budget).${
+        beyondCap
+          ? ` Rows here carry ${sampleCounts.join(" or ")} measured sample(s): a table may run MORE than the cap where its per-run cost is milliseconds — the surface's own methodology says which table and why.`
+          : ""
+      } Set BENCH_UNIFORM_RUNS=1 for equal run counts everywhere.`,
+    );
+  }
+
+  // Row-visible, not only in the collapsed Methodology block: "every reduction
+  // disclosed loudly", and a single-run number rendered as a bold ranked
+  // median is not loud. Applied per row — only a row that actually has ONE
+  // sample is a single-run number.
+  for (const row of rows) {
+    if (row.skip || row.status === "skipped" || row.status === "error")
+      continue;
+    if (!Array.isArray(row.runs) || row.runs.length !== 1) continue;
+    row.notes =
+      `${row.notes ?? ""} | ⓘ SINGLE MEASURED RUN — the time is indicative (per-surface runtime budget); there is no median or spread behind it.`.replace(
+        /^ \| /,
+        "",
+      );
+  }
+  return surface;
 }

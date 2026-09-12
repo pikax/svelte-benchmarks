@@ -74,10 +74,12 @@ export function renderMemoryMarkdown(data) {
           )} | ${range(
             row.samples.map((sample) => sample.retainedHeapDeltaMb),
             formatMb,
-          )} | ${range(
-            row.samples.map((sample) => sample.cpuMs),
-            formatMs,
-          )} | measured |`,
+          )} | ${row.samples.every((sample) => sample.cpuMs == null)
+            ? "n/a (below CPU accounting floor)"
+            : range(
+                row.samples.map((sample) => sample.cpuMs),
+                formatMs,
+              )} | measured |`,
         );
       }
       const notes = classRows.filter(

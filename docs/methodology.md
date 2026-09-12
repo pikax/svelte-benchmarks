@@ -10,10 +10,19 @@ This suite follows the reporting and publishing conventions of [vue-benchmarks](
 - A timing is unranked when there are fewer measured passes than active variants, because every variant cannot visit every execution position.
 - A failed gate does not erase a time. The row is shown in brackets and excluded from `vs fastest` and throughput rankings.
 - Rows above 50% coefficient of variation are unranked when at least three samples exist. The rule applies to every row, including an official baseline.
-- No cold-start column is published. A cold JavaScript process pays JIT startup that an already-native executable does not, so it is a different question from warmed throughput.
-- Speed and resource use are not measured in the same process. This repository currently publishes speed only.
+- Warm median remains the primary metric. Compiler rows ALSO publish a separately sampled **Fresh child** column: the first timed row workload in a new child process, with child startup, package imports, adapter construction and input materialisation EXCLUDED from the interval. It is deliberately not called cold — the OS page cache is not flushed — and its ratio never substitutes for the warm verdict.
+- Every warmed/fresh compile pass receives a REVISED corpus: a fixed-width comment token plus a used CSS custom-property rule. The timed loop asserts the token reached the emitted CSS, and adapter parity requires every pass (warm + fresh) to have received a distinct input revision — a candidate cannot win by returning a cached whole-output result from an earlier pass. Repeated-identical-input behaviour stays a separate, explicitly non-ranking study (`fixtures/N-repeated`).
+- Speed and resource use are never measured in the same process. Memory is sampled by fresh isolated workers (`--expose-gc`), reporting the exact OS high-water mark (`process.resourceUsage().maxRSS`), retained RSS/heap deltas, and CPU context only.
 
 The harness applies the same rule to every implementation on a surface. It does not add exemptions for an official, Rust, native, Wasm, or experimental tool.
+
+## Correctness evidence (what gates a ranking)
+
+- Compile rows are gated by a 28-plant Svelte 5 semantic suite covering props/defaults, `$state`/`$derived`, `$bindable`, bindings (input/checkbox/select), events, {#if}/{#each keyed}/{#await}, snippets/{@render}, stores, actions, context, dynamic components, {@html}, class/style, SVG namespaces, module scripts, legacy `on:` syntax, SSR + client mount behaviour, plus CSS semantics (scoping, `:global`, selector lists, at-rules, keyframes, custom properties, unused-selector pruning, external extraction).
+- Plants run through the exact public entrypoint the timed row uses, AFTER timing, in isolated child processes — correctness checking can never warm the code paths it certifies. Compiled output executes against the runtime matching its compatibility class (bare `svelte*` imports are bound to the pinned runtime of that class).
+- A missing verdict is `UNKNOWN` and unrankS the row; `UNKNOWN` is not PASS. A failed official reference unrankS every candidate in its compatibility class — the fastest survivor is never promoted into the reference slot.
+- Source-map-on cells assert artifact PRESENCE (executable capability probe + in-timer map checks). Mapping correctness is not verified, so every map-on row is deliberately unranked.
+- Suite identity: every verdict carries the plant suite version and SHA-256 hash, so stale evidence is detectable in stored snapshots.
 
 ## Comparison boundaries
 

@@ -1,7 +1,11 @@
 name: Benchmark
 
-# Publishing is deliberate and Linux-only. Validation runs separately in
-# test.yml; a push must never spend runner time or rewrite reference results.
+# Publishing is deliberate and Linux-only: a published number must be
+# traceable to a person who asked for it. Validation runs separately in
+# test.yml/pr.yml; a push must never spend runner time or rewrite reference
+# results. All directly compared throughput rows run on ONE Linux VM in the
+# bench job — sharding by surface would fold runner-to-runner variance into
+# the ratios.
 on:
   workflow_dispatch:
     inputs:
@@ -30,15 +34,53 @@ concurrency:
   cancel-in-progress: ${{ github.ref_name != 'main' }}
 
 env:
+  NM_CACHE_PREFIX: nm-v2
   FIXTURE_COUNT: ${{ github.event.inputs.fixture_count || '200' }}
   BENCH_RUNS: ${{ github.event.inputs.bench_runs || '5' }}
   BENCH_WARMUPS: ${{ github.event.inputs.bench_warmups || '1' }}
 
 jobs:
-  bench:
-    name: Bench (Linux)
+  build:
+    name: Build (Linux)
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install dependencies (frozen)
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-
+
+      - name: Generate unique fixtures
+        run: node scripts/generate.mjs --counts "50,${FIXTURE_COUNT}"
+
+      - name: Upload fixtures
+        uses: actions/upload-artifact@v7
+        with:
+          name: fixtures-bench-linux
+          path: fixtures
+          if-no-files-found: error
+          retention-days: 7
+
+  bench:
+    name: Bench (Linux, one VM)
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
     defaults:
       run:
         shell: bash
@@ -52,18 +94,29 @@ jobs:
           node-version-file: .node-version
           cache: pnpm
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-
 
-      - name: Harness self-tests
-        run: pnpm test:harness
+      - name: Verify workspace is complete
+        run: |
+          test -d node_modules/svelte || (echo "incomplete node_modules cache" && pnpm install --frozen-lockfile)
+          test -d node_modules/.bin
 
-      - name: Generate unique fixtures
-        run: node scripts/generate.mjs --counts "50,${FIXTURE_COUNT}"
+      - name: Download fixtures
+        uses: actions/download-artifact@v7
+        with:
+          name: fixtures-bench-linux
+          path: fixtures
 
-      # All timing surfaces share one VM. Splitting them across runners would
-      # fold runner-to-runner variance into comparisons between surfaces.
-      - name: Measured pass
+      # Surfaces ordered to keep high-disturbance language-server workloads
+      # LAST: they spawn/tear down server processes repeatedly and would leave
+      # later measurements on a warmer, noisier machine.
+      - name: Measured pass (all timing surfaces, one VM)
         env:
           RUNNER_OS: Linux
           BENCH_PHASE: bench
@@ -78,6 +131,20 @@ jobs:
             --out "results/bench-Linux-${FIXTURE_COUNT}-bench.md" \
             --json "results/bench-Linux-${FIXTURE_COUNT}-bench.json"
 
+      - name: Compile repeated-input corpus study (not for ranking)
+        env:
+          RUNNER_OS: Linux
+          BENCH_PHASE: bench
+        run: |
+          node scripts/generate.mjs --counts "${FIXTURE_COUNT}-repeated" || node scripts/generate.mjs --counts "${FIXTURE_COUNT}"
+          node scripts/bench.mjs \
+            --fixture "fixtures/${FIXTURE_COUNT}-repeated" \
+            --runs 2 --warmups 1 \
+            --surfaces compile \
+            --compile-targets client --compile-envs production \
+            --out "results/bench-Linux-${FIXTURE_COUNT}-repeated-cache-demo.md" \
+            --json "results/bench-Linux-${FIXTURE_COUNT}-repeated-cache-demo.json" || true
+
       - name: Upload benchmark results
         if: always()
         uses: actions/upload-artifact@v7
@@ -88,7 +155,8 @@ jobs:
           retention-days: 30
 
   memory:
-    name: Memory (Linux)
+    name: Memory (Linux, isolated probes)
+    needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 40
     defaults:
@@ -104,14 +172,24 @@ jobs:
           node-version-file: .node-version
           cache: pnpm
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-
 
-      - name: Harness self-tests
-        run: pnpm test:harness
+      - name: Verify workspace is complete
+        run: |
+          test -d node_modules/svelte || (echo "incomplete node_modules cache" && pnpm install --frozen-lockfile)
+          test -d node_modules/.bin
 
-      - name: Generate unique fixtures
-        run: node scripts/generate.mjs --counts "${FIXTURE_COUNT}"
+      - name: Download fixtures
+        uses: actions/download-artifact@v7
+        with:
+          name: fixtures-bench-linux
+          path: fixtures
 
       # Resource sampling never shares a process with speed measurements.
       - name: Isolated resource probes
@@ -136,16 +214,72 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
+  confirm:
+    name: Confirm plants (Linux)
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ env.NM_CACHE_PREFIX }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.node-version') }}-
+
+      - name: Verify workspace is complete
+        run: |
+          test -d node_modules/svelte || (echo "incomplete node_modules cache" && pnpm install --frozen-lockfile)
+          test -d node_modules/.bin
+
+      # The confirmation matrix runs independently from speed/memory so its
+      # process-heavy plant runs cannot perturb compiler measurements, and its
+      # JSON/Markdown becomes part of the published evidence.
+      - name: Confirmation suite
+        env:
+          RUNNER_OS: Linux
+          BENCH_PHASE: confirm
+        run: node tests/confirm/run.mjs --json results/confirm.json --out results/confirm.md
+
+      - name: Upload confirmation results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: results-confirm-linux
+          path: results/confirm.*
+          if-no-files-found: warn
+          retention-days: 30
+
   update-readme:
-    name: Publish README summaries
-    needs: [bench, memory]
+    name: Publish results (README + docs/)
+    needs: [bench, memory, confirm]
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # Partial-safe publication: ANY succeeding job publishes its artifacts.
+    # This is safe because publish-ci-results clears only the ACTIVE side of
+    # the snapshot dirs and generate-docs leaves every section untouched when
+    # its JSON is absent — a failed bench beside a passing memory job can
+    # never erase the published bench tables and auto-commit the erasure.
     if: >-
+      always() &&
       github.event_name == 'workflow_dispatch' &&
       github.ref == 'refs/heads/main' &&
-      needs.bench.result == 'success' &&
-      needs.memory.result == 'success'
+      (needs.bench.result == 'success' ||
+       needs.memory.result == 'success' ||
+       needs.confirm.result == 'success')
     permissions:
       contents: write
     steps:
@@ -153,28 +287,36 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: results-bench-linux
-          path: results
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: results-memory-linux
-          path: results
+      - uses: pnpm/action-setup@v6
 
       - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
+          cache: pnpm
 
-      - name: Update README and full reports
-        run: node scripts/update-readme.mjs --dir results
+      - name: Install dependencies (docs generation only)
+        run: pnpm install --frozen-lockfile
 
-      - name: Update memory report
-        run: node scripts/update-memory-readme.mjs --dir results
+      - name: Download all result artifacts
+        uses: actions/download-artifact@v7
+        with:
+          pattern: results-*
+          merge-multiple: true
+          path: ./results-dl
 
-      - name: Commit published results
+      # Snapshot raw JSON FIRST (canonical evidence), then generate docs from
+      # it. Exactly one auto-commit per publish run; the auto-commit action
+      # no-ops when nothing changed, so an idempotent re-run creates no empty
+      # commit. [skip ci] keeps the docs-only push from triggering test.yml.
+      - name: Snapshot latest artifacts (clears previous results/benchmarks)
+        run: node scripts/publish-ci-results.mjs --from ./results-dl --scope bench
+
+      - name: Generate README blocks + docs/ from the JSON snapshot
+        run: node scripts/generate-docs.mjs
+
+      - name: Commit results (single commit, skip ci)
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: publish benchmark results [skip ci]"
-          file_pattern: README.md MEMORY.md docs/results/*.md
+          commit_options: "--no-verify --quiet"
+          file_pattern: README.md docs/*.md docs/charts/*.svg results/benchmarks/*
