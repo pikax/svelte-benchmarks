@@ -1,0 +1,949 @@
+{
+  "kind": "confirmation",
+  "generatedAt": "2026-09-12T10:37:55.655Z",
+  "runner": {
+    "platform": "linux",
+    "node": "v22.23.2",
+    "ci": true,
+    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557"
+  },
+  "summary": {
+    "pass": 106,
+    "fail": 22,
+    "skip": 5,
+    "warn": 0
+  },
+  "results": [
+    {
+      "suite": "compile",
+      "caseId": "server-render",
+      "tool": "svelte",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "compile",
+      "caseId": "server-render",
+      "tool": "svelte-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "compile",
+      "caseId": "server-render",
+      "tool": "rsvelte-wasm",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "compile",
+      "caseId": "server-render",
+      "tool": "rsvelte-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "compile",
+      "caseId": "compile",
+      "tool": "server-render",
+      "status": "skip",
+      "message": "verter"
+    },
+    {
+      "suite": "compile",
+      "caseId": "validity-client",
+      "tool": "mrwaip-svelte-rs",
+      "status": "fail",
+      "message": "0 failed, 0 unknown of 33; source-map FAIL (2 failed) — first failures: \n\n'FAIL' !== 'PASS'\n"
+    },
+    {
+      "suite": "compile",
+      "caseId": "validity-client",
+      "tool": "rsvelte-wasm",
+      "status": "fail",
+      "message": "0 failed, 0 unknown of 33; source-map FAIL (4 failed) — first failures: \n\n'FAIL' !== 'PASS'\n"
+    },
+    {
+      "suite": "compile",
+      "caseId": "validity-client",
+      "tool": "rsvelte-native",
+      "status": "fail",
+      "message": "0 failed, 0 unknown of 33; source-map FAIL (4 failed) — first failures: \n\n'FAIL' !== 'PASS'\n"
+    },
+    {
+      "suite": "compile",
+      "caseId": "validity-server",
+      "tool": "mrwaip-svelte-rs",
+      "status": "fail",
+      "message": "0 failed, 0 unknown of 33; source-map FAIL (4 failed) — first failures: \n\n'FAIL' !== 'PASS'\n"
+    },
+    {
+      "suite": "compile",
+      "caseId": "validity-client",
+      "tool": "svelte-official",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "compile",
+      "caseId": "validity-client",
+      "tool": "svelte-mrwaip-reference",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "compile",
+      "caseId": "validity-server",
+      "tool": "svelte-official",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "compile",
+      "caseId": "validity-server",
+      "tool": "svelte-mrwaip-reference",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "compile",
+      "caseId": "validity-server",
+      "tool": "rsvelte-wasm",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "compile",
+      "caseId": "validity-server",
+      "tool": "rsvelte-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "projection",
+      "caseId": "svelte-projection",
+      "tool": "svelte2tsx",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "projection",
+      "caseId": "svelte-projection",
+      "tool": "@rsvelte/svelte2tsx",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "projection",
+      "caseId": "svelte-projection",
+      "tool": "verter",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "script-type-error",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "template-wrong-boolean",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "missing-required-prop",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "wrong-prop-type",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "unknown-prop",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "callback-prop-type",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-parameter-type",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-destructuring-type",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "discriminated-union-narrowing",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "store-type-flow",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-shadow-restoration-ok",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-shadow-restoration-bad",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-shadow-restoration-ok",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-shadow-restoration-bad",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "clean-component",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "clean-generics",
+      "tool": "svelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "script-type-error",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "template-wrong-boolean",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "missing-required-prop",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "wrong-prop-type",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "unknown-prop",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "callback-prop-type",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-parameter-type",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-destructuring-type",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "discriminated-union-narrowing",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "store-type-flow",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-shadow-restoration-ok",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-shadow-restoration-bad",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-shadow-restoration-ok",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-shadow-restoration-bad",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "clean-component",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "clean-generics",
+      "tool": "svelte-check-native",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "script-type-error",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "template-wrong-boolean",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "missing-required-prop",
+      "tool": "svelte-check-rs",
+      "status": "fail",
+      "message": "no diagnostic at missing-required-prop/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: missing-required-prop/App.svelte:0::Argument of type '{}' is not assignable to parameter of type)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "wrong-prop-type",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "unknown-prop",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "callback-prop-type",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-parameter-type",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-destructuring-type",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "discriminated-union-narrowing",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "store-type-flow",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-shadow-restoration-ok",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-shadow-restoration-bad",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-shadow-restoration-ok",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-shadow-restoration-bad",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "clean-component",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "clean-generics",
+      "tool": "svelte-check-rs",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "script-type-error",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "template-wrong-boolean",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "missing-required-prop",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "wrong-prop-type",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "unknown-prop",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "callback-prop-type",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-parameter-type",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-destructuring-type",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "discriminated-union-narrowing",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "store-type-flow",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-shadow-restoration-ok",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-shadow-restoration-bad",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-shadow-restoration-ok",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-shadow-restoration-bad",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "clean-component",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "clean-generics",
+      "tool": "rsvelte-check",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "script-type-error",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "script-type-error/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at script-type-error/App.svelte:2 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "template-wrong-boolean",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "template-wrong-boolean/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at template-wrong-boolean/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "missing-required-prop",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "missing-required-prop/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at missing-required-prop/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "wrong-prop-type",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "wrong-prop-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at wrong-prop-type/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "unknown-prop",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "unknown-prop/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at unknown-prop/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "callback-prop-type",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "callback-prop-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at callback-prop-type/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-parameter-type",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "snippet-parameter-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at snippet-parameter-type/App.svelte:9 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-destructuring-type",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "each-destructuring-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at each-destructuring-type/App.svelte:6 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "discriminated-union-narrowing",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "discriminated-union-narrowing/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at discriminated-union-narrowing/App.svelte:6 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "store-type-flow",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "store-type-flow/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at store-type-flow/App.svelte:6 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-shadow-restoration-ok",
+      "tool": "verter-tsc",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "each-shadow-restoration-bad",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "each-shadow-restoration-bad/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at each-shadow-restoration-bad/App.svelte:7 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-shadow-restoration-ok",
+      "tool": "verter-tsc",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "snippet-shadow-restoration-bad",
+      "tool": "verter-tsc",
+      "status": "fail",
+      "message": "snippet-shadow-restoration-bad/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at snippet-shadow-restoration-bad/App.svelte:6 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "clean-component",
+      "tool": "verter-tsc",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "typecheck",
+      "caseId": "clean-generics",
+      "tool": "verter-tsc",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "lint",
+      "caseId": "html-injection",
+      "tool": "eslint-plugin-svelte",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "lint",
+      "caseId": "html-injection",
+      "tool": "rsvelte-lint",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "lint",
+      "caseId": "html-injection",
+      "tool": "verter",
+      "status": "fail",
+      "message": "The input did not match the regular expression /html|security|unsafe/i. Input:\n\n'[{\"rule\":\"valid-template-root\",\"category\":\"vue-essential\",\"severity\":\"error\",\"message\":\"The template requires at least one root element.\",\"spanStart\":0,\"spanEnd\":0,\"tags\":[],\"spanKind\":\"FileLevel\"}]'\n"
+    },
+    {
+      "suite": "lint",
+      "caseId": "dupe-else-if",
+      "tool": "eslint-plugin-svelte",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "lint",
+      "caseId": "dupe-else-if",
+      "tool": "rsvelte-lint",
+      "status": "skip",
+      "message": "no comparable rule in the native rule set"
+    },
+    {
+      "suite": "lint",
+      "caseId": "dupe-else-if",
+      "tool": "verter",
+      "status": "skip",
+      "message": "no comparable rule in the native diagnostics"
+    },
+    {
+      "suite": "lint",
+      "caseId": "dupe-else-if",
+      "tool": "verter",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "lint",
+      "caseId": "dupe-style-properties",
+      "tool": "eslint-plugin-svelte",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "lint",
+      "caseId": "dupe-style-properties",
+      "tool": "rsvelte-lint",
+      "status": "skip",
+      "message": "no comparable rule in the native rule set"
+    },
+    {
+      "suite": "lint",
+      "caseId": "dupe-style-properties",
+      "tool": "verter",
+      "status": "skip",
+      "message": "no comparable rule in the native diagnostics"
+    },
+    {
+      "suite": "lint",
+      "caseId": "dupe-style-properties",
+      "tool": "verter",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "format",
+      "caseId": "coverage",
+      "tool": "prettier",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "format",
+      "caseId": "idempotence",
+      "tool": "prettier",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "format",
+      "caseId": "semantics",
+      "tool": "prettier",
+      "status": "fail",
+      "message": "formatting changed observable rendered output (significant whitespace, literals or CSS values)\n+ actual - expected\n\n  '<!--[--><section data-match=\"true\"><pre>  alpha\\n' +\n+   '    beta  </pre> <span>left</span> <span>right</span><i class=\"q svelte-123rc87\"></i></section><!--]-->'\n-   '    beta  </pre><span>left</span> <span>right</span><i class=\"q svelte-123rc87\"></i></section><!--]-->'\n"
+    },
+    {
+      "suite": "format",
+      "caseId": "parseable",
+      "tool": "prettier",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "format",
+      "caseId": "coverage",
+      "tool": "rsvelte-fmt",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "format",
+      "caseId": "idempotence",
+      "tool": "rsvelte-fmt",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "format",
+      "caseId": "semantics",
+      "tool": "rsvelte-fmt",
+      "status": "fail",
+      "message": "formatting changed observable rendered output (significant whitespace, literals or CSS values)\n+ actual - expected\n\n  '<!--[--><section data-match=\"true\"><pre>  alpha\\n' +\n+   '    beta  </pre> <span>left</span> <span>right</span><i class=\"q svelte-123rc87\"></i></section><!--]-->'\n-   '    beta  </pre><span>left</span> <span>right</span><i class=\"q svelte-123rc87\"></i></section><!--]-->'\n"
+    },
+    {
+      "suite": "format",
+      "caseId": "parseable",
+      "tool": "rsvelte-fmt",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "format",
+      "caseId": "coverage",
+      "tool": "oxfmt",
+      "status": "fail",
+      "message": "markup block was not formatted"
+    },
+    {
+      "suite": "format",
+      "caseId": "idempotence",
+      "tool": "oxfmt",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "format",
+      "caseId": "semantics",
+      "tool": "oxfmt",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "format",
+      "caseId": "parseable",
+      "tool": "oxfmt",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "typed-props-with-defaults",
+      "tool": "sveld",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "typed-props-with-defaults",
+      "tool": "svelte-docinfo",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "typed-props-with-defaults",
+      "tool": "verter-typeinfo",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "bindable-and-callbacks",
+      "tool": "sveld",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "bindable-and-callbacks",
+      "tool": "svelte-docinfo",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "bindable-and-callbacks",
+      "tool": "verter-typeinfo",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "callback-signatures",
+      "tool": "sveld",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "callback-signatures",
+      "tool": "svelte-docinfo",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "callback-signatures",
+      "tool": "verter-typeinfo",
+      "status": "fail",
+      "message": "verter-typeinfo: prop \"onMove\": type \"undefined\" is not a callable type"
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "plain-component",
+      "tool": "sveld",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "plain-component",
+      "tool": "svelte-docinfo",
+      "status": "pass",
+      "message": ""
+    },
+    {
+      "suite": "component-meta",
+      "caseId": "plain-component",
+      "tool": "verter-typeinfo",
+      "status": "pass",
+      "message": ""
+    }
+  ]
+}

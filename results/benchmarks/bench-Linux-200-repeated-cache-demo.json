@@ -1,0 +1,2409 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-12T10:46:52.283Z",
+  "fixture": "fixtures/200-repeated",
+  "fileCount": 200,
+  "settings": {
+    "phase": "bench",
+    "runs": 2,
+    "warmups": 1,
+    "fileLimit": 200,
+    "checkFileLimit": 200,
+    "lintFileLimit": 200,
+    "compileTargets": "client",
+    "compileEnvs": "production",
+    "compileSourceMaps": "off",
+    "surfaces": [
+      "compile"
+    ]
+  },
+  "runner": {
+    "label": "Linux",
+    "platform": "linux",
+    "arch": "x64",
+    "cpuCount": 4,
+    "cpuModel": "AMD EPYC 7763 64-Core Processor",
+    "totalmem": 16766414848,
+    "node": "v22.23.2"
+  },
+  "commit": {
+    "sha": "cc44ddbe4810a47f25b829d3b1e1dd6e3c95672f",
+    "ref": "main",
+    "repository": "pikax/svelte-benchmarks",
+    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557",
+    "dirty": false,
+    "shaLocal": ""
+  },
+  "pnpm": "10.34.5",
+  "versions": {
+    "node": "v22.23.2",
+    "svelte": "5.57.0",
+    "svelte-mrwaip-reference": "5.56.4",
+    "svelte-check": "4.7.6",
+    "svelte-check-rs": "0.11.2",
+    "svelte-check-native": "1.5.2",
+    "@mrwaip/svelte-rs": "0.0.0-canary.13.1",
+    "@rsvelte/compiler": "0.12.2",
+    "@rsvelte/svelte2tsx": "0.2.26",
+    "@rsvelte/svelte-check": "0.5.28",
+    "@rsvelte/language-server": "0.7.8",
+    "@rsvelte/fmt": "0.7.23",
+    "@rsvelte/lint": "0.12.2",
+    "@rsvelte/vite-plugin-svelte-native": "0.3.14",
+    "@rsvelte/vite-plugin-svelte": "0.5.2",
+    "@sveltejs/vite-plugin-svelte": "7.3.0",
+    "vite": "8.3.0",
+    "@verter/native": "0.0.1-beta.3",
+    "@verter/typeinfo": "0.0.1-beta.3",
+    "@verter/proto": "0.0.1-beta.3",
+    "@bufbuild/protobuf": "2.15.0",
+    "verter-tsc": "0.0.1-beta.3",
+    "verter-lsp": "0.0.1-beta.3",
+    "svelte-language-server": "0.18.4",
+    "svelte2tsx": "0.7.61",
+    "sveld": "0.36.11",
+    "svelte-docinfo": "0.7.0",
+    "prettier": "3.9.6",
+    "prettier-plugin-svelte": "4.1.1",
+    "oxfmt": "0.67.0",
+    "eslint-plugin-svelte": "3.23.0",
+    "typescript": "6.0.3",
+    "cli:svelte-check": "4.7.6",
+    "cli:svelte-check-rs": "0.11.2",
+    "cli:svelte-check-native": "1.5.2",
+    "cli:rsvelte-check": "unknown",
+    "cli:rsvelte-fmt": "0.7.23",
+    "cli:rsvelte-lint": "0.12.2",
+    "cli:prettier": "3.9.6",
+    "cli:oxfmt": "0.67.0",
+    "cli:verter-tsc": "0.0.1-beta.3"
+  },
+  "methodology": [
+    "Primary ranking metric is the **median of measured runs**. Every measured run is preceded by at least one discarded warmup pass (enforced — `--warmups 0` is clamped to 1).",
+    "Warm median is the primary ranking metric. Compiler rows also publish a separately sampled **Fresh child** column — the first timed row workload in a new child process with startup/imports/adapter setup excluded. It is not machine-cold (OS page cache is not flushed) and never substitutes for the warm verdict.",
+    "Every warmed/fresh compile pass receives a REVISED corpus (fixed-width token + used CSS custom-property rule); the timed loop asserts the token reached the emitted CSS, so returning a cached whole-output result from an earlier pass fails the gate.",
+    "Min / std dev / CV% are reported per row. CV% > 10 is flagged ⚠. Above CV 50%, a row with at least three samples is TOO NOISY TO RANK: its time is bracketed and excluded, baseline included. Two-sample rows remain flagged rather than excluded because there is no third observation to identify an outlier.",
+    "Measured order rotates deterministically. If the run count is too small for every active variant to visit every execution position, all affected timings remain visible but unranked.",
+    "Each comparable workload class is one table. Engine, invocation and threading are row properties, while genuinely different targets or work sets use separate classes: a CLI pays process startup on every run, and a thread pool is not a single thread.",
+    "Rows tagged **(JS)** run the JavaScript TypeScript compiler; untagged typecheck/LSP rows often run native tsgo. A cross-engine ratio measures TypeScript's Go rewrite as much as the Svelte layer on top of it.",
+    "Surfaces are independent: compile ms is not comparable to typecheck/lint/format ms.",
+    "SFC compile uses fixtures/N (.svelte) with unique contents.",
+    "Compile matrix cells (client/server × production/development) are independent.",
+    "Primary compile corpus is unique file contents (fixtures/N).",
+    "Content-hash caches skip work on duplicate bodies — unique fixtures required for ranking.",
+    "Tool order is **rotated** on every warmup and measured run, so no tool is pinned to the expensive first slot.",
+    "CI does not drop OS page cache; later tools in a job may share a warmer file cache.",
+    "Typecheck, format, lint, projection, compile, metadata, LSP, bundle, and incremental-transform rows fail closed on surface-specific work gates.",
+    "Compile requires parseable Svelte runtime output per input, external CSS for styled sources, unique fixture markers, option sensitivity, and no uncompiled runes or wrong-framework carriers.",
+    "Official svelte/compiler is 1T only.",
+    "Verter's Svelte support is experimental — unsupported surfaces fail closed.",
+    "LSP: every server resolves from its installed npm package and is skipped when absent.",
+    "Diagnostic/format identity across tools is not required for throughput rows."
+  ],
+  "surfaces": [
+    {
+      "id": "compile",
+      "label": "SFC compile (unique contents)",
+      "files": 200,
+      "bytes": 21800,
+      "groups": [
+        {
+          "id": "client-prod",
+          "label": "CLIENT · production",
+          "target": "client",
+          "env": "production",
+          "variants": [
+            {
+              "id": "svelte-official-1t-client-prod",
+              "label": "svelte/compiler 5.56.8 (1T)",
+              "package": "svelte",
+              "target": "client",
+              "comparisonClass": "svelte-5.56.8",
+              "env": "production",
+              "threading": "1t",
+              "invocation": "in-process",
+              "baseline": true,
+              "baselineLabel": "Svelte 5.56.8 (official)",
+              "artifactLabel": "Code bytes",
+              "notes": "Official svelte/compiler compile(), generate=client, dev=false, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)",
+              "files": 200,
+              "status": "unranked",
+              "runs": [
+                120.641,
+                117.661
+              ],
+              "medianMs": 119.151,
+              "minMs": 117.661,
+              "maxMs": 120.641,
+              "meanMs": 119.151,
+              "stddevMs": 2.107,
+              "cvPct": 1.8,
+              "metaSamples": [
+                {
+                  "inputSourceHash": "0244ec5a654da312ad4e9a95c5906e689cda3be62b32a23ce0948e5daf14317b",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 114586
+                },
+                {
+                  "inputSourceHash": "83ee8611a2fffa20e3f6a798fc3fd16112a785cb8e6b770030f3e71c017de4c7",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 114586
+                }
+              ],
+              "artifactMedian": 114586,
+              "warmupPasses": 1,
+              "throughput": "n/a",
+              "freshChildRuns": [
+                218.258,
+                194.227
+              ],
+              "freshChildMedianMs": 206.243,
+              "freshChildMinMs": 194.227,
+              "freshChildMeanMs": 206.243,
+              "freshChildStddevMs": 16.992,
+              "freshChildCvPct": 8.2,
+              "freshChildProcessModel": "fresh-child-first-timed-row-workload",
+              "freshChildMetaSamples": [
+                {
+                  "inputSourceHash": "9695011abd4f70209ac1ecbbace90fbad2b3070785b69861c792b21ed2c0e790",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 218.08430299999986,
+                  "artifact": 114586,
+                  "rssBytes": 309592064
+                },
+                {
+                  "inputSourceHash": "98fec26bf9554e10836918e6d081644bffc4bf5e32f53d754f9ef37406be3d6e",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 194.03105500000015,
+                  "artifact": 114586,
+                  "rssBytes": 330731520
+                }
+              ]
+            },
+            {
+              "id": "svelte-mrwaip-reference-client-prod",
+              "label": "svelte/compiler 5.56.4 (1T)",
+              "package": "svelte-mrwaip-reference",
+              "target": "client",
+              "comparisonClass": "svelte-5.56.4",
+              "env": "production",
+              "threading": "1t",
+              "invocation": "in-process",
+              "baseline": true,
+              "baselineLabel": "Svelte 5.56.4 (official)",
+              "artifactLabel": "Code bytes",
+              "notes": "Pinned official reference for @mrwaip/svelte-rs; generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte-mrwaip-reference/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)",
+              "files": 200,
+              "status": "unranked",
+              "runs": [
+                122.558,
+                119.93
+              ],
+              "medianMs": 121.244,
+              "minMs": 119.93,
+              "maxMs": 122.558,
+              "meanMs": 121.244,
+              "stddevMs": 1.858,
+              "cvPct": 1.5,
+              "metaSamples": [
+                {
+                  "inputSourceHash": "39eccb1799b85800de1739698b43bbeda0e96ad232ba684254cc1a6ef009d72c",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 114586
+                },
+                {
+                  "inputSourceHash": "8ad56acb553b88245314bbff98837eef3b4912ee85a77270216fa5c4341ccc75",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 114586
+                }
+              ],
+              "artifactMedian": 114586,
+              "warmupPasses": 1,
+              "throughput": "n/a",
+              "freshChildRuns": [
+                227.465,
+                172.82
+              ],
+              "freshChildMedianMs": 200.142,
+              "freshChildMinMs": 172.82,
+              "freshChildMeanMs": 200.142,
+              "freshChildStddevMs": 38.64,
+              "freshChildCvPct": 19.3,
+              "freshChildProcessModel": "fresh-child-first-timed-row-workload",
+              "freshChildMetaSamples": [
+                {
+                  "inputSourceHash": "7e13db9f60f8719137b50be95b12c13f4c279d20edb5c4c3b7b768a6e8e21a8b",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 227.31423999999993,
+                  "artifact": 114586,
+                  "rssBytes": 337129472
+                },
+                {
+                  "inputSourceHash": "c75d79e400f36e637693a27b68bcac8a12ce931354c88a914060584f5be7325c",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 172.65366799999993,
+                  "artifact": 114586,
+                  "rssBytes": 324878336
+                }
+              ]
+            },
+            {
+              "id": "mrwaip-svelte-rs-client-prod",
+              "label": "@mrwaip/svelte-rs (NAPI)",
+              "package": "@mrwaip/svelte-rs",
+              "target": "client",
+              "comparisonClass": "svelte-5.56.4",
+              "env": "production",
+              "threading": "1t",
+              "invocation": "in-process",
+              "baseline": false,
+              "artifactLabel": "Code bytes",
+              "notes": "@mrwaip/svelte-rs compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-styles: css.css-0: mapped to 2:24; expected 9:24; crlf-styles: css.css-0: mapped to 2:24; expected 9:24). The timing remains visible but cannot rank until the emitted maps are correct. | ⚠ COMPARISON REFERENCE INVALID — the pinned official reference for class svelte-5.56.4 did not pass its own gates (unranked); no candidate ratio in the class may rank.",
+              "files": 200,
+              "status": "unranked",
+              "runs": [
+                14.363,
+                14.62
+              ],
+              "medianMs": 14.491,
+              "minMs": 14.363,
+              "maxMs": 14.62,
+              "meanMs": 14.491,
+              "stddevMs": 0.182,
+              "cvPct": 1.3,
+              "metaSamples": [
+                {
+                  "inputSourceHash": "39eccb1799b85800de1739698b43bbeda0e96ad232ba684254cc1a6ef009d72c",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 114186
+                },
+                {
+                  "inputSourceHash": "8ad56acb553b88245314bbff98837eef3b4912ee85a77270216fa5c4341ccc75",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 114186
+                }
+              ],
+              "artifactMedian": 114186,
+              "warmupPasses": 1,
+              "throughput": "n/a",
+              "freshChildRuns": [
+                21.123,
+                21.568
+              ],
+              "freshChildMedianMs": 21.346,
+              "freshChildMinMs": 21.123,
+              "freshChildMeanMs": 21.346,
+              "freshChildStddevMs": 0.315,
+              "freshChildCvPct": 1.5,
+              "freshChildProcessModel": "fresh-child-first-timed-row-workload",
+              "freshChildMetaSamples": [
+                {
+                  "inputSourceHash": "7e13db9f60f8719137b50be95b12c13f4c279d20edb5c4c3b7b768a6e8e21a8b",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 20.96564699999999,
+                  "artifact": 114186,
+                  "rssBytes": 300650496
+                },
+                {
+                  "inputSourceHash": "c75d79e400f36e637693a27b68bcac8a12ce931354c88a914060584f5be7325c",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 21.393551000000116,
+                  "artifact": 114186,
+                  "rssBytes": 294412288
+                }
+              ],
+              "unranked": true
+            },
+            {
+              "id": "rsvelte-wasm-1t-client-prod",
+              "label": "@rsvelte/compiler wasm (1T)",
+              "package": "@rsvelte/compiler",
+              "target": "client",
+              "comparisonClass": "svelte-5.56.8",
+              "env": "production",
+              "threading": "1t",
+              "invocation": "in-process",
+              "baseline": false,
+              "artifactLabel": "Code bytes",
+              "notes": "rsvelte WASM compile(), generate=client, dev=false, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct. | ⚠ COMPARISON REFERENCE INVALID — the pinned official reference for class svelte-5.56.8 did not pass its own gates (unranked); no candidate ratio in the class may rank.",
+              "files": 200,
+              "status": "unranked",
+              "runs": [
+                110.548,
+                110.65
+              ],
+              "medianMs": 110.599,
+              "minMs": 110.548,
+              "maxMs": 110.65,
+              "meanMs": 110.599,
+              "stddevMs": 0.072,
+              "cvPct": 0.1,
+              "metaSamples": [
+                {
+                  "inputSourceHash": "0244ec5a654da312ad4e9a95c5906e689cda3be62b32a23ce0948e5daf14317b",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 114586
+                },
+                {
+                  "inputSourceHash": "83ee8611a2fffa20e3f6a798fc3fd16112a785cb8e6b770030f3e71c017de4c7",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 114586
+                }
+              ],
+              "artifactMedian": 114586,
+              "warmupPasses": 1,
+              "throughput": "n/a",
+              "freshChildRuns": [
+                201.135,
+                141.118
+              ],
+              "freshChildMedianMs": 171.126,
+              "freshChildMinMs": 141.118,
+              "freshChildMeanMs": 171.126,
+              "freshChildStddevMs": 42.438,
+              "freshChildCvPct": 24.8,
+              "freshChildProcessModel": "fresh-child-first-timed-row-workload",
+              "freshChildMetaSamples": [
+                {
+                  "inputSourceHash": "9695011abd4f70209ac1ecbbace90fbad2b3070785b69861c792b21ed2c0e790",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 200.86330799999996,
+                  "artifact": 114586,
+                  "rssBytes": 333254656
+                },
+                {
+                  "inputSourceHash": "98fec26bf9554e10836918e6d081644bffc4bf5e32f53d754f9ef37406be3d6e",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 140.94696000000022,
+                  "artifact": 114586,
+                  "rssBytes": 320741376
+                }
+              ],
+              "unranked": true
+            },
+            {
+              "id": "rsvelte-native-1t-client-prod",
+              "label": "@rsvelte/native NAPI (1T)",
+              "package": "@rsvelte/vite-plugin-svelte-native",
+              "target": "client",
+              "comparisonClass": "svelte-5.56.8",
+              "env": "production",
+              "threading": "1t",
+              "invocation": "in-process",
+              "baseline": false,
+              "artifactLabel": "Code bytes",
+              "notes": "rsvelte NAPI compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct. | ⚠ COMPARISON REFERENCE INVALID — the pinned official reference for class svelte-5.56.8 did not pass its own gates (unranked); no candidate ratio in the class may rank.",
+              "files": 200,
+              "status": "unranked",
+              "runs": [
+                46.377,
+                46.223
+              ],
+              "medianMs": 46.3,
+              "minMs": 46.223,
+              "maxMs": 46.377,
+              "meanMs": 46.3,
+              "stddevMs": 0.109,
+              "cvPct": 0.2,
+              "metaSamples": [
+                {
+                  "inputSourceHash": "0244ec5a654da312ad4e9a95c5906e689cda3be62b32a23ce0948e5daf14317b",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 114586
+                },
+                {
+                  "inputSourceHash": "83ee8611a2fffa20e3f6a798fc3fd16112a785cb8e6b770030f3e71c017de4c7",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 114586
+                }
+              ],
+              "artifactMedian": 114586,
+              "warmupPasses": 1,
+              "throughput": "n/a",
+              "freshChildRuns": [
+                95.603,
+                46.686
+              ],
+              "freshChildMedianMs": 71.144,
+              "freshChildMinMs": 46.686,
+              "freshChildMeanMs": 71.144,
+              "freshChildStddevMs": 34.59,
+              "freshChildCvPct": 48.6,
+              "freshChildProcessModel": "fresh-child-first-timed-row-workload",
+              "freshChildMetaSamples": [
+                {
+                  "inputSourceHash": "9695011abd4f70209ac1ecbbace90fbad2b3070785b69861c792b21ed2c0e790",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 95.37209199999984,
+                  "artifact": 114586,
+                  "rssBytes": 326533120
+                },
+                {
+                  "inputSourceHash": "98fec26bf9554e10836918e6d081644bffc4bf5e32f53d754f9ef37406be3d6e",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 46.47766300000012,
+                  "artifact": 114586,
+                  "rssBytes": 311906304
+                }
+              ],
+              "unranked": true
+            },
+            {
+              "id": "verter-unavailable-client-prod",
+              "label": "Verter native",
+              "package": "@verter/native",
+              "target": "client",
+              "comparisonClass": "experimental-svelte",
+              "env": "production",
+              "baseline": false,
+              "notes": "No public Svelte runtime compile API; the experimental carrier exposes an IDE projection only. No proxy workload is timed.",
+              "files": 200,
+              "status": "skipped",
+              "throughput": "n/a"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "compileSemantics": {
+          "schemaVersion": 1,
+          "suiteVersion": "2026-09-12.2",
+          "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
+          "matrix": {
+            "client/production/source-map-off": {
+              "configuration": {
+                "generate": "client",
+                "env": "production",
+                "sourceMap": false
+              },
+              "status": "FAIL",
+              "entrypoints": {
+                "svelte-official": {
+                  "schemaVersion": 1,
+                  "suiteVersion": "2026-09-12.2",
+                  "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
+                  "entrypoint": "svelte-official",
+                  "label": "svelte/compiler 5.56.8",
+                  "exactPath": "svelte/compiler compile() per plant, css=external, runes=true",
+                  "generate": "client",
+                  "env": "production",
+                  "runtimePackage": "svelte",
+                  "status": "PASS",
+                  "reason": "33/33 plants + 4/4 source-map anchors passed",
+                  "plantCount": 33,
+                  "passed": 33,
+                  "failed": 0,
+                  "unknown": 0,
+                  "results": [
+                    {
+                      "id": "props-defaults-interpolation",
+                      "coverage": [
+                        "$props()",
+                        "prop defaults",
+                        "mustache interpolation"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "state-derived-update",
+                      "coverage": [
+                        "$state",
+                        "$derived",
+                        "reactive update",
+                        "DOM event handler"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bindable-prop",
+                      "coverage": [
+                        "$bindable",
+                        "two-way prop"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "callback-prop-events",
+                      "coverage": [
+                        "callback props",
+                        "component events",
+                        "payload"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bind-value-input",
+                      "coverage": [
+                        "bind:value",
+                        "input events",
+                        "two-way binding"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bind-checkbox-select",
+                      "coverage": [
+                        "bind:checked",
+                        "bind:value select",
+                        "form bindings"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "if-block-branches",
+                      "coverage": [
+                        "{#if}",
+                        "branch switching"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "each-keyed-reorder",
+                      "coverage": [
+                        "{#each}",
+                        "keyed lists",
+                        "DOM identity"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "await-block-promise",
+                      "coverage": [
+                        "{#await}",
+                        "async resolution"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "snippets-render",
+                      "coverage": [
+                        "{#snippet}",
+                        "{@render}",
+                        "snippets"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "store-auto-subscription",
+                      "coverage": [
+                        "$store",
+                        "svelte/store",
+                        "auto-subscription"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "action-directive",
+                      "coverage": [
+                        "use: action",
+                        "actions"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "html-block",
+                      "coverage": [
+                        "{@html}",
+                        "raw HTML"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "class-directive-and-style",
+                      "coverage": [
+                        "class:",
+                        "style:",
+                        "class/style handling"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "svg-namespace",
+                      "coverage": [
+                        "SVG",
+                        "namespace behaviour"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "module-script-instance",
+                      "coverage": [
+                        "<script module>",
+                        "module/instance interaction",
+                        "exports"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "legacy-event-directive",
+                      "coverage": [
+                        "on: directive",
+                        "legacy syntax still valid in Svelte 5"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-shadowing",
+                      "coverage": [
+                        "$props() destructure",
+                        "function parameter scope",
+                        "arrow parameter scope",
+                        "prop update",
+                        "lexical shadowing"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-alias-default",
+                      "coverage": [
+                        "$props() destructure",
+                        "alias",
+                        "destructure default",
+                        "$derived",
+                        "default restoration"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "component-props-child-binding",
+                      "coverage": [
+                        "component props",
+                        "child components",
+                        "$bindable across modules"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "context-parent-child",
+                      "coverage": [
+                        "setContext",
+                        "getContext",
+                        "context"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "dynamic-component-switch",
+                      "coverage": [
+                        "dynamic components",
+                        "<Component />"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-scoped-selector",
+                      "coverage": [
+                        "scoped styles",
+                        "scoping hash"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-global-selector",
+                      "coverage": [
+                        ":global"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-selector-list",
+                      "coverage": [
+                        "selector lists"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-media-at-rule",
+                      "coverage": [
+                        "at-rules",
+                        "@media"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-keyframes",
+                      "coverage": [
+                        "@keyframes",
+                        "animation references"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-custom-properties",
+                      "coverage": [
+                        "custom properties",
+                        "var()"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-unused-selector-pruned",
+                      "coverage": [
+                        "unused CSS pruning",
+                        "compiler semantics"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-cascade-order",
+                      "coverage": [
+                        "cascade",
+                        "declaration order"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-duplicate-declarations",
+                      "coverage": [
+                        "duplicate declarations",
+                        "last-wins order"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-custom-property-wiring",
+                      "coverage": [
+                        "custom properties",
+                        "var() consumption"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-external-extraction",
+                      "coverage": [
+                        "css: 'external'",
+                        "style extraction"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    }
+                  ],
+                  "sourceMap": {
+                    "suiteVersion": "2026-09-12.1",
+                    "suiteHash": "19f871f54de3aa45b7900899eae220b8bde13b2b5d764dfd28bb12c2f1a53864",
+                    "status": "PASS",
+                    "results": [
+                      {
+                        "id": "lf-raw",
+                        "workload": "raw",
+                        "status": "PASS",
+                        "phase": "compile",
+                        "failures": []
+                      },
+                      {
+                        "id": "lf-styles",
+                        "workload": "styles",
+                        "status": "PASS",
+                        "phase": "compile",
+                        "failures": []
+                      },
+                      {
+                        "id": "crlf-raw",
+                        "workload": "raw",
+                        "status": "PASS",
+                        "phase": "compile",
+                        "failures": []
+                      },
+                      {
+                        "id": "crlf-styles",
+                        "workload": "styles",
+                        "status": "PASS",
+                        "phase": "compile",
+                        "failures": []
+                      }
+                    ],
+                    "note": "generated JS/CSS tokens traced to exact source coordinates (segment-start, exact file, full sourcesContent)"
+                  }
+                },
+                "svelte-mrwaip-reference": {
+                  "schemaVersion": 1,
+                  "suiteVersion": "2026-09-12.2",
+                  "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
+                  "entrypoint": "svelte-mrwaip-reference",
+                  "label": "svelte/compiler 5.56.4 (pinned reference)",
+                  "exactPath": "svelte-mrwaip-reference/compiler compile() per plant, css=external, runes=true",
+                  "generate": "client",
+                  "env": "production",
+                  "runtimePackage": "svelte-mrwaip-reference",
+                  "status": "PASS",
+                  "reason": "33/33 plants + 4/4 source-map anchors passed",
+                  "plantCount": 33,
+                  "passed": 33,
+                  "failed": 0,
+                  "unknown": 0,
+                  "results": [
+                    {
+                      "id": "props-defaults-interpolation",
+                      "coverage": [
+                        "$props()",
+                        "prop defaults",
+                        "mustache interpolation"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "state-derived-update",
+                      "coverage": [
+                        "$state",
+                        "$derived",
+                        "reactive update",
+                        "DOM event handler"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bindable-prop",
+                      "coverage": [
+                        "$bindable",
+                        "two-way prop"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "callback-prop-events",
+                      "coverage": [
+                        "callback props",
+                        "component events",
+                        "payload"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bind-value-input",
+                      "coverage": [
+                        "bind:value",
+                        "input events",
+                        "two-way binding"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bind-checkbox-select",
+                      "coverage": [
+                        "bind:checked",
+                        "bind:value select",
+                        "form bindings"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "if-block-branches",
+                      "coverage": [
+                        "{#if}",
+                        "branch switching"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "each-keyed-reorder",
+                      "coverage": [
+                        "{#each}",
+                        "keyed lists",
+                        "DOM identity"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "await-block-promise",
+                      "coverage": [
+                        "{#await}",
+                        "async resolution"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "snippets-render",
+                      "coverage": [
+                        "{#snippet}",
+                        "{@render}",
+                        "snippets"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "store-auto-subscription",
+                      "coverage": [
+                        "$store",
+                        "svelte/store",
+                        "auto-subscription"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "action-directive",
+                      "coverage": [
+                        "use: action",
+                        "actions"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "html-block",
+                      "coverage": [
+                        "{@html}",
+                        "raw HTML"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "class-directive-and-style",
+                      "coverage": [
+                        "class:",
+                        "style:",
+                        "class/style handling"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "svg-namespace",
+                      "coverage": [
+                        "SVG",
+                        "namespace behaviour"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "module-script-instance",
+                      "coverage": [
+                        "<script module>",
+                        "module/instance interaction",
+                        "exports"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "legacy-event-directive",
+                      "coverage": [
+                        "on: directive",
+                        "legacy syntax still valid in Svelte 5"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-shadowing",
+                      "coverage": [
+                        "$props() destructure",
+                        "function parameter scope",
+                        "arrow parameter scope",
+                        "prop update",
+                        "lexical shadowing"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-alias-default",
+                      "coverage": [
+                        "$props() destructure",
+                        "alias",
+                        "destructure default",
+                        "$derived",
+                        "default restoration"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "component-props-child-binding",
+                      "coverage": [
+                        "component props",
+                        "child components",
+                        "$bindable across modules"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "context-parent-child",
+                      "coverage": [
+                        "setContext",
+                        "getContext",
+                        "context"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "dynamic-component-switch",
+                      "coverage": [
+                        "dynamic components",
+                        "<Component />"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-scoped-selector",
+                      "coverage": [
+                        "scoped styles",
+                        "scoping hash"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-global-selector",
+                      "coverage": [
+                        ":global"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-selector-list",
+                      "coverage": [
+                        "selector lists"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-media-at-rule",
+                      "coverage": [
+                        "at-rules",
+                        "@media"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-keyframes",
+                      "coverage": [
+                        "@keyframes",
+                        "animation references"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-custom-properties",
+                      "coverage": [
+                        "custom properties",
+                        "var()"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-unused-selector-pruned",
+                      "coverage": [
+                        "unused CSS pruning",
+                        "compiler semantics"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-cascade-order",
+                      "coverage": [
+                        "cascade",
+                        "declaration order"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-duplicate-declarations",
+                      "coverage": [
+                        "duplicate declarations",
+                        "last-wins order"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-custom-property-wiring",
+                      "coverage": [
+                        "custom properties",
+                        "var() consumption"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-external-extraction",
+                      "coverage": [
+                        "css: 'external'",
+                        "style extraction"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    }
+                  ],
+                  "sourceMap": {
+                    "suiteVersion": "2026-09-12.1",
+                    "suiteHash": "19f871f54de3aa45b7900899eae220b8bde13b2b5d764dfd28bb12c2f1a53864",
+                    "status": "PASS",
+                    "results": [
+                      {
+                        "id": "lf-raw",
+                        "workload": "raw",
+                        "status": "PASS",
+                        "phase": "compile",
+                        "failures": []
+                      },
+                      {
+                        "id": "lf-styles",
+                        "workload": "styles",
+                        "status": "PASS",
+                        "phase": "compile",
+                        "failures": []
+                      },
+                      {
+                        "id": "crlf-raw",
+                        "workload": "raw",
+                        "status": "PASS",
+                        "phase": "compile",
+                        "failures": []
+                      },
+                      {
+                        "id": "crlf-styles",
+                        "workload": "styles",
+                        "status": "PASS",
+                        "phase": "compile",
+                        "failures": []
+                      }
+                    ],
+                    "note": "generated JS/CSS tokens traced to exact source coordinates (segment-start, exact file, full sourcesContent)"
+                  }
+                },
+                "mrwaip-svelte-rs": {
+                  "schemaVersion": 1,
+                  "suiteVersion": "2026-09-12.2",
+                  "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
+                  "entrypoint": "mrwaip-svelte-rs",
+                  "label": "@mrwaip/svelte-rs (NAPI)",
+                  "exactPath": "@mrwaip/svelte-rs compile() per plant, css=external, runes=true",
+                  "generate": "client",
+                  "env": "production",
+                  "runtimePackage": "svelte-mrwaip-reference",
+                  "status": "FAIL",
+                  "reason": "0 failed, 0 unknown of 33; source-map FAIL (2 failed)",
+                  "plantCount": 33,
+                  "passed": 33,
+                  "failed": 0,
+                  "unknown": 0,
+                  "results": [
+                    {
+                      "id": "props-defaults-interpolation",
+                      "coverage": [
+                        "$props()",
+                        "prop defaults",
+                        "mustache interpolation"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "state-derived-update",
+                      "coverage": [
+                        "$state",
+                        "$derived",
+                        "reactive update",
+                        "DOM event handler"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bindable-prop",
+                      "coverage": [
+                        "$bindable",
+                        "two-way prop"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "callback-prop-events",
+                      "coverage": [
+                        "callback props",
+                        "component events",
+                        "payload"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bind-value-input",
+                      "coverage": [
+                        "bind:value",
+                        "input events",
+                        "two-way binding"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bind-checkbox-select",
+                      "coverage": [
+                        "bind:checked",
+                        "bind:value select",
+                        "form bindings"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "if-block-branches",
+                      "coverage": [
+                        "{#if}",
+                        "branch switching"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "each-keyed-reorder",
+                      "coverage": [
+                        "{#each}",
+                        "keyed lists",
+                        "DOM identity"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "await-block-promise",
+                      "coverage": [
+                        "{#await}",
+                        "async resolution"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "snippets-render",
+                      "coverage": [
+                        "{#snippet}",
+                        "{@render}",
+                        "snippets"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "store-auto-subscription",
+                      "coverage": [
+                        "$store",
+                        "svelte/store",
+                        "auto-subscription"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "action-directive",
+                      "coverage": [
+                        "use: action",
+                        "actions"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "html-block",
+                      "coverage": [
+                        "{@html}",
+                        "raw HTML"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "class-directive-and-style",
+                      "coverage": [
+                        "class:",
+                        "style:",
+                        "class/style handling"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "svg-namespace",
+                      "coverage": [
+                        "SVG",
+                        "namespace behaviour"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "module-script-instance",
+                      "coverage": [
+                        "<script module>",
+                        "module/instance interaction",
+                        "exports"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "legacy-event-directive",
+                      "coverage": [
+                        "on: directive",
+                        "legacy syntax still valid in Svelte 5"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-shadowing",
+                      "coverage": [
+                        "$props() destructure",
+                        "function parameter scope",
+                        "arrow parameter scope",
+                        "prop update",
+                        "lexical shadowing"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-alias-default",
+                      "coverage": [
+                        "$props() destructure",
+                        "alias",
+                        "destructure default",
+                        "$derived",
+                        "default restoration"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "component-props-child-binding",
+                      "coverage": [
+                        "component props",
+                        "child components",
+                        "$bindable across modules"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "context-parent-child",
+                      "coverage": [
+                        "setContext",
+                        "getContext",
+                        "context"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "dynamic-component-switch",
+                      "coverage": [
+                        "dynamic components",
+                        "<Component />"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-scoped-selector",
+                      "coverage": [
+                        "scoped styles",
+                        "scoping hash"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-global-selector",
+                      "coverage": [
+                        ":global"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-selector-list",
+                      "coverage": [
+                        "selector lists"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-media-at-rule",
+                      "coverage": [
+                        "at-rules",
+                        "@media"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-keyframes",
+                      "coverage": [
+                        "@keyframes",
+                        "animation references"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-custom-properties",
+                      "coverage": [
+                        "custom properties",
+                        "var()"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-unused-selector-pruned",
+                      "coverage": [
+                        "unused CSS pruning",
+                        "compiler semantics"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-cascade-order",
+                      "coverage": [
+                        "cascade",
+                        "declaration order"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-duplicate-declarations",
+                      "coverage": [
+                        "duplicate declarations",
+                        "last-wins order"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-custom-property-wiring",
+                      "coverage": [
+                        "custom properties",
+                        "var() consumption"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-external-extraction",
+                      "coverage": [
+                        "css: 'external'",
+                        "style extraction"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    }
+                  ],
+                  "sourceMap": {
+                    "suiteVersion": "2026-09-12.1",
+                    "suiteHash": "19f871f54de3aa45b7900899eae220b8bde13b2b5d764dfd28bb12c2f1a53864",
+                    "status": "FAIL",
+                    "results": [
+                      {
+                        "id": "lf-raw",
+                        "workload": "raw",
+                        "status": "PASS",
+                        "phase": "compile",
+                        "failures": []
+                      },
+                      {
+                        "id": "lf-styles",
+                        "workload": "styles",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "css.css-0: mapped to 2:24; expected 9:24",
+                          "css.css-1: mapped to 3:13; expected 10:13"
+                        ]
+                      },
+                      {
+                        "id": "crlf-raw",
+                        "workload": "raw",
+                        "status": "PASS",
+                        "phase": "compile",
+                        "failures": []
+                      },
+                      {
+                        "id": "crlf-styles",
+                        "workload": "styles",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "css.css-0: mapped to 2:24; expected 9:24",
+                          "css.css-1: mapped to 3:13; expected 10:13"
+                        ]
+                      }
+                    ],
+                    "note": "generated JS/CSS tokens traced to exact source coordinates (segment-start, exact file, full sourcesContent)"
+                  }
+                },
+                "rsvelte-wasm": {
+                  "schemaVersion": 1,
+                  "suiteVersion": "2026-09-12.2",
+                  "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
+                  "entrypoint": "rsvelte-wasm",
+                  "label": "@rsvelte/compiler (Wasm)",
+                  "exactPath": "@rsvelte/compiler compile() per plant after initSync, css=external, runes=true",
+                  "generate": "client",
+                  "env": "production",
+                  "runtimePackage": "svelte",
+                  "status": "FAIL",
+                  "reason": "0 failed, 0 unknown of 33; source-map FAIL (4 failed)",
+                  "plantCount": 33,
+                  "passed": 33,
+                  "failed": 0,
+                  "unknown": 0,
+                  "results": [
+                    {
+                      "id": "props-defaults-interpolation",
+                      "coverage": [
+                        "$props()",
+                        "prop defaults",
+                        "mustache interpolation"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "state-derived-update",
+                      "coverage": [
+                        "$state",
+                        "$derived",
+                        "reactive update",
+                        "DOM event handler"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bindable-prop",
+                      "coverage": [
+                        "$bindable",
+                        "two-way prop"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "callback-prop-events",
+                      "coverage": [
+                        "callback props",
+                        "component events",
+                        "payload"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bind-value-input",
+                      "coverage": [
+                        "bind:value",
+                        "input events",
+                        "two-way binding"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bind-checkbox-select",
+                      "coverage": [
+                        "bind:checked",
+                        "bind:value select",
+                        "form bindings"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "if-block-branches",
+                      "coverage": [
+                        "{#if}",
+                        "branch switching"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "each-keyed-reorder",
+                      "coverage": [
+                        "{#each}",
+                        "keyed lists",
+                        "DOM identity"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "await-block-promise",
+                      "coverage": [
+                        "{#await}",
+                        "async resolution"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "snippets-render",
+                      "coverage": [
+                        "{#snippet}",
+                        "{@render}",
+                        "snippets"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "store-auto-subscription",
+                      "coverage": [
+                        "$store",
+                        "svelte/store",
+                        "auto-subscription"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "action-directive",
+                      "coverage": [
+                        "use: action",
+                        "actions"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "html-block",
+                      "coverage": [
+                        "{@html}",
+                        "raw HTML"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "class-directive-and-style",
+                      "coverage": [
+                        "class:",
+                        "style:",
+                        "class/style handling"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "svg-namespace",
+                      "coverage": [
+                        "SVG",
+                        "namespace behaviour"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "module-script-instance",
+                      "coverage": [
+                        "<script module>",
+                        "module/instance interaction",
+                        "exports"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "legacy-event-directive",
+                      "coverage": [
+                        "on: directive",
+                        "legacy syntax still valid in Svelte 5"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-shadowing",
+                      "coverage": [
+                        "$props() destructure",
+                        "function parameter scope",
+                        "arrow parameter scope",
+                        "prop update",
+                        "lexical shadowing"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-alias-default",
+                      "coverage": [
+                        "$props() destructure",
+                        "alias",
+                        "destructure default",
+                        "$derived",
+                        "default restoration"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "component-props-child-binding",
+                      "coverage": [
+                        "component props",
+                        "child components",
+                        "$bindable across modules"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "context-parent-child",
+                      "coverage": [
+                        "setContext",
+                        "getContext",
+                        "context"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "dynamic-component-switch",
+                      "coverage": [
+                        "dynamic components",
+                        "<Component />"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-scoped-selector",
+                      "coverage": [
+                        "scoped styles",
+                        "scoping hash"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-global-selector",
+                      "coverage": [
+                        ":global"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-selector-list",
+                      "coverage": [
+                        "selector lists"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-media-at-rule",
+                      "coverage": [
+                        "at-rules",
+                        "@media"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-keyframes",
+                      "coverage": [
+                        "@keyframes",
+                        "animation references"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-custom-properties",
+                      "coverage": [
+                        "custom properties",
+                        "var()"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-unused-selector-pruned",
+                      "coverage": [
+                        "unused CSS pruning",
+                        "compiler semantics"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-cascade-order",
+                      "coverage": [
+                        "cascade",
+                        "declaration order"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-duplicate-declarations",
+                      "coverage": [
+                        "duplicate declarations",
+                        "last-wins order"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-custom-property-wiring",
+                      "coverage": [
+                        "custom properties",
+                        "var() consumption"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-external-extraction",
+                      "coverage": [
+                        "css: 'external'",
+                        "style extraction"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    }
+                  ],
+                  "sourceMap": {
+                    "suiteVersion": "2026-09-12.1",
+                    "suiteHash": "19f871f54de3aa45b7900899eae220b8bde13b2b5d764dfd28bb12c2f1a53864",
+                    "status": "FAIL",
+                    "results": [
+                      {
+                        "id": "lf-raw",
+                        "workload": "raw",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.script: mapped to 2:19; expected 2:17",
+                          "js.template: generated token has no original mapping"
+                        ]
+                      },
+                      {
+                        "id": "lf-styles",
+                        "workload": "styles",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.script: mapped to 2:19; expected 2:17",
+                          "js.template: generated token has no original mapping"
+                        ]
+                      },
+                      {
+                        "id": "crlf-raw",
+                        "workload": "raw",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.script: mapped to 2:19; expected 2:17",
+                          "js.template: generated token has no original mapping"
+                        ]
+                      },
+                      {
+                        "id": "crlf-styles",
+                        "workload": "styles",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.script: mapped to 2:19; expected 2:17",
+                          "js.template: generated token has no original mapping"
+                        ]
+                      }
+                    ],
+                    "note": "generated JS/CSS tokens traced to exact source coordinates (segment-start, exact file, full sourcesContent)"
+                  }
+                },
+                "rsvelte-native": {
+                  "schemaVersion": 1,
+                  "suiteVersion": "2026-09-12.2",
+                  "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
+                  "entrypoint": "rsvelte-native",
+                  "label": "@rsvelte/native NAPI",
+                  "exactPath": "@rsvelte/vite-plugin-svelte-native compileSync() per plant, css=external, runes=true",
+                  "generate": "client",
+                  "env": "production",
+                  "runtimePackage": "svelte",
+                  "status": "FAIL",
+                  "reason": "0 failed, 0 unknown of 33; source-map FAIL (4 failed)",
+                  "plantCount": 33,
+                  "passed": 33,
+                  "failed": 0,
+                  "unknown": 0,
+                  "results": [
+                    {
+                      "id": "props-defaults-interpolation",
+                      "coverage": [
+                        "$props()",
+                        "prop defaults",
+                        "mustache interpolation"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "state-derived-update",
+                      "coverage": [
+                        "$state",
+                        "$derived",
+                        "reactive update",
+                        "DOM event handler"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bindable-prop",
+                      "coverage": [
+                        "$bindable",
+                        "two-way prop"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "callback-prop-events",
+                      "coverage": [
+                        "callback props",
+                        "component events",
+                        "payload"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bind-value-input",
+                      "coverage": [
+                        "bind:value",
+                        "input events",
+                        "two-way binding"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "bind-checkbox-select",
+                      "coverage": [
+                        "bind:checked",
+                        "bind:value select",
+                        "form bindings"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "if-block-branches",
+                      "coverage": [
+                        "{#if}",
+                        "branch switching"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "each-keyed-reorder",
+                      "coverage": [
+                        "{#each}",
+                        "keyed lists",
+                        "DOM identity"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "await-block-promise",
+                      "coverage": [
+                        "{#await}",
+                        "async resolution"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "snippets-render",
+                      "coverage": [
+                        "{#snippet}",
+                        "{@render}",
+                        "snippets"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "store-auto-subscription",
+                      "coverage": [
+                        "$store",
+                        "svelte/store",
+                        "auto-subscription"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "action-directive",
+                      "coverage": [
+                        "use: action",
+                        "actions"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "html-block",
+                      "coverage": [
+                        "{@html}",
+                        "raw HTML"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "class-directive-and-style",
+                      "coverage": [
+                        "class:",
+                        "style:",
+                        "class/style handling"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "svg-namespace",
+                      "coverage": [
+                        "SVG",
+                        "namespace behaviour"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "module-script-instance",
+                      "coverage": [
+                        "<script module>",
+                        "module/instance interaction",
+                        "exports"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "legacy-event-directive",
+                      "coverage": [
+                        "on: directive",
+                        "legacy syntax still valid in Svelte 5"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-shadowing",
+                      "coverage": [
+                        "$props() destructure",
+                        "function parameter scope",
+                        "arrow parameter scope",
+                        "prop update",
+                        "lexical shadowing"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-alias-default",
+                      "coverage": [
+                        "$props() destructure",
+                        "alias",
+                        "destructure default",
+                        "$derived",
+                        "default restoration"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "component-props-child-binding",
+                      "coverage": [
+                        "component props",
+                        "child components",
+                        "$bindable across modules"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "context-parent-child",
+                      "coverage": [
+                        "setContext",
+                        "getContext",
+                        "context"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "dynamic-component-switch",
+                      "coverage": [
+                        "dynamic components",
+                        "<Component />"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-scoped-selector",
+                      "coverage": [
+                        "scoped styles",
+                        "scoping hash"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-global-selector",
+                      "coverage": [
+                        ":global"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-selector-list",
+                      "coverage": [
+                        "selector lists"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-media-at-rule",
+                      "coverage": [
+                        "at-rules",
+                        "@media"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-keyframes",
+                      "coverage": [
+                        "@keyframes",
+                        "animation references"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-custom-properties",
+                      "coverage": [
+                        "custom properties",
+                        "var()"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-unused-selector-pruned",
+                      "coverage": [
+                        "unused CSS pruning",
+                        "compiler semantics"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-cascade-order",
+                      "coverage": [
+                        "cascade",
+                        "declaration order"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-duplicate-declarations",
+                      "coverage": [
+                        "duplicate declarations",
+                        "last-wins order"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-custom-property-wiring",
+                      "coverage": [
+                        "custom properties",
+                        "var() consumption"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "css-external-extraction",
+                      "coverage": [
+                        "css: 'external'",
+                        "style extraction"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    }
+                  ],
+                  "sourceMap": {
+                    "suiteVersion": "2026-09-12.1",
+                    "suiteHash": "19f871f54de3aa45b7900899eae220b8bde13b2b5d764dfd28bb12c2f1a53864",
+                    "status": "FAIL",
+                    "results": [
+                      {
+                        "id": "lf-raw",
+                        "workload": "raw",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.script: mapped to 2:19; expected 2:17",
+                          "js.template: generated token has no original mapping"
+                        ]
+                      },
+                      {
+                        "id": "lf-styles",
+                        "workload": "styles",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.script: mapped to 2:19; expected 2:17",
+                          "js.template: generated token has no original mapping"
+                        ]
+                      },
+                      {
+                        "id": "crlf-raw",
+                        "workload": "raw",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.script: mapped to 2:19; expected 2:17",
+                          "js.template: generated token has no original mapping"
+                        ]
+                      },
+                      {
+                        "id": "crlf-styles",
+                        "workload": "styles",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.script: mapped to 2:19; expected 2:17",
+                          "js.template: generated token has no original mapping"
+                        ]
+                      }
+                    ],
+                    "note": "generated JS/CSS tokens traced to exact source coordinates (segment-start, exact file, full sourcesContent)"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "methodology": [
+        "Matrix: generate ∈ {client, server} × env ∈ {production, development} × source-map ∈ {off, on} (off by default).",
+        "Within each pinned compiler-version class, every tool receives the same in-memory Svelte SFC corpus. Real-world eligibility is decided independently by that class's official reference and per-row file counts remain visible.",
+        "Official: svelte/compiler compile() with runes=true. Generated fixtures force runes; real-world sources use compiler auto-detection.",
+        "MrWaip: @mrwaip/svelte-rs native compiler through its compatible compile() API, ranked inside the pinned svelte-5.56.4 class with svelte/compiler 5.56.4 as the official reference/baseline.",
+        "rsvelte: WASM (@rsvelte/compiler) and NAPI (@rsvelte/vite-plugin-svelte-native) paths are separate rows in the svelte-5.56.8 class.",
+        "Verter exposes no public Svelte runtime compile API in the installed package (probed at runtime), so it is reported skipped; its different runtime-render batching API is not substituted.",
+        "Every warmed/fresh pass compiles a REVISED corpus: a fixed-width comment token plus a used CSS custom-property rule. The timed loop asserts the token reached the emitted CSS, so a cached whole-output result from a previous pass fails the gate. Adapter parity additionally requires every warm and fresh pass to have received a distinct input revision.",
+        "Every compiler must return one non-empty code artifact per input file, emit the expected Svelte client/server runtime import, and remove Svelte runes; aggregate byte totals alone are not accepted as proof of coverage.",
+        "Fresh child = the first timed row workload in a NEW child process, after excluded Node startup, package imports, adapter construction and input materialisation. It is NOT machine-cold (OS page cache is not flushed) and its ratio never substitutes for the warm verdict.",
+        "Source maps: every compared Svelte 5 compiler ALWAYS emits js.map/css.map from compile() (no off/on flag exists — the 'sourcemap' option is a chained-map INPUT), so an off/on matrix would measure the harness, not the tools. Instead the maps' COORDINATE CORRECTNESS gates every row: anchored tokens in generated JS/CSS must trace back to their exact source positions (segment fallback allowed, exact line/column required, sourcesContent equal to the full component), across LF/CRLF and non-BMP-shifted columns. Wrong-file, shifted, stale or byte-counted maps unrank the row.",
+        "Runtime semantic validity: a 28-plant Svelte 5 suite (props/state/derived/bindable/bindings/events/each-keyed/await/snippets/stores/actions/context/dynamic components/{@html}/SVG/module script/legacy syntax + CSS semantics) runs per entrypoint per cell in isolated child processes after timing; non-PASS rows unrank, and a failed official reference unrankS every candidate in its compatibility class (no survivor promotion).",
+        "Tool order is rotated on every warmup and measured run. A row is unranked unless the measured runs cover every active execution position; ranking metric is the median of warmed runs."
+      ],
+      "freshChildMeasurement": {
+        "processModel": "fresh-child-first-timed-row-workload",
+        "excludes": [
+          "child-process-startup",
+          "package-import",
+          "adapter-construction",
+          "input-materialisation"
+        ],
+        "osPageCacheFlushed": false,
+        "whollyFreshRuntimeStateClaimed": false,
+        "note": "Fresh child is sampled separately from warm; warm median remains the primary ranking metric."
+      }
+    }
+  ]
+}
