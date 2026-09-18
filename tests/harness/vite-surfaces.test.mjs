@@ -39,7 +39,7 @@ test("Vite integration surfaces share one stack and fail closed on coverage", ()
   );
   assert.equal(
     packageJson.dependencies["@rsvelte/vite-plugin-svelte"],
-    "0.5.2",
+    "0.5.3",
   );
   assert.match(packageJson.scripts["bench:bundle"], /--surfaces bundle/);
   assert.match(packageJson.scripts["bench:hmr"], /--surfaces hmr/);

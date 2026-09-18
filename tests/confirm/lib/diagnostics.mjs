@@ -32,6 +32,38 @@ export function parseDiagnostics(rawText) {
   for (let index = 0; index < lines.length; index++) {
     const line = lines[index].trimEnd();
     if (!line) continue;
+    // svelte-check machine grammar (selected automatically when stdout is
+    // not a TTY, i.e. under every harness spawn):
+    //   <epoch-ms> ERROR "<json-escaped file>" <line>:<col> "<json-escaped message>"
+    // svelte-check-native 1.7+ mirrors it. Windows paths arrive JSON-escaped
+    // ("dir\\App.svelte"), so the strings are decoded before normalisation.
+    const machine =
+      /^\d+\s+(ERROR|WARNING)\s+"((?:[^"\\]|\\.)*)"\s+(\d+):(\d+)\s+"((?:[^"\\]|\\.)*)"(?:\s+"((?:[^"\\]|\\.)*)")?\s*$/.exec(
+        line,
+      );
+    if (machine) {
+      const decode = (text) => {
+        try {
+          return JSON.parse(`"${text}"`);
+        } catch {
+          return text;
+        }
+      };
+      const file = decode(machine[2]).replaceAll("\\", "/");
+      if (/\.(svelte|ts)$/i.test(file)) {
+        lastFile = file;
+        diagnostics.push({
+          file,
+          line: Number(machine[3]),
+          col: Number(machine[4]),
+          severity: machine[1].toLowerCase(),
+          code: machine[6] ? decode(machine[6]).toUpperCase() : "",
+          message: decode(machine[5]),
+          raw: line,
+        });
+        continue;
+      }
+    }
     // svelte-check pretty grammar:
     //   <file>:<line>:<col>\n<Error|Warning>: <message> (ts|js|svelte)\n<excerpt>
     const pretty = /^(\S+\.svelte):(\d+):(\d+)$/.exec(line.trim());

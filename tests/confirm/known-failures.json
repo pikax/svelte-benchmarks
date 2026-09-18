@@ -2,16 +2,13 @@
   "$comment": "Keys are suite/case/tool. Entries may be scoped with platforms (array) and path (combined|per-case). A listed failure that starts passing is STALE and fails CI — remove it when the upstream limitation clears. An entry never turns a benchmark validity failure into a ranked PASS.",
   "$comment-discipline": "Expected still failing = accepted+reported; expected passing = stale = exit 1; unexpected failure = exit 1. Package upgrades re-run every plant automatically (versions are exactly pinned in package.json).",
   "compile/server-render/verter": {
-    "why": "@verter/native 0.0.1-beta.3 compileMany(runtime-render) emits Vue-style modules and leaves Svelte runes uncompiled. The diagnostic timing remains unranked. Remove this entry when valid Svelte server output is observed."
+    "why": "@verter/native 0.0.1-beta.5 compileMany(runtime-render) emits Vue-style modules and leaves Svelte runes uncompiled. The diagnostic timing remains unranked. Remove this entry when valid Svelte server output is observed."
   },
   "compile/validity-client/verter-svelte": {
     "why": "The published compileMany path fails the Svelte client runtime and source-map plants: Vue-style output, unresolved virtual modules, and Svelte syntax rejected by the parser. These are retained as failed validation, not ranked timings."
   },
   "compile/validity-server/verter-svelte": {
     "why": "The published compileMany path fails the Svelte server runtime and source-map plants: Vue-style output, unresolved virtual modules, and uncompiled runes. These are retained as failed validation, not ranked timings."
-  },
-  "typecheck/script-type-error/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not yet report the shared Svelte plant grammar."
   },
   "lint/html-injection/verter": {
     "why": "Verter does not expose the shared raw-HTML diagnostic through this host API yet."
@@ -22,41 +19,8 @@
   "typecheck/missing-required-prop/svelte-check-rs": {
     "why": "svelte-check-rs reports the missing-required-prop error without a usable location (line 0), so pin-based scoring cannot accept it."
   },
-  "typecheck/template-wrong-boolean/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
-  "typecheck/missing-required-prop/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
-  "typecheck/wrong-prop-type/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
-  "typecheck/unknown-prop/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
-  "typecheck/callback-prop-type/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
-  "typecheck/snippet-parameter-type/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
-  "typecheck/each-destructuring-type/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
-  "typecheck/discriminated-union-narrowing/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
-  "typecheck/store-type-flow/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
   "component-meta/callback-signatures/verter-typeinfo": {
     "why": "Verter's published framework surface omits type text for function-typed props at this demand level, so parameter-count/type facts cannot be checked for it."
-  },
-  "typecheck/each-shadow-restoration-bad/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
-  },
-  "typecheck/snippet-shadow-restoration-bad/verter-tsc": {
-    "why": "The experimental Verter TypeScript carrier does not report this Svelte plant through its tsc bridge yet."
   },
   "format/semantics/prettier": {
     "why": "Reformatting separates </pre> from the following inline element with a newline, which Svelte renders as a visible space where the original had none — the formatter changes observable output for zero-space inline sequences."
@@ -75,5 +39,8 @@
   },
   "compile/validity-client/rsvelte-native": {
     "why": "JS source-map columns count UTF-8 bytes instead of UTF-16 code units (anchors after a non-BMP emoji shift by +2), and the template anchor has no original mapping."
+  },
+  "typecheck/clean-generics/verter-tsc": {
+    "why": "verter-tsc 0.0.1-beta.5 reports TS2304 \"Cannot find name 'T'\" on the clean generics plant: the <script generics=\"T\"> parameter is not carried into its tsc bridge, so the clean plant is not clean for this tool. Remove this entry when the generics plant checks clean."
   }
 }

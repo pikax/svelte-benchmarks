@@ -284,15 +284,19 @@ export async function runComponentMetaSurface(fixtureDir, options) {
   try {
     sveldModule = await import("sveld");
     if (!sveldRegistered) {
-      sveldModule.registerWriter({
-        name: "svelte-bench-capture",
-        // The staged barrel exports every file exactly once. `all` would also
-        // add filename-derived aliases and double the component count.
-        componentSet: "exported",
-        write(components) {
-          sveldCapture = components;
+      sveldModule.registerWriter(
+        {
+          name: "svelte-bench-capture",
+          // The staged barrel exports every file exactly once. `all` would
+          // also add filename-derived aliases and double the component count.
+          componentSet: "exported",
+          write(components) {
+            sveldCapture = components;
+          },
         },
-      });
+        // sveld 0.37+ throws on a duplicate writer name unless replace is set.
+        { replace: true },
+      );
       sveldRegistered = true;
     }
   } catch (error) {

@@ -32,6 +32,10 @@ const ANSI_ESCAPE_RE =
 
 const DIAGNOSTIC_LINE_PATTERNS = [
   /^\s*(?:ERROR|WARNING)\b/i,
+  // svelte-check machine grammar (auto-selected when CLAUDECODE=1 is set;
+  // svelte-check-native 1.7+ mirrors it):
+  //   <epoch-ms> ERROR "<file>" <line>:<col> "<message>"
+  /^\d+\s+(?:ERROR|WARNING)\s+"/,
   /^\S[^\n]*\(\d+,\d+\):[ \t]*(?:error|warning)\b/i,
   /^\S[^\n]*:\d+:\d+[ \t]+-[ \t]+(?:error|warning)\b/i,
   /^[ \t]*(?:error|warning):\d+:\d+/i,

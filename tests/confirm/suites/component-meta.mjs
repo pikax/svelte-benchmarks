@@ -173,13 +173,18 @@ export async function runComponentMetaSuite() {
       const sveld = await import("sveld");
       let captured;
       const writer = `confirm-${process.pid}`;
-      sveld.registerWriter({
-        name: writer,
-        componentSet: "exported",
-        write(components) {
-          captured = components;
+      sveld.registerWriter(
+        {
+          name: writer,
+          componentSet: "exported",
+          write(components) {
+            captured = components;
+          },
         },
-      });
+        // sveld 0.37+ throws on a duplicate writer name unless replace is set;
+        // this writer is re-registered once per case.
+        { replace: true },
+      );
       await sveld.sveld({
         entry: relative(process.cwd(), join(dir, "index.js")),
         glob: true,
