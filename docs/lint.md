@@ -10,12 +10,12 @@ Ranked on the **median of measured runs** — Warm is the primary ordering and r
 
 </details>
 
-- **Generated:** 2026-09-12T10:46:24.868Z
+- **Generated:** 2026-09-18T13:11:29.670Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
 - **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [cc44ddb](https://github.com/pikax/svelte-benchmarks/commit/cc44ddb)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557
+- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 9V45 96-Core Processor · 16 GB RAM · Node v22.23.2
+- **Commit:** [649f404](https://github.com/pikax/svelte-benchmarks/commit/649f404)
+- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026
 - **Source:** `bench-Linux-200-bench.json`
 
 ### Lint
@@ -39,9 +39,9 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| eslint-plugin-svelte (1T API) | 200 | **343.1 ms** | 325.6 ms | 45.7 ms | 13.3% ⚠ | 1.00x | n/a | n/a | 583 files/s |
-| eslint-plugin-svelte (CLI) | 200 | **1.25 s** | 1.23 s | 24.7 ms | 2.0% | 3.64x | n/a | n/a | 160 files/s |
-| eslint-plugin-svelte (worker pool) | 200 | **1.88 s** | 1.84 s | 25.1 ms | 1.3% | 5.49x | n/a | n/a | 106 files/s |
+| eslint-plugin-svelte (1T API) | 200 | **228.4 ms** | 199.9 ms | 30.7 ms | 13.4% ⚠ | 1.00x | n/a | n/a | 876 files/s |
+| eslint-plugin-svelte (CLI) | 200 | **710.8 ms** | 689.0 ms | 23.3 ms | 3.3% | 3.11x | n/a | n/a | 281 files/s |
+| eslint-plugin-svelte (worker pool) | 200 | **1.04 s** | 1.01 s | 29.8 ms | 2.9% | 4.56x | n/a | n/a | 192 files/s |
 
 <details><summary>Notes</summary>
 
@@ -60,7 +60,7 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| rsvelte-lint | 200 | **148.2 ms** | 144.3 ms | 33.5 ms | 22.6% ⚠ | — | n/a | n/a | — |
+| rsvelte-lint | 200 | **88.1 ms** | 85.9 ms | 7.5 ms | 8.6% | — | n/a | n/a | — |
 
 <details><summary>Notes</summary>
 
@@ -77,7 +77,7 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter host lint ⚠ | 200 | (55.8 ms) | (55.7 ms) | – | – | not ranked | – | n/a | – |
+| Verter host lint ⚠ | 200 | (73.6 ms) | (72.7 ms) | – | – | not ranked | – | n/a | – |
 
 <details><summary>Notes</summary>
 
@@ -96,11 +96,11 @@ Tools:
 
 Raw runs:
 
-- **eslint-plugin-svelte (1T API)**: 408.3 ms, 425.8 ms, 343.1 ms, 336.9 ms, 325.6 ms
-- **eslint-plugin-svelte (CLI)**: 1.29 s, 1.28 s, 1.25 s, 1.25 s, 1.23 s
-- **eslint-plugin-svelte (worker pool)**: 1.88 s, 1.91 s, 1.84 s, 1.90 s, 1.87 s
-- **rsvelte-lint**: 144.3 ms, 146.5 ms, 148.7 ms, 221.7 ms, 148.2 ms
-- **Verter host lint**: 58.0 ms, 55.7 ms, 55.8 ms, 55.8 ms, 57.6 ms
+- **eslint-plugin-svelte (1T API)**: 264.1 ms, 268.5 ms, 228.4 ms, 212.1 ms, 199.9 ms
+- **eslint-plugin-svelte (CLI)**: 741.2 ms, 710.8 ms, 689.0 ms, 703.5 ms, 741.1 ms
+- **eslint-plugin-svelte (worker pool)**: 1.09 s, 1.01 s, 1.05 s, 1.04 s, 1.02 s
+- **rsvelte-lint**: 85.9 ms, 88.1 ms, 86.8 ms, 104.2 ms, 91.4 ms
+- **Verter host lint**: 73.6 ms, 73.4 ms, 76.9 ms, 76.1 ms, 72.7 ms
 
 </details>
 
@@ -112,7 +112,7 @@ Raw runs:
 | --- | --- | --- | --- |
 | html-injection | eslint-plugin-svelte | ✓ pass |  |
 | html-injection | rsvelte-lint | ✓ pass |  |
-| html-injection | verter | ✗ fail | The input did not match the regular expression /html\|security\|unsafe/i. Input:  '[{"rule":"valid-template-root","category":"vue-essential","severity":"error", |
+| html-injection | verter | ✗ fail | The input did not match the regular expression /html\|security\|unsafe/i. Input:  '[{"rule":"block-lang","category":"vue-recommended","severity":"warning","mess |
 | dupe-else-if | eslint-plugin-svelte | ✓ pass |  |
 | dupe-else-if | rsvelte-lint | ○ skip | no comparable rule in the native rule set |
 | dupe-else-if | verter | ○ skip | no comparable rule in the native diagnostics |
@@ -131,42 +131,42 @@ Raw runs:
 | svelte | 5.57.0 |
 | svelte-check | 4.7.6 |
 | svelte-check-rs | 0.11.2 |
-| svelte-check-native | 1.5.2 |
-| @mrwaip/svelte-rs | 0.0.0-canary.13.1 |
-| @rsvelte/compiler | 0.12.2 |
-| @rsvelte/svelte2tsx | 0.2.26 |
-| @rsvelte/svelte-check | 0.5.28 |
-| @rsvelte/language-server | 0.7.8 |
-| @rsvelte/fmt | 0.7.23 |
-| @rsvelte/lint | 0.12.2 |
+| svelte-check-native | 1.7.0 |
+| @mrwaip/svelte-rs | 0.0.0-canary.15.1 |
+| @rsvelte/compiler | 0.12.3 |
+| @rsvelte/svelte2tsx | 0.2.27 |
+| @rsvelte/svelte-check | 0.5.29 |
+| @rsvelte/language-server | 0.7.9 |
+| @rsvelte/fmt | 0.7.24 |
+| @rsvelte/lint | 0.12.3 |
 | @rsvelte/vite-plugin-svelte-native | 0.3.14 |
-| @rsvelte/vite-plugin-svelte | 0.5.2 |
+| @rsvelte/vite-plugin-svelte | 0.5.3 |
 | @sveltejs/vite-plugin-svelte | 7.3.0 |
 | vite | 8.3.0 |
-| @verter/native | 0.0.1-beta.3 |
-| @verter/typeinfo | 0.0.1-beta.3 |
-| @verter/proto | 0.0.1-beta.3 |
+| @verter/native | 0.0.1-beta.5 |
+| @verter/typeinfo | 0.0.1-beta.5 |
+| @verter/proto | 0.0.1-beta.5 |
 | @bufbuild/protobuf | 2.15.0 |
-| verter-tsc | 0.0.1-beta.3 |
-| verter-lsp | 0.0.1-beta.3 |
+| verter-tsc | 0.0.1-beta.5 |
+| verter-lsp | 0.0.1-beta.5 |
 | svelte-language-server | 0.18.4 |
 | svelte2tsx | 0.7.61 |
-| sveld | 0.36.11 |
+| sveld | 0.37.3 |
 | svelte-docinfo | 0.7.0 |
-| prettier | 3.9.6 |
+| prettier | 3.9.8 |
 | prettier-plugin-svelte | 4.1.1 |
-| oxfmt | 0.67.0 |
+| oxfmt | 0.68.0 |
 | eslint-plugin-svelte | 3.23.0 |
 | typescript | 6.0.3 |
 | cli:svelte-check | 4.7.6 |
 | cli:svelte-check-rs | 0.11.2 |
-| cli:svelte-check-native | 1.5.2 |
+| cli:svelte-check-native | 1.7.0 |
 | cli:rsvelte-check | unknown |
-| cli:rsvelte-fmt | 0.7.23 |
-| cli:rsvelte-lint | 0.12.2 |
-| cli:prettier | 3.9.6 |
-| cli:oxfmt | 0.67.0 |
-| cli:verter-tsc | 0.0.1-beta.3 |
+| cli:rsvelte-fmt | 0.7.24 |
+| cli:rsvelte-lint | 0.12.3 |
+| cli:prettier | 3.9.8 |
+| cli:oxfmt | 0.68.0 |
+| cli:verter-tsc | 0.0.1-beta.5 |
 
 </details>
 

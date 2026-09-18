@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-12T10:46:52.283Z",
+  "generatedAt": "2026-09-18T13:11:43.430Z",
   "fixture": "fixtures/200-repeated",
   "fileCount": 200,
   "settings": {
@@ -22,15 +22,15 @@
     "platform": "linux",
     "arch": "x64",
     "cpuCount": 4,
-    "cpuModel": "AMD EPYC 7763 64-Core Processor",
-    "totalmem": 16766414848,
+    "cpuModel": "AMD EPYC 9V45 96-Core Processor",
+    "totalmem": 16766410752,
     "node": "v22.23.2"
   },
   "commit": {
-    "sha": "cc44ddbe4810a47f25b829d3b1e1dd6e3c95672f",
+    "sha": "649f40499ddb19405eaa8a8e95412702a047b79c",
     "ref": "main",
     "repository": "pikax/svelte-benchmarks",
-    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557",
+    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026",
     "dirty": false,
     "shaLocal": ""
   },
@@ -38,45 +38,44 @@
   "versions": {
     "node": "v22.23.2",
     "svelte": "5.57.0",
-    "svelte-mrwaip-reference": "5.56.4",
     "svelte-check": "4.7.6",
     "svelte-check-rs": "0.11.2",
-    "svelte-check-native": "1.5.2",
-    "@mrwaip/svelte-rs": "0.0.0-canary.13.1",
-    "@rsvelte/compiler": "0.12.2",
-    "@rsvelte/svelte2tsx": "0.2.26",
-    "@rsvelte/svelte-check": "0.5.28",
-    "@rsvelte/language-server": "0.7.8",
-    "@rsvelte/fmt": "0.7.23",
-    "@rsvelte/lint": "0.12.2",
+    "svelte-check-native": "1.7.0",
+    "@mrwaip/svelte-rs": "0.0.0-canary.15.1",
+    "@rsvelte/compiler": "0.12.3",
+    "@rsvelte/svelte2tsx": "0.2.27",
+    "@rsvelte/svelte-check": "0.5.29",
+    "@rsvelte/language-server": "0.7.9",
+    "@rsvelte/fmt": "0.7.24",
+    "@rsvelte/lint": "0.12.3",
     "@rsvelte/vite-plugin-svelte-native": "0.3.14",
-    "@rsvelte/vite-plugin-svelte": "0.5.2",
+    "@rsvelte/vite-plugin-svelte": "0.5.3",
     "@sveltejs/vite-plugin-svelte": "7.3.0",
     "vite": "8.3.0",
-    "@verter/native": "0.0.1-beta.3",
-    "@verter/typeinfo": "0.0.1-beta.3",
-    "@verter/proto": "0.0.1-beta.3",
+    "@verter/native": "0.0.1-beta.5",
+    "@verter/typeinfo": "0.0.1-beta.5",
+    "@verter/proto": "0.0.1-beta.5",
     "@bufbuild/protobuf": "2.15.0",
-    "verter-tsc": "0.0.1-beta.3",
-    "verter-lsp": "0.0.1-beta.3",
+    "verter-tsc": "0.0.1-beta.5",
+    "verter-lsp": "0.0.1-beta.5",
     "svelte-language-server": "0.18.4",
     "svelte2tsx": "0.7.61",
-    "sveld": "0.36.11",
+    "sveld": "0.37.3",
     "svelte-docinfo": "0.7.0",
-    "prettier": "3.9.6",
+    "prettier": "3.9.8",
     "prettier-plugin-svelte": "4.1.1",
-    "oxfmt": "0.67.0",
+    "oxfmt": "0.68.0",
     "eslint-plugin-svelte": "3.23.0",
     "typescript": "6.0.3",
     "cli:svelte-check": "4.7.6",
     "cli:svelte-check-rs": "0.11.2",
-    "cli:svelte-check-native": "1.5.2",
+    "cli:svelte-check-native": "1.7.0",
     "cli:rsvelte-check": "unknown",
-    "cli:rsvelte-fmt": "0.7.23",
-    "cli:rsvelte-lint": "0.12.2",
-    "cli:prettier": "3.9.6",
-    "cli:oxfmt": "0.67.0",
-    "cli:verter-tsc": "0.0.1-beta.3"
+    "cli:rsvelte-fmt": "0.7.24",
+    "cli:rsvelte-lint": "0.12.3",
+    "cli:prettier": "3.9.8",
+    "cli:oxfmt": "0.68.0",
+    "cli:verter-tsc": "0.0.1-beta.5"
   },
   "methodology": [
     "Primary ranking metric is the **median of measured runs**. Every measured run is preceded by at least one discarded warmup pass (enforced — `--warmups 0` is clamped to 1).",
@@ -115,38 +114,38 @@
           "variants": [
             {
               "id": "svelte-official-1t-client-prod",
-              "label": "svelte/compiler 5.56.8 (1T)",
+              "label": "svelte/compiler 5.57.0 (1T)",
               "package": "svelte",
               "target": "client",
-              "comparisonClass": "svelte-5.56.8",
+              "comparisonClass": "svelte",
               "env": "production",
               "threading": "1t",
               "invocation": "in-process",
               "baseline": true,
-              "baselineLabel": "Svelte 5.56.8 (official)",
+              "baselineLabel": "Svelte 5.57.0 (official)",
               "artifactLabel": "Code bytes",
               "notes": "Official svelte/compiler compile(), generate=client, dev=false, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)",
               "files": 200,
               "status": "unranked",
               "runs": [
-                120.641,
-                117.661
+                82.381,
+                76.294
               ],
-              "medianMs": 119.151,
-              "minMs": 117.661,
-              "maxMs": 120.641,
-              "meanMs": 119.151,
-              "stddevMs": 2.107,
-              "cvPct": 1.8,
+              "medianMs": 79.338,
+              "minMs": 76.294,
+              "maxMs": 82.381,
+              "meanMs": 79.338,
+              "stddevMs": 4.304,
+              "cvPct": 5.4,
               "metaSamples": [
                 {
-                  "inputSourceHash": "0244ec5a654da312ad4e9a95c5906e689cda3be62b32a23ce0948e5daf14317b",
+                  "inputSourceHash": "860da262ddf00307ca44bf7248da8fa1ab07f3669828f77e3a3a38bc98b1ef9f",
                   "inputCount": 200,
                   "inputBytes": 55000,
                   "artifact": 114586
                 },
                 {
-                  "inputSourceHash": "83ee8611a2fffa20e3f6a798fc3fd16112a785cb8e6b770030f3e71c017de4c7",
+                  "inputSourceHash": "c47b046c451ec1be838f3e1f3d1a28bd8b1350da822225822ebfb47ca113bb12",
                   "inputCount": 200,
                   "inputBytes": 55000,
                   "artifact": 114586
@@ -156,102 +155,31 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                218.258,
-                194.227
+                150.182,
+                150.902
               ],
-              "freshChildMedianMs": 206.243,
-              "freshChildMinMs": 194.227,
-              "freshChildMeanMs": 206.243,
-              "freshChildStddevMs": 16.992,
-              "freshChildCvPct": 8.2,
+              "freshChildMedianMs": 150.542,
+              "freshChildMinMs": 150.182,
+              "freshChildMeanMs": 150.542,
+              "freshChildStddevMs": 0.509,
+              "freshChildCvPct": 0.3,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
-                  "inputSourceHash": "9695011abd4f70209ac1ecbbace90fbad2b3070785b69861c792b21ed2c0e790",
+                  "inputSourceHash": "1b572463bee82cf9b5e416c4dae118746a34bb49b8d1a08390c6ac38ca0f0f8e",
                   "inputCount": 200,
                   "inputBytes": 55000,
-                  "ms": 218.08430299999986,
+                  "ms": 150.18157300000007,
                   "artifact": 114586,
-                  "rssBytes": 309592064
+                  "rssBytes": 327446528
                 },
                 {
-                  "inputSourceHash": "98fec26bf9554e10836918e6d081644bffc4bf5e32f53d754f9ef37406be3d6e",
+                  "inputSourceHash": "dfd3a8587265ad76221e4a5c0e1675a2a01597f00e40d508af2b2ec3a206dd19",
                   "inputCount": 200,
                   "inputBytes": 55000,
-                  "ms": 194.03105500000015,
+                  "ms": 150.90229,
                   "artifact": 114586,
-                  "rssBytes": 330731520
-                }
-              ]
-            },
-            {
-              "id": "svelte-mrwaip-reference-client-prod",
-              "label": "svelte/compiler 5.56.4 (1T)",
-              "package": "svelte-mrwaip-reference",
-              "target": "client",
-              "comparisonClass": "svelte-5.56.4",
-              "env": "production",
-              "threading": "1t",
-              "invocation": "in-process",
-              "baseline": true,
-              "baselineLabel": "Svelte 5.56.4 (official)",
-              "artifactLabel": "Code bytes",
-              "notes": "Pinned official reference for @mrwaip/svelte-rs; generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte-mrwaip-reference/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)",
-              "files": 200,
-              "status": "unranked",
-              "runs": [
-                122.558,
-                119.93
-              ],
-              "medianMs": 121.244,
-              "minMs": 119.93,
-              "maxMs": 122.558,
-              "meanMs": 121.244,
-              "stddevMs": 1.858,
-              "cvPct": 1.5,
-              "metaSamples": [
-                {
-                  "inputSourceHash": "39eccb1799b85800de1739698b43bbeda0e96ad232ba684254cc1a6ef009d72c",
-                  "inputCount": 200,
-                  "inputBytes": 55000,
-                  "artifact": 114586
-                },
-                {
-                  "inputSourceHash": "8ad56acb553b88245314bbff98837eef3b4912ee85a77270216fa5c4341ccc75",
-                  "inputCount": 200,
-                  "inputBytes": 55000,
-                  "artifact": 114586
-                }
-              ],
-              "artifactMedian": 114586,
-              "warmupPasses": 1,
-              "throughput": "n/a",
-              "freshChildRuns": [
-                227.465,
-                172.82
-              ],
-              "freshChildMedianMs": 200.142,
-              "freshChildMinMs": 172.82,
-              "freshChildMeanMs": 200.142,
-              "freshChildStddevMs": 38.64,
-              "freshChildCvPct": 19.3,
-              "freshChildProcessModel": "fresh-child-first-timed-row-workload",
-              "freshChildMetaSamples": [
-                {
-                  "inputSourceHash": "7e13db9f60f8719137b50be95b12c13f4c279d20edb5c4c3b7b768a6e8e21a8b",
-                  "inputCount": 200,
-                  "inputBytes": 55000,
-                  "ms": 227.31423999999993,
-                  "artifact": 114586,
-                  "rssBytes": 337129472
-                },
-                {
-                  "inputSourceHash": "c75d79e400f36e637693a27b68bcac8a12ce931354c88a914060584f5be7325c",
-                  "inputCount": 200,
-                  "inputBytes": 55000,
-                  "ms": 172.65366799999993,
-                  "artifact": 114586,
-                  "rssBytes": 324878336
+                  "rssBytes": 321048576
                 }
               ]
             },
@@ -260,34 +188,34 @@
               "label": "@mrwaip/svelte-rs (NAPI)",
               "package": "@mrwaip/svelte-rs",
               "target": "client",
-              "comparisonClass": "svelte-5.56.4",
+              "comparisonClass": "svelte",
               "env": "production",
               "threading": "1t",
               "invocation": "in-process",
               "baseline": false,
               "artifactLabel": "Code bytes",
-              "notes": "@mrwaip/svelte-rs compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-styles: css.css-0: mapped to 2:24; expected 9:24; crlf-styles: css.css-0: mapped to 2:24; expected 9:24). The timing remains visible but cannot rank until the emitted maps are correct. | ⚠ COMPARISON REFERENCE INVALID — the pinned official reference for class svelte-5.56.4 did not pass its own gates (unranked); no candidate ratio in the class may rank.",
+              "notes": "@mrwaip/svelte-rs compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-styles: css.css-0: mapped to 2:24; expected 9:24; crlf-styles: css.css-0: mapped to 2:24; expected 9:24). The timing remains visible but cannot rank until the emitted maps are correct. | ⚠ COMPARISON REFERENCE INVALID — the official Svelte reference for class svelte did not pass its own gates (unranked); no candidate ratio in the class may rank.",
               "files": 200,
               "status": "unranked",
               "runs": [
-                14.363,
-                14.62
+                4.48,
+                4.631
               ],
-              "medianMs": 14.491,
-              "minMs": 14.363,
-              "maxMs": 14.62,
-              "meanMs": 14.491,
-              "stddevMs": 0.182,
-              "cvPct": 1.3,
+              "medianMs": 4.556,
+              "minMs": 4.48,
+              "maxMs": 4.631,
+              "meanMs": 4.556,
+              "stddevMs": 0.107,
+              "cvPct": 2.3,
               "metaSamples": [
                 {
-                  "inputSourceHash": "39eccb1799b85800de1739698b43bbeda0e96ad232ba684254cc1a6ef009d72c",
+                  "inputSourceHash": "860da262ddf00307ca44bf7248da8fa1ab07f3669828f77e3a3a38bc98b1ef9f",
                   "inputCount": 200,
                   "inputBytes": 55000,
                   "artifact": 114186
                 },
                 {
-                  "inputSourceHash": "8ad56acb553b88245314bbff98837eef3b4912ee85a77270216fa5c4341ccc75",
+                  "inputSourceHash": "c47b046c451ec1be838f3e1f3d1a28bd8b1350da822225822ebfb47ca113bb12",
                   "inputCount": 200,
                   "inputBytes": 55000,
                   "artifact": 114186
@@ -297,31 +225,31 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                21.123,
-                21.568
+                6.69,
+                7.269
               ],
-              "freshChildMedianMs": 21.346,
-              "freshChildMinMs": 21.123,
-              "freshChildMeanMs": 21.346,
-              "freshChildStddevMs": 0.315,
-              "freshChildCvPct": 1.5,
+              "freshChildMedianMs": 6.979,
+              "freshChildMinMs": 6.69,
+              "freshChildMeanMs": 6.979,
+              "freshChildStddevMs": 0.409,
+              "freshChildCvPct": 5.9,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
-                  "inputSourceHash": "7e13db9f60f8719137b50be95b12c13f4c279d20edb5c4c3b7b768a6e8e21a8b",
+                  "inputSourceHash": "1b572463bee82cf9b5e416c4dae118746a34bb49b8d1a08390c6ac38ca0f0f8e",
                   "inputCount": 200,
                   "inputBytes": 55000,
-                  "ms": 20.96564699999999,
+                  "ms": 6.689828000000034,
                   "artifact": 114186,
-                  "rssBytes": 300650496
+                  "rssBytes": 308973568
                 },
                 {
-                  "inputSourceHash": "c75d79e400f36e637693a27b68bcac8a12ce931354c88a914060584f5be7325c",
+                  "inputSourceHash": "dfd3a8587265ad76221e4a5c0e1675a2a01597f00e40d508af2b2ec3a206dd19",
                   "inputCount": 200,
                   "inputBytes": 55000,
-                  "ms": 21.393551000000116,
+                  "ms": 7.269422000000077,
                   "artifact": 114186,
-                  "rssBytes": 294412288
+                  "rssBytes": 295190528
                 }
               ],
               "unranked": true
@@ -331,34 +259,34 @@
               "label": "@rsvelte/compiler wasm (1T)",
               "package": "@rsvelte/compiler",
               "target": "client",
-              "comparisonClass": "svelte-5.56.8",
+              "comparisonClass": "svelte",
               "env": "production",
               "threading": "1t",
               "invocation": "in-process",
               "baseline": false,
               "artifactLabel": "Code bytes",
-              "notes": "rsvelte WASM compile(), generate=client, dev=false, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct. | ⚠ COMPARISON REFERENCE INVALID — the pinned official reference for class svelte-5.56.8 did not pass its own gates (unranked); no candidate ratio in the class may rank.",
+              "notes": "rsvelte WASM compile(), generate=client, dev=false, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.template: generated token has no original mapping; lf-styles: js.template: generated token has no original mapping). The timing remains visible but cannot rank until the emitted maps are correct. | ⚠ COMPARISON REFERENCE INVALID — the official Svelte reference for class svelte did not pass its own gates (unranked); no candidate ratio in the class may rank.",
               "files": 200,
               "status": "unranked",
               "runs": [
-                110.548,
-                110.65
+                79.301,
+                77.483
               ],
-              "medianMs": 110.599,
-              "minMs": 110.548,
-              "maxMs": 110.65,
-              "meanMs": 110.599,
-              "stddevMs": 0.072,
-              "cvPct": 0.1,
+              "medianMs": 78.392,
+              "minMs": 77.483,
+              "maxMs": 79.301,
+              "meanMs": 78.392,
+              "stddevMs": 1.286,
+              "cvPct": 1.6,
               "metaSamples": [
                 {
-                  "inputSourceHash": "0244ec5a654da312ad4e9a95c5906e689cda3be62b32a23ce0948e5daf14317b",
+                  "inputSourceHash": "860da262ddf00307ca44bf7248da8fa1ab07f3669828f77e3a3a38bc98b1ef9f",
                   "inputCount": 200,
                   "inputBytes": 55000,
                   "artifact": 114586
                 },
                 {
-                  "inputSourceHash": "83ee8611a2fffa20e3f6a798fc3fd16112a785cb8e6b770030f3e71c017de4c7",
+                  "inputSourceHash": "c47b046c451ec1be838f3e1f3d1a28bd8b1350da822225822ebfb47ca113bb12",
                   "inputCount": 200,
                   "inputBytes": 55000,
                   "artifact": 114586
@@ -368,31 +296,31 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                201.135,
-                141.118
+                125.832,
+                147.81
               ],
-              "freshChildMedianMs": 171.126,
-              "freshChildMinMs": 141.118,
-              "freshChildMeanMs": 171.126,
-              "freshChildStddevMs": 42.438,
-              "freshChildCvPct": 24.8,
+              "freshChildMedianMs": 136.821,
+              "freshChildMinMs": 125.832,
+              "freshChildMeanMs": 136.821,
+              "freshChildStddevMs": 15.541,
+              "freshChildCvPct": 11.4,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
-                  "inputSourceHash": "9695011abd4f70209ac1ecbbace90fbad2b3070785b69861c792b21ed2c0e790",
+                  "inputSourceHash": "1b572463bee82cf9b5e416c4dae118746a34bb49b8d1a08390c6ac38ca0f0f8e",
                   "inputCount": 200,
                   "inputBytes": 55000,
-                  "ms": 200.86330799999996,
+                  "ms": 125.83151199999998,
                   "artifact": 114586,
-                  "rssBytes": 333254656
+                  "rssBytes": 324038656
                 },
                 {
-                  "inputSourceHash": "98fec26bf9554e10836918e6d081644bffc4bf5e32f53d754f9ef37406be3d6e",
+                  "inputSourceHash": "dfd3a8587265ad76221e4a5c0e1675a2a01597f00e40d508af2b2ec3a206dd19",
                   "inputCount": 200,
                   "inputBytes": 55000,
-                  "ms": 140.94696000000022,
+                  "ms": 147.80999999999995,
                   "artifact": 114586,
-                  "rssBytes": 320741376
+                  "rssBytes": 327516160
                 }
               ],
               "unranked": true
@@ -402,34 +330,34 @@
               "label": "@rsvelte/native NAPI (1T)",
               "package": "@rsvelte/vite-plugin-svelte-native",
               "target": "client",
-              "comparisonClass": "svelte-5.56.8",
+              "comparisonClass": "svelte",
               "env": "production",
               "threading": "1t",
               "invocation": "in-process",
               "baseline": false,
               "artifactLabel": "Code bytes",
-              "notes": "rsvelte NAPI compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct. | ⚠ COMPARISON REFERENCE INVALID — the pinned official reference for class svelte-5.56.8 did not pass its own gates (unranked); no candidate ratio in the class may rank.",
+              "notes": "rsvelte NAPI compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⚠ INCOMPLETE ORDER COVERAGE — 2 measured run(s) cannot place 5 active variants in every execution position. The time remains visible but is excluded from ranking. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct. | ⚠ COMPARISON REFERENCE INVALID — the official Svelte reference for class svelte did not pass its own gates (unranked); no candidate ratio in the class may rank.",
               "files": 200,
               "status": "unranked",
               "runs": [
-                46.377,
-                46.223
+                22.422,
+                21.405
               ],
-              "medianMs": 46.3,
-              "minMs": 46.223,
-              "maxMs": 46.377,
-              "meanMs": 46.3,
-              "stddevMs": 0.109,
-              "cvPct": 0.2,
+              "medianMs": 21.913,
+              "minMs": 21.405,
+              "maxMs": 22.422,
+              "meanMs": 21.913,
+              "stddevMs": 0.719,
+              "cvPct": 3.3,
               "metaSamples": [
                 {
-                  "inputSourceHash": "0244ec5a654da312ad4e9a95c5906e689cda3be62b32a23ce0948e5daf14317b",
+                  "inputSourceHash": "860da262ddf00307ca44bf7248da8fa1ab07f3669828f77e3a3a38bc98b1ef9f",
                   "inputCount": 200,
                   "inputBytes": 55000,
                   "artifact": 114586
                 },
                 {
-                  "inputSourceHash": "83ee8611a2fffa20e3f6a798fc3fd16112a785cb8e6b770030f3e71c017de4c7",
+                  "inputSourceHash": "c47b046c451ec1be838f3e1f3d1a28bd8b1350da822225822ebfb47ca113bb12",
                   "inputCount": 200,
                   "inputBytes": 55000,
                   "artifact": 114586
@@ -439,47 +367,199 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                95.603,
-                46.686
+                40.6,
+                72.678
               ],
-              "freshChildMedianMs": 71.144,
-              "freshChildMinMs": 46.686,
-              "freshChildMeanMs": 71.144,
-              "freshChildStddevMs": 34.59,
-              "freshChildCvPct": 48.6,
+              "freshChildMedianMs": 56.639,
+              "freshChildMinMs": 40.6,
+              "freshChildMeanMs": 56.639,
+              "freshChildStddevMs": 22.683,
+              "freshChildCvPct": 40,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
-                  "inputSourceHash": "9695011abd4f70209ac1ecbbace90fbad2b3070785b69861c792b21ed2c0e790",
+                  "inputSourceHash": "1b572463bee82cf9b5e416c4dae118746a34bb49b8d1a08390c6ac38ca0f0f8e",
                   "inputCount": 200,
                   "inputBytes": 55000,
-                  "ms": 95.37209199999984,
+                  "ms": 40.599965,
                   "artifact": 114586,
-                  "rssBytes": 326533120
+                  "rssBytes": 290865152
                 },
                 {
-                  "inputSourceHash": "98fec26bf9554e10836918e6d081644bffc4bf5e32f53d754f9ef37406be3d6e",
+                  "inputSourceHash": "dfd3a8587265ad76221e4a5c0e1675a2a01597f00e40d508af2b2ec3a206dd19",
                   "inputCount": 200,
                   "inputBytes": 55000,
-                  "ms": 46.47766300000012,
+                  "ms": 72.67767099999992,
                   "artifact": 114586,
-                  "rssBytes": 311906304
+                  "rssBytes": 321953792
                 }
               ],
               "unranked": true
             },
             {
-              "id": "verter-unavailable-client-prod",
-              "label": "Verter native",
+              "id": "verter-stateless-client-prod",
+              "label": "Verter compileMany (stateless)",
               "package": "@verter/native",
               "target": "client",
               "comparisonClass": "experimental-svelte",
               "env": "production",
+              "threading": "1t",
+              "invocation": "in-process",
               "baseline": false,
-              "notes": "No public Svelte runtime compile API; the experimental carrier exposes an IDE projection only. No proxy workload is timed.",
+              "artifactLabel": "Code bytes",
+              "notes": "VerterHost.compileMany(target=runtime-render, mode=stateless, 1 CPU thread) on the same revised Svelte inputs. Diagnostic timing only: the published path is not validated as a Svelte runtime compiler; invalid/empty output and per-file errors are retained, never ranked. | output gate: FAIL — returned empty JavaScript; 200/200 entries, 200 compile errors, 200 entries missing the CSS revision token; first error: [Comp00000.svelte] host error: runtime surface refused for 'Comp00000.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`. | ⓘ adapter parity: 4 distinct input revisions across 4 passes (warm + fresh child) | ⚠ RUNTIME SEMANTIC VALIDITY FAIL (4/33 plants) — state-derived-update (plant): [Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-advanced-rune: Svelte client emission does not yet support the `$derived` rune form.; bindable-prop (plant): [Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-advanced-rune: Svelte client emission does not yet support the `$props() non-interpolation usage` rune form.; callback-prop-events (plant): [Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-non-delegated-event: Svelte client emission does not yet support the non-delegated / capture / global event `click`.",
               "files": 200,
-              "status": "skipped",
-              "throughput": "n/a"
+              "status": "unranked",
+              "runs": [
+                17.655,
+                15.715
+              ],
+              "medianMs": 16.685,
+              "minMs": 15.715,
+              "maxMs": 17.655,
+              "meanMs": 16.685,
+              "stddevMs": 1.372,
+              "cvPct": 8.2,
+              "metaSamples": [
+                {
+                  "inputSourceHash": "860da262ddf00307ca44bf7248da8fa1ab07f3669828f77e3a3a38bc98b1ef9f",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 0,
+                  "returnedCount": 200,
+                  "emittedFiles": 0,
+                  "compileErrorCount": 200,
+                  "compileErrors": [
+                    "[Comp00000.svelte] host error: runtime surface refused for 'Comp00000.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`.",
+                    "[Comp00001.svelte] host error: runtime surface refused for 'Comp00001.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`.",
+                    "[Comp00002.svelte] host error: runtime surface refused for 'Comp00002.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`."
+                  ],
+                  "outputValidation": {
+                    "status": "FAIL",
+                    "detail": "returned empty JavaScript; 200/200 entries, 200 compile errors, 200 entries missing the CSS revision token"
+                  },
+                  "outputSamples": [
+                    {
+                      "filename": "Comp00000.svelte",
+                      "code": ""
+                    },
+                    {
+                      "filename": "Comp00001.svelte",
+                      "code": ""
+                    }
+                  ],
+                  "cacheHits": 0
+                },
+                {
+                  "inputSourceHash": "c47b046c451ec1be838f3e1f3d1a28bd8b1350da822225822ebfb47ca113bb12",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "artifact": 0,
+                  "returnedCount": 200,
+                  "emittedFiles": 0,
+                  "compileErrorCount": 200,
+                  "compileErrors": [
+                    "[Comp00000.svelte] host error: runtime surface refused for 'Comp00000.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`.",
+                    "[Comp00001.svelte] host error: runtime surface refused for 'Comp00001.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`.",
+                    "[Comp00002.svelte] host error: runtime surface refused for 'Comp00002.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`."
+                  ],
+                  "outputValidation": {
+                    "status": "FAIL",
+                    "detail": "returned empty JavaScript; 200/200 entries, 200 compile errors, 200 entries missing the CSS revision token"
+                  },
+                  "outputSamples": [
+                    {
+                      "filename": "Comp00000.svelte",
+                      "code": ""
+                    },
+                    {
+                      "filename": "Comp00001.svelte",
+                      "code": ""
+                    }
+                  ],
+                  "cacheHits": 0
+                }
+              ],
+              "cacheHitsMedian": 0,
+              "cacheHitsLast": 0,
+              "artifactMedian": 0,
+              "warmupPasses": 1,
+              "throughput": "n/a",
+              "freshChildRuns": [
+                110.933,
+                30.972
+              ],
+              "freshChildMedianMs": 70.953,
+              "freshChildMinMs": 30.972,
+              "freshChildMeanMs": 70.953,
+              "freshChildStddevMs": 56.541,
+              "freshChildCvPct": 79.7,
+              "freshChildProcessModel": "fresh-child-first-timed-row-workload",
+              "freshChildMetaSamples": [
+                {
+                  "inputSourceHash": "1b572463bee82cf9b5e416c4dae118746a34bb49b8d1a08390c6ac38ca0f0f8e",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 110.93310299999996,
+                  "artifact": 0,
+                  "returnedCount": 200,
+                  "emittedFiles": 0,
+                  "compileErrorCount": 200,
+                  "compileErrors": [
+                    "[Comp00000.svelte] host error: runtime surface refused for 'Comp00000.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`.",
+                    "[Comp00001.svelte] host error: runtime surface refused for 'Comp00001.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`.",
+                    "[Comp00002.svelte] host error: runtime surface refused for 'Comp00002.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`."
+                  ],
+                  "outputValidation": {
+                    "status": "FAIL",
+                    "detail": "returned empty JavaScript; 200/200 entries, 200 compile errors, 200 entries missing the CSS revision token"
+                  },
+                  "outputSamples": [
+                    {
+                      "filename": "Comp00000.svelte",
+                      "code": ""
+                    },
+                    {
+                      "filename": "Comp00001.svelte",
+                      "code": ""
+                    }
+                  ],
+                  "cacheHits": 0,
+                  "rssBytes": 340500480
+                },
+                {
+                  "inputSourceHash": "dfd3a8587265ad76221e4a5c0e1675a2a01597f00e40d508af2b2ec3a206dd19",
+                  "inputCount": 200,
+                  "inputBytes": 55000,
+                  "ms": 30.97230000000002,
+                  "artifact": 0,
+                  "returnedCount": 200,
+                  "emittedFiles": 0,
+                  "compileErrorCount": 200,
+                  "compileErrors": [
+                    "[Comp00000.svelte] host error: runtime surface refused for 'Comp00000.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`.",
+                    "[Comp00001.svelte] host error: runtime surface refused for 'Comp00001.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`.",
+                    "[Comp00002.svelte] host error: runtime surface refused for 'Comp00002.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `hidden`."
+                  ],
+                  "outputValidation": {
+                    "status": "FAIL",
+                    "detail": "returned empty JavaScript; 200/200 entries, 200 compile errors, 200 entries missing the CSS revision token"
+                  },
+                  "outputSamples": [
+                    {
+                      "filename": "Comp00000.svelte",
+                      "code": ""
+                    },
+                    {
+                      "filename": "Comp00001.svelte",
+                      "code": ""
+                    }
+                  ],
+                  "cacheHits": 0,
+                  "rssBytes": 306163712
+                }
+              ],
+              "unranked": true
             }
           ]
         }
@@ -503,380 +583,11 @@
                   "suiteVersion": "2026-09-12.2",
                   "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
                   "entrypoint": "svelte-official",
-                  "label": "svelte/compiler 5.56.8",
+                  "label": "svelte/compiler 5.57.0",
                   "exactPath": "svelte/compiler compile() per plant, css=external, runes=true",
                   "generate": "client",
                   "env": "production",
                   "runtimePackage": "svelte",
-                  "status": "PASS",
-                  "reason": "33/33 plants + 4/4 source-map anchors passed",
-                  "plantCount": 33,
-                  "passed": 33,
-                  "failed": 0,
-                  "unknown": 0,
-                  "results": [
-                    {
-                      "id": "props-defaults-interpolation",
-                      "coverage": [
-                        "$props()",
-                        "prop defaults",
-                        "mustache interpolation"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "state-derived-update",
-                      "coverage": [
-                        "$state",
-                        "$derived",
-                        "reactive update",
-                        "DOM event handler"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "bindable-prop",
-                      "coverage": [
-                        "$bindable",
-                        "two-way prop"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "callback-prop-events",
-                      "coverage": [
-                        "callback props",
-                        "component events",
-                        "payload"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "bind-value-input",
-                      "coverage": [
-                        "bind:value",
-                        "input events",
-                        "two-way binding"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "bind-checkbox-select",
-                      "coverage": [
-                        "bind:checked",
-                        "bind:value select",
-                        "form bindings"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "if-block-branches",
-                      "coverage": [
-                        "{#if}",
-                        "branch switching"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "each-keyed-reorder",
-                      "coverage": [
-                        "{#each}",
-                        "keyed lists",
-                        "DOM identity"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "await-block-promise",
-                      "coverage": [
-                        "{#await}",
-                        "async resolution"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "snippets-render",
-                      "coverage": [
-                        "{#snippet}",
-                        "{@render}",
-                        "snippets"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "store-auto-subscription",
-                      "coverage": [
-                        "$store",
-                        "svelte/store",
-                        "auto-subscription"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "action-directive",
-                      "coverage": [
-                        "use: action",
-                        "actions"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "html-block",
-                      "coverage": [
-                        "{@html}",
-                        "raw HTML"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "class-directive-and-style",
-                      "coverage": [
-                        "class:",
-                        "style:",
-                        "class/style handling"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "svg-namespace",
-                      "coverage": [
-                        "SVG",
-                        "namespace behaviour"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "module-script-instance",
-                      "coverage": [
-                        "<script module>",
-                        "module/instance interaction",
-                        "exports"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "legacy-event-directive",
-                      "coverage": [
-                        "on: directive",
-                        "legacy syntax still valid in Svelte 5"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "reactive-props-destructure-shadowing",
-                      "coverage": [
-                        "$props() destructure",
-                        "function parameter scope",
-                        "arrow parameter scope",
-                        "prop update",
-                        "lexical shadowing"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "reactive-props-destructure-alias-default",
-                      "coverage": [
-                        "$props() destructure",
-                        "alias",
-                        "destructure default",
-                        "$derived",
-                        "default restoration"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "component-props-child-binding",
-                      "coverage": [
-                        "component props",
-                        "child components",
-                        "$bindable across modules"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "context-parent-child",
-                      "coverage": [
-                        "setContext",
-                        "getContext",
-                        "context"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "dynamic-component-switch",
-                      "coverage": [
-                        "dynamic components",
-                        "<Component />"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-scoped-selector",
-                      "coverage": [
-                        "scoped styles",
-                        "scoping hash"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-global-selector",
-                      "coverage": [
-                        ":global"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-selector-list",
-                      "coverage": [
-                        "selector lists"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-media-at-rule",
-                      "coverage": [
-                        "at-rules",
-                        "@media"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-keyframes",
-                      "coverage": [
-                        "@keyframes",
-                        "animation references"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-custom-properties",
-                      "coverage": [
-                        "custom properties",
-                        "var()"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-unused-selector-pruned",
-                      "coverage": [
-                        "unused CSS pruning",
-                        "compiler semantics"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-cascade-order",
-                      "coverage": [
-                        "cascade",
-                        "declaration order"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-duplicate-declarations",
-                      "coverage": [
-                        "duplicate declarations",
-                        "last-wins order"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-custom-property-wiring",
-                      "coverage": [
-                        "custom properties",
-                        "var() consumption"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    },
-                    {
-                      "id": "css-external-extraction",
-                      "coverage": [
-                        "css: 'external'",
-                        "style extraction"
-                      ],
-                      "status": "PASS",
-                      "phase": "runtime-client"
-                    }
-                  ],
-                  "sourceMap": {
-                    "suiteVersion": "2026-09-12.1",
-                    "suiteHash": "19f871f54de3aa45b7900899eae220b8bde13b2b5d764dfd28bb12c2f1a53864",
-                    "status": "PASS",
-                    "results": [
-                      {
-                        "id": "lf-raw",
-                        "workload": "raw",
-                        "status": "PASS",
-                        "phase": "compile",
-                        "failures": []
-                      },
-                      {
-                        "id": "lf-styles",
-                        "workload": "styles",
-                        "status": "PASS",
-                        "phase": "compile",
-                        "failures": []
-                      },
-                      {
-                        "id": "crlf-raw",
-                        "workload": "raw",
-                        "status": "PASS",
-                        "phase": "compile",
-                        "failures": []
-                      },
-                      {
-                        "id": "crlf-styles",
-                        "workload": "styles",
-                        "status": "PASS",
-                        "phase": "compile",
-                        "failures": []
-                      }
-                    ],
-                    "note": "generated JS/CSS tokens traced to exact source coordinates (segment-start, exact file, full sourcesContent)"
-                  }
-                },
-                "svelte-mrwaip-reference": {
-                  "schemaVersion": 1,
-                  "suiteVersion": "2026-09-12.2",
-                  "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
-                  "entrypoint": "svelte-mrwaip-reference",
-                  "label": "svelte/compiler 5.56.4 (pinned reference)",
-                  "exactPath": "svelte-mrwaip-reference/compiler compile() per plant, css=external, runes=true",
-                  "generate": "client",
-                  "env": "production",
-                  "runtimePackage": "svelte-mrwaip-reference",
                   "status": "PASS",
                   "reason": "33/33 plants + 4/4 source-map anchors passed",
                   "plantCount": 33,
@@ -1245,7 +956,7 @@
                   "exactPath": "@mrwaip/svelte-rs compile() per plant, css=external, runes=true",
                   "generate": "client",
                   "env": "production",
-                  "runtimePackage": "svelte-mrwaip-reference",
+                  "runtimePackage": "svelte",
                   "status": "FAIL",
                   "reason": "0 failed, 0 unknown of 33; source-map FAIL (2 failed)",
                   "plantCount": 33,
@@ -1954,7 +1665,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -1964,7 +1674,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -1974,7 +1683,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -1984,7 +1692,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       }
@@ -2372,6 +2079,414 @@
                     ],
                     "note": "generated JS/CSS tokens traced to exact source coordinates (segment-start, exact file, full sourcesContent)"
                   }
+                },
+                "verter-svelte": {
+                  "schemaVersion": 1,
+                  "suiteVersion": "2026-09-12.2",
+                  "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
+                  "entrypoint": "verter-svelte",
+                  "label": "Verter compileMany (stateless, unranked)",
+                  "exactPath": "VerterHost.compileMany(target=runtime-render, mode=stateless, 1 CPU thread) per plant",
+                  "generate": "client",
+                  "env": "production",
+                  "runtimePackage": "svelte",
+                  "status": "FAIL",
+                  "reason": "29 failed, 0 unknown of 33; source-map FAIL (4 failed)",
+                  "plantCount": 33,
+                  "passed": 4,
+                  "failed": 29,
+                  "unknown": 0,
+                  "results": [
+                    {
+                      "id": "props-defaults-interpolation",
+                      "coverage": [
+                        "$props()",
+                        "prop defaults",
+                        "mustache interpolation"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "state-derived-update",
+                      "coverage": [
+                        "$state",
+                        "$derived",
+                        "reactive update",
+                        "DOM event handler"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-advanced-rune: Svelte client emission does not yet support the `$derived` rune form."
+                    },
+                    {
+                      "id": "bindable-prop",
+                      "coverage": [
+                        "$bindable",
+                        "two-way prop"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-advanced-rune: Svelte client emission does not yet support the `$props() non-interpolation usage` rune form."
+                    },
+                    {
+                      "id": "callback-prop-events",
+                      "coverage": [
+                        "callback props",
+                        "component events",
+                        "payload"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-non-delegated-event: Svelte client emission does not yet support the non-delegated / capture / global event `click`."
+                    },
+                    {
+                      "id": "bind-value-input",
+                      "coverage": [
+                        "bind:value",
+                        "input events",
+                        "two-way binding"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<output>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`)."
+                    },
+                    {
+                      "id": "bind-checkbox-select",
+                      "coverage": [
+                        "bind:checked",
+                        "bind:value select",
+                        "form bindings"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<select>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`)."
+                    },
+                    {
+                      "id": "if-block-branches",
+                      "coverage": [
+                        "{#if}",
+                        "branch switching"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-component-export-binding: Svelte client emission does not yet support an instance-script `export function` component-export binding (official lowers it through the `$$exports` accessor object + `$.bind_prop`)."
+                    },
+                    {
+                      "id": "each-keyed-reorder",
+                      "coverage": [
+                        "{#each}",
+                        "keyed lists",
+                        "DOM identity"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-component-export-binding: Svelte client emission does not yet support an instance-script `export function` component-export binding (official lowers it through the `$$exports` accessor object + `$.bind_prop`)."
+                    },
+                    {
+                      "id": "await-block-promise",
+                      "coverage": [
+                        "{#await}",
+                        "async resolution"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-complex-text: Svelte client emission does not yet support a reactive-text run with a non-simple-ASCII literal chunk (an HTML entity, a tab / newline / repeated-space run, or an escaping / whitespace-normalization need)."
+                    },
+                    {
+                      "id": "snippets-render",
+                      "coverage": [
+                        "{#snippet}",
+                        "{@render}",
+                        "snippets"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<table>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`)."
+                    },
+                    {
+                      "id": "store-auto-subscription",
+                      "coverage": [
+                        "$store",
+                        "svelte/store",
+                        "auto-subscription"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<b>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`)."
+                    },
+                    {
+                      "id": "action-directive",
+                      "coverage": [
+                        "use: action",
+                        "actions"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "html-block",
+                      "coverage": [
+                        "{@html}",
+                        "raw HTML"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "class-directive-and-style",
+                      "coverage": [
+                        "class:",
+                        "style:",
+                        "class/style handling"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-component-export-binding: Svelte client emission does not yet support an instance-script `export function` component-export binding (official lowers it through the `$$exports` accessor object + `$.bind_prop`)."
+                    },
+                    {
+                      "id": "svg-namespace",
+                      "coverage": [
+                        "SVG",
+                        "namespace behaviour"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-dynamic-attribute: Svelte client emission does not yet support the dynamic attribute / directive `<svg> (svg namespace)`."
+                    },
+                    {
+                      "id": "module-script-instance",
+                      "coverage": [
+                        "<script module>",
+                        "module/instance interaction",
+                        "exports"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<i>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`)."
+                    },
+                    {
+                      "id": "legacy-event-directive",
+                      "coverage": [
+                        "on: directive",
+                        "legacy syntax still valid in Svelte 5"
+                      ],
+                      "status": "PASS",
+                      "phase": "runtime-client"
+                    },
+                    {
+                      "id": "reactive-props-destructure-shadowing",
+                      "coverage": [
+                        "$props() destructure",
+                        "function parameter scope",
+                        "arrow parameter scope",
+                        "prop update",
+                        "lexical shadowing"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Parent.svelte] host error: runtime surface refused for 'Parent.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<output>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`)."
+                    },
+                    {
+                      "id": "reactive-props-destructure-alias-default",
+                      "coverage": [
+                        "$props() destructure",
+                        "alias",
+                        "destructure default",
+                        "$derived",
+                        "default restoration"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Parent.svelte] host error: runtime surface refused for 'Parent.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<output>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`)."
+                    },
+                    {
+                      "id": "component-props-child-binding",
+                      "coverage": [
+                        "component props",
+                        "child components",
+                        "$bindable across modules"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Parent.svelte] host error: runtime surface refused for 'Parent.svelte': svelte-runtime-unsupported-component-export-binding: Svelte client emission does not yet support an instance-script `export function` component-export binding (official lowers it through the `$$exports` accessor object + `$.bind_prop`)."
+                    },
+                    {
+                      "id": "context-parent-child",
+                      "coverage": [
+                        "setContext",
+                        "getContext",
+                        "context"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Leaf.svelte] host error: runtime surface refused for 'Leaf.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<b>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`)."
+                    },
+                    {
+                      "id": "dynamic-component-switch",
+                      "coverage": [
+                        "dynamic components",
+                        "<Component />"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "[Parent.svelte] host error: runtime surface refused for 'Parent.svelte': svelte-runtime-unsupported-component-export-binding: Svelte client emission does not yet support an instance-script `export function` component-export binding (official lowers it through the `$$exports` accessor object + `$.bind_prop`)."
+                    },
+                    {
+                      "id": "css-scoped-selector",
+                      "coverage": [
+                        "scoped styles",
+                        "scoping hash"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "selector must carry a scoping class: assertion failed"
+                    },
+                    {
+                      "id": "css-global-selector",
+                      "coverage": [
+                        ":global"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": ":global selector kept: missing \".g\" in \"\""
+                    },
+                    {
+                      "id": "css-selector-list",
+                      "coverage": [
+                        "selector lists"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "selector list preserved: assertion failed"
+                    },
+                    {
+                      "id": "css-media-at-rule",
+                      "coverage": [
+                        "at-rules",
+                        "@media"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "@media preserved: missing \"@media\" in \"\""
+                    },
+                    {
+                      "id": "css-keyframes",
+                      "coverage": [
+                        "@keyframes",
+                        "animation references"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "keyframes block emitted: assertion failed"
+                    },
+                    {
+                      "id": "css-custom-properties",
+                      "coverage": [
+                        "custom properties",
+                        "var()"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "custom property declared: missing \"--local-pad\" in \"\""
+                    },
+                    {
+                      "id": "css-unused-selector-pruned",
+                      "coverage": [
+                        "unused CSS pruning",
+                        "compiler semantics"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "used selector kept: missing \".used\" in \"\""
+                    },
+                    {
+                      "id": "css-cascade-order",
+                      "coverage": [
+                        "cascade",
+                        "declaration order"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "expected both .casc declarations to survive"
+                    },
+                    {
+                      "id": "css-duplicate-declarations",
+                      "coverage": [
+                        "duplicate declarations",
+                        "last-wins order"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "duplicate declarations must both be preserved"
+                    },
+                    {
+                      "id": "css-custom-property-wiring",
+                      "coverage": [
+                        "custom properties",
+                        "var() consumption"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "custom property declaration preserved: missing \"--plant-pad: 4px\" in \"\""
+                    },
+                    {
+                      "id": "css-external-extraction",
+                      "coverage": [
+                        "css: 'external'",
+                        "style extraction"
+                      ],
+                      "status": "FAIL",
+                      "phase": "plant",
+                      "detail": "external CSS must be extracted into result.css: assertion failed"
+                    }
+                  ],
+                  "sourceMap": {
+                    "suiteVersion": "2026-09-12.1",
+                    "suiteHash": "19f871f54de3aa45b7900899eae220b8bde13b2b5d764dfd28bb12c2f1a53864",
+                    "status": "FAIL",
+                    "results": [
+                      {
+                        "id": "lf-raw",
+                        "workload": "raw",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.missing or invalid version-3 source map"
+                        ]
+                      },
+                      {
+                        "id": "lf-styles",
+                        "workload": "styles",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.missing or invalid version-3 source map",
+                          "css.generated code is missing"
+                        ]
+                      },
+                      {
+                        "id": "crlf-raw",
+                        "workload": "raw",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.missing or invalid version-3 source map"
+                        ]
+                      },
+                      {
+                        "id": "crlf-styles",
+                        "workload": "styles",
+                        "status": "FAIL",
+                        "phase": "compile",
+                        "failures": [
+                          "js.missing or invalid version-3 source map",
+                          "css.generated code is missing"
+                        ]
+                      }
+                    ],
+                    "note": "generated JS/CSS tokens traced to exact source coordinates (segment-start, exact file, full sourcesContent)"
+                  }
                 }
               }
             }
@@ -2380,16 +2495,16 @@
       },
       "methodology": [
         "Matrix: generate ∈ {client, server} × env ∈ {production, development} × source-map ∈ {off, on} (off by default).",
-        "Within each pinned compiler-version class, every tool receives the same in-memory Svelte SFC corpus. Real-world eligibility is decided independently by that class's official reference and per-row file counts remain visible.",
+        "Every compiler receives the same in-memory Svelte SFC corpus. The latest official Svelte compiler is the sole reference and decides real-world eligibility for every tool.",
         "Official: svelte/compiler compile() with runes=true. Generated fixtures force runes; real-world sources use compiler auto-detection.",
-        "MrWaip: @mrwaip/svelte-rs native compiler through its compatible compile() API, ranked inside the pinned svelte-5.56.4 class with svelte/compiler 5.56.4 as the official reference/baseline.",
-        "rsvelte: WASM (@rsvelte/compiler) and NAPI (@rsvelte/vite-plugin-svelte-native) paths are separate rows in the svelte-5.56.8 class.",
-        "Verter exposes no public Svelte runtime compile API in the installed package (probed at runtime), so it is reported skipped; its different runtime-render batching API is not substituted.",
+        "MrWaip: @mrwaip/svelte-rs native compiler through its compatible compile() API, validated against the same latest Svelte runtime and official baseline as every other compiler.",
+        "rsvelte: WASM (@rsvelte/compiler) and NAPI (@rsvelte/vite-plugin-svelte-native) paths are separate rows against the same official Svelte baseline.",
+        "Verter's published compileMany runtime-render path receives the same revised Svelte inputs with stateless caching and one CPU thread. Completed passes publish warm/fresh timings even when their code is invalid or entries contain compile errors. They are permanently unranked diagnostic evidence until the adapter is validated; errors, output samples, revision-token failures and runtime-plant verdicts are retained. Only a missing API/package is skipped; a thrown batch failure is an error.",
         "Every warmed/fresh pass compiles a REVISED corpus: a fixed-width comment token plus a used CSS custom-property rule. The timed loop asserts the token reached the emitted CSS, so a cached whole-output result from a previous pass fails the gate. Adapter parity additionally requires every warm and fresh pass to have received a distinct input revision.",
         "Every compiler must return one non-empty code artifact per input file, emit the expected Svelte client/server runtime import, and remove Svelte runes; aggregate byte totals alone are not accepted as proof of coverage.",
         "Fresh child = the first timed row workload in a NEW child process, after excluded Node startup, package imports, adapter construction and input materialisation. It is NOT machine-cold (OS page cache is not flushed) and its ratio never substitutes for the warm verdict.",
         "Source maps: every compared Svelte 5 compiler ALWAYS emits js.map/css.map from compile() (no off/on flag exists — the 'sourcemap' option is a chained-map INPUT), so an off/on matrix would measure the harness, not the tools. Instead the maps' COORDINATE CORRECTNESS gates every row: anchored tokens in generated JS/CSS must trace back to their exact source positions (segment fallback allowed, exact line/column required, sourcesContent equal to the full component), across LF/CRLF and non-BMP-shifted columns. Wrong-file, shifted, stale or byte-counted maps unrank the row.",
-        "Runtime semantic validity: a 28-plant Svelte 5 suite (props/state/derived/bindable/bindings/events/each-keyed/await/snippets/stores/actions/context/dynamic components/{@html}/SVG/module script/legacy syntax + CSS semantics) runs per entrypoint per cell in isolated child processes after timing; non-PASS rows unrank, and a failed official reference unrankS every candidate in its compatibility class (no survivor promotion).",
+        "Runtime semantic validity: a 28-plant Svelte 5 suite (props/state/derived/bindable/bindings/events/each-keyed/await/snippets/stores/actions/context/dynamic components/{@html}/SVG/module script/legacy syntax + CSS semantics) runs per entrypoint per cell in isolated child processes after timing; non-PASS rows unrank, and a failed official reference unranks every candidate in the comparison (no survivor promotion).",
         "Tool order is rotated on every warmup and measured run. A row is unranked unless the measured runs cover every active execution position; ranking metric is the median of warmed runs."
       ],
       "freshChildMeasurement": {

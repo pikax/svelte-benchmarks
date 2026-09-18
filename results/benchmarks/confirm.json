@@ -1,16 +1,16 @@
 {
   "kind": "confirmation",
-  "generatedAt": "2026-09-12T10:37:55.655Z",
+  "generatedAt": "2026-09-18T13:07:21.775Z",
   "runner": {
     "platform": "linux",
     "node": "v22.23.2",
     "ci": true,
-    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557"
+    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026"
   },
   "summary": {
-    "pass": 106,
-    "fail": 22,
-    "skip": 5,
+    "pass": 115,
+    "fail": 14,
+    "skip": 4,
     "warn": 0
   },
   "results": [
@@ -44,10 +44,10 @@
     },
     {
       "suite": "compile",
-      "caseId": "compile",
-      "tool": "server-render",
-      "status": "skip",
-      "message": "verter"
+      "caseId": "server-render",
+      "tool": "verter",
+      "status": "fail",
+      "message": "[Confirm31415.svelte] host error: runtime surface refused for 'Confirm31415.svelte': svelte-runtime-unsupported-server-generate: Svelte client emission does not yet support server-side rendering (`generate: 'server'`)."
     },
     {
       "suite": "compile",
@@ -72,6 +72,13 @@
     },
     {
       "suite": "compile",
+      "caseId": "validity-client",
+      "tool": "verter-svelte",
+      "status": "fail",
+      "message": "29 failed, 0 unknown of 33; source-map FAIL (4 failed) — first failures: state-derived-update: [Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-advanced-rune: Svelte client emission does not yet support the `$derived` rune form. | bindable-prop: [Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-advanced-rune: Svelte client emission does not yet support the `$props() non-interpolation usage` rune form. | callback-prop-events: [Plant.svelte] host error: runtime surface refused for 'Plant.svelte': sve"
+    },
+    {
+      "suite": "compile",
       "caseId": "validity-server",
       "tool": "mrwaip-svelte-rs",
       "status": "fail",
@@ -79,6 +86,13 @@
     },
     {
       "suite": "compile",
+      "caseId": "validity-server",
+      "tool": "verter-svelte",
+      "status": "fail",
+      "message": "33 failed, 0 unknown of 33; source-map FAIL (4 failed) — first failures: props-defaults-interpolation: [Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-server-generate: Svelte client emission does not yet support server-side rendering (`generate: 'server'`). | state-derived-update: [Plant.svelte] host error: runtime surface refused for 'Plant.svelte': svelte-runtime-unsupported-server-generate: Svelte client emission does not yet support server-side rendering (`generate: 'server'`). | bindable-prop: [Plant.svelte] host error: runtime surface ref"
+    },
+    {
+      "suite": "compile",
       "caseId": "validity-client",
       "tool": "svelte-official",
       "status": "pass",
@@ -86,22 +100,8 @@
     },
     {
       "suite": "compile",
-      "caseId": "validity-client",
-      "tool": "svelte-mrwaip-reference",
-      "status": "pass",
-      "message": ""
-    },
-    {
-      "suite": "compile",
       "caseId": "validity-server",
       "tool": "svelte-official",
-      "status": "pass",
-      "message": ""
-    },
-    {
-      "suite": "compile",
-      "caseId": "validity-server",
-      "tool": "svelte-mrwaip-reference",
       "status": "pass",
       "message": ""
     },
@@ -592,71 +592,71 @@
       "suite": "typecheck",
       "caseId": "script-type-error",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "script-type-error/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at script-type-error/App.svelte:2 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
       "caseId": "template-wrong-boolean",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "template-wrong-boolean/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at template-wrong-boolean/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
       "caseId": "missing-required-prop",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "missing-required-prop/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at missing-required-prop/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
       "caseId": "wrong-prop-type",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "wrong-prop-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at wrong-prop-type/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
       "caseId": "unknown-prop",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "unknown-prop/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at unknown-prop/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
       "caseId": "callback-prop-type",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "callback-prop-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at callback-prop-type/App.svelte:5 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
       "caseId": "snippet-parameter-type",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "snippet-parameter-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at snippet-parameter-type/App.svelte:9 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
       "caseId": "each-destructuring-type",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "each-destructuring-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at each-destructuring-type/App.svelte:6 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
       "caseId": "discriminated-union-narrowing",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "discriminated-union-narrowing/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at discriminated-union-narrowing/App.svelte:6 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
       "caseId": "store-type-flow",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "store-type-flow/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at store-type-flow/App.svelte:6 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
@@ -669,8 +669,8 @@
       "suite": "typecheck",
       "caseId": "each-shadow-restoration-bad",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "each-shadow-restoration-bad/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at each-shadow-restoration-bad/App.svelte:7 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
@@ -683,8 +683,8 @@
       "suite": "typecheck",
       "caseId": "snippet-shadow-restoration-bad",
       "tool": "verter-tsc",
-      "status": "fail",
-      "message": "snippet-shadow-restoration-bad/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at snippet-shadow-restoration-bad/App.svelte:6 (@plant-error) — the tool did not locate the planted error\n(file diagnostics: none)\n\nfalse !== true\n"
+      "status": "pass",
+      "message": ""
     },
     {
       "suite": "typecheck",
@@ -697,8 +697,8 @@
       "suite": "typecheck",
       "caseId": "clean-generics",
       "tool": "verter-tsc",
-      "status": "pass",
-      "message": ""
+      "status": "fail",
+      "message": "clean plant produced diagnostics in clean-generics/App.svelte\n+ actual - expected\n\n+ [\n+   \"2:TS2304:Cannot find name 'T'.\"\n+ ]\n- []\n"
     },
     {
       "suite": "lint",
@@ -719,7 +719,7 @@
       "caseId": "html-injection",
       "tool": "verter",
       "status": "fail",
-      "message": "The input did not match the regular expression /html|security|unsafe/i. Input:\n\n'[{\"rule\":\"valid-template-root\",\"category\":\"vue-essential\",\"severity\":\"error\",\"message\":\"The template requires at least one root element.\",\"spanStart\":0,\"spanEnd\":0,\"tags\":[],\"spanKind\":\"FileLevel\"}]'\n"
+      "message": "The input did not match the regular expression /html|security|unsafe/i. Input:\n\n'[{\"rule\":\"block-lang\",\"category\":\"vue-recommended\",\"severity\":\"warning\",\"message\":\"The `<script>` block should use `lang=\\\\\"ts\\\\\"` for TypeScript.\",\"spanStart\":0,\"spanEnd\":8,\"tags\":[],\"spanKind\":\"FileLevel\"}]'\n"
     },
     {
       "suite": "lint",

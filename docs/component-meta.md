@@ -10,12 +10,12 @@ Ranked on the **median of measured runs** — Warm is the primary ordering and r
 
 </details>
 
-- **Generated:** 2026-09-12T10:46:24.868Z
+- **Generated:** 2026-09-18T13:11:29.670Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
 - **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [cc44ddb](https://github.com/pikax/svelte-benchmarks/commit/cc44ddb)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557
+- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 9V45 96-Core Processor · 16 GB RAM · Node v22.23.2
+- **Commit:** [649f404](https://github.com/pikax/svelte-benchmarks/commit/649f404)
+- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026
 - **Source:** `bench-Linux-200-bench.json`
 
 ### Component metadata
@@ -38,7 +38,7 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| sveld (AST-only) | 200 | **78.7 ms** | 70.8 ms | 8.7 ms | 11.0% ⚠ | — | 260 | n/a | — |
+| sveld (AST-only) | 200 | **43.0 ms** | 33.5 ms | 7.9 ms | 18.4% ⚠ | — | 260 | n/a | — |
 
 <details><summary>Notes</summary>
 
@@ -55,7 +55,7 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| sveld (resolveTypes) | 200 | **75.5 ms** | 70.1 ms | 8.1 ms | 10.8% ⚠ | — | 260 | n/a | — |
+| sveld (resolveTypes) | 200 | **39.8 ms** | 32.6 ms | 6.6 ms | 16.7% ⚠ | — | 260 | n/a | — |
 
 <details><summary>Notes</summary>
 
@@ -72,7 +72,7 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte-docinfo | 200 | **653.1 ms** | 641.9 ms | 6.9 ms | 1.1% | — | 260 | n/a | — |
+| svelte-docinfo | 200 | **392.2 ms** | 365.3 ms | 28.1 ms | 7.2% | — | 260 | n/a | — |
 
 <details><summary>Notes</summary>
 
@@ -89,11 +89,11 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter typeinfo | 200 | **229.2 ms** | 223.8 ms | 4.1 ms | 1.8% | — | 260 | n/a | — |
+| Verter typeinfo ⚠ | 200 | (137.4 ms) | (133.7 ms) | – | – | not ranked | (260) | n/a | – |
 
 <details><summary>Notes</summary>
 
-- **Verter typeinfo**: @verter/typeinfo wire decoder over @verter/native's dedicated Svelte framework-surface executor | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props
+- **Verter typeinfo ⚠**: @verter/typeinfo wire decoder over @verter/native's dedicated Svelte framework-surface executor | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props | ⚠ TOO NOISY TO RANK — CV 1630.4% exceeds the 50% ceiling across 5 samples. The time remains visible but is excluded from ranking.
 
 </details>
 
@@ -108,10 +108,10 @@ Tools:
 
 Raw runs:
 
-- **sveld (AST-only)**: 93.8 ms, 78.7 ms, 80.6 ms, 75.1 ms, 70.8 ms
-- **sveld (resolveTypes)**: 89.2 ms, 84.8 ms, 75.5 ms, 72.9 ms, 70.1 ms
-- **svelte-docinfo**: 641.9 ms, 653.1 ms, 656.4 ms, 645.1 ms, 657.4 ms
-- **Verter typeinfo**: 230.4 ms, 229.2 ms, 223.8 ms, 233.1 ms, 223.9 ms
+- **sveld (AST-only)**: 50.9 ms, 43.0 ms, 47.4 ms, 33.5 ms, 33.8 ms
+- **sveld (resolveTypes)**: 42.1 ms, 49.8 ms, 35.4 ms, 39.8 ms, 32.6 ms
+- **svelte-docinfo**: 396.3 ms, 434.4 ms, 392.2 ms, 365.3 ms, 367.1 ms
+- **Verter typeinfo**: 5.15 s, 152.9 ms, 133.7 ms, 137.4 ms, 137.1 ms
 
 </details>
 
@@ -143,42 +143,42 @@ Raw runs:
 | svelte | 5.57.0 |
 | svelte-check | 4.7.6 |
 | svelte-check-rs | 0.11.2 |
-| svelte-check-native | 1.5.2 |
-| @mrwaip/svelte-rs | 0.0.0-canary.13.1 |
-| @rsvelte/compiler | 0.12.2 |
-| @rsvelte/svelte2tsx | 0.2.26 |
-| @rsvelte/svelte-check | 0.5.28 |
-| @rsvelte/language-server | 0.7.8 |
-| @rsvelte/fmt | 0.7.23 |
-| @rsvelte/lint | 0.12.2 |
+| svelte-check-native | 1.7.0 |
+| @mrwaip/svelte-rs | 0.0.0-canary.15.1 |
+| @rsvelte/compiler | 0.12.3 |
+| @rsvelte/svelte2tsx | 0.2.27 |
+| @rsvelte/svelte-check | 0.5.29 |
+| @rsvelte/language-server | 0.7.9 |
+| @rsvelte/fmt | 0.7.24 |
+| @rsvelte/lint | 0.12.3 |
 | @rsvelte/vite-plugin-svelte-native | 0.3.14 |
-| @rsvelte/vite-plugin-svelte | 0.5.2 |
+| @rsvelte/vite-plugin-svelte | 0.5.3 |
 | @sveltejs/vite-plugin-svelte | 7.3.0 |
 | vite | 8.3.0 |
-| @verter/native | 0.0.1-beta.3 |
-| @verter/typeinfo | 0.0.1-beta.3 |
-| @verter/proto | 0.0.1-beta.3 |
+| @verter/native | 0.0.1-beta.5 |
+| @verter/typeinfo | 0.0.1-beta.5 |
+| @verter/proto | 0.0.1-beta.5 |
 | @bufbuild/protobuf | 2.15.0 |
-| verter-tsc | 0.0.1-beta.3 |
-| verter-lsp | 0.0.1-beta.3 |
+| verter-tsc | 0.0.1-beta.5 |
+| verter-lsp | 0.0.1-beta.5 |
 | svelte-language-server | 0.18.4 |
 | svelte2tsx | 0.7.61 |
-| sveld | 0.36.11 |
+| sveld | 0.37.3 |
 | svelte-docinfo | 0.7.0 |
-| prettier | 3.9.6 |
+| prettier | 3.9.8 |
 | prettier-plugin-svelte | 4.1.1 |
-| oxfmt | 0.67.0 |
+| oxfmt | 0.68.0 |
 | eslint-plugin-svelte | 3.23.0 |
 | typescript | 6.0.3 |
 | cli:svelte-check | 4.7.6 |
 | cli:svelte-check-rs | 0.11.2 |
-| cli:svelte-check-native | 1.5.2 |
+| cli:svelte-check-native | 1.7.0 |
 | cli:rsvelte-check | unknown |
-| cli:rsvelte-fmt | 0.7.23 |
-| cli:rsvelte-lint | 0.12.2 |
-| cli:prettier | 3.9.6 |
-| cli:oxfmt | 0.67.0 |
-| cli:verter-tsc | 0.0.1-beta.3 |
+| cli:rsvelte-fmt | 0.7.24 |
+| cli:rsvelte-lint | 0.12.3 |
+| cli:prettier | 3.9.8 |
+| cli:oxfmt | 0.68.0 |
+| cli:verter-tsc | 0.0.1-beta.5 |
 
 </details>
 

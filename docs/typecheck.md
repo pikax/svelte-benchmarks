@@ -10,12 +10,12 @@ Ranked on the **median of measured runs** — Warm is the primary ordering and r
 
 </details>
 
-- **Generated:** 2026-09-12T10:46:24.868Z
+- **Generated:** 2026-09-18T13:11:29.670Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
 - **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [cc44ddb](https://github.com/pikax/svelte-benchmarks/commit/cc44ddb)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/34688909557
+- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 9V45 96-Core Processor · 16 GB RAM · Node v22.23.2
+- **Commit:** [649f404](https://github.com/pikax/svelte-benchmarks/commit/649f404)
+- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026
 - **Source:** `bench-Linux-200-bench.json`
 
 ### Typecheck
@@ -39,7 +39,7 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Diagnostics | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte-check-rs | 200 | **1.36 s** | 1.33 s | 18.2 ms | 1.3% | — | 40 | n/a | — |
+| svelte-check-rs | 200 | **785.0 ms** | 771.1 ms | 7.4 ms | 0.9% | — | 40 | n/a | — |
 
 <details><summary>Notes</summary>
 
@@ -56,11 +56,11 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Diagnostics | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| verter-tsc ⚠ | 200 | (49.6 ms) | (48.6 ms) | – | – | not ranked | (0) | n/a | – |
+| verter-tsc | 200 | **1.07 s** | 1.05 s | 23.2 ms | 2.2% | — | 0 | n/a | — |
 
 <details><summary>Notes</summary>
 
-- **verter-tsc ⚠**: verter-tsc experimental Svelte path; ranked only when it reports the shared .svelte plants. | gate: script=✗ tmpl=✗ corpus=✗ | ⚠ FAILED VALIDATION — planted issue or markup work not observed
+- **verter-tsc**: verter-tsc experimental Svelte path; ranked only when it reports the shared .svelte plants. | gate: script=✓ tmpl=✓ corpus=✓
 
 </details>
 
@@ -73,9 +73,9 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Diagnostics | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte-check-native | 200 | **248.4 ms** | 244.0 ms | 2.4 ms | 1.0% | 1.00x | 0 | n/a | 805 files/s |
-| rsvelte-check | 200 | **383.6 ms** | 372.1 ms | 11.9 ms | 3.1% | 1.54x | 20 | n/a | 521 files/s |
-| svelte-check (JS) | 200 | **3.42 s** | 3.41 s | 31.6 ms | 0.9% | 13.76x | 0 | n/a | 59 files/s |
+| svelte-check-native | 200 | **134.9 ms** | 130.5 ms | 3.3 ms | 2.5% | 1.00x | 0 | n/a | 1.5k files/s |
+| rsvelte-check | 200 | **223.2 ms** | 216.7 ms | 3.3 ms | 1.5% | 1.65x | 20 | n/a | 896 files/s |
+| svelte-check (JS) | 200 | **1.92 s** | 1.91 s | 18.0 ms | 0.9% | 14.26x | 0 | n/a | 104 files/s |
 
 <details><summary>Notes</summary>
 
@@ -98,11 +98,11 @@ Tools:
 
 Raw runs:
 
-- **svelte-check-rs**: 1.37 s, 1.33 s, 1.37 s, 1.36 s, 1.35 s
-- **verter-tsc**: 48.6 ms, 52.1 ms, 50.6 ms, 49.3 ms, 49.6 ms
-- **svelte-check-native**: 250.3 ms, 248.4 ms, 244.0 ms, 248.4 ms, 249.4 ms
-- **rsvelte-check**: 383.6 ms, 396.2 ms, 395.9 ms, 372.1 ms, 372.3 ms
-- **svelte-check (JS)**: 3.41 s, 3.42 s, 3.42 s, 3.43 s, 3.49 s
+- **svelte-check-rs**: 771.1 ms, 787.6 ms, 790.1 ms, 785.0 ms, 783.5 ms
+- **verter-tsc**: 1.07 s, 1.11 s, 1.07 s, 1.05 s, 1.10 s
+- **svelte-check-native**: 131.7 ms, 130.5 ms, 138.5 ms, 134.9 ms, 136.6 ms
+- **rsvelte-check**: 224.5 ms, 216.7 ms, 224.6 ms, 223.2 ms, 220.8 ms
+- **svelte-check (JS)**: 1.95 s, 1.92 s, 1.92 s, 1.91 s, 1.94 s
 
 </details>
 
@@ -176,22 +176,22 @@ Raw runs:
 | snippet-shadow-restoration-bad | rsvelte-check | ✓ pass |  |
 | clean-component | rsvelte-check | ✓ pass |  |
 | clean-generics | rsvelte-check | ✓ pass |  |
-| script-type-error | verter-tsc | ✗ fail | script-type-error/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at script-type-error/App.svelte:2 (@plant-error) — the tool did not |
-| template-wrong-boolean | verter-tsc | ✗ fail | template-wrong-boolean/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at template-wrong-boolean/App.svelte:5 (@plant-error) — the to |
-| missing-required-prop | verter-tsc | ✗ fail | missing-required-prop/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at missing-required-prop/App.svelte:5 (@plant-error) — the tool |
-| wrong-prop-type | verter-tsc | ✗ fail | wrong-prop-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at wrong-prop-type/App.svelte:5 (@plant-error) — the tool did not loc |
-| unknown-prop | verter-tsc | ✗ fail | unknown-prop/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at unknown-prop/App.svelte:5 (@plant-error) — the tool did not locate th |
-| callback-prop-type | verter-tsc | ✗ fail | callback-prop-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at callback-prop-type/App.svelte:5 (@plant-error) — the tool did n |
-| snippet-parameter-type | verter-tsc | ✗ fail | snippet-parameter-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at snippet-parameter-type/App.svelte:9 (@plant-error) — the to |
-| each-destructuring-type | verter-tsc | ✗ fail | each-destructuring-type/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at each-destructuring-type/App.svelte:6 (@plant-error) — the  |
-| discriminated-union-narrowing | verter-tsc | ✗ fail | discriminated-union-narrowing/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at discriminated-union-narrowing/App.svelte:6 (@plant-e |
-| store-type-flow | verter-tsc | ✗ fail | store-type-flow/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at store-type-flow/App.svelte:6 (@plant-error) — the tool did not loc |
+| script-type-error | verter-tsc | ✓ pass |  |
+| template-wrong-boolean | verter-tsc | ✓ pass |  |
+| missing-required-prop | verter-tsc | ✓ pass |  |
+| wrong-prop-type | verter-tsc | ✓ pass |  |
+| unknown-prop | verter-tsc | ✓ pass |  |
+| callback-prop-type | verter-tsc | ✓ pass |  |
+| snippet-parameter-type | verter-tsc | ✓ pass |  |
+| each-destructuring-type | verter-tsc | ✓ pass |  |
+| discriminated-union-narrowing | verter-tsc | ✓ pass |  |
+| store-type-flow | verter-tsc | ✓ pass |  |
 | each-shadow-restoration-ok | verter-tsc | ✓ pass |  |
-| each-shadow-restoration-bad | verter-tsc | ✗ fail | each-shadow-restoration-bad/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at each-shadow-restoration-bad/App.svelte:7 (@plant-error |
+| each-shadow-restoration-bad | verter-tsc | ✓ pass |  |
 | snippet-shadow-restoration-ok | verter-tsc | ✓ pass |  |
-| snippet-shadow-restoration-bad | verter-tsc | ✗ fail | snippet-shadow-restoration-bad/App.svelte: expected ≥1 diagnostic(s) in this file, found 0; no diagnostic at snippet-shadow-restoration-bad/App.svelte:6 (@plant |
+| snippet-shadow-restoration-bad | verter-tsc | ✓ pass |  |
 | clean-component | verter-tsc | ✓ pass |  |
-| clean-generics | verter-tsc | ✓ pass |  |
+| clean-generics | verter-tsc | ✗ fail | clean plant produced diagnostics in clean-generics/App.svelte + actual - expected  + [ +   "2:TS2304:Cannot find name 'T'." + ] - []  |
 
 ## Tool versions
 
@@ -202,42 +202,42 @@ Raw runs:
 | svelte | 5.57.0 |
 | svelte-check | 4.7.6 |
 | svelte-check-rs | 0.11.2 |
-| svelte-check-native | 1.5.2 |
-| @mrwaip/svelte-rs | 0.0.0-canary.13.1 |
-| @rsvelte/compiler | 0.12.2 |
-| @rsvelte/svelte2tsx | 0.2.26 |
-| @rsvelte/svelte-check | 0.5.28 |
-| @rsvelte/language-server | 0.7.8 |
-| @rsvelte/fmt | 0.7.23 |
-| @rsvelte/lint | 0.12.2 |
+| svelte-check-native | 1.7.0 |
+| @mrwaip/svelte-rs | 0.0.0-canary.15.1 |
+| @rsvelte/compiler | 0.12.3 |
+| @rsvelte/svelte2tsx | 0.2.27 |
+| @rsvelte/svelte-check | 0.5.29 |
+| @rsvelte/language-server | 0.7.9 |
+| @rsvelte/fmt | 0.7.24 |
+| @rsvelte/lint | 0.12.3 |
 | @rsvelte/vite-plugin-svelte-native | 0.3.14 |
-| @rsvelte/vite-plugin-svelte | 0.5.2 |
+| @rsvelte/vite-plugin-svelte | 0.5.3 |
 | @sveltejs/vite-plugin-svelte | 7.3.0 |
 | vite | 8.3.0 |
-| @verter/native | 0.0.1-beta.3 |
-| @verter/typeinfo | 0.0.1-beta.3 |
-| @verter/proto | 0.0.1-beta.3 |
+| @verter/native | 0.0.1-beta.5 |
+| @verter/typeinfo | 0.0.1-beta.5 |
+| @verter/proto | 0.0.1-beta.5 |
 | @bufbuild/protobuf | 2.15.0 |
-| verter-tsc | 0.0.1-beta.3 |
-| verter-lsp | 0.0.1-beta.3 |
+| verter-tsc | 0.0.1-beta.5 |
+| verter-lsp | 0.0.1-beta.5 |
 | svelte-language-server | 0.18.4 |
 | svelte2tsx | 0.7.61 |
-| sveld | 0.36.11 |
+| sveld | 0.37.3 |
 | svelte-docinfo | 0.7.0 |
-| prettier | 3.9.6 |
+| prettier | 3.9.8 |
 | prettier-plugin-svelte | 4.1.1 |
-| oxfmt | 0.67.0 |
+| oxfmt | 0.68.0 |
 | eslint-plugin-svelte | 3.23.0 |
 | typescript | 6.0.3 |
 | cli:svelte-check | 4.7.6 |
 | cli:svelte-check-rs | 0.11.2 |
-| cli:svelte-check-native | 1.5.2 |
+| cli:svelte-check-native | 1.7.0 |
 | cli:rsvelte-check | unknown |
-| cli:rsvelte-fmt | 0.7.23 |
-| cli:rsvelte-lint | 0.12.2 |
-| cli:prettier | 3.9.6 |
-| cli:oxfmt | 0.67.0 |
-| cli:verter-tsc | 0.0.1-beta.3 |
+| cli:rsvelte-fmt | 0.7.24 |
+| cli:rsvelte-lint | 0.12.3 |
+| cli:prettier | 3.9.8 |
+| cli:oxfmt | 0.68.0 |
+| cli:verter-tsc | 0.0.1-beta.5 |
 
 </details>
 
