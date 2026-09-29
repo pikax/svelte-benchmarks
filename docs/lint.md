@@ -10,12 +10,12 @@ Ranked on the **median of measured runs** — Warm is the primary ordering and r
 
 </details>
 
-- **Generated:** 2026-09-18T13:11:29.670Z
+- **Generated:** 2026-09-29T12:45:43.678Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
 - **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 9V45 96-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [649f404](https://github.com/pikax/svelte-benchmarks/commit/649f404)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026
+- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
+- **Commit:** [1bc177a](https://github.com/pikax/svelte-benchmarks/commit/1bc177a)
+- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/36569419030
 - **Source:** `bench-Linux-200-bench.json`
 
 ### Lint
@@ -39,9 +39,9 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| eslint-plugin-svelte (1T API) | 200 | **228.4 ms** | 199.9 ms | 30.7 ms | 13.4% ⚠ | 1.00x | n/a | n/a | 876 files/s |
-| eslint-plugin-svelte (CLI) | 200 | **710.8 ms** | 689.0 ms | 23.3 ms | 3.3% | 3.11x | n/a | n/a | 281 files/s |
-| eslint-plugin-svelte (worker pool) | 200 | **1.04 s** | 1.01 s | 29.8 ms | 2.9% | 4.56x | n/a | n/a | 192 files/s |
+| eslint-plugin-svelte (1T API) | 200 | **321.8 ms** | 304.0 ms | 40.6 ms | 12.6% ⚠ | 1.00x | n/a | n/a | 621 files/s |
+| eslint-plugin-svelte (CLI) | 200 | **1.17 s** | 1.13 s | 23.1 ms | 2.0% | 3.62x | n/a | n/a | 172 files/s |
+| eslint-plugin-svelte (worker pool) | 200 | **1.79 s** | 1.78 s | 9.8 ms | 0.5% | 5.57x | n/a | n/a | 112 files/s |
 
 <details><summary>Notes</summary>
 
@@ -60,7 +60,7 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| rsvelte-lint | 200 | **88.1 ms** | 85.9 ms | 7.5 ms | 8.6% | — | n/a | n/a | — |
+| rsvelte-lint | 200 | **142.2 ms** | 140.6 ms | 22.2 ms | 15.6% ⚠ | — | n/a | n/a | — |
 
 <details><summary>Notes</summary>
 
@@ -77,7 +77,7 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Artifact | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter host lint ⚠ | 200 | (73.6 ms) | (72.7 ms) | – | – | not ranked | – | n/a | – |
+| Verter host lint ⚠ | 200 | (125.3 ms) | (122.4 ms) | – | – | not ranked | – | n/a | – |
 
 <details><summary>Notes</summary>
 
@@ -96,11 +96,11 @@ Tools:
 
 Raw runs:
 
-- **eslint-plugin-svelte (1T API)**: 264.1 ms, 268.5 ms, 228.4 ms, 212.1 ms, 199.9 ms
-- **eslint-plugin-svelte (CLI)**: 741.2 ms, 710.8 ms, 689.0 ms, 703.5 ms, 741.1 ms
-- **eslint-plugin-svelte (worker pool)**: 1.09 s, 1.01 s, 1.05 s, 1.04 s, 1.02 s
-- **rsvelte-lint**: 85.9 ms, 88.1 ms, 86.8 ms, 104.2 ms, 91.4 ms
-- **Verter host lint**: 73.6 ms, 73.4 ms, 76.9 ms, 76.1 ms, 72.7 ms
+- **eslint-plugin-svelte (1T API)**: 380.7 ms, 392.7 ms, 316.0 ms, 304.0 ms, 321.8 ms
+- **eslint-plugin-svelte (CLI)**: 1.19 s, 1.16 s, 1.13 s, 1.17 s, 1.17 s
+- **eslint-plugin-svelte (worker pool)**: 1.79 s, 1.78 s, 1.79 s, 1.79 s, 1.80 s
+- **rsvelte-lint**: 141.2 ms, 144.9 ms, 140.6 ms, 191.6 ms, 142.2 ms
+- **Verter host lint**: 126.1 ms, 122.4 ms, 125.3 ms, 125.1 ms, 126.2 ms
 
 </details>
 
@@ -128,45 +128,45 @@ Raw runs:
 
 | Package | Version |
 | --- | --- |
-| svelte | 5.57.0 |
+| svelte | 5.57.1 |
 | svelte-check | 4.7.6 |
 | svelte-check-rs | 0.11.2 |
-| svelte-check-native | 1.7.0 |
+| svelte-check-native | 1.8.0 |
 | @mrwaip/svelte-rs | 0.0.0-canary.15.1 |
-| @rsvelte/compiler | 0.12.3 |
-| @rsvelte/svelte2tsx | 0.2.27 |
-| @rsvelte/svelte-check | 0.5.29 |
-| @rsvelte/language-server | 0.7.9 |
-| @rsvelte/fmt | 0.7.24 |
-| @rsvelte/lint | 0.12.3 |
-| @rsvelte/vite-plugin-svelte-native | 0.3.14 |
+| @rsvelte/compiler | 0.12.6 |
+| @rsvelte/svelte2tsx | 0.2.28 |
+| @rsvelte/svelte-check | 0.5.32 |
+| @rsvelte/language-server | 0.7.13 |
+| @rsvelte/fmt | 0.7.25 |
+| @rsvelte/lint | 0.12.6 |
+| @rsvelte/vite-plugin-svelte-native | 0.3.17 |
 | @rsvelte/vite-plugin-svelte | 0.5.3 |
-| @sveltejs/vite-plugin-svelte | 7.3.0 |
-| vite | 8.3.0 |
-| @verter/native | 0.0.1-beta.5 |
-| @verter/typeinfo | 0.0.1-beta.5 |
-| @verter/proto | 0.0.1-beta.5 |
-| @bufbuild/protobuf | 2.15.0 |
-| verter-tsc | 0.0.1-beta.5 |
-| verter-lsp | 0.0.1-beta.5 |
+| @sveltejs/vite-plugin-svelte | 7.3.1 |
+| vite | 8.3.1 |
+| @verter/native | 0.0.1-beta.6 |
+| @verter/typeinfo | 0.0.1-beta.6 |
+| @verter/proto | 0.0.1-beta.6 |
+| @bufbuild/protobuf | 2.16.0 |
+| verter-tsc | 0.0.1-beta.6 |
+| verter-lsp | 0.0.1-beta.6 |
 | svelte-language-server | 0.18.4 |
 | svelte2tsx | 0.7.61 |
-| sveld | 0.37.3 |
+| sveld | 0.38.0 |
 | svelte-docinfo | 0.7.0 |
-| prettier | 3.9.8 |
+| prettier | 3.9.9 |
 | prettier-plugin-svelte | 4.1.1 |
-| oxfmt | 0.68.0 |
+| oxfmt | 0.71.0 |
 | eslint-plugin-svelte | 3.23.0 |
 | typescript | 6.0.3 |
 | cli:svelte-check | 4.7.6 |
 | cli:svelte-check-rs | 0.11.2 |
-| cli:svelte-check-native | 1.7.0 |
+| cli:svelte-check-native | 1.8.0 |
 | cli:rsvelte-check | unknown |
-| cli:rsvelte-fmt | 0.7.24 |
-| cli:rsvelte-lint | 0.12.3 |
-| cli:prettier | 3.9.8 |
-| cli:oxfmt | 0.68.0 |
-| cli:verter-tsc | 0.0.1-beta.5 |
+| cli:rsvelte-fmt | 0.7.25 |
+| cli:rsvelte-lint | 0.12.6 |
+| cli:prettier | 3.9.9 |
+| cli:oxfmt | 0.71.0 |
+| cli:verter-tsc | 0.0.1-beta.6 |
 
 </details>
 

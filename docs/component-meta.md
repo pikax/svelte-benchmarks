@@ -10,12 +10,12 @@ Ranked on the **median of measured runs** — Warm is the primary ordering and r
 
 </details>
 
-- **Generated:** 2026-09-18T13:11:29.670Z
+- **Generated:** 2026-09-29T12:45:43.678Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
 - **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 9V45 96-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [649f404](https://github.com/pikax/svelte-benchmarks/commit/649f404)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026
+- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
+- **Commit:** [1bc177a](https://github.com/pikax/svelte-benchmarks/commit/1bc177a)
+- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/36569419030
 - **Source:** `bench-Linux-200-bench.json`
 
 ### Component metadata
@@ -24,8 +24,7 @@ Files: **200** · Bytes: **134,760**
 
 Tools:
 
-- **sveld (AST-only)** — sveld component API extraction; row label states AST-only or resolveTypes mode.
-- **sveld (resolveTypes)** — sveld component API extraction; row label states AST-only or resolveTypes mode.
+- **sveld (AST-only)** — sveld component API extraction (AST-only; sveld 0.38 removed resolveTypes).
 - **svelte-docinfo** — TypeScript-semantic Svelte component/module metadata extraction.
 - **Verter typeinfo** — @verter/typeinfo decoding @verter/native's dedicated Svelte framework-surface metadata.
 
@@ -38,28 +37,11 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| sveld (AST-only) | 200 | **43.0 ms** | 33.5 ms | 7.9 ms | 18.4% ⚠ | — | 260 | n/a | — |
+| sveld (AST-only) | 200 | **94.7 ms** | 80.0 ms | 12.8 ms | 13.5% ⚠ | — | 260 | n/a | — |
 
 <details><summary>Notes</summary>
 
-- **sveld (AST-only)**: default AST-only extraction; cache disabled | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props
-
-</details>
-
-##### SVELD-RESOLVE-TYPES-PROJECT — separate workload
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/component-meta-bench-linux-200-bench-component-meta-component-me-17sd8vr-dark.svg">
-  <img src="charts/component-meta-bench-linux-200-bench-component-meta-component-me-17sd8vr.svg" alt="Component metadata — SVELD-RESOLVE-TYPES-PROJECT" width="760">
-</picture>
-
-| Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| sveld (resolveTypes) | 200 | **39.8 ms** | 32.6 ms | 6.6 ms | 16.7% ⚠ | — | 260 | n/a | — |
-
-<details><summary>Notes</summary>
-
-- **sveld (resolveTypes)**: TypeScript semantic resolution enabled; cache disabled | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props
+- **sveld (AST-only)**: default AST-only extraction (sveld 0.38 removed resolveTypes); cache disabled | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props
 
 </details>
 
@@ -72,7 +54,7 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte-docinfo | 200 | **392.2 ms** | 365.3 ms | 28.1 ms | 7.2% | — | 260 | n/a | — |
+| svelte-docinfo | 200 | **613.9 ms** | 588.7 ms | 21.7 ms | 3.5% | — | 260 | n/a | — |
 
 <details><summary>Notes</summary>
 
@@ -89,18 +71,18 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Metadata items | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter typeinfo ⚠ | 200 | (137.4 ms) | (133.7 ms) | – | – | not ranked | (260) | n/a | – |
+| Verter typeinfo | 200 | **211.8 ms** | 202.3 ms | 6.1 ms | 2.9% | — | 260 | n/a | — |
 
 <details><summary>Notes</summary>
 
-- **Verter typeinfo ⚠**: @verter/typeinfo wire decoder over @verter/native's dedicated Svelte framework-surface executor | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props | ⚠ TOO NOISY TO RANK — CV 1630.4% exceeds the 50% ceiling across 5 samples. The time remains visible but is excluded from ranking.
+- **Verter typeinfo**: @verter/typeinfo wire decoder over @verter/native's dedicated Svelte framework-surface executor | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props
 
 </details>
 
 <details><summary>Methodology</summary>
 
 - Every metadata API is a separate workload class unless its discovery, dependency traversal, semantic products, and correctness gates are equivalent. Current metadata timings are informational, without cross-tool ratios.
-- sveld(resolveTypes) analyzes the generated barrel/project; svelte-docinfo globs Svelte files with dependency traversal disabled. Both are semantic, but their work products are not asserted equivalent.
+- sveld analyzes the generated barrel/project with AST-only extraction; svelte-docinfo is TypeScript-semantic and globs Svelte files with dependency traversal disabled. Their work products are not asserted equivalent.
 - Verter uses @verter/typeinfo's wire decoder over @verter/native's dedicated Svelte framework-surface executor. It is a separate API/workload class because sveld and svelte-docinfo perform project discovery and barrel analysis.
 - Persistent caches are disabled and every measured pass re-analyzes the same staged files.
 - Identity gate: component records and exact per-file prop-name sets must match the staged sources, with no missing, extra, or duplicated records.
@@ -108,10 +90,9 @@ Tools:
 
 Raw runs:
 
-- **sveld (AST-only)**: 50.9 ms, 43.0 ms, 47.4 ms, 33.5 ms, 33.8 ms
-- **sveld (resolveTypes)**: 42.1 ms, 49.8 ms, 35.4 ms, 39.8 ms, 32.6 ms
-- **svelte-docinfo**: 396.3 ms, 434.4 ms, 392.2 ms, 365.3 ms, 367.1 ms
-- **Verter typeinfo**: 5.15 s, 152.9 ms, 133.7 ms, 137.4 ms, 137.1 ms
+- **sveld (AST-only)**: 111.2 ms, 106.4 ms, 94.7 ms, 80.0 ms, 88.5 ms
+- **svelte-docinfo**: 646.4 ms, 613.9 ms, 588.7 ms, 604.8 ms, 625.1 ms
+- **Verter typeinfo**: 218.1 ms, 215.9 ms, 202.3 ms, 209.9 ms, 211.8 ms
 
 </details>
 
@@ -129,7 +110,7 @@ Raw runs:
 | bindable-and-callbacks | verter-typeinfo | ✓ pass |  |
 | callback-signatures | sveld | ✓ pass |  |
 | callback-signatures | svelte-docinfo | ✓ pass |  |
-| callback-signatures | verter-typeinfo | ✗ fail | verter-typeinfo: prop "onMove": type "undefined" is not a callable type |
+| callback-signatures | verter-typeinfo | ✗ fail | verter-typeinfo: prop "onMove": type "[object Object]" is not a callable type |
 | plain-component | sveld | ✓ pass |  |
 | plain-component | svelte-docinfo | ✓ pass |  |
 | plain-component | verter-typeinfo | ✓ pass |  |
@@ -140,45 +121,45 @@ Raw runs:
 
 | Package | Version |
 | --- | --- |
-| svelte | 5.57.0 |
+| svelte | 5.57.1 |
 | svelte-check | 4.7.6 |
 | svelte-check-rs | 0.11.2 |
-| svelte-check-native | 1.7.0 |
+| svelte-check-native | 1.8.0 |
 | @mrwaip/svelte-rs | 0.0.0-canary.15.1 |
-| @rsvelte/compiler | 0.12.3 |
-| @rsvelte/svelte2tsx | 0.2.27 |
-| @rsvelte/svelte-check | 0.5.29 |
-| @rsvelte/language-server | 0.7.9 |
-| @rsvelte/fmt | 0.7.24 |
-| @rsvelte/lint | 0.12.3 |
-| @rsvelte/vite-plugin-svelte-native | 0.3.14 |
+| @rsvelte/compiler | 0.12.6 |
+| @rsvelte/svelte2tsx | 0.2.28 |
+| @rsvelte/svelte-check | 0.5.32 |
+| @rsvelte/language-server | 0.7.13 |
+| @rsvelte/fmt | 0.7.25 |
+| @rsvelte/lint | 0.12.6 |
+| @rsvelte/vite-plugin-svelte-native | 0.3.17 |
 | @rsvelte/vite-plugin-svelte | 0.5.3 |
-| @sveltejs/vite-plugin-svelte | 7.3.0 |
-| vite | 8.3.0 |
-| @verter/native | 0.0.1-beta.5 |
-| @verter/typeinfo | 0.0.1-beta.5 |
-| @verter/proto | 0.0.1-beta.5 |
-| @bufbuild/protobuf | 2.15.0 |
-| verter-tsc | 0.0.1-beta.5 |
-| verter-lsp | 0.0.1-beta.5 |
+| @sveltejs/vite-plugin-svelte | 7.3.1 |
+| vite | 8.3.1 |
+| @verter/native | 0.0.1-beta.6 |
+| @verter/typeinfo | 0.0.1-beta.6 |
+| @verter/proto | 0.0.1-beta.6 |
+| @bufbuild/protobuf | 2.16.0 |
+| verter-tsc | 0.0.1-beta.6 |
+| verter-lsp | 0.0.1-beta.6 |
 | svelte-language-server | 0.18.4 |
 | svelte2tsx | 0.7.61 |
-| sveld | 0.37.3 |
+| sveld | 0.38.0 |
 | svelte-docinfo | 0.7.0 |
-| prettier | 3.9.8 |
+| prettier | 3.9.9 |
 | prettier-plugin-svelte | 4.1.1 |
-| oxfmt | 0.68.0 |
+| oxfmt | 0.71.0 |
 | eslint-plugin-svelte | 3.23.0 |
 | typescript | 6.0.3 |
 | cli:svelte-check | 4.7.6 |
 | cli:svelte-check-rs | 0.11.2 |
-| cli:svelte-check-native | 1.7.0 |
+| cli:svelte-check-native | 1.8.0 |
 | cli:rsvelte-check | unknown |
-| cli:rsvelte-fmt | 0.7.24 |
-| cli:rsvelte-lint | 0.12.3 |
-| cli:prettier | 3.9.8 |
-| cli:oxfmt | 0.68.0 |
-| cli:verter-tsc | 0.0.1-beta.5 |
+| cli:rsvelte-fmt | 0.7.25 |
+| cli:rsvelte-lint | 0.12.6 |
+| cli:prettier | 3.9.9 |
+| cli:oxfmt | 0.71.0 |
+| cli:verter-tsc | 0.0.1-beta.6 |
 
 </details>
 

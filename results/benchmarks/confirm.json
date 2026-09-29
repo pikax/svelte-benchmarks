@@ -1,11 +1,11 @@
 {
   "kind": "confirmation",
-  "generatedAt": "2026-09-18T13:07:21.775Z",
+  "generatedAt": "2026-09-29T12:39:01.592Z",
   "runner": {
     "platform": "linux",
     "node": "v22.23.2",
     "ci": true,
-    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026"
+    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/36569419030"
   },
   "summary": {
     "pass": 115,
@@ -922,7 +922,7 @@
       "caseId": "callback-signatures",
       "tool": "verter-typeinfo",
       "status": "fail",
-      "message": "verter-typeinfo: prop \"onMove\": type \"undefined\" is not a callable type"
+      "message": "verter-typeinfo: prop \"onMove\": type \"[object Object]\" is not a callable type"
     },
     {
       "suite": "component-meta",

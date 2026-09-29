@@ -14,19 +14,19 @@
   <line x1="248" y1="56" x2="248" y2="100" stroke="#d0d7de" stroke-opacity="0.55" />
   <text fill="#59636e" x="248" y="120" text-anchor="middle" font-size="11">0.0 ms</text>
   <line x1="348.5" y1="56" x2="348.5" y2="100" stroke="#d0d7de" stroke-opacity="0.55" />
-  <text fill="#59636e" x="348.5" y="120" text-anchor="middle" font-size="11">9.3 ms</text>
+  <text fill="#59636e" x="348.5" y="120" text-anchor="middle" font-size="11">17.4 ms</text>
   <line x1="449" y1="56" x2="449" y2="100" stroke="#d0d7de" stroke-opacity="0.55" />
-  <text fill="#59636e" x="449" y="120" text-anchor="middle" font-size="11">18.6 ms</text>
+  <text fill="#59636e" x="449" y="120" text-anchor="middle" font-size="11">34.8 ms</text>
   <line x1="549.5" y1="56" x2="549.5" y2="100" stroke="#d0d7de" stroke-opacity="0.55" />
-  <text fill="#59636e" x="549.5" y="120" text-anchor="middle" font-size="11">27.9 ms</text>
+  <text fill="#59636e" x="549.5" y="120" text-anchor="middle" font-size="11">52.2 ms</text>
   <line x1="650" y1="56" x2="650" y2="100" stroke="#d0d7de" stroke-opacity="0.55" />
-  <text fill="#59636e" x="650" y="120" text-anchor="middle" font-size="11">37.2 ms</text>
+  <text fill="#59636e" x="650" y="120" text-anchor="middle" font-size="11">69.5 ms</text>
   <text fill="#59636e" x="16" y="85" font-size="11">1</text>
       <text fill="#1f2328" x="36" y="85" font-size="13" fill-opacity="0.62">Verter (stateless)</text>
       <line x1="36" y1="80" x2="240" y2="80" stroke="#1f2328" stroke-opacity="0.45" />
       <rect x="248" y="69" width="402" height="22" rx="5" fill="#afb8c133"/>
-      <rect x="248" y="69" width="402.0" height="22" rx="5" fill="url(#hatch-0)" fill-opacity="1"/>
-      <rect x="248" y="69" width="396.6" height="22" rx="5" fill="url(#hatch-0)" fill-opacity="0.38"/>
-      <line x1="644.6125047000053" y1="68" x2="644.6125047000053" y2="92" stroke="#ffffff" stroke-width="2" stroke-opacity="0.9"/>
-      <text fill="#ffffff" x="256" y="85" font-size="12" font-weight="600">37.2 ms warm / 36.7 ms fresh child · unranked</text>
+      <rect x="248" y="69" width="402.0" height="22" rx="5" fill="url(#hatch-0)" fill-opacity="0.38"/>
+      <rect x="248" y="69" width="399.0" height="22" rx="5" fill="url(#hatch-0)" fill-opacity="1"/>
+      <line x1="647.0113458247653" y1="68" x2="647.0113458247653" y2="92" stroke="#ffffff" stroke-width="2" stroke-opacity="0.9"/>
+      <text fill="#ffffff" x="256" y="85" font-size="12" font-weight="600">69.0 ms warm / 69.5 ms fresh child · unranked</text>
 </svg>

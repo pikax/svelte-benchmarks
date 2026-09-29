@@ -10,12 +10,12 @@ Ranked on the **median of measured runs** — Warm is the primary ordering and r
 
 </details>
 
-- **Generated:** 2026-09-18T13:11:29.670Z
+- **Generated:** 2026-09-29T12:45:43.678Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
 - **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 9V45 96-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [649f404](https://github.com/pikax/svelte-benchmarks/commit/649f404)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026
+- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
+- **Commit:** [1bc177a](https://github.com/pikax/svelte-benchmarks/commit/1bc177a)
+- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/36569419030
 - **Source:** `bench-Linux-200-bench.json`
 
 ### LSP (editor language server)
@@ -34,13 +34,13 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Hover bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte-language-server (JS) | 1 | **436.5 ms** | 432.1 ms | 8.0 ms | 1.8% | — | 43 | n/a | — |
-| Verter ❌ | 1 | error | – | – | – | – | – | – | – |
+| Verter | 1 | **256.0 ms** | 249.4 ms | 13.9 ms | 5.4% | 1.00x | 43 | n/a | 4 files/s |
+| svelte-language-server (JS) | 1 | **766.7 ms** | 753.7 ms | 10.2 ms | 1.3% | 3.00x | 43 | n/a | 1 files/s |
 
 <details><summary>Notes</summary>
 
-- **svelte-language-server (JS)**: Official Svelte language server (stdio) | init=313ms · open→hover=451ms · hoverWarm=1ms
-- **Verter ❌**: hover returned null after retries
+- **Verter**: verter-lsp — native server (experimental Svelte carrier when enabled) | init=39ms · open→hover=284ms · hoverWarm=3ms
+- **svelte-language-server (JS)**: Official Svelte language server (stdio) | init=482ms · open→hover=767ms · hoverWarm=1ms
 
 </details>
 
@@ -54,7 +54,8 @@ Tools:
 
 Raw runs:
 
-- **svelte-language-server (JS)**: 451.1 ms, 434.6 ms, 436.5 ms, 445.3 ms, 432.1 ms
+- **Verter**: 284.5 ms, 256.0 ms, 260.4 ms, 249.4 ms, 253.1 ms
+- **svelte-language-server (JS)**: 766.7 ms, 757.4 ms, 774.5 ms, 753.7 ms, 777.0 ms
 
 </details>
 
@@ -75,9 +76,9 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Formatted bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| rsvelte-language-server | 1 | **1.3 ms** | 1.3 ms | 0.0 ms | 3.6% | 1.00x | 176 | n/a | 765 files/s |
-| svelte-language-server | 1 | **159.1 ms** | 156.3 ms | 7.8 ms | 4.9% | 121.63x | 176 | n/a | 6 files/s |
-| Verter ⚠ | 1 | (4.7 ms) | (4.6 ms) | – | – | not ranked | (167) | n/a | – |
+| rsvelte-language-server | 1 | **1.8 ms** | 1.4 ms | 0.2 ms | 10.9% ⚠ | 1.00x | 176 | n/a | 545 files/s |
+| svelte-language-server | 1 | **263.3 ms** | 260.0 ms | 10.2 ms | 3.9% | 143.41x | 176 | n/a | 4 files/s |
+| Verter ⚠ | 1 | (2.2 ms) | (1.7 ms) | – | – | not ranked | (167) | n/a | – |
 
 <details><summary>Notes</summary>
 
@@ -96,9 +97,9 @@ Tools:
 
 Raw runs:
 
-- **rsvelte-language-server**: 1.3 ms, 1.3 ms, 1.4 ms, 1.3 ms, 1.3 ms
-- **svelte-language-server**: 157.7 ms, 159.1 ms, 156.3 ms, 175.6 ms, 160.9 ms
-- **Verter**: 4.7 ms, 4.7 ms, 4.7 ms, 4.6 ms, 4.9 ms
+- **rsvelte-language-server**: 1.9 ms, 1.8 ms, 2.0 ms, 1.4 ms, 1.8 ms
+- **svelte-language-server**: 260.0 ms, 263.6 ms, 260.9 ms, 263.3 ms, 284.5 ms
+- **Verter**: 6.9 ms, 2.0 ms, 1.7 ms, 2.2 ms, 7.1 ms
 
 </details>
 
@@ -108,45 +109,45 @@ Raw runs:
 
 | Package | Version |
 | --- | --- |
-| svelte | 5.57.0 |
+| svelte | 5.57.1 |
 | svelte-check | 4.7.6 |
 | svelte-check-rs | 0.11.2 |
-| svelte-check-native | 1.7.0 |
+| svelte-check-native | 1.8.0 |
 | @mrwaip/svelte-rs | 0.0.0-canary.15.1 |
-| @rsvelte/compiler | 0.12.3 |
-| @rsvelte/svelte2tsx | 0.2.27 |
-| @rsvelte/svelte-check | 0.5.29 |
-| @rsvelte/language-server | 0.7.9 |
-| @rsvelte/fmt | 0.7.24 |
-| @rsvelte/lint | 0.12.3 |
-| @rsvelte/vite-plugin-svelte-native | 0.3.14 |
+| @rsvelte/compiler | 0.12.6 |
+| @rsvelte/svelte2tsx | 0.2.28 |
+| @rsvelte/svelte-check | 0.5.32 |
+| @rsvelte/language-server | 0.7.13 |
+| @rsvelte/fmt | 0.7.25 |
+| @rsvelte/lint | 0.12.6 |
+| @rsvelte/vite-plugin-svelte-native | 0.3.17 |
 | @rsvelte/vite-plugin-svelte | 0.5.3 |
-| @sveltejs/vite-plugin-svelte | 7.3.0 |
-| vite | 8.3.0 |
-| @verter/native | 0.0.1-beta.5 |
-| @verter/typeinfo | 0.0.1-beta.5 |
-| @verter/proto | 0.0.1-beta.5 |
-| @bufbuild/protobuf | 2.15.0 |
-| verter-tsc | 0.0.1-beta.5 |
-| verter-lsp | 0.0.1-beta.5 |
+| @sveltejs/vite-plugin-svelte | 7.3.1 |
+| vite | 8.3.1 |
+| @verter/native | 0.0.1-beta.6 |
+| @verter/typeinfo | 0.0.1-beta.6 |
+| @verter/proto | 0.0.1-beta.6 |
+| @bufbuild/protobuf | 2.16.0 |
+| verter-tsc | 0.0.1-beta.6 |
+| verter-lsp | 0.0.1-beta.6 |
 | svelte-language-server | 0.18.4 |
 | svelte2tsx | 0.7.61 |
-| sveld | 0.37.3 |
+| sveld | 0.38.0 |
 | svelte-docinfo | 0.7.0 |
-| prettier | 3.9.8 |
+| prettier | 3.9.9 |
 | prettier-plugin-svelte | 4.1.1 |
-| oxfmt | 0.68.0 |
+| oxfmt | 0.71.0 |
 | eslint-plugin-svelte | 3.23.0 |
 | typescript | 6.0.3 |
 | cli:svelte-check | 4.7.6 |
 | cli:svelte-check-rs | 0.11.2 |
-| cli:svelte-check-native | 1.7.0 |
+| cli:svelte-check-native | 1.8.0 |
 | cli:rsvelte-check | unknown |
-| cli:rsvelte-fmt | 0.7.24 |
-| cli:rsvelte-lint | 0.12.3 |
-| cli:prettier | 3.9.8 |
-| cli:oxfmt | 0.68.0 |
-| cli:verter-tsc | 0.0.1-beta.5 |
+| cli:rsvelte-fmt | 0.7.25 |
+| cli:rsvelte-lint | 0.12.6 |
+| cli:prettier | 3.9.9 |
+| cli:oxfmt | 0.71.0 |
+| cli:verter-tsc | 0.0.1-beta.6 |
 
 </details>
 

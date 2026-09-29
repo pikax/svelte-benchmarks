@@ -14,43 +14,43 @@
   <line x1="248" y1="56" x2="248" y2="208" stroke="#3d444d" stroke-opacity="0.55" />
   <text fill="#9198a1" x="248" y="228" text-anchor="middle" font-size="11">0.0 ms</text>
   <line x1="348.5" y1="56" x2="348.5" y2="208" stroke="#3d444d" stroke-opacity="0.55" />
-  <text fill="#9198a1" x="348.5" y="228" text-anchor="middle" font-size="11">67.3 ms</text>
+  <text fill="#9198a1" x="348.5" y="228" text-anchor="middle" font-size="11">103 ms</text>
   <line x1="449" y1="56" x2="449" y2="208" stroke="#3d444d" stroke-opacity="0.55" />
-  <text fill="#9198a1" x="449" y="228" text-anchor="middle" font-size="11">135 ms</text>
+  <text fill="#9198a1" x="449" y="228" text-anchor="middle" font-size="11">205 ms</text>
   <line x1="549.5" y1="56" x2="549.5" y2="208" stroke="#3d444d" stroke-opacity="0.55" />
-  <text fill="#9198a1" x="549.5" y="228" text-anchor="middle" font-size="11">202 ms</text>
+  <text fill="#9198a1" x="549.5" y="228" text-anchor="middle" font-size="11">308 ms</text>
   <line x1="650" y1="56" x2="650" y2="208" stroke="#3d444d" stroke-opacity="0.55" />
-  <text fill="#9198a1" x="650" y="228" text-anchor="middle" font-size="11">269 ms</text>
+  <text fill="#9198a1" x="650" y="228" text-anchor="middle" font-size="11">410 ms</text>
   <text fill="#9198a1" x="16" y="85" font-size="11">1</text>
-      <text fill="#e6edf3" x="36" y="85" font-size="13">svelte/compiler 5.57.0</text>
+      <text fill="#e6edf3" x="36" y="85" font-size="13">svelte/compiler 5.57.1</text>
 
       <rect x="248" y="69" width="402" height="22" rx="5" fill="#6e768166"/>
       <rect x="248" y="69" width="402.0" height="22" rx="5" fill="#e34b20" fill-opacity="0.38"/>
-      <rect x="248" y="69" width="329.7" height="22" rx="5" fill="#e34b20" fill-opacity="1"/>
-      <line x1="577.7282899429387" y1="68" x2="577.7282899429387" y2="92" stroke="#0d1117" stroke-width="2" stroke-opacity="0.9"/>
-      <text fill="#ffffff" x="256" y="85" font-size="12" font-weight="600">221 ms warm / 269 ms fresh child</text>
+      <rect x="248" y="69" width="341.0" height="22" rx="5" fill="#e34b20" fill-opacity="1"/>
+      <line x1="588.9961814191661" y1="68" x2="588.9961814191661" y2="92" stroke="#0d1117" stroke-width="2" stroke-opacity="0.9"/>
+      <text fill="#ffffff" x="256" y="85" font-size="12" font-weight="600">348 ms warm / 410 ms fresh child</text>
   <text fill="#9198a1" x="16" y="121" font-size="11">2</text>
       <text fill="#e6edf3" x="36" y="121" font-size="13" fill-opacity="0.62">@mrwaip/svelte-rs (NAPI)</text>
       <line x1="36" y1="116" x2="240" y2="116" stroke="#e6edf3" stroke-opacity="0.45" />
       <rect x="248" y="105" width="402" height="22" rx="5" fill="#6e768166"/>
-      <rect x="248" y="105" width="39.3" height="22" rx="5" fill="url(#hatch-1)" fill-opacity="1"/>
-      <rect x="248" y="105" width="38.5" height="22" rx="5" fill="url(#hatch-1)" fill-opacity="0.38"/>
-      <line x1="286.51036465763195" y1="104" x2="286.51036465763195" y2="128" stroke="#0d1117" stroke-width="2" stroke-opacity="0.9"/>
-      <text fill="#e6edf3" x="295.3227754992867" y="121" font-size="12" font-weight="600">26.3 ms warm / 25.8 ms fresh child · unranked</text>
+      <rect x="248" y="105" width="39.0" height="22" rx="5" fill="url(#hatch-1)" fill-opacity="1"/>
+      <rect x="248" y="105" width="38.8" height="22" rx="5" fill="url(#hatch-1)" fill-opacity="0.38"/>
+      <line x1="286.82079005120704" y1="104" x2="286.82079005120704" y2="128" stroke="#0d1117" stroke-width="2" stroke-opacity="0.9"/>
+      <text fill="#e6edf3" x="295.0040965618142" y="121" font-size="12" font-weight="600">39.8 ms warm / 39.6 ms fresh child · unranked</text>
   <text fill="#9198a1" x="16" y="157" font-size="11">3</text>
       <text fill="#e6edf3" x="36" y="157" font-size="13" fill-opacity="0.62">@rsvelte/native (NAPI)</text>
       <line x1="36" y1="152" x2="240" y2="152" stroke="#e6edf3" stroke-opacity="0.45" />
       <rect x="248" y="141" width="402" height="22" rx="5" fill="#6e768166"/>
-      <rect x="248" y="141" width="126.0" height="22" rx="5" fill="url(#hatch-2)" fill-opacity="1"/>
-      <rect x="248" y="141" width="122.0" height="22" rx="5" fill="url(#hatch-2)" fill-opacity="0.38"/>
-      <line x1="369.97512482168327" y1="140" x2="369.97512482168327" y2="164" stroke="#0d1117" stroke-width="2" stroke-opacity="0.9"/>
-      <text fill="#ffffff" x="256" y="157" font-size="12" font-weight="600">84.4 ms warm / 81.7 ms fresh child · unranked</text>
+      <rect x="248" y="141" width="114.0" height="22" rx="5" fill="url(#hatch-2)" fill-opacity="1"/>
+      <rect x="248" y="141" width="111.2" height="22" rx="5" fill="url(#hatch-2)" fill-opacity="0.38"/>
+      <line x1="359.23372348207755" y1="140" x2="359.23372348207755" y2="164" stroke="#0d1117" stroke-width="2" stroke-opacity="0.9"/>
+      <text fill="#ffffff" x="256" y="157" font-size="12" font-weight="600">116 ms warm / 113 ms fresh child · unranked</text>
   <text fill="#9198a1" x="16" y="193" font-size="11">4</text>
       <text fill="#e6edf3" x="36" y="193" font-size="13" fill-opacity="0.62">@rsvelte/compiler (wasm)</text>
       <line x1="36" y1="188" x2="240" y2="188" stroke="#e6edf3" stroke-opacity="0.45" />
       <rect x="248" y="177" width="402" height="22" rx="5" fill="#6e768166"/>
-      <rect x="248" y="177" width="315.8" height="22" rx="5" fill="url(#hatch-3)" fill-opacity="0.38"/>
-      <rect x="248" y="177" width="291.5" height="22" rx="5" fill="url(#hatch-3)" fill-opacity="1"/>
-      <line x1="539.5225793509271" y1="176" x2="539.5225793509271" y2="200" stroke="#0d1117" stroke-width="2" stroke-opacity="0.9"/>
-      <text fill="#ffffff" x="256" y="193" font-size="12" font-weight="600">195 ms warm / 211 ms fresh child · unranked</text>
+      <rect x="248" y="177" width="310.5" height="22" rx="5" fill="url(#hatch-3)" fill-opacity="0.38"/>
+      <rect x="248" y="177" width="296.5" height="22" rx="5" fill="url(#hatch-3)" fill-opacity="1"/>
+      <line x1="544.5115142648134" y1="176" x2="544.5115142648134" y2="200" stroke="#0d1117" stroke-width="2" stroke-opacity="0.9"/>
+      <text fill="#ffffff" x="256" y="193" font-size="12" font-weight="600">302 ms warm / 317 ms fresh child · unranked</text>
 </svg>

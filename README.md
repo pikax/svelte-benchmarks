@@ -86,19 +86,19 @@ publication workflow (`pnpm pull:ci-results` / `pnpm publish:ci-results`).
 ## Current run provenance
 
 <!-- svelte-bench: begin:RUN_META -->
-- **Generated:** 2026-09-18T13:11:29.670Z
+- **Generated:** 2026-09-29T12:45:43.678Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
 - **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 9V45 96-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [649f404](https://github.com/pikax/svelte-benchmarks/commit/649f404)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026
+- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
+- **Commit:** [1bc177a](https://github.com/pikax/svelte-benchmarks/commit/1bc177a)
+- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/36569419030
 - **Source:** `bench-Linux-200-bench.json`
 <!-- svelte-bench: end:RUN_META -->
 
 ## Benchmark results
 
 <!-- svelte-bench: begin:BENCHMARK_RESULTS -->
-Generated **2026-09-18** from the latest published **Linux** JSON snapshot (`bench-Linux-200-bench.json`, 200 Svelte files, 5 runs). See [how to read](docs/how-to-read.md) and [methodology](docs/methodology.md).
+Generated **2026-09-29** from the latest published **Linux** JSON snapshot (`bench-Linux-200-bench.json`, 200 Svelte files, 5 runs). See [how to read](docs/how-to-read.md) and [methodology](docs/methodology.md).
 
 Each chart covers one workload. Compiler range bars combine warm (solid) and fresh-child (lighter) measurements on the same scale. Hatched bars are unranked. Expand a timing table for ratios and memory; skipped and errored tools remain visible in the tables.
 
@@ -115,10 +115,10 @@ Each chart covers one workload. Compiler range bars combine warm (solid) and fre
 
 | Tool | Fresh child | **Warm (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.57.0 | 269 ms | **221 ms** | — | 118.6 MB |
-| @mrwaip/svelte-rs (NAPI) ⚠ | 25.8 ms | (26.3 ms) | not ranked | 69.9 MB |
-| @rsvelte/native (NAPI) ⚠ | 81.7 ms | (84.4 ms) | not ranked | 81.9 MB |
-| @rsvelte/compiler (wasm) ⚠ | 211 ms | (195 ms) | not ranked | 179.2 MB |
+| svelte/compiler 5.57.1 | 410 ms | **348 ms** | — | 116.1 MB |
+| @mrwaip/svelte-rs (NAPI) ⚠ | 39.6 ms | (39.8 ms) | not ranked | 71.6 MB |
+| @rsvelte/native (NAPI) ⚠ | 113 ms | (116 ms) | not ranked | 82.2 MB |
+| @rsvelte/compiler (wasm) ⚠ | 317 ms | (302 ms) | not ranked | 179.1 MB |
 
 ⚠ bracketed rows are measured but unranked — see [the full page](docs/compiler.md) for why.
 
@@ -133,10 +133,10 @@ Each chart covers one workload. Compiler range bars combine warm (solid) and fre
 
 | Tool | Fresh child | **Warm (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: | ---: |
-| @rsvelte/native (NAPI) | 57.8 ms | **56.5 ms** | 1.00x | 81.9 MB |
-| svelte/compiler 5.57.0 | 240 ms | **147 ms** | 2.60x | 118.6 MB |
-| @rsvelte/compiler (wasm) | 166 ms | **147 ms** | 2.61x | 179.2 MB |
-| @mrwaip/svelte-rs (NAPI) ⚠ | 19.7 ms | (18.3 ms) | not ranked | 69.9 MB |
+| @rsvelte/native (NAPI) | 82.4 ms | **80.2 ms** | 1.00x | 82.2 MB |
+| @rsvelte/compiler (wasm) | 237 ms | **208 ms** | 2.59x | 179.1 MB |
+| svelte/compiler 5.57.1 | 345 ms | **220 ms** | 2.74x | 116.1 MB |
+| @mrwaip/svelte-rs (NAPI) ⚠ | 33.3 ms | (31.4 ms) | not ranked | 71.6 MB |
 
 ⚠ bracketed rows are measured but unranked — see [the full page](docs/compiler.md) for why.
 
@@ -146,8 +146,8 @@ Each chart covers one workload. Compiler range bars combine warm (solid) and fre
 
 | Tool | Workload | Median | Status |
 | --- | --- | ---: | --- |
-| Verter (stateless) | CLIENT · production · EXPERIMENTAL-SVELTE | (40.7 ms) | unranked |
-| Verter (stateless) | SERVER · production · EXPERIMENTAL-SVELTE | (22.1 ms) | unranked |
+| Verter (stateless) | CLIENT · production · EXPERIMENTAL-SVELTE | (74.1 ms) | unranked |
+| Verter (stateless) | SERVER · production · EXPERIMENTAL-SVELTE | (35.4 ms) | unranked |
 
 
 Development builds and all validation evidence: [full compiler results](docs/compiler.md).
@@ -166,8 +166,8 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | **Median (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: |
-| @rsvelte/svelte2tsx (Wasm) | **17.2 ms** | 1.00x | 182.4 MB |
-| svelte2tsx | **76.8 ms** | 4.47x | 132.2 MB |
+| @rsvelte/svelte2tsx (Wasm) | **39.9 ms** | 1.00x | 185.0 MB |
+| svelte2tsx | **124 ms** | 3.10x | 132.5 MB |
 
 </details>
 
@@ -175,9 +175,8 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | Workload | Median | Status |
 | --- | --- | ---: | --- |
-| Verter IDE projection | verter-ide-projection | — | error |
+| Verter IDE projection | VERTER-IDE-PROJECTION | 172 ms | measured |
 
-**Verter IDE projection:** HostError: runtime surface refused for '/home/runner/work/svelte-benchmarks/svelte-benchmarks/fixtures/200/Comp00002.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<nav>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`).
 
 
 ### Typecheck (svelte-check)
@@ -193,9 +192,9 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | **Median (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: |
-| svelte-check-native | **135 ms** | 1.00x | — |
-| rsvelte-check | **223 ms** | 1.65x | — |
-| svelte-check (JS) | **1.92 s** | 14.26x | — |
+| svelte-check-native | **224 ms** | 1.00x | — |
+| rsvelte-check | **369 ms** | 1.65x | — |
+| svelte-check (JS) | **3.18 s** | 14.22x | — |
 
 </details>
 
@@ -203,8 +202,8 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | Workload | Median | Status |
 | --- | --- | ---: | --- |
-| svelte-check-rs | DEFAULT-SOURCES | 785 ms | measured |
-| verter-tsc | EXPERIMENTAL-SVELTE | 1.07 s | measured |
+| svelte-check-rs | DEFAULT-SOURCES | 1.17 s | measured |
+| verter-tsc | EXPERIMENTAL-SVELTE | 1.92 s | measured |
 
 
 
@@ -221,8 +220,8 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | **Median (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: |
-| rsvelte-fmt | **129 ms** | 1.00x | — |
-| Prettier | **1.57 s** | 12.17x | — |
+| rsvelte-fmt | **164 ms** | 1.00x | — |
+| Prettier | **2.56 s** | 15.67x | — |
 | Oxfmt ⏭ | skipped | — | — |
 
 **Oxfmt ⏭:** Pinned Oxfmt release excludes .svelte files; no CLI-startup proxy is timed.
@@ -243,9 +242,9 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | **Median (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: |
-| eslint-plugin-svelte (1T API) | **228 ms** | 1.00x | — |
-| eslint-plugin-svelte (CLI) | **711 ms** | 3.11x | — |
-| eslint-plugin-svelte (worker pool) | **1.04 s** | 4.56x | — |
+| eslint-plugin-svelte (1T API) | **322 ms** | 1.00x | — |
+| eslint-plugin-svelte (CLI) | **1.17 s** | 3.62x | — |
+| eslint-plugin-svelte (worker pool) | **1.79 s** | 5.57x | — |
 
 </details>
 
@@ -253,8 +252,8 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | Workload | Median | Status |
 | --- | --- | ---: | --- |
-| rsvelte-lint | RSVELTE-NATIVE-RULES | 88.1 ms | measured |
-| Verter host lint | VERTER-NATIVE-DIAGNOSTICS | (73.6 ms) | unranked |
+| rsvelte-lint | RSVELTE-NATIVE-RULES | 142 ms | measured |
+| Verter host lint | VERTER-NATIVE-DIAGNOSTICS | (125 ms) | unranked |
 
 
 
@@ -266,10 +265,9 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | Workload | Median | Status |
 | --- | --- | ---: | --- |
-| sveld (AST-only) | SVELD-AST-PROJECT | 43.0 ms | measured |
-| sveld (resolveTypes) | SVELD-RESOLVE-TYPES-PROJECT | 39.8 ms | measured |
-| svelte-docinfo | SVELTE-DOCINFO-FILES-NO-DEPENDENCIES | 392 ms | measured |
-| Verter typeinfo | VERTER-FRAMEWORK-SURFACE | (137 ms) | unranked |
+| sveld (AST-only) | SVELD-AST-PROJECT | 94.7 ms | measured |
+| svelte-docinfo | SVELTE-DOCINFO-FILES-NO-DEPENDENCIES | 614 ms | measured |
+| Verter typeinfo | VERTER-FRAMEWORK-SURFACE | 212 ms | measured |
 
 
 
@@ -286,10 +284,8 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | **Median (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: |
-| svelte-language-server (JS) | **436 ms** | — | — |
-| Verter ❌ | error | — | — |
-
-**Verter ❌:** hover returned null after retries
+| Verter | **256 ms** | 1.00x | — |
+| svelte-language-server (JS) | **767 ms** | 3.00x | — |
 
 </details>
 
@@ -302,9 +298,9 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | **Median (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: |
-| rsvelte-language-server | **1.3 ms** | 1.00x | — |
-| svelte-language-server | **159 ms** | 121.63x | — |
-| Verter ⚠ | (4.7 ms) | not ranked | — |
+| rsvelte-language-server | **1.8 ms** | 1.00x | — |
+| svelte-language-server | **263 ms** | 143.41x | — |
+| Verter ⚠ | (2.2 ms) | not ranked | — |
 
 ⚠ bracketed rows are measured but unranked — see [the full page](docs/lsp.md) for why.
 
@@ -324,8 +320,8 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | **Median (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: |
-| Vite 7 × @rsvelte/vite-plugin-svelte | **212 ms** | 1.00x | — |
-| Vite 7 × @sveltejs/vite-plugin-svelte | **314 ms** | 1.48x | — |
+| Vite 7 × @rsvelte/vite-plugin-svelte | **339 ms** | 1.00x | — |
+| Vite 7 × @sveltejs/vite-plugin-svelte | **509 ms** | 1.50x | — |
 
 </details>
 
@@ -338,8 +334,8 @@ Development builds and all validation evidence: [full compiler results](docs/com
 
 | Tool | **Median (primary)** | vs fastest | Peak RSS |
 | --- | ---: | ---: | ---: |
-| Vite 7 × @rsvelte/vite-plugin-svelte | **14.5 ms** | 1.00x | — |
-| Vite 7 × @sveltejs/vite-plugin-svelte | **16.2 ms** | 1.12x | — |
+| Vite 7 × @rsvelte/vite-plugin-svelte | **23.7 ms** | 1.00x | — |
+| Vite 7 × @sveltejs/vite-plugin-svelte | **24.3 ms** | 1.02x | — |
 
 </details>
 

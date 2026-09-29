@@ -10,12 +10,12 @@ Ranked on the **median of measured runs** — Warm is the primary ordering and r
 
 </details>
 
-- **Generated:** 2026-09-18T13:11:29.670Z
+- **Generated:** 2026-09-29T12:45:43.678Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
 - **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 9V45 96-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [649f404](https://github.com/pikax/svelte-benchmarks/commit/649f404)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026
+- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
+- **Commit:** [1bc177a](https://github.com/pikax/svelte-benchmarks/commit/1bc177a)
+- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/36569419030
 - **Source:** `bench-Linux-200-bench.json`
 
 ### SFC compile (unique contents)
@@ -24,7 +24,7 @@ Files: **200** · Bytes: **134,760**
 
 Tools:
 
-- **svelte/compiler 5.57.0** — Official svelte/compiler compile() API, single-threaded.
+- **svelte/compiler 5.57.1** — Official svelte/compiler compile() API, single-threaded.
 - **@mrwaip/svelte-rs (NAPI)** — MrWaip/svelte-rs native compiler through its svelte/compiler-compatible API.
 - **@rsvelte/compiler (wasm)** — rsvelte WASM compiler bindings.
 - **@rsvelte/native (NAPI)** — rsvelte native NAPI compiler (@rsvelte/vite-plugin-svelte-native).
@@ -56,7 +56,7 @@ Target: `client` · Environment: `production`
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter (stateless) ⚠ | 200 | (36.1 ms) | not ranked | (40.7 ms) | (37.8 ms) | – | – | not ranked | (0) | n/a | – |
+| Verter (stateless) ⚠ | 200 | (68.9 ms) | not ranked | (74.1 ms) | (71.0 ms) | – | – | not ranked | (0) | n/a | – |
 
 <details><summary>Notes</summary>
 
@@ -73,27 +73,27 @@ Target: `client` · Environment: `production`
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.57.0 | 200 | 269.2 ms | — | **220.8 ms** | 200.4 ms | 24.4 ms | 11.1% ⚠ | — | 360,966 | 118.617 MB | — |
-| @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (25.8 ms) | not ranked | (26.3 ms) | (23.9 ms) | – | – | not ranked | (364,246) | 69.871 MB | – |
-| @rsvelte/native (NAPI) ⚠ | 200 | (81.7 ms) | not ranked | (84.4 ms) | (80.1 ms) | – | – | not ranked | (360,966) | 81.867 MB | – |
-| @rsvelte/compiler (wasm) ⚠ | 200 | (211.5 ms) | not ranked | (195.2 ms) | (191.1 ms) | – | – | not ranked | (360,966) | 179.168 MB | – |
+| svelte/compiler 5.57.1 | 200 | 410.1 ms | — | **347.9 ms** | 302.7 ms | 28.4 ms | 8.2% | — | 360,966 | 116.113 MB | — |
+| @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (39.6 ms) | not ranked | (39.8 ms) | (38.8 ms) | – | – | not ranked | (364,246) | 71.59 MB | – |
+| @rsvelte/native (NAPI) ⚠ | 200 | (113.5 ms) | not ranked | (116.3 ms) | (114.5 ms) | – | – | not ranked | (360,966) | 82.223 MB | – |
+| @rsvelte/compiler (wasm) ⚠ | 200 | (316.7 ms) | not ranked | (302.5 ms) | (284.9 ms) | – | – | not ranked | (360,966) | 179.098 MB | – |
 
 <details><summary>Notes</summary>
 
-- **svelte/compiler 5.57.0**: Official svelte/compiler compile(), generate=client, dev=false, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
+- **svelte/compiler 5.57.1**: Official svelte/compiler compile(), generate=client, dev=false, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
 - **@mrwaip/svelte-rs (NAPI) ⚠**: @mrwaip/svelte-rs compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-styles: css.css-0: mapped to 2:24; expected 9:24; crlf-styles: css.css-0: mapped to 2:24; expected 9:24). The timing remains visible but cannot rank until the emitted maps are correct.
-- **@rsvelte/native (NAPI) ⚠**: rsvelte NAPI compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.
+- **@rsvelte/native (NAPI) ⚠**: rsvelte NAPI compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.template: generated token has no original mapping; lf-styles: js.template: generated token has no original mapping). The timing remains visible but cannot rank until the emitted maps are correct.
 - **@rsvelte/compiler (wasm) ⚠**: rsvelte WASM compile(), generate=client, dev=false, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.template: generated token has no original mapping; lf-styles: js.template: generated token has no original mapping). The timing remains visible but cannot rank until the emitted maps are correct.
 
 </details>
 
 <details><summary>Raw runs</summary>
 
-- **Verter (stateless)**: 40.7 ms, 39.5 ms, 42.7 ms, 45.5 ms, 37.8 ms · fresh child: 35.7 ms, 36.9 ms, 37.1 ms, 35.4 ms, 36.1 ms
-- **svelte/compiler 5.57.0**: 259.5 ms, 237.7 ms, 220.8 ms, 200.4 ms, 204.7 ms · fresh child: 259.2 ms, 271.2 ms, 273.1 ms, 266.5 ms, 269.2 ms
-- **@mrwaip/svelte-rs (NAPI)**: 26.4 ms, 26.6 ms, 24.8 ms, 23.9 ms, 26.3 ms · fresh child: 25.6 ms, 25.8 ms, 25.3 ms, 26.0 ms, 25.9 ms
-- **@rsvelte/native (NAPI)**: 84.0 ms, 80.1 ms, 84.8 ms, 84.4 ms, 84.9 ms · fresh child: 79.8 ms, 85.7 ms, 79.1 ms, 84.5 ms, 81.7 ms
-- **@rsvelte/compiler (wasm)**: 206.9 ms, 202.2 ms, 191.1 ms, 195.2 ms, 195.1 ms · fresh child: 211.5 ms, 214.8 ms, 209.7 ms, 222.2 ms, 211.3 ms
+- **Verter (stateless)**: 78.4 ms, 78.4 ms, 71.2 ms, 71.0 ms, 74.1 ms · fresh child: 68.9 ms, 67.2 ms, 68.7 ms, 70.2 ms, 71.7 ms
+- **svelte/compiler 5.57.1**: 356.2 ms, 381.4 ms, 347.9 ms, 302.7 ms, 345.7 ms · fresh child: 407.0 ms, 407.5 ms, 416.8 ms, 410.1 ms, 422.4 ms
+- **@mrwaip/svelte-rs (NAPI)**: 38.8 ms, 41.6 ms, 39.8 ms, 39.4 ms, 42.5 ms · fresh child: 39.6 ms, 39.7 ms, 39.6 ms, 39.6 ms, 39.6 ms
+- **@rsvelte/native (NAPI)**: 120.9 ms, 114.9 ms, 116.9 ms, 116.3 ms, 114.5 ms · fresh child: 113.5 ms, 113.6 ms, 114.2 ms, 113.5 ms, 113.4 ms
+- **@rsvelte/compiler (wasm)**: 303.0 ms, 302.5 ms, 303.3 ms, 284.9 ms, 286.6 ms · fresh child: 323.0 ms, 313.2 ms, 308.7 ms, 318.8 ms, 316.7 ms
 
 </details>
 
@@ -110,7 +110,7 @@ Target: `client` · Environment: `development`
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter (stateless) ⚠ | 200 | (36.7 ms) | not ranked | (37.2 ms) | (37.0 ms) | – | – | not ranked | (0) | n/a | – |
+| Verter (stateless) ⚠ | 200 | (69.5 ms) | not ranked | (69.0 ms) | (67.2 ms) | – | – | not ranked | (0) | n/a | – |
 
 <details><summary>Notes</summary>
 
@@ -127,27 +127,27 @@ Target: `client` · Environment: `development`
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| svelte/compiler 5.57.0 | 200 | 282.1 ms | — | **185.4 ms** | 180.6 ms | 2.9 ms | 1.6% | — | 468,726 | 118.617 MB | — |
-| @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (27.0 ms) | not ranked | (26.9 ms) | (26.5 ms) | – | – | not ranked | (466,626) | 69.871 MB | – |
-| @rsvelte/native (NAPI) ⚠ | 200 | (95.4 ms) | not ranked | (93.3 ms) | (93.0 ms) | – | – | not ranked | (468,726) | 81.867 MB | – |
-| @rsvelte/compiler (wasm) ⚠ | 200 | (242.3 ms) | not ranked | (216.2 ms) | (213.4 ms) | – | – | not ranked | (468,726) | 179.168 MB | – |
+| svelte/compiler 5.57.1 | 200 | 419.5 ms | — | **278.3 ms** | 273.2 ms | 3.0 ms | 1.1% | — | 468,726 | 116.113 MB | — |
+| @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (41.3 ms) | not ranked | (40.0 ms) | (39.9 ms) | – | – | not ranked | (466,626) | 71.59 MB | – |
+| @rsvelte/native (NAPI) ⚠ | 200 | (126.0 ms) | not ranked | (125.7 ms) | (125.3 ms) | – | – | not ranked | (468,726) | 82.223 MB | – |
+| @rsvelte/compiler (wasm) ⚠ | 200 | (348.0 ms) | not ranked | (304.1 ms) | (301.4 ms) | – | – | not ranked | (468,726) | 179.098 MB | – |
 
 <details><summary>Notes</summary>
 
-- **svelte/compiler 5.57.0**: Official svelte/compiler compile(), generate=client, dev=true, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
+- **svelte/compiler 5.57.1**: Official svelte/compiler compile(), generate=client, dev=true, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
 - **@mrwaip/svelte-rs (NAPI) ⚠**: @mrwaip/svelte-rs compile(), generate=client, dev=true, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-styles: css.css-0: mapped to 2:24; expected 9:24; crlf-styles: css.css-0: mapped to 2:24; expected 9:24). The timing remains visible but cannot rank until the emitted maps are correct.
-- **@rsvelte/native (NAPI) ⚠**: rsvelte NAPI compile(), generate=client, dev=true, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.
+- **@rsvelte/native (NAPI) ⚠**: rsvelte NAPI compile(), generate=client, dev=true, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.template: generated token has no original mapping; lf-styles: js.template: generated token has no original mapping). The timing remains visible but cannot rank until the emitted maps are correct.
 - **@rsvelte/compiler (wasm) ⚠**: rsvelte WASM compile(), generate=client, dev=true, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.template: generated token has no original mapping; lf-styles: js.template: generated token has no original mapping). The timing remains visible but cannot rank until the emitted maps are correct.
 
 </details>
 
 <details><summary>Raw runs</summary>
 
-- **Verter (stateless)**: 37.4 ms, 37.0 ms, 37.1 ms, 40.3 ms, 37.2 ms · fresh child: 33.9 ms, 38.6 ms, 36.1 ms, 37.4 ms, 36.7 ms
-- **svelte/compiler 5.57.0**: 185.9 ms, 180.6 ms, 181.4 ms, 187.3 ms, 185.4 ms · fresh child: 282.1 ms, 285.9 ms, 276.7 ms, 279.7 ms, 282.6 ms
-- **@mrwaip/svelte-rs (NAPI)**: 27.4 ms, 26.5 ms, 26.9 ms, 32.0 ms, 26.6 ms · fresh child: 26.8 ms, 27.7 ms, 27.0 ms, 27.8 ms, 26.4 ms
-- **@rsvelte/native (NAPI)**: 93.3 ms, 93.0 ms, 93.3 ms, 93.6 ms, 93.3 ms · fresh child: 88.7 ms, 95.4 ms, 91.2 ms, 96.7 ms, 96.4 ms
-- **@rsvelte/compiler (wasm)**: 216.4 ms, 215.4 ms, 216.2 ms, 219.9 ms, 213.4 ms · fresh child: 234.6 ms, 229.6 ms, 243.2 ms, 242.3 ms, 249.5 ms
+- **Verter (stateless)**: 69.0 ms, 70.1 ms, 67.2 ms, 68.0 ms, 69.5 ms · fresh child: 69.9 ms, 68.9 ms, 69.5 ms, 67.3 ms, 71.2 ms
+- **svelte/compiler 5.57.1**: 273.2 ms, 281.1 ms, 279.7 ms, 278.3 ms, 278.3 ms · fresh child: 413.6 ms, 426.0 ms, 410.2 ms, 427.4 ms, 419.5 ms
+- **@mrwaip/svelte-rs (NAPI)**: 39.9 ms, 39.9 ms, 40.0 ms, 40.0 ms, 40.1 ms · fresh child: 41.0 ms, 48.2 ms, 41.1 ms, 41.3 ms, 41.5 ms
+- **@rsvelte/native (NAPI)**: 125.9 ms, 125.3 ms, 125.6 ms, 125.7 ms, 125.7 ms · fresh child: 125.0 ms, 125.8 ms, 126.1 ms, 126.0 ms, 126.6 ms
+- **@rsvelte/compiler (wasm)**: 307.1 ms, 301.4 ms, 304.1 ms, 307.2 ms, 304.1 ms · fresh child: 348.0 ms, 355.1 ms, 349.7 ms, 345.5 ms, 347.6 ms
 
 </details>
 
@@ -164,7 +164,7 @@ Target: `server` · Environment: `production`
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter (stateless) ⚠ | 200 | (19.9 ms) | not ranked | (22.1 ms) | (19.8 ms) | – | – | not ranked | (0) | n/a | – |
+| Verter (stateless) ⚠ | 200 | (35.3 ms) | not ranked | (35.4 ms) | (33.2 ms) | – | – | not ranked | (0) | n/a | – |
 
 <details><summary>Notes</summary>
 
@@ -181,27 +181,27 @@ Target: `server` · Environment: `production`
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| @rsvelte/native (NAPI) | 200 | 57.8 ms | 1.00x | **56.5 ms** | 56.1 ms | 0.6 ms | 1.1% | 1.00x | 214,546 | 81.867 MB | 3.5k files/s |
-| svelte/compiler 5.57.0 | 200 | 240.4 ms | 4.16x | **146.9 ms** | 136.7 ms | 7.8 ms | 5.3% | 2.60x | 214,546 | 118.617 MB | 1.4k files/s |
-| @rsvelte/compiler (wasm) | 200 | 165.6 ms | 2.86x | **147.2 ms** | 144.3 ms | 1.6 ms | 1.1% | 2.61x | 214,546 | 179.168 MB | 1.4k files/s |
-| @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (19.7 ms) | not ranked | (18.3 ms) | (18.2 ms) | – | – | not ranked | (217,846) | 69.871 MB | – |
+| @rsvelte/native (NAPI) | 200 | 82.4 ms | 1.00x | **80.2 ms** | 79.9 ms | 0.8 ms | 1.0% | 1.00x | 214,546 | 82.223 MB | 2.5k files/s |
+| @rsvelte/compiler (wasm) | 200 | 237.3 ms | 2.88x | **207.7 ms** | 205.3 ms | 1.2 ms | 0.6% | 2.59x | 214,546 | 179.098 MB | 963 files/s |
+| svelte/compiler 5.57.1 | 200 | 344.6 ms | 4.18x | **220.0 ms** | 210.6 ms | 7.6 ms | 3.5% | 2.74x | 214,546 | 116.113 MB | 909 files/s |
+| @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (33.3 ms) | not ranked | (31.4 ms) | (31.4 ms) | – | – | not ranked | (217,846) | 71.59 MB | – |
 
 <details><summary>Notes</summary>
 
 - **@rsvelte/native (NAPI)**: rsvelte NAPI compile(), generate=server, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through @rsvelte/vite-plugin-svelte-native compileSync() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
-- **svelte/compiler 5.57.0**: Official svelte/compiler compile(), generate=server, dev=false, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
 - **@rsvelte/compiler (wasm)**: rsvelte WASM compile(), generate=server, dev=false, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through @rsvelte/compiler compile() per plant after initSync, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
+- **svelte/compiler 5.57.1**: Official svelte/compiler compile(), generate=server, dev=false, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
 - **@mrwaip/svelte-rs (NAPI) ⚠**: @mrwaip/svelte-rs compile(), generate=server, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.missing or invalid version-3 source map; lf-styles: js.missing or invalid version-3 source map). The timing remains visible but cannot rank until the emitted maps are correct.
 
 </details>
 
 <details><summary>Raw runs</summary>
 
-- **Verter (stateless)**: 22.1 ms, 22.1 ms, 22.3 ms, 19.8 ms, 20.7 ms · fresh child: 19.9 ms, 21.2 ms, 18.4 ms, 19.4 ms, 20.6 ms
-- **@rsvelte/native (NAPI)**: 57.1 ms, 56.5 ms, 56.2 ms, 56.1 ms, 57.5 ms · fresh child: 57.4 ms, 57.0 ms, 57.8 ms, 57.9 ms, 57.9 ms
-- **svelte/compiler 5.57.0**: 150.6 ms, 158.3 ms, 146.9 ms, 145.6 ms, 136.7 ms · fresh child: 335.5 ms, 244.1 ms, 235.4 ms, 233.7 ms, 240.4 ms
-- **@rsvelte/compiler (wasm)**: 147.2 ms, 145.2 ms, 144.3 ms, 148.0 ms, 147.8 ms · fresh child: 156.0 ms, 170.2 ms, 165.6 ms, 153.9 ms, 169.2 ms
-- **@mrwaip/svelte-rs (NAPI)**: 20.7 ms, 18.2 ms, 18.3 ms, 18.6 ms, 18.3 ms · fresh child: 19.6 ms, 19.7 ms, 19.6 ms, 20.3 ms, 19.8 ms
+- **Verter (stateless)**: 37.1 ms, 34.9 ms, 36.5 ms, 35.4 ms, 33.2 ms · fresh child: 36.1 ms, 35.1 ms, 35.4 ms, 35.3 ms, 34.1 ms
+- **@rsvelte/native (NAPI)**: 81.9 ms, 80.3 ms, 79.9 ms, 80.2 ms, 80.2 ms · fresh child: 82.6 ms, 82.6 ms, 82.2 ms, 82.2 ms, 82.4 ms
+- **@rsvelte/compiler (wasm)**: 205.3 ms, 208.0 ms, 208.0 ms, 206.2 ms, 207.7 ms · fresh child: 237.3 ms, 237.4 ms, 237.2 ms, 236.6 ms, 242.5 ms
+- **svelte/compiler 5.57.1**: 231.4 ms, 220.6 ms, 216.3 ms, 220.0 ms, 210.6 ms · fresh child: 343.9 ms, 353.3 ms, 344.6 ms, 362.6 ms, 339.6 ms
+- **@mrwaip/svelte-rs (NAPI)**: 31.9 ms, 31.5 ms, 31.4 ms, 31.4 ms, 31.4 ms · fresh child: 33.2 ms, 33.4 ms, 33.3 ms, 33.4 ms, 33.3 ms
 
 </details>
 
@@ -218,7 +218,7 @@ Target: `server` · Environment: `development`
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter (stateless) ⚠ | 200 | (20.1 ms) | not ranked | (21.5 ms) | (20.3 ms) | – | – | not ranked | (0) | n/a | – |
+| Verter (stateless) ⚠ | 200 | (35.0 ms) | not ranked | (35.2 ms) | (32.6 ms) | – | – | not ranked | (0) | n/a | – |
 
 <details><summary>Notes</summary>
 
@@ -235,27 +235,27 @@ Target: `server` · Environment: `development`
 
 | Tool | Files | Fresh child | vs fastest fresh | **Warm (primary)** | Min | Stddev | CV% | vs fastest | Code bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| @rsvelte/native (NAPI) | 200 | 63.3 ms | 1.00x | **64.2 ms** | 62.5 ms | 1.4 ms | 2.1% | 1.00x | 445,986 | 81.867 MB | 3.1k files/s |
-| @rsvelte/compiler (wasm) | 200 | 183.4 ms | 2.90x | **163.2 ms** | 162.1 ms | 1.0 ms | 0.6% | 2.54x | 445,986 | 179.168 MB | 1.2k files/s |
-| svelte/compiler 5.57.0 | 200 | 247.6 ms | 3.91x | **164.1 ms** | 149.0 ms | 11.5 ms | 7.0% | 2.56x | 445,986 | 118.617 MB | 1.2k files/s |
-| @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (20.4 ms) | not ranked | (20.2 ms) | (19.6 ms) | – | – | not ranked | (438,986) | 69.871 MB | – |
+| @rsvelte/native (NAPI) | 200 | 90.3 ms | 1.00x | **89.5 ms** | 89.2 ms | 0.5 ms | 0.5% | 1.00x | 445,986 | 82.223 MB | 2.2k files/s |
+| @rsvelte/compiler (wasm) | 200 | 268.6 ms | 2.98x | **234.7 ms** | 234.0 ms | 1.6 ms | 0.7% | 2.62x | 445,986 | 179.098 MB | 852 files/s |
+| svelte/compiler 5.57.1 | 200 | 364.4 ms | 4.04x | **239.5 ms** | 227.1 ms | 15.4 ms | 6.4% | 2.68x | 445,986 | 116.113 MB | 835 files/s |
+| @mrwaip/svelte-rs (NAPI) ⚠ | 200 | (35.3 ms) | not ranked | (33.6 ms) | (33.2 ms) | – | – | not ranked | (438,986) | 71.59 MB | – |
 
 <details><summary>Notes</summary>
 
 - **@rsvelte/native (NAPI)**: rsvelte NAPI compile(), generate=server, dev=true, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through @rsvelte/vite-plugin-svelte-native compileSync() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
 - **@rsvelte/compiler (wasm)**: rsvelte WASM compile(), generate=server, dev=true, css=external. ⚠ WASM path — not the NAPI native binding. | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through @rsvelte/compiler compile() per plant after initSync, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
-- **svelte/compiler 5.57.0**: Official svelte/compiler compile(), generate=server, dev=true, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
+- **svelte/compiler 5.57.1**: Official svelte/compiler compile(), generate=server, dev=true, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)
 - **@mrwaip/svelte-rs (NAPI) ⚠**: @mrwaip/svelte-rs compile(), generate=server, dev=true, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.missing or invalid version-3 source map; lf-styles: js.missing or invalid version-3 source map). The timing remains visible but cannot rank until the emitted maps are correct.
 
 </details>
 
 <details><summary>Raw runs</summary>
 
-- **Verter (stateless)**: 22.0 ms, 21.5 ms, 20.4 ms, 21.6 ms, 20.3 ms · fresh child: 20.5 ms, 18.6 ms, 20.1 ms, 23.4 ms, 18.9 ms
-- **@rsvelte/native (NAPI)**: 62.5 ms, 62.5 ms, 65.3 ms, 64.2 ms, 65.3 ms · fresh child: 65.2 ms, 63.3 ms, 65.1 ms, 62.8 ms, 62.9 ms
-- **@rsvelte/compiler (wasm)**: 164.8 ms, 162.1 ms, 164.0 ms, 163.1 ms, 163.2 ms · fresh child: 188.1 ms, 183.4 ms, 189.0 ms, 168.9 ms, 172.9 ms
-- **svelte/compiler 5.57.0**: 178.7 ms, 156.1 ms, 169.7 ms, 149.0 ms, 164.1 ms · fresh child: 249.3 ms, 241.5 ms, 247.6 ms, 258.2 ms, 226.8 ms
-- **@mrwaip/svelte-rs (NAPI)**: 19.6 ms, 19.6 ms, 21.2 ms, 21.9 ms, 20.2 ms · fresh child: 21.6 ms, 20.4 ms, 21.9 ms, 19.6 ms, 20.0 ms
+- **Verter (stateless)**: 35.2 ms, 34.1 ms, 35.2 ms, 35.2 ms, 32.6 ms · fresh child: 34.2 ms, 35.0 ms, 35.8 ms, 35.6 ms, 34.2 ms
+- **@rsvelte/native (NAPI)**: 90.4 ms, 89.2 ms, 89.6 ms, 89.5 ms, 89.3 ms · fresh child: 90.3 ms, 90.4 ms, 89.5 ms, 89.8 ms, 90.6 ms
+- **@rsvelte/compiler (wasm)**: 238.1 ms, 234.7 ms, 235.0 ms, 234.0 ms, 234.6 ms · fresh child: 270.0 ms, 268.6 ms, 267.8 ms, 268.1 ms, 270.1 ms
+- **svelte/compiler 5.57.1**: 249.0 ms, 239.5 ms, 265.1 ms, 227.1 ms, 230.1 ms · fresh child: 369.7 ms, 358.7 ms, 362.6 ms, 367.1 ms, 364.4 ms
+- **@mrwaip/svelte-rs (NAPI)**: 33.5 ms, 33.6 ms, 35.1 ms, 33.6 ms, 33.2 ms · fresh child: 35.4 ms, 35.2 ms, 35.3 ms, 35.3 ms, 35.4 ms
 
 </details>
 
@@ -302,10 +302,10 @@ Target: `server` · Environment: `development`
 
 | Surface | Tool | Peak RSS | Retained Δ | CPU ms | Status |
 | --- | --- | ---: | ---: | ---: | --- |
-| compile | svelte/compiler 5.57.0 | 118.6 MB | 72.109 MB | 1241.57 | ok |
-| compile | @rsvelte/compiler (Wasm) | 179.2 MB | 120.906 MB | 2129.149 | ok |
-| compile | @rsvelte/native (NAPI) | 81.9 MB | 37.004 MB | 151.303 | ok |
-| compile | @mrwaip/svelte-rs (NAPI) | 69.9 MB | 25.051 MB | 60.945 | ok |
+| compile | svelte/compiler 5.57.1 | 116.1 MB | 69.398 MB | 1349.782 | ok |
+| compile | @rsvelte/compiler (Wasm) | 179.1 MB | 91.051 MB | 2261.347 | ok |
+| compile | @rsvelte/native (NAPI) | 82.2 MB | 37.18 MB | 166.266 | ok |
+| compile | @mrwaip/svelte-rs (NAPI) | 71.6 MB | 25.094 MB | 61.022 | ok |
 | compile | Verter runtime compile | n/a | n/a | n/a | skipped |
 
 ## Tool versions
@@ -314,45 +314,45 @@ Target: `server` · Environment: `development`
 
 | Package | Version |
 | --- | --- |
-| svelte | 5.57.0 |
+| svelte | 5.57.1 |
 | svelte-check | 4.7.6 |
 | svelte-check-rs | 0.11.2 |
-| svelte-check-native | 1.7.0 |
+| svelte-check-native | 1.8.0 |
 | @mrwaip/svelte-rs | 0.0.0-canary.15.1 |
-| @rsvelte/compiler | 0.12.3 |
-| @rsvelte/svelte2tsx | 0.2.27 |
-| @rsvelte/svelte-check | 0.5.29 |
-| @rsvelte/language-server | 0.7.9 |
-| @rsvelte/fmt | 0.7.24 |
-| @rsvelte/lint | 0.12.3 |
-| @rsvelte/vite-plugin-svelte-native | 0.3.14 |
+| @rsvelte/compiler | 0.12.6 |
+| @rsvelte/svelte2tsx | 0.2.28 |
+| @rsvelte/svelte-check | 0.5.32 |
+| @rsvelte/language-server | 0.7.13 |
+| @rsvelte/fmt | 0.7.25 |
+| @rsvelte/lint | 0.12.6 |
+| @rsvelte/vite-plugin-svelte-native | 0.3.17 |
 | @rsvelte/vite-plugin-svelte | 0.5.3 |
-| @sveltejs/vite-plugin-svelte | 7.3.0 |
-| vite | 8.3.0 |
-| @verter/native | 0.0.1-beta.5 |
-| @verter/typeinfo | 0.0.1-beta.5 |
-| @verter/proto | 0.0.1-beta.5 |
-| @bufbuild/protobuf | 2.15.0 |
-| verter-tsc | 0.0.1-beta.5 |
-| verter-lsp | 0.0.1-beta.5 |
+| @sveltejs/vite-plugin-svelte | 7.3.1 |
+| vite | 8.3.1 |
+| @verter/native | 0.0.1-beta.6 |
+| @verter/typeinfo | 0.0.1-beta.6 |
+| @verter/proto | 0.0.1-beta.6 |
+| @bufbuild/protobuf | 2.16.0 |
+| verter-tsc | 0.0.1-beta.6 |
+| verter-lsp | 0.0.1-beta.6 |
 | svelte-language-server | 0.18.4 |
 | svelte2tsx | 0.7.61 |
-| sveld | 0.37.3 |
+| sveld | 0.38.0 |
 | svelte-docinfo | 0.7.0 |
-| prettier | 3.9.8 |
+| prettier | 3.9.9 |
 | prettier-plugin-svelte | 4.1.1 |
-| oxfmt | 0.68.0 |
+| oxfmt | 0.71.0 |
 | eslint-plugin-svelte | 3.23.0 |
 | typescript | 6.0.3 |
 | cli:svelte-check | 4.7.6 |
 | cli:svelte-check-rs | 0.11.2 |
-| cli:svelte-check-native | 1.7.0 |
+| cli:svelte-check-native | 1.8.0 |
 | cli:rsvelte-check | unknown |
-| cli:rsvelte-fmt | 0.7.24 |
-| cli:rsvelte-lint | 0.12.3 |
-| cli:prettier | 3.9.8 |
-| cli:oxfmt | 0.68.0 |
-| cli:verter-tsc | 0.0.1-beta.5 |
+| cli:rsvelte-fmt | 0.7.25 |
+| cli:rsvelte-lint | 0.12.6 |
+| cli:prettier | 3.9.9 |
+| cli:oxfmt | 0.71.0 |
+| cli:verter-tsc | 0.0.1-beta.6 |
 
 </details>
 

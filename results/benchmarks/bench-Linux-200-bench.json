@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-18T13:11:29.670Z",
+  "generatedAt": "2026-09-29T12:45:43.678Z",
   "fixture": "fixtures/200",
   "fileCount": 200,
   "settings": {
@@ -31,60 +31,60 @@
     "platform": "linux",
     "arch": "x64",
     "cpuCount": 4,
-    "cpuModel": "AMD EPYC 9V45 96-Core Processor",
-    "totalmem": 16766410752,
+    "cpuModel": "AMD EPYC 7763 64-Core Processor",
+    "totalmem": 16770748416,
     "node": "v22.23.2"
   },
   "commit": {
-    "sha": "649f40499ddb19405eaa8a8e95412702a047b79c",
+    "sha": "1bc177a4498c795618e370b7d1729a7b64de1266",
     "ref": "main",
     "repository": "pikax/svelte-benchmarks",
-    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026",
+    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/36569419030",
     "dirty": false,
     "shaLocal": ""
   },
-  "pnpm": "10.34.5",
+  "pnpm": "10.34.6",
   "versions": {
     "node": "v22.23.2",
-    "svelte": "5.57.0",
+    "svelte": "5.57.1",
     "svelte-check": "4.7.6",
     "svelte-check-rs": "0.11.2",
-    "svelte-check-native": "1.7.0",
+    "svelte-check-native": "1.8.0",
     "@mrwaip/svelte-rs": "0.0.0-canary.15.1",
-    "@rsvelte/compiler": "0.12.3",
-    "@rsvelte/svelte2tsx": "0.2.27",
-    "@rsvelte/svelte-check": "0.5.29",
-    "@rsvelte/language-server": "0.7.9",
-    "@rsvelte/fmt": "0.7.24",
-    "@rsvelte/lint": "0.12.3",
-    "@rsvelte/vite-plugin-svelte-native": "0.3.14",
+    "@rsvelte/compiler": "0.12.6",
+    "@rsvelte/svelte2tsx": "0.2.28",
+    "@rsvelte/svelte-check": "0.5.32",
+    "@rsvelte/language-server": "0.7.13",
+    "@rsvelte/fmt": "0.7.25",
+    "@rsvelte/lint": "0.12.6",
+    "@rsvelte/vite-plugin-svelte-native": "0.3.17",
     "@rsvelte/vite-plugin-svelte": "0.5.3",
-    "@sveltejs/vite-plugin-svelte": "7.3.0",
-    "vite": "8.3.0",
-    "@verter/native": "0.0.1-beta.5",
-    "@verter/typeinfo": "0.0.1-beta.5",
-    "@verter/proto": "0.0.1-beta.5",
-    "@bufbuild/protobuf": "2.15.0",
-    "verter-tsc": "0.0.1-beta.5",
-    "verter-lsp": "0.0.1-beta.5",
+    "@sveltejs/vite-plugin-svelte": "7.3.1",
+    "vite": "8.3.1",
+    "@verter/native": "0.0.1-beta.6",
+    "@verter/typeinfo": "0.0.1-beta.6",
+    "@verter/proto": "0.0.1-beta.6",
+    "@bufbuild/protobuf": "2.16.0",
+    "verter-tsc": "0.0.1-beta.6",
+    "verter-lsp": "0.0.1-beta.6",
     "svelte-language-server": "0.18.4",
     "svelte2tsx": "0.7.61",
-    "sveld": "0.37.3",
+    "sveld": "0.38.0",
     "svelte-docinfo": "0.7.0",
-    "prettier": "3.9.8",
+    "prettier": "3.9.9",
     "prettier-plugin-svelte": "4.1.1",
-    "oxfmt": "0.68.0",
+    "oxfmt": "0.71.0",
     "eslint-plugin-svelte": "3.23.0",
     "typescript": "6.0.3",
     "cli:svelte-check": "4.7.6",
     "cli:svelte-check-rs": "0.11.2",
-    "cli:svelte-check-native": "1.7.0",
+    "cli:svelte-check-native": "1.8.0",
     "cli:rsvelte-check": "unknown",
-    "cli:rsvelte-fmt": "0.7.24",
-    "cli:rsvelte-lint": "0.12.3",
-    "cli:prettier": "3.9.8",
-    "cli:oxfmt": "0.68.0",
-    "cli:verter-tsc": "0.0.1-beta.5"
+    "cli:rsvelte-fmt": "0.7.25",
+    "cli:rsvelte-lint": "0.12.6",
+    "cli:prettier": "3.9.9",
+    "cli:oxfmt": "0.71.0",
+    "cli:verter-tsc": "0.0.1-beta.6"
   },
   "methodology": [
     "Primary ranking metric is the **median of measured runs**. Every measured run is preceded by at least one discarded warmup pass (enforced — `--warmups 0` is clamped to 1).",
@@ -123,7 +123,7 @@
           "variants": [
             {
               "id": "svelte-official-1t-client-prod",
-              "label": "svelte/compiler 5.57.0 (1T)",
+              "label": "svelte/compiler 5.57.1 (1T)",
               "package": "svelte",
               "target": "client",
               "comparisonClass": "svelte",
@@ -131,24 +131,24 @@
               "threading": "1t",
               "invocation": "in-process",
               "baseline": true,
-              "baselineLabel": "Svelte 5.57.0 (official)",
+              "baselineLabel": "Svelte 5.57.1 (official)",
               "artifactLabel": "Code bytes",
               "notes": "Official svelte/compiler compile(), generate=client, dev=false, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)",
               "files": 200,
               "status": "ok",
               "runs": [
-                259.468,
-                237.743,
-                220.79,
-                200.377,
-                204.655
+                356.181,
+                381.414,
+                347.867,
+                302.744,
+                345.669
               ],
-              "medianMs": 220.79,
-              "minMs": 200.377,
-              "maxMs": 259.468,
-              "meanMs": 224.607,
-              "stddevMs": 24.431,
-              "cvPct": 11.1,
+              "medianMs": 347.867,
+              "minMs": 302.744,
+              "maxMs": 381.414,
+              "meanMs": 346.775,
+              "stddevMs": 28.414,
+              "cvPct": 8.2,
               "metaSamples": [
                 {
                   "inputSourceHash": "ecea49b3615325bc886e32071ba0c5a7c373b7bbfe4d3303ed6e039f3bb0fad9",
@@ -183,60 +183,60 @@
               ],
               "artifactMedian": 360966,
               "warmupPasses": 1,
-              "throughput": "906 files/s",
+              "throughput": "575 files/s",
               "freshChildRuns": [
-                259.171,
-                271.248,
-                273.117,
-                266.471,
-                269.184
+                406.951,
+                407.484,
+                416.776,
+                410.1,
+                422.435
               ],
-              "freshChildMedianMs": 269.184,
-              "freshChildMinMs": 259.171,
-              "freshChildMeanMs": 267.838,
-              "freshChildStddevMs": 5.438,
-              "freshChildCvPct": 2,
+              "freshChildMedianMs": 410.1,
+              "freshChildMinMs": 406.951,
+              "freshChildMeanMs": 412.749,
+              "freshChildStddevMs": 6.678,
+              "freshChildCvPct": 1.6,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "ba546d6d48a50497293397e48960a1adb01cf053f29d36de2ad6ca43c0c55117",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 259.17112700000007,
+                  "ms": 406.95121400000016,
                   "artifact": 360966,
-                  "rssBytes": 326344704
+                  "rssBytes": 322064384
                 },
                 {
                   "inputSourceHash": "5ba81c13b571550c6210c0d9bdfd38baad46e9660e8ee40b65db383ac524f26d",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 271.24789599999986,
+                  "ms": 407.4843719999999,
                   "artifact": 360966,
-                  "rssBytes": 348188672
+                  "rssBytes": 334688256
                 },
                 {
                   "inputSourceHash": "c5d79006b186a1d028dcd7345d17ebdaca11e65b1d892c2ebf4ec55d63d97246",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 273.11724000000004,
+                  "ms": 416.77636500000017,
                   "artifact": 360966,
-                  "rssBytes": 347746304
+                  "rssBytes": 325406720
                 },
                 {
                   "inputSourceHash": "1702c66ee67944609572a0e633f08aa7709d1eead4e155c66561f18c573aea86",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 266.47067100000004,
+                  "ms": 410.1001980000001,
                   "artifact": 360966,
-                  "rssBytes": 352575488
+                  "rssBytes": 321019904
                 },
                 {
                   "inputSourceHash": "d40e4f835f5ee72a65547d34e4f8b052b24b9cecbb225a0ec86f08d901fd1312",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 269.184041,
+                  "ms": 422.4347379999999,
                   "artifact": 360966,
-                  "rssBytes": 338452480
+                  "rssBytes": 327303168
                 }
               ]
             },
@@ -255,18 +255,18 @@
               "files": 200,
               "status": "unranked",
               "runs": [
-                26.399,
-                26.585,
-                24.774,
-                23.909,
-                26.331
+                38.817,
+                41.569,
+                39.79,
+                39.374,
+                42.521
               ],
-              "medianMs": 26.331,
-              "minMs": 23.909,
-              "maxMs": 26.585,
-              "meanMs": 25.6,
-              "stddevMs": 1.192,
-              "cvPct": 4.5,
+              "medianMs": 39.79,
+              "minMs": 38.817,
+              "maxMs": 42.521,
+              "meanMs": 40.414,
+              "stddevMs": 1.565,
+              "cvPct": 3.9,
               "metaSamples": [
                 {
                   "inputSourceHash": "ecea49b3615325bc886e32071ba0c5a7c373b7bbfe4d3303ed6e039f3bb0fad9",
@@ -303,58 +303,58 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                25.628,
-                25.787,
-                25.337,
-                25.986,
-                25.931
+                39.572,
+                39.672,
+                39.639,
+                39.603,
+                39.577
               ],
-              "freshChildMedianMs": 25.787,
-              "freshChildMinMs": 25.337,
-              "freshChildMeanMs": 25.734,
-              "freshChildStddevMs": 0.262,
-              "freshChildCvPct": 1,
+              "freshChildMedianMs": 39.603,
+              "freshChildMinMs": 39.572,
+              "freshChildMeanMs": 39.613,
+              "freshChildStddevMs": 0.043,
+              "freshChildCvPct": 0.1,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "ba546d6d48a50497293397e48960a1adb01cf053f29d36de2ad6ca43c0c55117",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 25.628489000000172,
+                  "ms": 39.571687999999995,
                   "artifact": 364246,
-                  "rssBytes": 333897728
+                  "rssBytes": 326885376
                 },
                 {
                   "inputSourceHash": "5ba81c13b571550c6210c0d9bdfd38baad46e9660e8ee40b65db383ac524f26d",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 25.78672000000006,
+                  "ms": 39.671634999999696,
                   "artifact": 364246,
-                  "rssBytes": 327958528
+                  "rssBytes": 325074944
                 },
                 {
                   "inputSourceHash": "c5d79006b186a1d028dcd7345d17ebdaca11e65b1d892c2ebf4ec55d63d97246",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 25.337269000000106,
+                  "ms": 39.63871999999992,
                   "artifact": 364246,
-                  "rssBytes": 336297984
+                  "rssBytes": 323883008
                 },
                 {
                   "inputSourceHash": "1702c66ee67944609572a0e633f08aa7709d1eead4e155c66561f18c573aea86",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 25.986302999999907,
+                  "ms": 39.60331899999983,
                   "artifact": 364246,
-                  "rssBytes": 347676672
+                  "rssBytes": 312864768
                 },
                 {
                   "inputSourceHash": "d40e4f835f5ee72a65547d34e4f8b052b24b9cecbb225a0ec86f08d901fd1312",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 25.930837999999994,
+                  "ms": 39.577118999999584,
                   "artifact": 364246,
-                  "rssBytes": 335699968
+                  "rssBytes": 309731328
                 }
               ],
               "unranked": true
@@ -374,18 +374,18 @@
               "files": 200,
               "status": "unranked",
               "runs": [
-                206.913,
-                202.24,
-                191.081,
-                195.207,
-                195.105
+                303.026,
+                302.486,
+                303.285,
+                284.936,
+                286.618
               ],
-              "medianMs": 195.207,
-              "minMs": 191.081,
-              "maxMs": 206.913,
-              "meanMs": 198.109,
-              "stddevMs": 6.352,
-              "cvPct": 3.3,
+              "medianMs": 302.486,
+              "minMs": 284.936,
+              "maxMs": 303.285,
+              "meanMs": 296.07,
+              "stddevMs": 9.42,
+              "cvPct": 3.1,
               "metaSamples": [
                 {
                   "inputSourceHash": "ecea49b3615325bc886e32071ba0c5a7c373b7bbfe4d3303ed6e039f3bb0fad9",
@@ -422,58 +422,58 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                211.489,
-                214.764,
-                209.696,
-                222.244,
-                211.301
+                322.987,
+                313.181,
+                308.668,
+                318.76,
+                316.714
               ],
-              "freshChildMedianMs": 211.489,
-              "freshChildMinMs": 209.696,
-              "freshChildMeanMs": 213.899,
-              "freshChildStddevMs": 5.015,
-              "freshChildCvPct": 2.4,
+              "freshChildMedianMs": 316.714,
+              "freshChildMinMs": 308.668,
+              "freshChildMeanMs": 316.062,
+              "freshChildStddevMs": 5.446,
+              "freshChildCvPct": 1.7,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "ba546d6d48a50497293397e48960a1adb01cf053f29d36de2ad6ca43c0c55117",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 211.489055,
+                  "ms": 322.98728100000017,
                   "artifact": 360966,
-                  "rssBytes": 338919424
+                  "rssBytes": 325566464
                 },
                 {
                   "inputSourceHash": "5ba81c13b571550c6210c0d9bdfd38baad46e9660e8ee40b65db383ac524f26d",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 214.763954,
+                  "ms": 313.18075,
                   "artifact": 360966,
-                  "rssBytes": 319754240
+                  "rssBytes": 327860224
                 },
                 {
                   "inputSourceHash": "c5d79006b186a1d028dcd7345d17ebdaca11e65b1d892c2ebf4ec55d63d97246",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 209.69612700000016,
+                  "ms": 308.6675359999999,
                   "artifact": 360966,
-                  "rssBytes": 337625088
+                  "rssBytes": 314109952
                 },
                 {
                   "inputSourceHash": "1702c66ee67944609572a0e633f08aa7709d1eead4e155c66561f18c573aea86",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 222.24403400000006,
+                  "ms": 318.7599839999998,
                   "artifact": 360966,
-                  "rssBytes": 339042304
+                  "rssBytes": 312958976
                 },
                 {
                   "inputSourceHash": "d40e4f835f5ee72a65547d34e4f8b052b24b9cecbb225a0ec86f08d901fd1312",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 211.300655,
+                  "ms": 316.71389199999976,
                   "artifact": 360966,
-                  "rssBytes": 322646016
+                  "rssBytes": 325394432
                 }
               ],
               "unranked": true
@@ -489,22 +489,22 @@
               "invocation": "in-process",
               "baseline": false,
               "artifactLabel": "Code bytes",
-              "notes": "rsvelte NAPI compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.",
+              "notes": "rsvelte NAPI compile(), generate=client, dev=false, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.template: generated token has no original mapping; lf-styles: js.template: generated token has no original mapping). The timing remains visible but cannot rank until the emitted maps are correct.",
               "files": 200,
               "status": "unranked",
               "runs": [
-                84.017,
-                80.103,
-                84.796,
-                84.379,
-                84.942
+                120.881,
+                114.877,
+                116.893,
+                116.268,
+                114.462
               ],
-              "medianMs": 84.379,
-              "minMs": 80.103,
-              "maxMs": 84.942,
-              "meanMs": 83.647,
-              "stddevMs": 2.014,
-              "cvPct": 2.4,
+              "medianMs": 116.268,
+              "minMs": 114.462,
+              "maxMs": 120.881,
+              "meanMs": 116.676,
+              "stddevMs": 2.551,
+              "cvPct": 2.2,
               "metaSamples": [
                 {
                   "inputSourceHash": "ecea49b3615325bc886e32071ba0c5a7c373b7bbfe4d3303ed6e039f3bb0fad9",
@@ -541,58 +541,58 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                79.795,
-                85.734,
-                79.135,
-                84.48,
-                81.676
+                113.463,
+                113.557,
+                114.172,
+                113.475,
+                113.411
               ],
-              "freshChildMedianMs": 81.676,
-              "freshChildMinMs": 79.135,
-              "freshChildMeanMs": 82.164,
-              "freshChildStddevMs": 2.878,
-              "freshChildCvPct": 3.5,
+              "freshChildMedianMs": 113.475,
+              "freshChildMinMs": 113.411,
+              "freshChildMeanMs": 113.616,
+              "freshChildStddevMs": 0.315,
+              "freshChildCvPct": 0.3,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "ba546d6d48a50497293397e48960a1adb01cf053f29d36de2ad6ca43c0c55117",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 79.79521999999997,
+                  "ms": 113.46287799999982,
                   "artifact": 360966,
-                  "rssBytes": 348942336
+                  "rssBytes": 326488064
                 },
                 {
                   "inputSourceHash": "5ba81c13b571550c6210c0d9bdfd38baad46e9660e8ee40b65db383ac524f26d",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 85.73426399999994,
+                  "ms": 113.55738999999994,
                   "artifact": 360966,
-                  "rssBytes": 344264704
+                  "rssBytes": 319995904
                 },
                 {
                   "inputSourceHash": "c5d79006b186a1d028dcd7345d17ebdaca11e65b1d892c2ebf4ec55d63d97246",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 79.13537500000007,
+                  "ms": 114.17241100000001,
                   "artifact": 360966,
-                  "rssBytes": 322613248
+                  "rssBytes": 311607296
                 },
                 {
                   "inputSourceHash": "1702c66ee67944609572a0e633f08aa7709d1eead4e155c66561f18c573aea86",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 84.479693,
+                  "ms": 113.47531200000003,
                   "artifact": 360966,
-                  "rssBytes": 343293952
+                  "rssBytes": 326021120
                 },
                 {
                   "inputSourceHash": "d40e4f835f5ee72a65547d34e4f8b052b24b9cecbb225a0ec86f08d901fd1312",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 81.67625999999996,
+                  "ms": 113.41071800000009,
                   "artifact": 360966,
-                  "rssBytes": 348184576
+                  "rssBytes": 319418368
                 }
               ],
               "unranked": true
@@ -612,18 +612,18 @@
               "files": 200,
               "status": "unranked",
               "runs": [
-                40.696,
-                39.46,
-                42.727,
-                45.52,
-                37.825
+                78.378,
+                78.416,
+                71.216,
+                70.997,
+                74.052
               ],
-              "medianMs": 40.696,
-              "minMs": 37.825,
-              "maxMs": 45.52,
-              "meanMs": 41.246,
-              "stddevMs": 2.986,
-              "cvPct": 7.3,
+              "medianMs": 74.052,
+              "minMs": 70.997,
+              "maxMs": 78.416,
+              "meanMs": 74.612,
+              "stddevMs": 3.66,
+              "cvPct": 4.9,
               "metaSamples": [
                 {
                   "inputSourceHash": "ecea49b3615325bc886e32071ba0c5a7c373b7bbfe4d3303ed6e039f3bb0fad9",
@@ -777,24 +777,24 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                35.702,
-                36.908,
-                37.119,
-                35.379,
-                36.063
+                68.91,
+                67.208,
+                68.743,
+                70.186,
+                71.749
               ],
-              "freshChildMedianMs": 36.063,
-              "freshChildMinMs": 35.379,
-              "freshChildMeanMs": 36.234,
-              "freshChildStddevMs": 0.755,
-              "freshChildCvPct": 2.1,
+              "freshChildMedianMs": 68.91,
+              "freshChildMinMs": 67.208,
+              "freshChildMeanMs": 69.359,
+              "freshChildStddevMs": 1.703,
+              "freshChildCvPct": 2.5,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "ba546d6d48a50497293397e48960a1adb01cf053f29d36de2ad6ca43c0c55117",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 35.70206099999996,
+                  "ms": 68.90963300000021,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -819,13 +819,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 329306112
+                  "rssBytes": 331837440
                 },
                 {
                   "inputSourceHash": "5ba81c13b571550c6210c0d9bdfd38baad46e9660e8ee40b65db383ac524f26d",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 36.90774800000008,
+                  "ms": 67.20842300000004,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -850,13 +850,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 340844544
+                  "rssBytes": 342855680
                 },
                 {
                   "inputSourceHash": "c5d79006b186a1d028dcd7345d17ebdaca11e65b1d892c2ebf4ec55d63d97246",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 37.11884799999984,
+                  "ms": 68.74265299999979,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -881,13 +881,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 364580864
+                  "rssBytes": 311734272
                 },
                 {
                   "inputSourceHash": "1702c66ee67944609572a0e633f08aa7709d1eead4e155c66561f18c573aea86",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 35.37913600000002,
+                  "ms": 70.18600500000002,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -912,13 +912,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 323997696
+                  "rssBytes": 321630208
                 },
                 {
                   "inputSourceHash": "d40e4f835f5ee72a65547d34e4f8b052b24b9cecbb225a0ec86f08d901fd1312",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 36.06290100000001,
+                  "ms": 71.74894899999981,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -943,7 +943,7 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 343138304
+                  "rssBytes": 340566016
                 }
               ],
               "unranked": true
@@ -958,7 +958,7 @@
           "variants": [
             {
               "id": "svelte-official-1t-client-dev",
-              "label": "svelte/compiler 5.57.0 (1T)",
+              "label": "svelte/compiler 5.57.1 (1T)",
               "package": "svelte",
               "target": "client",
               "comparisonClass": "svelte",
@@ -966,24 +966,24 @@
               "threading": "1t",
               "invocation": "in-process",
               "baseline": true,
-              "baselineLabel": "Svelte 5.57.0 (official)",
+              "baselineLabel": "Svelte 5.57.1 (official)",
               "artifactLabel": "Code bytes",
               "notes": "Official svelte/compiler compile(), generate=client, dev=true, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)",
               "files": 200,
               "status": "ok",
               "runs": [
-                185.875,
-                180.569,
-                181.432,
-                187.286,
-                185.368
+                273.154,
+                281.149,
+                279.687,
+                278.347,
+                278.266
               ],
-              "medianMs": 185.368,
-              "minMs": 180.569,
-              "maxMs": 187.286,
-              "meanMs": 184.106,
-              "stddevMs": 2.937,
-              "cvPct": 1.6,
+              "medianMs": 278.347,
+              "minMs": 273.154,
+              "maxMs": 281.149,
+              "meanMs": 278.121,
+              "stddevMs": 3.015,
+              "cvPct": 1.1,
               "metaSamples": [
                 {
                   "inputSourceHash": "0337bc73c6887ab16133aaf0e61ed4175be5706f0d3948bcd4f33bce0b03cfa9",
@@ -1018,60 +1018,60 @@
               ],
               "artifactMedian": 468726,
               "warmupPasses": 1,
-              "throughput": "1.1k files/s",
+              "throughput": "719 files/s",
               "freshChildRuns": [
-                282.065,
-                285.924,
-                276.746,
-                279.686,
-                282.553
+                413.639,
+                425.974,
+                410.218,
+                427.434,
+                419.473
               ],
-              "freshChildMedianMs": 282.065,
-              "freshChildMinMs": 276.746,
-              "freshChildMeanMs": 281.395,
-              "freshChildStddevMs": 3.422,
-              "freshChildCvPct": 1.2,
+              "freshChildMedianMs": 419.473,
+              "freshChildMinMs": 410.218,
+              "freshChildMeanMs": 419.348,
+              "freshChildStddevMs": 7.504,
+              "freshChildCvPct": 1.8,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "5ff20767408287400a8e73a4df62eed444a58ea4eddaf1b37a844cc6a4f9b714",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 282.06538,
+                  "ms": 413.638923,
                   "artifact": 468726,
-                  "rssBytes": 363761664
+                  "rssBytes": 327581696
                 },
                 {
                   "inputSourceHash": "9f55c19d5aba960a278780720ca545b8ed117ce8c90ca94d62346193fcf9ddf4",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 285.92403000000013,
+                  "ms": 425.97449499999993,
                   "artifact": 468726,
-                  "rssBytes": 364089344
+                  "rssBytes": 336175104
                 },
                 {
                   "inputSourceHash": "53bdcd2b08dab4688a042fb2842ea52469d185c4be029a9217ae7eb849bead0c",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 276.745629,
+                  "ms": 410.21819400000004,
                   "artifact": 468726,
-                  "rssBytes": 366194688
+                  "rssBytes": 334155776
                 },
                 {
                   "inputSourceHash": "012ddc1ce0347d82e927cdaaec5e1a1db7678e432bbf624761530201b5a19fa5",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 279.6856889999999,
+                  "ms": 427.4340739999998,
                   "artifact": 468726,
-                  "rssBytes": 337739776
+                  "rssBytes": 339062784
                 },
                 {
                   "inputSourceHash": "d43a08f69861cc4f7ae316a233b6513d12e2b7429610b01d1b4b9e6cdb02b67a",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 282.55334199999993,
+                  "ms": 419.47251499999993,
                   "artifact": 468726,
-                  "rssBytes": 340733952
+                  "rssBytes": 337756160
                 }
               ]
             },
@@ -1090,18 +1090,18 @@
               "files": 200,
               "status": "unranked",
               "runs": [
-                27.399,
-                26.465,
-                26.855,
-                31.954,
-                26.641
+                39.913,
+                39.863,
+                39.956,
+                40.003,
+                40.056
               ],
-              "medianMs": 26.855,
-              "minMs": 26.465,
-              "maxMs": 31.954,
-              "meanMs": 27.863,
-              "stddevMs": 2.314,
-              "cvPct": 8.6,
+              "medianMs": 39.956,
+              "minMs": 39.863,
+              "maxMs": 40.056,
+              "meanMs": 39.958,
+              "stddevMs": 0.075,
+              "cvPct": 0.2,
               "metaSamples": [
                 {
                   "inputSourceHash": "0337bc73c6887ab16133aaf0e61ed4175be5706f0d3948bcd4f33bce0b03cfa9",
@@ -1138,58 +1138,58 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                26.772,
-                27.708,
-                27.043,
-                27.794,
-                26.447
+                40.974,
+                48.151,
+                41.132,
+                41.335,
+                41.481
               ],
-              "freshChildMedianMs": 27.043,
-              "freshChildMinMs": 26.447,
-              "freshChildMeanMs": 27.153,
-              "freshChildStddevMs": 0.586,
-              "freshChildCvPct": 2.2,
+              "freshChildMedianMs": 41.335,
+              "freshChildMinMs": 40.974,
+              "freshChildMeanMs": 42.615,
+              "freshChildStddevMs": 3.101,
+              "freshChildCvPct": 7.5,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "5ff20767408287400a8e73a4df62eed444a58ea4eddaf1b37a844cc6a4f9b714",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 26.77152000000001,
+                  "ms": 40.97358600000007,
                   "artifact": 466626,
-                  "rssBytes": 349249536
+                  "rssBytes": 313688064
                 },
                 {
                   "inputSourceHash": "9f55c19d5aba960a278780720ca545b8ed117ce8c90ca94d62346193fcf9ddf4",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 27.70827200000008,
+                  "ms": 48.151104999999916,
                   "artifact": 466626,
-                  "rssBytes": 348561408
+                  "rssBytes": 324153344
                 },
                 {
                   "inputSourceHash": "53bdcd2b08dab4688a042fb2842ea52469d185c4be029a9217ae7eb849bead0c",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 27.042551999999887,
+                  "ms": 41.13150399999995,
                   "artifact": 466626,
-                  "rssBytes": 344920064
+                  "rssBytes": 328876032
                 },
                 {
                   "inputSourceHash": "012ddc1ce0347d82e927cdaaec5e1a1db7678e432bbf624761530201b5a19fa5",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 27.79431199999999,
+                  "ms": 41.33451400000013,
                   "artifact": 466626,
-                  "rssBytes": 350478336
+                  "rssBytes": 313286656
                 },
                 {
                   "inputSourceHash": "d43a08f69861cc4f7ae316a233b6513d12e2b7429610b01d1b4b9e6cdb02b67a",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 26.447495000000117,
+                  "ms": 41.48076899999978,
                   "artifact": 466626,
-                  "rssBytes": 347979776
+                  "rssBytes": 323993600
                 }
               ],
               "unranked": true
@@ -1209,18 +1209,18 @@
               "files": 200,
               "status": "unranked",
               "runs": [
-                216.41,
-                215.357,
-                216.236,
-                219.859,
-                213.45
+                307.115,
+                301.383,
+                304.111,
+                307.166,
+                304.14
               ],
-              "medianMs": 216.236,
-              "minMs": 213.45,
-              "maxMs": 219.859,
-              "meanMs": 216.262,
-              "stddevMs": 2.328,
-              "cvPct": 1.1,
+              "medianMs": 304.14,
+              "minMs": 301.383,
+              "maxMs": 307.166,
+              "meanMs": 304.783,
+              "stddevMs": 2.426,
+              "cvPct": 0.8,
               "metaSamples": [
                 {
                   "inputSourceHash": "0337bc73c6887ab16133aaf0e61ed4175be5706f0d3948bcd4f33bce0b03cfa9",
@@ -1257,58 +1257,58 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                234.554,
-                229.556,
-                243.173,
-                242.326,
-                249.543
+                348.004,
+                355.063,
+                349.696,
+                345.511,
+                347.637
               ],
-              "freshChildMedianMs": 242.326,
-              "freshChildMinMs": 229.556,
-              "freshChildMeanMs": 239.83,
-              "freshChildStddevMs": 7.828,
-              "freshChildCvPct": 3.2,
+              "freshChildMedianMs": 348.004,
+              "freshChildMinMs": 345.511,
+              "freshChildMeanMs": 349.182,
+              "freshChildStddevMs": 3.609,
+              "freshChildCvPct": 1,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "5ff20767408287400a8e73a4df62eed444a58ea4eddaf1b37a844cc6a4f9b714",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 234.55375100000015,
+                  "ms": 348.0038629999999,
                   "artifact": 468726,
-                  "rssBytes": 348192768
+                  "rssBytes": 319508480
                 },
                 {
                   "inputSourceHash": "9f55c19d5aba960a278780720ca545b8ed117ce8c90ca94d62346193fcf9ddf4",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 229.55569500000001,
+                  "ms": 355.06329000000005,
                   "artifact": 468726,
-                  "rssBytes": 348188672
+                  "rssBytes": 329478144
                 },
                 {
                   "inputSourceHash": "53bdcd2b08dab4688a042fb2842ea52469d185c4be029a9217ae7eb849bead0c",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 243.17279599999983,
+                  "ms": 349.69581100000005,
                   "artifact": 468726,
-                  "rssBytes": 348192768
+                  "rssBytes": 330911744
                 },
                 {
                   "inputSourceHash": "012ddc1ce0347d82e927cdaaec5e1a1db7678e432bbf624761530201b5a19fa5",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 242.32637299999988,
+                  "ms": 345.51139399999965,
                   "artifact": 468726,
-                  "rssBytes": 336957440
+                  "rssBytes": 330301440
                 },
                 {
                   "inputSourceHash": "d43a08f69861cc4f7ae316a233b6513d12e2b7429610b01d1b4b9e6cdb02b67a",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 249.542862,
+                  "ms": 347.637428,
                   "artifact": 468726,
-                  "rssBytes": 331227136
+                  "rssBytes": 323534848
                 }
               ],
               "unranked": true
@@ -1324,21 +1324,21 @@
               "invocation": "in-process",
               "baseline": false,
               "artifactLabel": "Code bytes",
-              "notes": "rsvelte NAPI compile(), generate=client, dev=true, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.",
+              "notes": "rsvelte NAPI compile(), generate=client, dev=true, css=external | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.template: generated token has no original mapping; lf-styles: js.template: generated token has no original mapping). The timing remains visible but cannot rank until the emitted maps are correct.",
               "files": 200,
               "status": "unranked",
               "runs": [
-                93.27,
-                92.966,
-                93.283,
-                93.582,
-                93.255
+                125.876,
+                125.35,
+                125.648,
+                125.742,
+                125.722
               ],
-              "medianMs": 93.27,
-              "minMs": 92.966,
-              "maxMs": 93.582,
-              "meanMs": 93.271,
-              "stddevMs": 0.218,
+              "medianMs": 125.722,
+              "minMs": 125.35,
+              "maxMs": 125.876,
+              "meanMs": 125.668,
+              "stddevMs": 0.196,
               "cvPct": 0.2,
               "metaSamples": [
                 {
@@ -1376,58 +1376,58 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                88.678,
-                95.394,
-                91.185,
-                96.668,
-                96.433
+                124.972,
+                125.795,
+                126.061,
+                125.998,
+                126.616
               ],
-              "freshChildMedianMs": 95.394,
-              "freshChildMinMs": 88.678,
-              "freshChildMeanMs": 93.672,
-              "freshChildStddevMs": 3.56,
-              "freshChildCvPct": 3.7,
+              "freshChildMedianMs": 125.998,
+              "freshChildMinMs": 124.972,
+              "freshChildMeanMs": 125.888,
+              "freshChildStddevMs": 0.596,
+              "freshChildCvPct": 0.5,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "5ff20767408287400a8e73a4df62eed444a58ea4eddaf1b37a844cc6a4f9b714",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 88.677731,
+                  "ms": 124.97189900000012,
                   "artifact": 468726,
-                  "rssBytes": 346046464
+                  "rssBytes": 327995392
                 },
                 {
                   "inputSourceHash": "9f55c19d5aba960a278780720ca545b8ed117ce8c90ca94d62346193fcf9ddf4",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 95.39356599999996,
+                  "ms": 125.79467000000022,
                   "artifact": 468726,
-                  "rssBytes": 351047680
+                  "rssBytes": 319696896
                 },
                 {
                   "inputSourceHash": "53bdcd2b08dab4688a042fb2842ea52469d185c4be029a9217ae7eb849bead0c",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 91.18455199999994,
+                  "ms": 126.06066299999975,
                   "artifact": 468726,
-                  "rssBytes": 354467840
+                  "rssBytes": 316514304
                 },
                 {
                   "inputSourceHash": "012ddc1ce0347d82e927cdaaec5e1a1db7678e432bbf624761530201b5a19fa5",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 96.66794000000004,
+                  "ms": 125.99813200000017,
                   "artifact": 468726,
-                  "rssBytes": 351342592
+                  "rssBytes": 328339456
                 },
                 {
                   "inputSourceHash": "d43a08f69861cc4f7ae316a233b6513d12e2b7429610b01d1b4b9e6cdb02b67a",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 96.43341800000007,
+                  "ms": 126.615996,
                   "artifact": 468726,
-                  "rssBytes": 349794304
+                  "rssBytes": 329297920
                 }
               ],
               "unranked": true
@@ -1447,18 +1447,18 @@
               "files": 200,
               "status": "unranked",
               "runs": [
-                37.403,
-                37.014,
-                37.129,
-                40.332,
-                37.234
+                69.024,
+                70.083,
+                67.213,
+                67.996,
+                69.47
               ],
-              "medianMs": 37.234,
-              "minMs": 37.014,
-              "maxMs": 40.332,
-              "meanMs": 37.822,
-              "stddevMs": 1.41,
-              "cvPct": 3.8,
+              "medianMs": 69.024,
+              "minMs": 67.213,
+              "maxMs": 70.083,
+              "meanMs": 68.757,
+              "stddevMs": 1.151,
+              "cvPct": 1.7,
               "metaSamples": [
                 {
                   "inputSourceHash": "0337bc73c6887ab16133aaf0e61ed4175be5706f0d3948bcd4f33bce0b03cfa9",
@@ -1612,24 +1612,24 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                33.891,
-                38.595,
-                36.082,
-                37.412,
-                36.735
+                69.858,
+                68.918,
+                69.541,
+                67.311,
+                71.195
               ],
-              "freshChildMedianMs": 36.735,
-              "freshChildMinMs": 33.891,
-              "freshChildMeanMs": 36.543,
-              "freshChildStddevMs": 1.75,
-              "freshChildCvPct": 4.8,
+              "freshChildMedianMs": 69.541,
+              "freshChildMinMs": 67.311,
+              "freshChildMeanMs": 69.365,
+              "freshChildStddevMs": 1.418,
+              "freshChildCvPct": 2,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "5ff20767408287400a8e73a4df62eed444a58ea4eddaf1b37a844cc6a4f9b714",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 33.891030999999884,
+                  "ms": 69.85844399999996,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -1654,13 +1654,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 367575040
+                  "rssBytes": 336097280
                 },
                 {
                   "inputSourceHash": "9f55c19d5aba960a278780720ca545b8ed117ce8c90ca94d62346193fcf9ddf4",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 38.59516000000008,
+                  "ms": 68.91834900000003,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -1685,13 +1685,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 370671616
+                  "rssBytes": 336027648
                 },
                 {
                   "inputSourceHash": "53bdcd2b08dab4688a042fb2842ea52469d185c4be029a9217ae7eb849bead0c",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 36.0824090000001,
+                  "ms": 69.54081499999984,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -1716,13 +1716,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 367722496
+                  "rssBytes": 336003072
                 },
                 {
                   "inputSourceHash": "012ddc1ce0347d82e927cdaaec5e1a1db7678e432bbf624761530201b5a19fa5",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 37.41205200000013,
+                  "ms": 67.31075899999996,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -1747,13 +1747,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 371040256
+                  "rssBytes": 335962112
                 },
                 {
                   "inputSourceHash": "d43a08f69861cc4f7ae316a233b6513d12e2b7429610b01d1b4b9e6cdb02b67a",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 36.734643000000005,
+                  "ms": 71.19480199999998,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -1778,7 +1778,7 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 366620672
+                  "rssBytes": 329662464
                 }
               ],
               "unranked": true
@@ -1793,7 +1793,7 @@
           "variants": [
             {
               "id": "svelte-official-1t-server-prod",
-              "label": "svelte/compiler 5.57.0 (1T)",
+              "label": "svelte/compiler 5.57.1 (1T)",
               "package": "svelte",
               "target": "server",
               "comparisonClass": "svelte",
@@ -1801,24 +1801,24 @@
               "threading": "1t",
               "invocation": "in-process",
               "baseline": true,
-              "baselineLabel": "Svelte 5.57.0 (official)",
+              "baselineLabel": "Svelte 5.57.1 (official)",
               "artifactLabel": "Code bytes",
               "notes": "Official svelte/compiler compile(), generate=server, dev=false, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)",
               "files": 200,
               "status": "ok",
               "runs": [
-                150.555,
-                158.258,
-                146.856,
-                145.553,
-                136.733
+                231.385,
+                220.559,
+                216.331,
+                220.036,
+                210.612
               ],
-              "medianMs": 146.856,
-              "minMs": 136.733,
-              "maxMs": 158.258,
-              "meanMs": 147.591,
-              "stddevMs": 7.829,
-              "cvPct": 5.3,
+              "medianMs": 220.036,
+              "minMs": 210.612,
+              "maxMs": 231.385,
+              "meanMs": 219.785,
+              "stddevMs": 7.604,
+              "cvPct": 3.5,
               "metaSamples": [
                 {
                   "inputSourceHash": "a8037fedf523ad2c47440c4004d801de89a96a54be6ac0de345c4a71a911c5e9",
@@ -1853,60 +1853,60 @@
               ],
               "artifactMedian": 214546,
               "warmupPasses": 1,
-              "throughput": "1.4k files/s",
+              "throughput": "909 files/s",
               "freshChildRuns": [
-                335.493,
-                244.116,
-                235.437,
-                233.651,
-                240.398
+                343.926,
+                353.269,
+                344.638,
+                362.626,
+                339.628
               ],
-              "freshChildMedianMs": 240.398,
-              "freshChildMinMs": 233.651,
-              "freshChildMeanMs": 257.819,
-              "freshChildStddevMs": 43.616,
-              "freshChildCvPct": 18.1,
+              "freshChildMedianMs": 344.638,
+              "freshChildMinMs": 339.628,
+              "freshChildMeanMs": 348.817,
+              "freshChildStddevMs": 9.17,
+              "freshChildCvPct": 2.7,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "2962c53a7cc9078d8ffb1af93d41009291efb469f5c33e53eec421cecc6d6f57",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 335.49295000000006,
+                  "ms": 343.9259259999999,
                   "artifact": 214546,
-                  "rssBytes": 330588160
+                  "rssBytes": 316186624
                 },
                 {
                   "inputSourceHash": "766947293f090a2f4c97f23ad532dfb07a621c7e198803320518d0ecfcbf9444",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 244.11612800000012,
+                  "ms": 353.2689579999999,
                   "artifact": 214546,
-                  "rssBytes": 349356032
+                  "rssBytes": 316354560
                 },
                 {
                   "inputSourceHash": "9a9141c580e16a5fcfcdcdb253ec88d5c719a7ac912ef001d621eb8299d79b28",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 235.4371920000001,
+                  "ms": 344.6375999999998,
                   "artifact": 214546,
-                  "rssBytes": 325857280
+                  "rssBytes": 329596928
                 },
                 {
                   "inputSourceHash": "31007452bf0d8ef85b7f1b40be3262c27d366d749c17ded57ce03eb6bf29eb0c",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 233.65068999999994,
+                  "ms": 362.6257640000001,
                   "artifact": 214546,
-                  "rssBytes": 340979712
+                  "rssBytes": 321474560
                 },
                 {
                   "inputSourceHash": "049123c935207af63a06ba207a016704a1681578095892d9b100f693664b09ab",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 240.39823,
+                  "ms": 339.627929,
                   "artifact": 214546,
-                  "rssBytes": 349523968
+                  "rssBytes": 317816832
                 }
               ]
             },
@@ -1925,18 +1925,18 @@
               "files": 200,
               "status": "unranked",
               "runs": [
-                20.749,
-                18.232,
-                18.336,
-                18.57,
-                18.3
+                31.896,
+                31.506,
+                31.403,
+                31.354,
+                31.447
               ],
-              "medianMs": 18.336,
-              "minMs": 18.232,
-              "maxMs": 20.749,
-              "meanMs": 18.837,
-              "stddevMs": 1.076,
-              "cvPct": 5.9,
+              "medianMs": 31.447,
+              "minMs": 31.354,
+              "maxMs": 31.896,
+              "meanMs": 31.521,
+              "stddevMs": 0.217,
+              "cvPct": 0.7,
               "metaSamples": [
                 {
                   "inputSourceHash": "a8037fedf523ad2c47440c4004d801de89a96a54be6ac0de345c4a71a911c5e9",
@@ -1973,58 +1973,58 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                19.633,
-                19.651,
-                19.578,
-                20.257,
-                19.846
+                33.166,
+                33.406,
+                33.316,
+                33.421,
+                33.28
               ],
-              "freshChildMedianMs": 19.651,
-              "freshChildMinMs": 19.578,
-              "freshChildMeanMs": 19.793,
-              "freshChildStddevMs": 0.278,
-              "freshChildCvPct": 1.4,
+              "freshChildMedianMs": 33.316,
+              "freshChildMinMs": 33.166,
+              "freshChildMeanMs": 33.318,
+              "freshChildStddevMs": 0.104,
+              "freshChildCvPct": 0.3,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "2962c53a7cc9078d8ffb1af93d41009291efb469f5c33e53eec421cecc6d6f57",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 19.632762000000184,
+                  "ms": 33.166330000000016,
                   "artifact": 217846,
-                  "rssBytes": 326934528
+                  "rssBytes": 304750592
                 },
                 {
                   "inputSourceHash": "766947293f090a2f4c97f23ad532dfb07a621c7e198803320518d0ecfcbf9444",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 19.650529000000006,
+                  "ms": 33.40613899999994,
                   "artifact": 217846,
-                  "rssBytes": 349544448
+                  "rssBytes": 305614848
                 },
                 {
                   "inputSourceHash": "9a9141c580e16a5fcfcdcdb253ec88d5c719a7ac912ef001d621eb8299d79b28",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 19.578300000000127,
+                  "ms": 33.31633099999999,
                   "artifact": 217846,
-                  "rssBytes": 328359936
+                  "rssBytes": 305070080
                 },
                 {
                   "inputSourceHash": "31007452bf0d8ef85b7f1b40be3262c27d366d749c17ded57ce03eb6bf29eb0c",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 20.256820999999945,
+                  "ms": 33.42149799999993,
                   "artifact": 217846,
-                  "rssBytes": 328073216
+                  "rssBytes": 306556928
                 },
                 {
                   "inputSourceHash": "049123c935207af63a06ba207a016704a1681578095892d9b100f693664b09ab",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 19.846401000000014,
+                  "ms": 33.27985100000001,
                   "artifact": 217846,
-                  "rssBytes": 326975488
+                  "rssBytes": 320569344
                 }
               ],
               "unranked": true
@@ -2044,18 +2044,18 @@
               "files": 200,
               "status": "ok",
               "runs": [
-                147.204,
-                145.228,
-                144.344,
-                147.973,
-                147.832
+                205.347,
+                207.969,
+                208.041,
+                206.232,
+                207.699
               ],
-              "medianMs": 147.204,
-              "minMs": 144.344,
-              "maxMs": 147.973,
-              "meanMs": 146.516,
-              "stddevMs": 1.636,
-              "cvPct": 1.1,
+              "medianMs": 207.699,
+              "minMs": 205.347,
+              "maxMs": 208.041,
+              "meanMs": 207.058,
+              "stddevMs": 1.206,
+              "cvPct": 0.6,
               "metaSamples": [
                 {
                   "inputSourceHash": "a8037fedf523ad2c47440c4004d801de89a96a54be6ac0de345c4a71a911c5e9",
@@ -2090,60 +2090,60 @@
               ],
               "artifactMedian": 214546,
               "warmupPasses": 1,
-              "throughput": "1.4k files/s",
+              "throughput": "963 files/s",
               "freshChildRuns": [
-                155.986,
-                170.152,
-                165.615,
-                153.885,
-                169.21
+                237.284,
+                237.391,
+                237.178,
+                236.588,
+                242.484
               ],
-              "freshChildMedianMs": 165.615,
-              "freshChildMinMs": 153.885,
-              "freshChildMeanMs": 162.97,
-              "freshChildStddevMs": 7.564,
-              "freshChildCvPct": 4.6,
+              "freshChildMedianMs": 237.284,
+              "freshChildMinMs": 236.588,
+              "freshChildMeanMs": 238.185,
+              "freshChildStddevMs": 2.423,
+              "freshChildCvPct": 1,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "2962c53a7cc9078d8ffb1af93d41009291efb469f5c33e53eec421cecc6d6f57",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 155.98561700000005,
+                  "ms": 237.28382499999998,
                   "artifact": 214546,
-                  "rssBytes": 314249216
+                  "rssBytes": 320196608
                 },
                 {
                   "inputSourceHash": "766947293f090a2f4c97f23ad532dfb07a621c7e198803320518d0ecfcbf9444",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 170.15205000000014,
+                  "ms": 237.390985,
                   "artifact": 214546,
-                  "rssBytes": 314994688
+                  "rssBytes": 306524160
                 },
                 {
                   "inputSourceHash": "9a9141c580e16a5fcfcdcdb253ec88d5c719a7ac912ef001d621eb8299d79b28",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 165.6148229999999,
+                  "ms": 237.17767900000013,
                   "artifact": 214546,
-                  "rssBytes": 328871936
+                  "rssBytes": 308072448
                 },
                 {
                   "inputSourceHash": "31007452bf0d8ef85b7f1b40be3262c27d366d749c17ded57ce03eb6bf29eb0c",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 153.8848579999999,
+                  "ms": 236.58809400000018,
                   "artifact": 214546,
-                  "rssBytes": 326557696
+                  "rssBytes": 306065408
                 },
                 {
                   "inputSourceHash": "049123c935207af63a06ba207a016704a1681578095892d9b100f693664b09ab",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 169.20959099999982,
+                  "ms": 242.4840680000002,
                   "artifact": 214546,
-                  "rssBytes": 332394496
+                  "rssBytes": 303296512
                 }
               ]
             },
@@ -2162,18 +2162,18 @@
               "files": 200,
               "status": "ok",
               "runs": [
-                57.093,
-                56.478,
-                56.22,
-                56.142,
-                57.532
+                81.931,
+                80.339,
+                79.857,
+                80.233,
+                80.236
               ],
-              "medianMs": 56.478,
-              "minMs": 56.142,
-              "maxMs": 57.532,
-              "meanMs": 56.693,
-              "stddevMs": 0.599,
-              "cvPct": 1.1,
+              "medianMs": 80.236,
+              "minMs": 79.857,
+              "maxMs": 81.931,
+              "meanMs": 80.519,
+              "stddevMs": 0.81,
+              "cvPct": 1,
               "metaSamples": [
                 {
                   "inputSourceHash": "a8037fedf523ad2c47440c4004d801de89a96a54be6ac0de345c4a71a911c5e9",
@@ -2208,60 +2208,60 @@
               ],
               "artifactMedian": 214546,
               "warmupPasses": 1,
-              "throughput": "3.5k files/s",
+              "throughput": "2.5k files/s",
               "freshChildRuns": [
-                57.421,
-                57.002,
-                57.842,
-                57.889,
-                57.931
+                82.58,
+                82.596,
+                82.248,
+                82.236,
+                82.394
               ],
-              "freshChildMedianMs": 57.842,
-              "freshChildMinMs": 57.002,
-              "freshChildMeanMs": 57.617,
-              "freshChildStddevMs": 0.4,
-              "freshChildCvPct": 0.7,
+              "freshChildMedianMs": 82.394,
+              "freshChildMinMs": 82.236,
+              "freshChildMeanMs": 82.411,
+              "freshChildStddevMs": 0.173,
+              "freshChildCvPct": 0.2,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "2962c53a7cc9078d8ffb1af93d41009291efb469f5c33e53eec421cecc6d6f57",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 57.42147399999999,
+                  "ms": 82.58019100000001,
                   "artifact": 214546,
-                  "rssBytes": 332730368
+                  "rssBytes": 303738880
                 },
                 {
                   "inputSourceHash": "766947293f090a2f4c97f23ad532dfb07a621c7e198803320518d0ecfcbf9444",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 57.00155400000017,
+                  "ms": 82.59594900000002,
                   "artifact": 214546,
-                  "rssBytes": 308998144
+                  "rssBytes": 304087040
                 },
                 {
                   "inputSourceHash": "9a9141c580e16a5fcfcdcdb253ec88d5c719a7ac912ef001d621eb8299d79b28",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 57.84189900000001,
+                  "ms": 82.24759599999993,
                   "artifact": 214546,
-                  "rssBytes": 316641280
+                  "rssBytes": 302477312
                 },
                 {
                   "inputSourceHash": "31007452bf0d8ef85b7f1b40be3262c27d366d749c17ded57ce03eb6bf29eb0c",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 57.88894000000005,
+                  "ms": 82.23626400000012,
                   "artifact": 214546,
-                  "rssBytes": 308236288
+                  "rssBytes": 304795648
                 },
                 {
                   "inputSourceHash": "049123c935207af63a06ba207a016704a1681578095892d9b100f693664b09ab",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 57.93067300000007,
+                  "ms": 82.39411300000006,
                   "artifact": 214546,
-                  "rssBytes": 333635584
+                  "rssBytes": 322588672
                 }
               ]
             },
@@ -2280,18 +2280,18 @@
               "files": 200,
               "status": "unranked",
               "runs": [
-                22.135,
-                22.112,
-                22.261,
-                19.815,
-                20.724
+                37.051,
+                34.944,
+                36.526,
+                35.417,
+                33.153
               ],
-              "medianMs": 22.112,
-              "minMs": 19.815,
-              "maxMs": 22.261,
-              "meanMs": 21.409,
-              "stddevMs": 1.091,
-              "cvPct": 4.9,
+              "medianMs": 35.417,
+              "minMs": 33.153,
+              "maxMs": 37.051,
+              "meanMs": 35.418,
+              "stddevMs": 1.521,
+              "cvPct": 4.3,
               "metaSamples": [
                 {
                   "inputSourceHash": "a8037fedf523ad2c47440c4004d801de89a96a54be6ac0de345c4a71a911c5e9",
@@ -2445,24 +2445,24 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                19.899,
-                21.246,
-                18.429,
-                19.446,
-                20.56
+                36.06,
+                35.15,
+                35.373,
+                35.323,
+                34.109
               ],
-              "freshChildMedianMs": 19.899,
-              "freshChildMinMs": 18.429,
-              "freshChildMeanMs": 19.916,
-              "freshChildStddevMs": 1.074,
-              "freshChildCvPct": 5.4,
+              "freshChildMedianMs": 35.323,
+              "freshChildMinMs": 34.109,
+              "freshChildMeanMs": 35.203,
+              "freshChildStddevMs": 0.703,
+              "freshChildCvPct": 2,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "2962c53a7cc9078d8ffb1af93d41009291efb469f5c33e53eec421cecc6d6f57",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 19.89885900000013,
+                  "ms": 36.05963799999995,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -2487,13 +2487,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 301166592
+                  "rssBytes": 306270208
                 },
                 {
                   "inputSourceHash": "766947293f090a2f4c97f23ad532dfb07a621c7e198803320518d0ecfcbf9444",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 21.246257999999898,
+                  "ms": 35.15035200000011,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -2518,13 +2518,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 324014080
+                  "rssBytes": 318595072
                 },
                 {
                   "inputSourceHash": "9a9141c580e16a5fcfcdcdb253ec88d5c719a7ac912ef001d621eb8299d79b28",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 18.42878799999994,
+                  "ms": 35.37288899999999,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -2549,13 +2549,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 351477760
+                  "rssBytes": 304861184
                 },
                 {
                   "inputSourceHash": "31007452bf0d8ef85b7f1b40be3262c27d366d749c17ded57ce03eb6bf29eb0c",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 19.44631500000014,
+                  "ms": 35.32336499999997,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -2580,13 +2580,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 352710656
+                  "rssBytes": 317255680
                 },
                 {
                   "inputSourceHash": "049123c935207af63a06ba207a016704a1681578095892d9b100f693664b09ab",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 20.55979400000001,
+                  "ms": 34.10910999999987,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -2611,7 +2611,7 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 328974336
+                  "rssBytes": 309633024
                 }
               ],
               "unranked": true
@@ -2626,7 +2626,7 @@
           "variants": [
             {
               "id": "svelte-official-1t-server-dev",
-              "label": "svelte/compiler 5.57.0 (1T)",
+              "label": "svelte/compiler 5.57.1 (1T)",
               "package": "svelte",
               "target": "server",
               "comparisonClass": "svelte",
@@ -2634,24 +2634,24 @@
               "threading": "1t",
               "invocation": "in-process",
               "baseline": true,
-              "baselineLabel": "Svelte 5.57.0 (official)",
+              "baselineLabel": "Svelte 5.57.1 (official)",
               "artifactLabel": "Code bytes",
               "notes": "Official svelte/compiler compile(), generate=server, dev=true, css=external, runes=true | runtime gate: ✓ 200/200 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)",
               "files": 200,
               "status": "ok",
               "runs": [
-                178.653,
-                156.148,
-                169.661,
-                149.047,
-                164.123
+                248.992,
+                239.533,
+                265.122,
+                227.065,
+                230.106
               ],
-              "medianMs": 164.123,
-              "minMs": 149.047,
-              "maxMs": 178.653,
-              "meanMs": 163.526,
-              "stddevMs": 11.521,
-              "cvPct": 7,
+              "medianMs": 239.533,
+              "minMs": 227.065,
+              "maxMs": 265.122,
+              "meanMs": 242.164,
+              "stddevMs": 15.443,
+              "cvPct": 6.4,
               "metaSamples": [
                 {
                   "inputSourceHash": "dae9f7000245441c7b5c4b075f43aa2d14ccd2994d4e483a14592ac8c53ac834",
@@ -2686,60 +2686,60 @@
               ],
               "artifactMedian": 445986,
               "warmupPasses": 1,
-              "throughput": "1.2k files/s",
+              "throughput": "835 files/s",
               "freshChildRuns": [
-                249.303,
-                241.528,
-                247.585,
-                258.154,
-                226.81
+                369.723,
+                358.721,
+                362.585,
+                367.118,
+                364.441
               ],
-              "freshChildMedianMs": 247.585,
-              "freshChildMinMs": 226.81,
-              "freshChildMeanMs": 244.676,
-              "freshChildStddevMs": 11.626,
-              "freshChildCvPct": 4.7,
+              "freshChildMedianMs": 364.441,
+              "freshChildMinMs": 358.721,
+              "freshChildMeanMs": 364.518,
+              "freshChildStddevMs": 4.219,
+              "freshChildCvPct": 1.2,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "346d12c35d33304ff4c091352a89bd5dc57755111b7697fbdfd8661c6aa00c78",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 249.30261700000005,
+                  "ms": 369.72304099999974,
                   "artifact": 445986,
-                  "rssBytes": 369754112
+                  "rssBytes": 322932736
                 },
                 {
                   "inputSourceHash": "13a6e402aac9b8db0b78b973efb8474463c9268e5d2078e6c9800c376ab3b0eb",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 241.52844900000014,
+                  "ms": 358.72093300000006,
                   "artifact": 445986,
-                  "rssBytes": 340221952
+                  "rssBytes": 318554112
                 },
                 {
                   "inputSourceHash": "1e9a0cae8632510e8ad43ecab43d3aed1a0c214ac2a79344d2fa84c0945911a1",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 247.58452899999997,
+                  "ms": 362.58456300000034,
                   "artifact": 445986,
-                  "rssBytes": 357900288
+                  "rssBytes": 310349824
                 },
                 {
                   "inputSourceHash": "85d2ae6a1303f8a045bc7a8760cce2af62ddf11dc37dd71a2a40ba196c0e23bb",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 258.153501,
+                  "ms": 367.118152,
                   "artifact": 445986,
-                  "rssBytes": 345837568
+                  "rssBytes": 327462912
                 },
                 {
                   "inputSourceHash": "7ca4f867afe3634db41e66f51d5a6c1ee89b9573be83a2abd83afb6cc15d1892",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 226.81041499999992,
+                  "ms": 364.44083,
                   "artifact": 445986,
-                  "rssBytes": 350126080
+                  "rssBytes": 327155712
                 }
               ]
             },
@@ -2758,18 +2758,18 @@
               "files": 200,
               "status": "unranked",
               "runs": [
-                19.571,
-                19.631,
-                21.171,
-                21.861,
-                20.17
+                33.484,
+                33.619,
+                35.051,
+                33.644,
+                33.227
               ],
-              "medianMs": 20.17,
-              "minMs": 19.571,
-              "maxMs": 21.861,
-              "meanMs": 20.481,
-              "stddevMs": 1.003,
-              "cvPct": 5,
+              "medianMs": 33.619,
+              "minMs": 33.227,
+              "maxMs": 35.051,
+              "meanMs": 33.805,
+              "stddevMs": 0.716,
+              "cvPct": 2.1,
               "metaSamples": [
                 {
                   "inputSourceHash": "dae9f7000245441c7b5c4b075f43aa2d14ccd2994d4e483a14592ac8c53ac834",
@@ -2806,58 +2806,58 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                21.649,
-                20.447,
-                21.895,
-                19.645,
-                19.952
+                35.417,
+                35.238,
+                35.309,
+                35.312,
+                35.36
               ],
-              "freshChildMedianMs": 20.447,
-              "freshChildMinMs": 19.645,
-              "freshChildMeanMs": 20.718,
-              "freshChildStddevMs": 1.008,
-              "freshChildCvPct": 4.9,
+              "freshChildMedianMs": 35.312,
+              "freshChildMinMs": 35.238,
+              "freshChildMeanMs": 35.327,
+              "freshChildStddevMs": 0.066,
+              "freshChildCvPct": 0.2,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "346d12c35d33304ff4c091352a89bd5dc57755111b7697fbdfd8661c6aa00c78",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 21.649456999999984,
+                  "ms": 35.41733199999999,
                   "artifact": 438986,
-                  "rssBytes": 338108416
+                  "rssBytes": 323153920
                 },
                 {
                   "inputSourceHash": "13a6e402aac9b8db0b78b973efb8474463c9268e5d2078e6c9800c376ab3b0eb",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 20.446924999999965,
+                  "ms": 35.23815800000011,
                   "artifact": 438986,
-                  "rssBytes": 349294592
+                  "rssBytes": 306196480
                 },
                 {
                   "inputSourceHash": "1e9a0cae8632510e8ad43ecab43d3aed1a0c214ac2a79344d2fa84c0945911a1",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 21.894622000000027,
+                  "ms": 35.30931200000032,
                   "artifact": 438986,
-                  "rssBytes": 338108416
+                  "rssBytes": 319422464
                 },
                 {
                   "inputSourceHash": "85d2ae6a1303f8a045bc7a8760cce2af62ddf11dc37dd71a2a40ba196c0e23bb",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 19.644809000000123,
+                  "ms": 35.31177499999967,
                   "artifact": 438986,
-                  "rssBytes": 338108416
+                  "rssBytes": 313221120
                 },
                 {
                   "inputSourceHash": "7ca4f867afe3634db41e66f51d5a6c1ee89b9573be83a2abd83afb6cc15d1892",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 19.952205999999933,
+                  "ms": 35.36038899999994,
                   "artifact": 438986,
-                  "rssBytes": 338108416
+                  "rssBytes": 323211264
                 }
               ],
               "unranked": true
@@ -2877,18 +2877,18 @@
               "files": 200,
               "status": "ok",
               "runs": [
-                164.796,
-                162.083,
-                164.016,
-                163.133,
-                163.16
+                238.109,
+                234.725,
+                234.962,
+                234.046,
+                234.613
               ],
-              "medianMs": 163.16,
-              "minMs": 162.083,
-              "maxMs": 164.796,
-              "meanMs": 163.438,
-              "stddevMs": 1.023,
-              "cvPct": 0.6,
+              "medianMs": 234.725,
+              "minMs": 234.046,
+              "maxMs": 238.109,
+              "meanMs": 235.291,
+              "stddevMs": 1.611,
+              "cvPct": 0.7,
               "metaSamples": [
                 {
                   "inputSourceHash": "dae9f7000245441c7b5c4b075f43aa2d14ccd2994d4e483a14592ac8c53ac834",
@@ -2923,60 +2923,60 @@
               ],
               "artifactMedian": 445986,
               "warmupPasses": 1,
-              "throughput": "1.2k files/s",
+              "throughput": "852 files/s",
               "freshChildRuns": [
-                188.149,
-                183.403,
-                188.974,
-                168.924,
-                172.915
+                269.985,
+                268.568,
+                267.844,
+                268.077,
+                270.144
               ],
-              "freshChildMedianMs": 183.403,
-              "freshChildMinMs": 168.924,
-              "freshChildMeanMs": 180.473,
-              "freshChildStddevMs": 9.087,
-              "freshChildCvPct": 5,
+              "freshChildMedianMs": 268.568,
+              "freshChildMinMs": 267.844,
+              "freshChildMeanMs": 268.924,
+              "freshChildStddevMs": 1.075,
+              "freshChildCvPct": 0.4,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "346d12c35d33304ff4c091352a89bd5dc57755111b7697fbdfd8661c6aa00c78",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 188.14878700000008,
+                  "ms": 269.98514699999987,
                   "artifact": 445986,
-                  "rssBytes": 338108416
+                  "rssBytes": 327905280
                 },
                 {
                   "inputSourceHash": "13a6e402aac9b8db0b78b973efb8474463c9268e5d2078e6c9800c376ab3b0eb",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 183.403145,
+                  "ms": 268.5680769999999,
                   "artifact": 445986,
-                  "rssBytes": 355639296
+                  "rssBytes": 312905728
                 },
                 {
                   "inputSourceHash": "1e9a0cae8632510e8ad43ecab43d3aed1a0c214ac2a79344d2fa84c0945911a1",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 188.97436399999992,
+                  "ms": 267.84381399999984,
                   "artifact": 445986,
-                  "rssBytes": 338108416
+                  "rssBytes": 322437120
                 },
                 {
                   "inputSourceHash": "85d2ae6a1303f8a045bc7a8760cce2af62ddf11dc37dd71a2a40ba196c0e23bb",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 168.92439999999988,
+                  "ms": 268.07720599999993,
                   "artifact": 445986,
-                  "rssBytes": 338108416
+                  "rssBytes": 319819776
                 },
                 {
                   "inputSourceHash": "7ca4f867afe3634db41e66f51d5a6c1ee89b9573be83a2abd83afb6cc15d1892",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 172.91537600000015,
+                  "ms": 270.14371200000005,
                   "artifact": 445986,
-                  "rssBytes": 338108416
+                  "rssBytes": 310317056
                 }
               ]
             },
@@ -2995,18 +2995,18 @@
               "files": 200,
               "status": "ok",
               "runs": [
-                62.55,
-                62.528,
-                65.255,
-                64.216,
-                65.254
+                90.444,
+                89.204,
+                89.641,
+                89.542,
+                89.334
               ],
-              "medianMs": 64.216,
-              "minMs": 62.528,
-              "maxMs": 65.255,
-              "meanMs": 63.961,
-              "stddevMs": 1.365,
-              "cvPct": 2.1,
+              "medianMs": 89.542,
+              "minMs": 89.204,
+              "maxMs": 90.444,
+              "meanMs": 89.633,
+              "stddevMs": 0.485,
+              "cvPct": 0.5,
               "metaSamples": [
                 {
                   "inputSourceHash": "dae9f7000245441c7b5c4b075f43aa2d14ccd2994d4e483a14592ac8c53ac834",
@@ -3041,60 +3041,60 @@
               ],
               "artifactMedian": 445986,
               "warmupPasses": 1,
-              "throughput": "3.1k files/s",
+              "throughput": "2.2k files/s",
               "freshChildRuns": [
-                65.246,
-                63.274,
-                65.084,
-                62.754,
-                62.886
+                90.262,
+                90.446,
+                89.49,
+                89.784,
+                90.635
               ],
-              "freshChildMedianMs": 63.274,
-              "freshChildMinMs": 62.754,
-              "freshChildMeanMs": 63.849,
-              "freshChildStddevMs": 1.218,
-              "freshChildCvPct": 1.9,
+              "freshChildMedianMs": 90.262,
+              "freshChildMinMs": 89.49,
+              "freshChildMeanMs": 90.123,
+              "freshChildStddevMs": 0.475,
+              "freshChildCvPct": 0.5,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "346d12c35d33304ff4c091352a89bd5dc57755111b7697fbdfd8661c6aa00c78",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 65.24593500000015,
+                  "ms": 90.26184999999987,
                   "artifact": 445986,
-                  "rssBytes": 338108416
+                  "rssBytes": 313282560
                 },
                 {
                   "inputSourceHash": "13a6e402aac9b8db0b78b973efb8474463c9268e5d2078e6c9800c376ab3b0eb",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 63.274347000000034,
+                  "ms": 90.44593500000019,
                   "artifact": 445986,
-                  "rssBytes": 338108416
+                  "rssBytes": 313241600
                 },
                 {
                   "inputSourceHash": "1e9a0cae8632510e8ad43ecab43d3aed1a0c214ac2a79344d2fa84c0945911a1",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 65.08389999999986,
+                  "ms": 89.48961899999995,
                   "artifact": 445986,
-                  "rssBytes": 338108416
+                  "rssBytes": 310738944
                 },
                 {
                   "inputSourceHash": "85d2ae6a1303f8a045bc7a8760cce2af62ddf11dc37dd71a2a40ba196c0e23bb",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 62.753525999999965,
+                  "ms": 89.78369100000009,
                   "artifact": 445986,
-                  "rssBytes": 341274624
+                  "rssBytes": 311595008
                 },
                 {
                   "inputSourceHash": "7ca4f867afe3634db41e66f51d5a6c1ee89b9573be83a2abd83afb6cc15d1892",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 62.885853,
+                  "ms": 90.63538900000003,
                   "artifact": 445986,
-                  "rssBytes": 338108416
+                  "rssBytes": 323137536
                 }
               ]
             },
@@ -3113,18 +3113,18 @@
               "files": 200,
               "status": "unranked",
               "runs": [
-                21.979,
-                21.481,
-                20.416,
-                21.638,
-                20.347
+                35.211,
+                34.111,
+                35.238,
+                35.202,
+                32.636
               ],
-              "medianMs": 21.481,
-              "minMs": 20.347,
-              "maxMs": 21.979,
-              "meanMs": 21.172,
-              "stddevMs": 0.744,
-              "cvPct": 3.5,
+              "medianMs": 35.202,
+              "minMs": 32.636,
+              "maxMs": 35.238,
+              "meanMs": 34.48,
+              "stddevMs": 1.137,
+              "cvPct": 3.2,
               "metaSamples": [
                 {
                   "inputSourceHash": "dae9f7000245441c7b5c4b075f43aa2d14ccd2994d4e483a14592ac8c53ac834",
@@ -3278,24 +3278,24 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                20.485,
-                18.56,
-                20.138,
-                23.362,
-                18.933
+                34.179,
+                34.965,
+                35.77,
+                35.566,
+                34.166
               ],
-              "freshChildMedianMs": 20.138,
-              "freshChildMinMs": 18.56,
-              "freshChildMeanMs": 20.296,
-              "freshChildStddevMs": 1.893,
-              "freshChildCvPct": 9.4,
+              "freshChildMedianMs": 34.965,
+              "freshChildMinMs": 34.166,
+              "freshChildMeanMs": 34.929,
+              "freshChildStddevMs": 0.752,
+              "freshChildCvPct": 2.1,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "346d12c35d33304ff4c091352a89bd5dc57755111b7697fbdfd8661c6aa00c78",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 20.485472999999956,
+                  "ms": 34.17933700000003,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -3320,13 +3320,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 358285312
+                  "rssBytes": 333275136
                 },
                 {
                   "inputSourceHash": "13a6e402aac9b8db0b78b973efb8474463c9268e5d2078e6c9800c376ab3b0eb",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 18.560294000000113,
+                  "ms": 34.96453900000006,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -3351,13 +3351,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 347426816
+                  "rssBytes": 320004096
                 },
                 {
                   "inputSourceHash": "1e9a0cae8632510e8ad43ecab43d3aed1a0c214ac2a79344d2fa84c0945911a1",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 20.138394000000062,
+                  "ms": 35.76963799999976,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -3382,13 +3382,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 354074624
+                  "rssBytes": 318734336
                 },
                 {
                   "inputSourceHash": "85d2ae6a1303f8a045bc7a8760cce2af62ddf11dc37dd71a2a40ba196c0e23bb",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 23.361605999999938,
+                  "ms": 35.56615499999998,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -3413,13 +3413,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 355295232
+                  "rssBytes": 337276928
                 },
                 {
                   "inputSourceHash": "7ca4f867afe3634db41e66f51d5a6c1ee89b9573be83a2abd83afb6cc15d1892",
                   "inputCount": 200,
                   "inputBytes": 164680,
-                  "ms": 18.93292099999985,
+                  "ms": 34.16562699999986,
                   "artifact": 0,
                   "returnedCount": 200,
                   "emittedFiles": 0,
@@ -3444,7 +3444,7 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 342761472
+                  "rssBytes": 314011648
                 }
               ],
               "unranked": true
@@ -3471,7 +3471,7 @@
                   "suiteVersion": "2026-09-12.2",
                   "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
                   "entrypoint": "svelte-official",
-                  "label": "svelte/compiler 5.57.0",
+                  "label": "svelte/compiler 5.57.1",
                   "exactPath": "svelte/compiler compile() per plant, css=external, runes=true",
                   "generate": "client",
                   "env": "production",
@@ -4930,7 +4930,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -4940,7 +4939,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -4950,7 +4948,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -4960,7 +4957,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       }
@@ -5391,7 +5387,7 @@
                   "suiteVersion": "2026-09-12.2",
                   "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
                   "entrypoint": "svelte-official",
-                  "label": "svelte/compiler 5.57.0",
+                  "label": "svelte/compiler 5.57.1",
                   "exactPath": "svelte/compiler compile() per plant, css=external, runes=true",
                   "generate": "client",
                   "env": "development",
@@ -6850,7 +6846,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -6860,7 +6855,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -6870,7 +6864,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -6880,7 +6873,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       }
@@ -7311,7 +7303,7 @@
                   "suiteVersion": "2026-09-12.2",
                   "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
                   "entrypoint": "svelte-official",
-                  "label": "svelte/compiler 5.57.0",
+                  "label": "svelte/compiler 5.57.1",
                   "exactPath": "svelte/compiler compile() per plant, css=external, runes=true",
                   "generate": "server",
                   "env": "production",
@@ -9219,7 +9211,7 @@
                   "suiteVersion": "2026-09-12.2",
                   "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
                   "entrypoint": "svelte-official",
-                  "label": "svelte/compiler 5.57.0",
+                  "label": "svelte/compiler 5.57.1",
                   "exactPath": "svelte/compiler compile() per plant, css=external, runes=true",
                   "generate": "server",
                   "env": "development",
@@ -11163,18 +11155,18 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            85.953,
-            92.525,
-            76.335,
-            76.754,
-            76.149
+            148.328,
+            139.822,
+            123.586,
+            119.144,
+            119.201
           ],
-          "medianMs": 76.754,
-          "minMs": 76.149,
-          "maxMs": 92.525,
-          "meanMs": 81.543,
-          "stddevMs": 7.403,
-          "cvPct": 9.6,
+          "medianMs": 123.586,
+          "minMs": 119.144,
+          "maxMs": 148.328,
+          "meanMs": 130.016,
+          "stddevMs": 13.304,
+          "cvPct": 10.8,
           "metaSamples": [
             {
               "artifact": 253740
@@ -11194,7 +11186,7 @@
           ],
           "artifactMedian": 253740,
           "warmupPasses": 1,
-          "throughput": "2.6k files/s"
+          "throughput": "1.6k files/s"
         },
         {
           "id": "rsvelte-svelte2tsx",
@@ -11209,18 +11201,18 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            21.383,
-            16.046,
-            16.862,
-            25.241,
-            17.155
+            45.164,
+            39.854,
+            35.957,
+            40.17,
+            38.14
           ],
-          "medianMs": 17.155,
-          "minMs": 16.046,
-          "maxMs": 25.241,
-          "meanMs": 19.337,
-          "stddevMs": 3.897,
-          "cvPct": 22.7,
+          "medianMs": 39.854,
+          "minMs": 35.957,
+          "maxMs": 45.164,
+          "meanMs": 39.857,
+          "stddevMs": 3.407,
+          "cvPct": 8.5,
           "metaSamples": [
             {
               "artifact": 253740
@@ -11240,7 +11232,7 @@
           ],
           "artifactMedian": 253740,
           "warmupPasses": 1,
-          "throughput": "11.7k files/s"
+          "throughput": "5.0k files/s"
         },
         {
           "id": "verter-ide-projection",
@@ -11251,11 +11243,42 @@
           "invocation": "in-process",
           "baseline": false,
           "artifactLabel": "Projection bytes",
-          "notes": "Native ensureIdeCompiled/getIde Svelte path; separate class because this is Verter's IDE carrier, not a svelte2tsx-compatible schema | gate: ✗ HostError: runtime surface refused for '/home/runner/work/svelte-benchmarks/svelte-benchmarks/fixtures/200/Comp00002.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<nav>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`).",
+          "notes": "Native ensureIdeCompiled/getIde Svelte path; separate class because this is Verter's IDE carrier, not a svelte2tsx-compatible schema | gate: ✓ 200/200 valid Svelte IDE projections",
           "files": 200,
-          "status": "error",
-          "error": "HostError: runtime surface refused for '/home/runner/work/svelte-benchmarks/svelte-benchmarks/fixtures/200/Comp00002.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<nav>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`).",
-          "throughput": "n/a"
+          "status": "ok",
+          "runs": [
+            171.226,
+            174.188,
+            171.811,
+            174.17,
+            171.877
+          ],
+          "medianMs": 171.877,
+          "minMs": 171.226,
+          "maxMs": 174.188,
+          "meanMs": 172.654,
+          "stddevMs": 1.415,
+          "cvPct": 0.8,
+          "metaSamples": [
+            {
+              "artifact": 2399340
+            },
+            {
+              "artifact": 2399340
+            },
+            {
+              "artifact": 2399340
+            },
+            {
+              "artifact": 2399340
+            },
+            {
+              "artifact": 2399340
+            }
+          ],
+          "artifactMedian": 2399340,
+          "warmupPasses": 1,
+          "throughput": "1.2k files/s"
         }
       ],
       "methodology": [
@@ -11287,18 +11310,210 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            1952.979,
-            1924.548,
-            1915.969,
-            1907.245,
-            1937.031
+            3167.618,
+            3219.193,
+            3199.671,
+            3183.188,
+            3176.271
           ],
-          "medianMs": 1924.548,
-          "minMs": 1907.245,
-          "maxMs": 1952.979,
-          "meanMs": 1927.554,
-          "stddevMs": 17.972,
-          "cvPct": 0.9,
+          "medianMs": 3183.188,
+          "minMs": 3167.618,
+          "maxMs": 3219.193,
+          "meanMs": 3189.188,
+          "stddevMs": 20.484,
+          "cvPct": 0.6,
+          "metaSamples": [
+            {
+              "artifact": 0
+            },
+            {
+              "artifact": 0
+            },
+            {
+              "artifact": 0
+            },
+            {
+              "artifact": 0
+            },
+            {
+              "artifact": 0
+            }
+          ],
+          "artifactMedian": 0,
+          "warmupPasses": 1,
+          "throughput": "63 files/s"
+        },
+        {
+          "id": "svelte-check-rs",
+          "label": "svelte-check-rs",
+          "package": "svelte-check-rs",
+          "target": "default-sources",
+          "threading": "max",
+          "invocation": "cli",
+          "artifactPolarity": "informational",
+          "baseline": false,
+          "engine": "tsgo",
+          "artifactLabel": "Diagnostics",
+          "notes": "svelte-check-rs (Rust) · tsgo when available (7.0.2) | gate: script=✓ tmpl=✓ corpus=✓",
+          "files": 200,
+          "status": "ok",
+          "runs": [
+            1179.962,
+            1162.608,
+            1193.162,
+            1162.026,
+            1172.131
+          ],
+          "medianMs": 1172.131,
+          "minMs": 1162.026,
+          "maxMs": 1193.162,
+          "meanMs": 1173.978,
+          "stddevMs": 13.032,
+          "cvPct": 1.1,
+          "metaSamples": [
+            {
+              "artifact": 40
+            },
+            {
+              "artifact": 40
+            },
+            {
+              "artifact": 40
+            },
+            {
+              "artifact": 40
+            },
+            {
+              "artifact": 40
+            }
+          ],
+          "artifactMedian": 40,
+          "warmupPasses": 1,
+          "throughput": "171 files/s"
+        },
+        {
+          "id": "rsvelte-check",
+          "label": "rsvelte-check",
+          "package": "@rsvelte/svelte-check",
+          "target": "ts+svelte",
+          "threading": "max",
+          "invocation": "cli",
+          "artifactPolarity": "informational",
+          "baseline": false,
+          "engine": "tsgo",
+          "artifactLabel": "Diagnostics",
+          "notes": "rsvelte-check (@rsvelte/svelte-check) with --tsgo when tsgo is available | gate: script=✓ tmpl=✓ corpus=✓",
+          "files": 200,
+          "status": "ok",
+          "runs": [
+            378.172,
+            360.216,
+            368.856,
+            381.795,
+            366.011
+          ],
+          "medianMs": 368.856,
+          "minMs": 360.216,
+          "maxMs": 381.795,
+          "meanMs": 371.01,
+          "stddevMs": 8.857,
+          "cvPct": 2.4,
+          "metaSamples": [
+            {
+              "artifact": 20
+            },
+            {
+              "artifact": 20
+            },
+            {
+              "artifact": 20
+            },
+            {
+              "artifact": 20
+            },
+            {
+              "artifact": 20
+            }
+          ],
+          "artifactMedian": 20,
+          "warmupPasses": 1,
+          "throughput": "542 files/s"
+        },
+        {
+          "id": "svelte-check-native",
+          "label": "svelte-check-native",
+          "package": "svelte-check-native",
+          "target": "ts+svelte",
+          "threading": "max",
+          "invocation": "cli",
+          "artifactPolarity": "informational",
+          "baseline": false,
+          "engine": "tsgo",
+          "artifactLabel": "Diagnostics",
+          "notes": "svelte-check-native (harshmandan) · Rust Svelte analysis + TypeScript 7 native; CSS diagnostics excluded for every checker | gate: script=✓ tmpl=✓ corpus=✓",
+          "files": 200,
+          "status": "ok",
+          "runs": [
+            227.144,
+            223.844,
+            230.9,
+            222.872,
+            221.976
+          ],
+          "medianMs": 223.844,
+          "minMs": 221.976,
+          "maxMs": 230.9,
+          "meanMs": 225.347,
+          "stddevMs": 3.668,
+          "cvPct": 1.6,
+          "metaSamples": [
+            {
+              "artifact": 0
+            },
+            {
+              "artifact": 0
+            },
+            {
+              "artifact": 0
+            },
+            {
+              "artifact": 0
+            },
+            {
+              "artifact": 0
+            }
+          ],
+          "artifactMedian": 0,
+          "warmupPasses": 1,
+          "throughput": "893 files/s"
+        },
+        {
+          "id": "verter-tsc",
+          "label": "verter-tsc",
+          "package": "verter-tsc",
+          "target": "experimental-svelte",
+          "threading": "max",
+          "invocation": "cli",
+          "artifactPolarity": "informational",
+          "baseline": false,
+          "engine": "tsgo",
+          "artifactLabel": "Diagnostics",
+          "notes": "verter-tsc experimental Svelte path; ranked only when it reports the shared .svelte plants. | gate: script=✓ tmpl=✓ corpus=✓",
+          "files": 200,
+          "status": "ok",
+          "runs": [
+            2065.703,
+            1908.015,
+            1924.378,
+            1928.122,
+            1907.797
+          ],
+          "medianMs": 1924.378,
+          "minMs": 1907.797,
+          "maxMs": 2065.703,
+          "meanMs": 1946.803,
+          "stddevMs": 67.11,
+          "cvPct": 3.5,
           "metaSamples": [
             {
               "artifact": 0
@@ -11319,198 +11534,6 @@
           "artifactMedian": 0,
           "warmupPasses": 1,
           "throughput": "104 files/s"
-        },
-        {
-          "id": "svelte-check-rs",
-          "label": "svelte-check-rs",
-          "package": "svelte-check-rs",
-          "target": "default-sources",
-          "threading": "max",
-          "invocation": "cli",
-          "artifactPolarity": "informational",
-          "baseline": false,
-          "engine": "tsgo",
-          "artifactLabel": "Diagnostics",
-          "notes": "svelte-check-rs (Rust) · tsgo when available (7.0.2) | gate: script=✓ tmpl=✓ corpus=✓",
-          "files": 200,
-          "status": "ok",
-          "runs": [
-            771.111,
-            787.63,
-            790.132,
-            784.983,
-            783.503
-          ],
-          "medianMs": 784.983,
-          "minMs": 771.111,
-          "maxMs": 790.132,
-          "meanMs": 783.472,
-          "stddevMs": 7.361,
-          "cvPct": 0.9,
-          "metaSamples": [
-            {
-              "artifact": 40
-            },
-            {
-              "artifact": 40
-            },
-            {
-              "artifact": 40
-            },
-            {
-              "artifact": 40
-            },
-            {
-              "artifact": 40
-            }
-          ],
-          "artifactMedian": 40,
-          "warmupPasses": 1,
-          "throughput": "255 files/s"
-        },
-        {
-          "id": "rsvelte-check",
-          "label": "rsvelte-check",
-          "package": "@rsvelte/svelte-check",
-          "target": "ts+svelte",
-          "threading": "max",
-          "invocation": "cli",
-          "artifactPolarity": "informational",
-          "baseline": false,
-          "engine": "tsgo",
-          "artifactLabel": "Diagnostics",
-          "notes": "rsvelte-check (@rsvelte/svelte-check) with --tsgo when tsgo is available | gate: script=✓ tmpl=✓ corpus=✓",
-          "files": 200,
-          "status": "ok",
-          "runs": [
-            224.543,
-            216.749,
-            224.567,
-            223.207,
-            220.803
-          ],
-          "medianMs": 223.207,
-          "minMs": 216.749,
-          "maxMs": 224.567,
-          "meanMs": 221.974,
-          "stddevMs": 3.298,
-          "cvPct": 1.5,
-          "metaSamples": [
-            {
-              "artifact": 20
-            },
-            {
-              "artifact": 20
-            },
-            {
-              "artifact": 20
-            },
-            {
-              "artifact": 20
-            },
-            {
-              "artifact": 20
-            }
-          ],
-          "artifactMedian": 20,
-          "warmupPasses": 1,
-          "throughput": "896 files/s"
-        },
-        {
-          "id": "svelte-check-native",
-          "label": "svelte-check-native",
-          "package": "svelte-check-native",
-          "target": "ts+svelte",
-          "threading": "max",
-          "invocation": "cli",
-          "artifactPolarity": "informational",
-          "baseline": false,
-          "engine": "tsgo",
-          "artifactLabel": "Diagnostics",
-          "notes": "svelte-check-native (harshmandan) · Rust Svelte analysis + TypeScript 7 native; CSS diagnostics excluded for every checker | gate: script=✓ tmpl=✓ corpus=✓",
-          "files": 200,
-          "status": "ok",
-          "runs": [
-            131.729,
-            130.494,
-            138.5,
-            134.949,
-            136.568
-          ],
-          "medianMs": 134.949,
-          "minMs": 130.494,
-          "maxMs": 138.5,
-          "meanMs": 134.448,
-          "stddevMs": 3.324,
-          "cvPct": 2.5,
-          "metaSamples": [
-            {
-              "artifact": 0
-            },
-            {
-              "artifact": 0
-            },
-            {
-              "artifact": 0
-            },
-            {
-              "artifact": 0
-            },
-            {
-              "artifact": 0
-            }
-          ],
-          "artifactMedian": 0,
-          "warmupPasses": 1,
-          "throughput": "1.5k files/s"
-        },
-        {
-          "id": "verter-tsc",
-          "label": "verter-tsc",
-          "package": "verter-tsc",
-          "target": "experimental-svelte",
-          "threading": "max",
-          "invocation": "cli",
-          "artifactPolarity": "informational",
-          "baseline": false,
-          "engine": "tsgo",
-          "artifactLabel": "Diagnostics",
-          "notes": "verter-tsc experimental Svelte path; ranked only when it reports the shared .svelte plants. | gate: script=✓ tmpl=✓ corpus=✓",
-          "files": 200,
-          "status": "ok",
-          "runs": [
-            1070.848,
-            1109.176,
-            1070.79,
-            1054.677,
-            1102.424
-          ],
-          "medianMs": 1070.848,
-          "minMs": 1054.677,
-          "maxMs": 1109.176,
-          "meanMs": 1081.583,
-          "stddevMs": 23.192,
-          "cvPct": 2.2,
-          "metaSamples": [
-            {
-              "artifact": 0
-            },
-            {
-              "artifact": 0
-            },
-            {
-              "artifact": 0
-            },
-            {
-              "artifact": 0
-            },
-            {
-              "artifact": 0
-            }
-          ],
-          "artifactMedian": 0,
-          "warmupPasses": 1,
-          "throughput": "187 files/s"
         }
       ],
       "methodology": [
@@ -11541,20 +11564,20 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            1582.104,
-            1565.619,
-            1601.107,
-            1542.982,
-            1567.387
+            2571.776,
+            2558.013,
+            2562.815,
+            2576.539,
+            2559.419
           ],
-          "medianMs": 1567.387,
-          "minMs": 1542.982,
-          "maxMs": 1601.107,
-          "meanMs": 1571.84,
-          "stddevMs": 21.525,
-          "cvPct": 1.4,
+          "medianMs": 2562.815,
+          "minMs": 2558.013,
+          "maxMs": 2576.539,
+          "meanMs": 2565.712,
+          "stddevMs": 8.082,
+          "cvPct": 0.3,
           "warmupPasses": 1,
-          "throughput": "128 files/s"
+          "throughput": "78 files/s"
         },
         {
           "id": "rsvelte-fmt",
@@ -11567,20 +11590,20 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            127.426,
-            128.752,
-            129.433,
-            129.306,
-            126.147
+            163.51,
+            163.231,
+            162.98,
+            171.697,
+            166.17
           ],
-          "medianMs": 128.752,
-          "minMs": 126.147,
-          "maxMs": 129.433,
-          "meanMs": 128.213,
-          "stddevMs": 1.402,
-          "cvPct": 1.1,
+          "medianMs": 163.51,
+          "minMs": 162.98,
+          "maxMs": 171.697,
+          "meanMs": 165.518,
+          "stddevMs": 3.685,
+          "cvPct": 2.3,
           "warmupPasses": 1,
-          "throughput": "1.6k files/s"
+          "throughput": "1.2k files/s"
         },
         {
           "id": "oxfmt",
@@ -11620,20 +11643,20 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            264.089,
-            268.539,
-            228.422,
-            212.093,
-            199.939
+            380.714,
+            392.683,
+            315.966,
+            304.003,
+            321.813
           ],
-          "medianMs": 228.422,
-          "minMs": 199.939,
-          "maxMs": 268.539,
-          "meanMs": 234.616,
-          "stddevMs": 30.69,
-          "cvPct": 13.4,
+          "medianMs": 321.813,
+          "minMs": 304.003,
+          "maxMs": 392.683,
+          "meanMs": 343.036,
+          "stddevMs": 40.593,
+          "cvPct": 12.6,
           "warmupPasses": 1,
-          "throughput": "876 files/s"
+          "throughput": "621 files/s"
         },
         {
           "id": "eslint-plugin-svelte-workers",
@@ -11647,20 +11670,20 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            1091.554,
-            1014.6,
-            1050.714,
-            1042.149,
-            1024.502
+            1794.326,
+            1776.046,
+            1786.658,
+            1792.101,
+            1802.501
           ],
-          "medianMs": 1042.149,
-          "minMs": 1014.6,
-          "maxMs": 1091.554,
-          "meanMs": 1044.704,
-          "stddevMs": 29.799,
-          "cvPct": 2.9,
+          "medianMs": 1792.101,
+          "minMs": 1776.046,
+          "maxMs": 1802.501,
+          "meanMs": 1790.326,
+          "stddevMs": 9.808,
+          "cvPct": 0.5,
           "warmupPasses": 1,
-          "throughput": "192 files/s"
+          "throughput": "112 files/s"
         },
         {
           "id": "eslint-plugin-svelte-cli",
@@ -11674,20 +11697,20 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            741.212,
-            710.796,
-            688.988,
-            703.471,
-            741.117
+            1191.649,
+            1163.578,
+            1126.988,
+            1165.364,
+            1166.975
           ],
-          "medianMs": 710.796,
-          "minMs": 688.988,
-          "maxMs": 741.212,
-          "meanMs": 717.117,
-          "stddevMs": 23.313,
-          "cvPct": 3.3,
+          "medianMs": 1165.364,
+          "minMs": 1126.988,
+          "maxMs": 1191.649,
+          "meanMs": 1162.911,
+          "stddevMs": 23.126,
+          "cvPct": 2,
           "warmupPasses": 1,
-          "throughput": "281 files/s"
+          "throughput": "172 files/s"
         },
         {
           "id": "rsvelte-lint",
@@ -11701,20 +11724,20 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            85.928,
-            88.068,
-            86.781,
-            104.242,
-            91.405
+            141.204,
+            144.942,
+            140.558,
+            191.609,
+            142.167
           ],
-          "medianMs": 88.068,
-          "minMs": 85.928,
-          "maxMs": 104.242,
-          "meanMs": 91.285,
-          "stddevMs": 7.537,
-          "cvPct": 8.6,
+          "medianMs": 142.167,
+          "minMs": 140.558,
+          "maxMs": 191.609,
+          "meanMs": 152.096,
+          "stddevMs": 22.152,
+          "cvPct": 15.6,
           "warmupPasses": 1,
-          "throughput": "2.3k files/s"
+          "throughput": "1.4k files/s"
         },
         {
           "id": "verter-host-lint",
@@ -11728,18 +11751,18 @@
           "files": 200,
           "status": "unranked",
           "runs": [
-            73.588,
-            73.412,
-            76.863,
-            76.055,
-            72.708
+            126.136,
+            122.426,
+            125.288,
+            125.115,
+            126.207
           ],
-          "medianMs": 73.588,
-          "minMs": 72.708,
-          "maxMs": 76.863,
-          "meanMs": 74.525,
-          "stddevMs": 1.818,
-          "cvPct": 2.5,
+          "medianMs": 125.288,
+          "minMs": 122.426,
+          "maxMs": 126.207,
+          "meanMs": 125.034,
+          "stddevMs": 1.538,
+          "cvPct": 1.2,
           "warmupPasses": 1,
           "throughput": "n/a"
         }
@@ -11769,22 +11792,22 @@
           "invocation": "in-process",
           "baseline": false,
           "artifactLabel": "Metadata items",
-          "notes": "default AST-only extraction; cache disabled | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props",
+          "notes": "default AST-only extraction (sveld 0.38 removed resolveTypes); cache disabled | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props",
           "files": 200,
           "status": "ok",
           "runs": [
-            50.909,
-            42.957,
-            47.419,
-            33.53,
-            33.766
+            111.198,
+            106.403,
+            94.717,
+            79.992,
+            88.476
           ],
-          "medianMs": 42.957,
-          "minMs": 33.53,
-          "maxMs": 50.909,
-          "meanMs": 41.716,
-          "stddevMs": 7.887,
-          "cvPct": 18.4,
+          "medianMs": 94.717,
+          "minMs": 79.992,
+          "maxMs": 111.198,
+          "meanMs": 96.157,
+          "stddevMs": 12.783,
+          "cvPct": 13.5,
           "metaSamples": [
             {
               "artifact": 260
@@ -11804,54 +11827,7 @@
           ],
           "artifactMedian": 260,
           "warmupPasses": 1,
-          "throughput": "4.7k files/s"
-        },
-        {
-          "id": "sveld-semantic",
-          "label": "sveld (resolveTypes)",
-          "package": "sveld",
-          "target": "semantic",
-          "comparisonClass": "sveld-resolve-types-project",
-          "threading": "1t",
-          "invocation": "in-process",
-          "baseline": false,
-          "artifactLabel": "Metadata items",
-          "notes": "TypeScript semantic resolution enabled; cache disabled | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props",
-          "files": 200,
-          "status": "ok",
-          "runs": [
-            42.059,
-            49.771,
-            35.401,
-            39.83,
-            32.557
-          ],
-          "medianMs": 39.83,
-          "minMs": 32.557,
-          "maxMs": 49.771,
-          "meanMs": 39.924,
-          "stddevMs": 6.638,
-          "cvPct": 16.7,
-          "metaSamples": [
-            {
-              "artifact": 260
-            },
-            {
-              "artifact": 260
-            },
-            {
-              "artifact": 260
-            },
-            {
-              "artifact": 260
-            },
-            {
-              "artifact": 260
-            }
-          ],
-          "artifactMedian": 260,
-          "warmupPasses": 1,
-          "throughput": "5.0k files/s"
+          "throughput": "2.1k files/s"
         },
         {
           "id": "svelte-docinfo",
@@ -11867,18 +11843,18 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            396.339,
-            434.441,
-            392.188,
-            365.271,
-            367.05
+            646.397,
+            613.909,
+            588.651,
+            604.752,
+            625.121
           ],
-          "medianMs": 392.188,
-          "minMs": 365.271,
-          "maxMs": 434.441,
-          "meanMs": 391.058,
-          "stddevMs": 28.074,
-          "cvPct": 7.2,
+          "medianMs": 613.909,
+          "minMs": 588.651,
+          "maxMs": 646.397,
+          "meanMs": 615.766,
+          "stddevMs": 21.713,
+          "cvPct": 3.5,
           "metaSamples": [
             {
               "artifact": 260
@@ -11898,7 +11874,7 @@
           ],
           "artifactMedian": 260,
           "warmupPasses": 1,
-          "throughput": "510 files/s"
+          "throughput": "326 files/s"
         },
         {
           "id": "verter-typeinfo",
@@ -11910,22 +11886,22 @@
           "invocation": "in-process/native",
           "baseline": false,
           "artifactLabel": "Metadata items",
-          "notes": "@verter/typeinfo wire decoder over @verter/native's dedicated Svelte framework-surface executor | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props | ⚠ TOO NOISY TO RANK — CV 1630.4% exceeds the 50% ceiling across 5 samples. The time remains visible but is excluded from ranking.",
+          "notes": "@verter/typeinfo wire decoder over @verter/native's dedicated Svelte framework-surface executor | gate: ✓ 200/200 component records (200 unique) · 20/20 prop-bearing records (20 unique) · 60 props",
           "files": 200,
-          "status": "unranked",
+          "status": "ok",
           "runs": [
-            5150.51,
-            152.894,
-            133.692,
-            137.43,
-            137.1
+            218.106,
+            215.919,
+            202.301,
+            209.919,
+            211.772
           ],
-          "medianMs": 137.43,
-          "minMs": 133.692,
-          "maxMs": 5150.51,
-          "meanMs": 1142.325,
-          "stddevMs": 2240.656,
-          "cvPct": 1630.4,
+          "medianMs": 211.772,
+          "minMs": 202.301,
+          "maxMs": 218.106,
+          "meanMs": 211.603,
+          "stddevMs": 6.13,
+          "cvPct": 2.9,
           "metaSamples": [
             {
               "artifact": 260
@@ -11945,12 +11921,12 @@
           ],
           "artifactMedian": 260,
           "warmupPasses": 1,
-          "throughput": "n/a"
+          "throughput": "944 files/s"
         }
       ],
       "methodology": [
         "Every metadata API is a separate workload class unless its discovery, dependency traversal, semantic products, and correctness gates are equivalent. Current metadata timings are informational, without cross-tool ratios.",
-        "sveld(resolveTypes) analyzes the generated barrel/project; svelte-docinfo globs Svelte files with dependency traversal disabled. Both are semantic, but their work products are not asserted equivalent.",
+        "sveld analyzes the generated barrel/project with AST-only extraction; svelte-docinfo is TypeScript-semantic and globs Svelte files with dependency traversal disabled. Their work products are not asserted equivalent.",
         "Verter uses @verter/typeinfo's wire decoder over @verter/native's dedicated Svelte framework-surface executor. It is a separate API/workload class because sveld and svelte-docinfo perform project discovery and barrel analysis.",
         "Persistent caches are disabled and every measured pass re-analyzes the same staged files.",
         "Identity gate: component records and exact per-file prop-name sets must match the staged sources, with no missing, extra, or duplicated records.",
@@ -11972,74 +11948,74 @@
           "baseline": false,
           "engine": "tsc-js",
           "artifactLabel": "Hover bytes",
-          "notes": "Official Svelte language server (stdio) | init=313ms · open→hover=451ms · hoverWarm=1ms",
+          "notes": "Official Svelte language server (stdio) | init=482ms · open→hover=767ms · hoverWarm=1ms",
           "files": 1,
           "status": "ok",
           "runs": [
-            451.107,
-            434.597,
-            436.469,
-            445.278,
-            432.106
+            766.719,
+            757.367,
+            774.515,
+            753.725,
+            777.03
           ],
-          "medianMs": 436.469,
-          "minMs": 432.106,
-          "maxMs": 451.107,
-          "meanMs": 439.911,
-          "stddevMs": 7.987,
-          "cvPct": 1.8,
+          "medianMs": 766.719,
+          "minMs": 753.725,
+          "maxMs": 777.03,
+          "meanMs": 765.871,
+          "stddevMs": 10.245,
+          "cvPct": 1.3,
           "metaSamples": [
             {
               "artifact": 43,
-              "initMs": 313.06944799999474,
-              "openToHoverMs": 451.10700799999177,
-              "hoverWarmMedian": 0.649267000000691,
-              "completionMs": 46.226746000000276,
-              "definitionMs": 2.1765829999931157,
+              "initMs": 481.79649400000926,
+              "openToHoverMs": 766.7186759999604,
+              "hoverWarmMedian": 0.9753899999777786,
+              "completionMs": 190.78120299999136,
+              "definitionMs": 2.685918999952264,
               "contentOk": true,
               "templateOk": true,
               "hoverSample": "```typescript\nconst benchMarker: string\n```"
             },
             {
               "artifact": 43,
-              "initMs": 283.4456970000174,
-              "openToHoverMs": 434.5972640000109,
-              "hoverWarmMedian": 0.7174459999951068,
-              "completionMs": 42.65598500001943,
-              "definitionMs": 2.113489999988815,
+              "initMs": 478.14658000000054,
+              "openToHoverMs": 757.3671859999886,
+              "hoverWarmMedian": 1.0299420000519603,
+              "completionMs": 196.61031800002092,
+              "definitionMs": 3.6063560000038706,
               "contentOk": true,
               "templateOk": true,
               "hoverSample": "```typescript\nconst benchMarker: string\n```"
             },
             {
               "artifact": 43,
-              "initMs": 299.54810899999575,
-              "openToHoverMs": 436.46893199998885,
-              "hoverWarmMedian": 0.7170789999945555,
-              "completionMs": 44.08638799999608,
-              "definitionMs": 2.022843999991892,
+              "initMs": 478.05666200001724,
+              "openToHoverMs": 774.5150900000008,
+              "hoverWarmMedian": 1.0370560000301339,
+              "completionMs": 190.07404699997278,
+              "definitionMs": 2.6994240000494756,
               "contentOk": true,
               "templateOk": true,
               "hoverSample": "```typescript\nconst benchMarker: string\n```"
             },
             {
               "artifact": 43,
-              "initMs": 299.7049760000082,
-              "openToHoverMs": 445.27772700000787,
-              "hoverWarmMedian": 0.6292480000120122,
-              "completionMs": 46.74518100000569,
-              "definitionMs": 2.192364999995334,
+              "initMs": 485.55064400000265,
+              "openToHoverMs": 753.7245220000041,
+              "hoverWarmMedian": 0.9565550000406802,
+              "completionMs": 186.31135500001255,
+              "definitionMs": 2.6530780000030063,
               "contentOk": true,
               "templateOk": true,
               "hoverSample": "```typescript\nconst benchMarker: string\n```"
             },
             {
               "artifact": 43,
-              "initMs": 294.3251910000108,
-              "openToHoverMs": 432.1055210000195,
-              "hoverWarmMedian": 0.7041989999997895,
-              "completionMs": 40.99069499998586,
-              "definitionMs": 2.0285519999742974,
+              "initMs": 497.6145630000392,
+              "openToHoverMs": 777.0303790000034,
+              "hoverWarmMedian": 1.063905999995768,
+              "completionMs": 195.61482100002468,
+              "definitionMs": 2.692120999970939,
               "contentOk": true,
               "templateOk": true,
               "hoverSample": "```typescript\nconst benchMarker: string\n```"
@@ -12047,7 +12023,7 @@
           ],
           "artifactMedian": 43,
           "warmupPasses": 1,
-          "throughput": "2 files/s"
+          "throughput": "1 files/s"
         },
         {
           "id": "verter-lsp",
@@ -12058,11 +12034,82 @@
           "baseline": false,
           "engine": "tsgo",
           "artifactLabel": "Hover bytes",
-          "notes": "verter-lsp — native server (experimental Svelte carrier when enabled)",
+          "notes": "verter-lsp — native server (experimental Svelte carrier when enabled) | init=39ms · open→hover=284ms · hoverWarm=3ms",
           "files": 1,
-          "status": "error",
-          "error": "hover returned null after retries",
-          "throughput": "n/a"
+          "status": "ok",
+          "runs": [
+            284.454,
+            255.976,
+            260.419,
+            249.435,
+            253.078
+          ],
+          "medianMs": 255.976,
+          "minMs": 249.435,
+          "maxMs": 284.454,
+          "meanMs": 260.672,
+          "stddevMs": 13.889,
+          "cvPct": 5.4,
+          "metaSamples": [
+            {
+              "artifact": 43,
+              "initMs": 38.661882999993395,
+              "openToHoverMs": 284.4544360000291,
+              "hoverWarmMedian": 2.6078819999820553,
+              "completionMs": 0.9708209999953397,
+              "definitionMs": 0.8127450000029057,
+              "contentOk": true,
+              "templateOk": true,
+              "hoverSample": "```typescript\nconst benchMarker: string\n```"
+            },
+            {
+              "artifact": 43,
+              "initMs": 40.18638999998802,
+              "openToHoverMs": 255.975821,
+              "hoverWarmMedian": 0.5579370000050403,
+              "completionMs": 0.7897999999695458,
+              "definitionMs": 0.715933000028599,
+              "contentOk": true,
+              "templateOk": true,
+              "hoverSample": "```typescript\nconst benchMarker: string\n```"
+            },
+            {
+              "artifact": 43,
+              "initMs": 39.352092000015546,
+              "openToHoverMs": 260.41864700004226,
+              "hoverWarmMedian": 0.6609380000154488,
+              "completionMs": 0.846817999961786,
+              "definitionMs": 0.7542869999888353,
+              "contentOk": true,
+              "templateOk": true,
+              "hoverSample": "```typescript\nconst benchMarker: string\n```"
+            },
+            {
+              "artifact": 43,
+              "initMs": 38.999525999999605,
+              "openToHoverMs": 249.43459000001894,
+              "hoverWarmMedian": 0.6112960000173189,
+              "completionMs": 0.8599860000540502,
+              "definitionMs": 0.716221000009682,
+              "contentOk": true,
+              "templateOk": true,
+              "hoverSample": "```typescript\nconst benchMarker: string\n```"
+            },
+            {
+              "artifact": 43,
+              "initMs": 41.510691999981645,
+              "openToHoverMs": 253.07776700000977,
+              "hoverWarmMedian": 0.5925839999690652,
+              "completionMs": 0.8485419999924488,
+              "definitionMs": 0.7849600000190549,
+              "contentOk": true,
+              "templateOk": true,
+              "hoverSample": "```typescript\nconst benchMarker: string\n```"
+            }
+          ],
+          "artifactMedian": 43,
+          "warmupPasses": 1,
+          "throughput": "4 files/s"
         }
       ],
       "methodology": [
@@ -12091,18 +12138,18 @@
           "files": 1,
           "status": "ok",
           "runs": [
-            157.674,
-            159.089,
-            156.345,
-            175.55,
-            160.934
+            259.962,
+            263.555,
+            260.892,
+            263.301,
+            284.52
           ],
-          "medianMs": 159.089,
-          "minMs": 156.345,
-          "maxMs": 175.55,
-          "meanMs": 161.918,
-          "stddevMs": 7.808,
-          "cvPct": 4.9,
+          "medianMs": 263.301,
+          "minMs": 259.962,
+          "maxMs": 284.52,
+          "meanMs": 266.446,
+          "stddevMs": 10.22,
+          "cvPct": 3.9,
           "metaSamples": [
             {
               "artifact": 176
@@ -12122,7 +12169,7 @@
           ],
           "artifactMedian": 176,
           "warmupPasses": 1,
-          "throughput": "6 files/s"
+          "throughput": "4 files/s"
         },
         {
           "id": "rsvelte-ls-format",
@@ -12136,18 +12183,18 @@
           "files": 1,
           "status": "ok",
           "runs": [
-            1.308,
-            1.289,
-            1.402,
-            1.287,
-            1.31
+            1.853,
+            1.836,
+            1.971,
+            1.442,
+            1.783
           ],
-          "medianMs": 1.308,
-          "minMs": 1.287,
-          "maxMs": 1.402,
-          "meanMs": 1.319,
-          "stddevMs": 0.047,
-          "cvPct": 3.6,
+          "medianMs": 1.836,
+          "minMs": 1.442,
+          "maxMs": 1.971,
+          "meanMs": 1.777,
+          "stddevMs": 0.199,
+          "cvPct": 10.9,
           "metaSamples": [
             {
               "artifact": 176
@@ -12167,7 +12214,7 @@
           ],
           "artifactMedian": 176,
           "warmupPasses": 1,
-          "throughput": "765 files/s"
+          "throughput": "545 files/s"
         },
         {
           "id": "verter-ls-format",
@@ -12181,18 +12228,18 @@
           "files": 1,
           "status": "unranked",
           "runs": [
-            4.74,
-            4.665,
-            4.713,
-            4.611,
-            4.854
+            6.944,
+            2.023,
+            1.654,
+            2.177,
+            7.068
           ],
-          "medianMs": 4.713,
-          "minMs": 4.611,
-          "maxMs": 4.854,
-          "meanMs": 4.717,
-          "stddevMs": 0.091,
-          "cvPct": 1.9,
+          "medianMs": 2.177,
+          "minMs": 1.654,
+          "maxMs": 7.068,
+          "meanMs": 3.973,
+          "stddevMs": 2.775,
+          "cvPct": 127.5,
           "metaSamples": [
             {
               "artifact": 167
@@ -12242,18 +12289,18 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            314.665,
-            319.376,
-            313.795,
-            307.825,
-            296.972
+            508.521,
+            512.544,
+            508.722,
+            498.189,
+            473.671
           ],
-          "medianMs": 313.795,
-          "minMs": 296.972,
-          "maxMs": 319.376,
-          "meanMs": 310.527,
-          "stddevMs": 8.619,
-          "cvPct": 2.7,
+          "medianMs": 508.521,
+          "minMs": 473.671,
+          "maxMs": 512.544,
+          "meanMs": 500.329,
+          "stddevMs": 15.827,
+          "cvPct": 3.1,
           "metaSamples": [
             {
               "artifact": 300455
@@ -12273,7 +12320,7 @@
           ],
           "artifactMedian": 300455,
           "warmupPasses": 1,
-          "throughput": "637 files/s"
+          "throughput": "393 files/s"
         },
         {
           "id": "vite-svelte-rsvelte",
@@ -12289,18 +12336,18 @@
           "files": 200,
           "status": "ok",
           "runs": [
-            211.921,
-            211.978,
-            283.027,
-            203.112,
-            201.662
+            338.539,
+            341.755,
+            391.497,
+            324.828,
+            314.426
           ],
-          "medianMs": 211.921,
-          "minMs": 201.662,
-          "maxMs": 283.027,
-          "meanMs": 222.34,
-          "stddevMs": 34.264,
-          "cvPct": 16.2,
+          "medianMs": 338.539,
+          "minMs": 314.426,
+          "maxMs": 391.497,
+          "meanMs": 342.209,
+          "stddevMs": 29.652,
+          "cvPct": 8.8,
           "metaSamples": [
             {
               "artifact": 300455
@@ -12320,7 +12367,7 @@
           ],
           "artifactMedian": 300455,
           "warmupPasses": 1,
-          "throughput": "944 files/s"
+          "throughput": "591 files/s"
         }
       ],
       "methodology": [
@@ -12351,18 +12398,18 @@
           "files": 1,
           "status": "ok",
           "runs": [
-            16.448,
-            14.453,
-            16.255,
-            14.192,
-            16.178
+            28.359,
+            24.262,
+            22.452,
+            24.109,
+            25.465
           ],
-          "medianMs": 16.178,
-          "minMs": 14.192,
-          "maxMs": 16.448,
-          "meanMs": 15.505,
-          "stddevMs": 1.088,
-          "cvPct": 6.7,
+          "medianMs": 24.262,
+          "minMs": 22.452,
+          "maxMs": 28.359,
+          "meanMs": 24.929,
+          "stddevMs": 2.197,
+          "cvPct": 9.1,
           "metaSamples": [
             {
               "artifact": 517
@@ -12382,7 +12429,7 @@
           ],
           "artifactMedian": 517,
           "warmupPasses": 1,
-          "throughput": "62 files/s"
+          "throughput": "41 files/s"
         },
         {
           "id": "hmr-vite-svelte-rsvelte",
@@ -12398,18 +12445,18 @@
           "files": 1,
           "status": "ok",
           "runs": [
-            18.805,
-            14.508,
-            14.005,
-            13.584,
-            14.835
+            27.112,
+            22.283,
+            23.729,
+            21.751,
+            23.743
           ],
-          "medianMs": 14.508,
-          "minMs": 13.584,
-          "maxMs": 18.805,
-          "meanMs": 15.147,
-          "stddevMs": 2.1,
-          "cvPct": 14.5,
+          "medianMs": 23.729,
+          "minMs": 21.751,
+          "maxMs": 27.112,
+          "meanMs": 23.724,
+          "stddevMs": 2.089,
+          "cvPct": 8.8,
           "metaSamples": [
             {
               "artifact": 516
@@ -12429,7 +12476,7 @@
           ],
           "artifactMedian": 516,
           "warmupPasses": 1,
-          "throughput": "69 files/s"
+          "throughput": "42 files/s"
         }
       ],
       "methodology": [

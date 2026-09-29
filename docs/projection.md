@@ -10,12 +10,12 @@ Ranked on the **median of measured runs** — Warm is the primary ordering and r
 
 </details>
 
-- **Generated:** 2026-09-18T13:11:29.670Z
+- **Generated:** 2026-09-29T12:45:43.678Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
 - **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 9V45 96-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [649f404](https://github.com/pikax/svelte-benchmarks/commit/649f404)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026
+- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
+- **Commit:** [1bc177a](https://github.com/pikax/svelte-benchmarks/commit/1bc177a)
+- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/36569419030
 - **Source:** `bench-Linux-200-bench.json`
 
 ### Svelte TypeScript projection
@@ -37,8 +37,8 @@ Tools:
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | TSX bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| @rsvelte/svelte2tsx (Wasm) | 200 | **17.2 ms** | 16.0 ms | 3.9 ms | 22.7% ⚠ | 1.00x | 253,740 | 182.363 MB | 11.7k files/s |
-| svelte2tsx | 200 | **76.8 ms** | 76.1 ms | 7.4 ms | 9.6% | 4.47x | 253,740 | 132.172 MB | 2.6k files/s |
+| @rsvelte/svelte2tsx (Wasm) | 200 | **39.9 ms** | 36.0 ms | 3.4 ms | 8.5% | 1.00x | 253,740 | 184.977 MB | 5.0k files/s |
+| svelte2tsx | 200 | **123.6 ms** | 119.1 ms | 13.3 ms | 10.8% ⚠ | 3.10x | 253,740 | 132.504 MB | 1.6k files/s |
 
 <details><summary>Notes</summary>
 
@@ -49,13 +49,18 @@ Tools:
 
 ##### VERTER-IDE-PROJECTION — separate workload
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/projection-bench-linux-200-bench-projection-projection-class-ver-1iuap19-dark.svg">
+  <img src="charts/projection-bench-linux-200-bench-projection-projection-class-ver-1iuap19.svg" alt="Svelte TypeScript projection — VERTER-IDE-PROJECTION" width="760">
+</picture>
+
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | Projection bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Verter IDE projection ❌ | 200 | error | – | – | – | – | – | – | – |
+| Verter IDE projection | 200 | **171.9 ms** | 171.2 ms | 1.4 ms | 0.8% | — | 2,399,340 | 97.969 MB | — |
 
 <details><summary>Notes</summary>
 
-- **Verter IDE projection ❌**: HostError: runtime surface refused for '/home/runner/work/svelte-benchmarks/svelte-benchmarks/fixtures/200/Comp00002.svelte': svelte-runtime-unsupported-element: Svelte client emission does not yet support the `<nav>` element (it is not in the finite client-core element allowlist `a` / `button` / `div` / `h1` / `input` / `p`).
+- **Verter IDE projection**: Native ensureIdeCompiled/getIde Svelte path; separate class because this is Verter's IDE carrier, not a svelte2tsx-compatible schema | gate: ✓ 200/200 valid Svelte IDE projections
 
 </details>
 
@@ -69,8 +74,9 @@ Tools:
 
 Raw runs:
 
-- **@rsvelte/svelte2tsx (Wasm)**: 21.4 ms, 16.0 ms, 16.9 ms, 25.2 ms, 17.2 ms
-- **svelte2tsx**: 86.0 ms, 92.5 ms, 76.3 ms, 76.8 ms, 76.1 ms
+- **@rsvelte/svelte2tsx (Wasm)**: 45.2 ms, 39.9 ms, 36.0 ms, 40.2 ms, 38.1 ms
+- **svelte2tsx**: 148.3 ms, 139.8 ms, 123.6 ms, 119.1 ms, 119.2 ms
+- **Verter IDE projection**: 171.2 ms, 174.2 ms, 171.8 ms, 174.2 ms, 171.9 ms
 
 </details>
 
@@ -88,9 +94,9 @@ Raw runs:
 
 | Surface | Tool | Peak RSS | Retained Δ | CPU ms | Status |
 | --- | --- | ---: | ---: | ---: | --- |
-| projection | svelte2tsx | 132.2 MB | 83.727 MB | 1103.211 | ok |
-| projection | @rsvelte/svelte2tsx (Wasm) | 182.4 MB | 135.422 MB | 575.539 | ok |
-| projection | Verter IDE projection | n/a | n/a | n/a | error |
+| projection | svelte2tsx | 132.5 MB | 83.945 MB | 1111.022 | ok |
+| projection | @rsvelte/svelte2tsx (Wasm) | 185.0 MB | 122.363 MB | 597.318 | ok |
+| projection | Verter IDE projection | 98.0 MB | 51.766 MB | 257.728 | ok |
 
 ## Tool versions
 
@@ -98,45 +104,45 @@ Raw runs:
 
 | Package | Version |
 | --- | --- |
-| svelte | 5.57.0 |
+| svelte | 5.57.1 |
 | svelte-check | 4.7.6 |
 | svelte-check-rs | 0.11.2 |
-| svelte-check-native | 1.7.0 |
+| svelte-check-native | 1.8.0 |
 | @mrwaip/svelte-rs | 0.0.0-canary.15.1 |
-| @rsvelte/compiler | 0.12.3 |
-| @rsvelte/svelte2tsx | 0.2.27 |
-| @rsvelte/svelte-check | 0.5.29 |
-| @rsvelte/language-server | 0.7.9 |
-| @rsvelte/fmt | 0.7.24 |
-| @rsvelte/lint | 0.12.3 |
-| @rsvelte/vite-plugin-svelte-native | 0.3.14 |
+| @rsvelte/compiler | 0.12.6 |
+| @rsvelte/svelte2tsx | 0.2.28 |
+| @rsvelte/svelte-check | 0.5.32 |
+| @rsvelte/language-server | 0.7.13 |
+| @rsvelte/fmt | 0.7.25 |
+| @rsvelte/lint | 0.12.6 |
+| @rsvelte/vite-plugin-svelte-native | 0.3.17 |
 | @rsvelte/vite-plugin-svelte | 0.5.3 |
-| @sveltejs/vite-plugin-svelte | 7.3.0 |
-| vite | 8.3.0 |
-| @verter/native | 0.0.1-beta.5 |
-| @verter/typeinfo | 0.0.1-beta.5 |
-| @verter/proto | 0.0.1-beta.5 |
-| @bufbuild/protobuf | 2.15.0 |
-| verter-tsc | 0.0.1-beta.5 |
-| verter-lsp | 0.0.1-beta.5 |
+| @sveltejs/vite-plugin-svelte | 7.3.1 |
+| vite | 8.3.1 |
+| @verter/native | 0.0.1-beta.6 |
+| @verter/typeinfo | 0.0.1-beta.6 |
+| @verter/proto | 0.0.1-beta.6 |
+| @bufbuild/protobuf | 2.16.0 |
+| verter-tsc | 0.0.1-beta.6 |
+| verter-lsp | 0.0.1-beta.6 |
 | svelte-language-server | 0.18.4 |
 | svelte2tsx | 0.7.61 |
-| sveld | 0.37.3 |
+| sveld | 0.38.0 |
 | svelte-docinfo | 0.7.0 |
-| prettier | 3.9.8 |
+| prettier | 3.9.9 |
 | prettier-plugin-svelte | 4.1.1 |
-| oxfmt | 0.68.0 |
+| oxfmt | 0.71.0 |
 | eslint-plugin-svelte | 3.23.0 |
 | typescript | 6.0.3 |
 | cli:svelte-check | 4.7.6 |
 | cli:svelte-check-rs | 0.11.2 |
-| cli:svelte-check-native | 1.7.0 |
+| cli:svelte-check-native | 1.8.0 |
 | cli:rsvelte-check | unknown |
-| cli:rsvelte-fmt | 0.7.24 |
-| cli:rsvelte-lint | 0.12.3 |
-| cli:prettier | 3.9.8 |
-| cli:oxfmt | 0.68.0 |
-| cli:verter-tsc | 0.0.1-beta.5 |
+| cli:rsvelte-fmt | 0.7.25 |
+| cli:rsvelte-lint | 0.12.6 |
+| cli:prettier | 3.9.9 |
+| cli:oxfmt | 0.71.0 |
+| cli:verter-tsc | 0.0.1-beta.6 |
 
 </details>
 

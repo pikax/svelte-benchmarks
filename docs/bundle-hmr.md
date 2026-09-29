@@ -10,12 +10,12 @@ Ranked on the **median of measured runs** — Warm is the primary ordering and r
 
 </details>
 
-- **Generated:** 2026-09-18T13:11:29.670Z
+- **Generated:** 2026-09-29T12:45:43.678Z
 - **Fixture:** `fixtures/200` (200 Svelte files)
 - **Runs / warmups:** 5 / 1
-- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 9V45 96-Core Processor · 16 GB RAM · Node v22.23.2
-- **Commit:** [649f404](https://github.com/pikax/svelte-benchmarks/commit/649f404)
-- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/35348270026
+- **Runner:** Linux · linux/x64 · 4 CPUs · AMD EPYC 7763 64-Core Processor · 16 GB RAM · Node v22.23.2
+- **Commit:** [1bc177a](https://github.com/pikax/svelte-benchmarks/commit/1bc177a)
+- **CI run:** https://github.com/pikax/svelte-benchmarks/actions/runs/36569419030
 - **Source:** `bench-Linux-200-bench.json`
 
 ### Vite production bundle (generated Svelte graph)
@@ -31,8 +31,8 @@ Files: **200** · Bytes: **134,760**
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | bundle bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Vite 7 × @rsvelte/vite-plugin-svelte | 200 | **211.9 ms** | 201.7 ms | 34.3 ms | 16.2% ⚠ | 1.00x | 300,455 | n/a | 944 files/s |
-| Vite 7 × @sveltejs/vite-plugin-svelte | 200 | **313.8 ms** | 297.0 ms | 8.6 ms | 2.7% | 1.48x | 300,455 | n/a | 637 files/s |
+| Vite 7 × @rsvelte/vite-plugin-svelte | 200 | **338.5 ms** | 314.4 ms | 29.7 ms | 8.8% | 1.00x | 300,455 | n/a | 591 files/s |
+| Vite 7 × @sveltejs/vite-plugin-svelte | 200 | **508.5 ms** | 473.7 ms | 15.8 ms | 3.1% | 1.50x | 300,455 | n/a | 393 files/s |
 
 <details><summary>Notes</summary>
 
@@ -51,8 +51,8 @@ Files: **200** · Bytes: **134,760**
 
 Raw runs:
 
-- **Vite 7 × @rsvelte/vite-plugin-svelte**: 211.9 ms, 212.0 ms, 283.0 ms, 203.1 ms, 201.7 ms
-- **Vite 7 × @sveltejs/vite-plugin-svelte**: 314.7 ms, 319.4 ms, 313.8 ms, 307.8 ms, 297.0 ms
+- **Vite 7 × @rsvelte/vite-plugin-svelte**: 338.5 ms, 341.8 ms, 391.5 ms, 324.8 ms, 314.4 ms
+- **Vite 7 × @sveltejs/vite-plugin-svelte**: 508.5 ms, 512.5 ms, 508.7 ms, 498.2 ms, 473.7 ms
 
 </details>
 
@@ -69,8 +69,8 @@ Files: **1** · Bytes: **99**
 
 | Tool | Files | **Median (primary)** | Min | Stddev | CV% | vs fastest | module bytes | Peak RSS | Throughput |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Vite 7 × @rsvelte/vite-plugin-svelte | 1 | **14.5 ms** | 13.6 ms | 2.1 ms | 14.5% ⚠ | 1.00x | 516 | n/a | 69 files/s |
-| Vite 7 × @sveltejs/vite-plugin-svelte | 1 | **16.2 ms** | 14.2 ms | 1.1 ms | 6.7% | 1.12x | 517 | n/a | 62 files/s |
+| Vite 7 × @rsvelte/vite-plugin-svelte | 1 | **23.7 ms** | 21.8 ms | 2.1 ms | 8.8% | 1.00x | 516 | n/a | 42 files/s |
+| Vite 7 × @sveltejs/vite-plugin-svelte | 1 | **24.3 ms** | 22.5 ms | 2.2 ms | 9.1% | 1.02x | 517 | n/a | 41 files/s |
 
 <details><summary>Notes</summary>
 
@@ -89,8 +89,8 @@ Files: **1** · Bytes: **99**
 
 Raw runs:
 
-- **Vite 7 × @rsvelte/vite-plugin-svelte**: 18.8 ms, 14.5 ms, 14.0 ms, 13.6 ms, 14.8 ms
-- **Vite 7 × @sveltejs/vite-plugin-svelte**: 16.4 ms, 14.5 ms, 16.3 ms, 14.2 ms, 16.2 ms
+- **Vite 7 × @rsvelte/vite-plugin-svelte**: 27.1 ms, 22.3 ms, 23.7 ms, 21.8 ms, 23.7 ms
+- **Vite 7 × @sveltejs/vite-plugin-svelte**: 28.4 ms, 24.3 ms, 22.5 ms, 24.1 ms, 25.5 ms
 
 </details>
 
@@ -100,45 +100,45 @@ Raw runs:
 
 | Package | Version |
 | --- | --- |
-| svelte | 5.57.0 |
+| svelte | 5.57.1 |
 | svelte-check | 4.7.6 |
 | svelte-check-rs | 0.11.2 |
-| svelte-check-native | 1.7.0 |
+| svelte-check-native | 1.8.0 |
 | @mrwaip/svelte-rs | 0.0.0-canary.15.1 |
-| @rsvelte/compiler | 0.12.3 |
-| @rsvelte/svelte2tsx | 0.2.27 |
-| @rsvelte/svelte-check | 0.5.29 |
-| @rsvelte/language-server | 0.7.9 |
-| @rsvelte/fmt | 0.7.24 |
-| @rsvelte/lint | 0.12.3 |
-| @rsvelte/vite-plugin-svelte-native | 0.3.14 |
+| @rsvelte/compiler | 0.12.6 |
+| @rsvelte/svelte2tsx | 0.2.28 |
+| @rsvelte/svelte-check | 0.5.32 |
+| @rsvelte/language-server | 0.7.13 |
+| @rsvelte/fmt | 0.7.25 |
+| @rsvelte/lint | 0.12.6 |
+| @rsvelte/vite-plugin-svelte-native | 0.3.17 |
 | @rsvelte/vite-plugin-svelte | 0.5.3 |
-| @sveltejs/vite-plugin-svelte | 7.3.0 |
-| vite | 8.3.0 |
-| @verter/native | 0.0.1-beta.5 |
-| @verter/typeinfo | 0.0.1-beta.5 |
-| @verter/proto | 0.0.1-beta.5 |
-| @bufbuild/protobuf | 2.15.0 |
-| verter-tsc | 0.0.1-beta.5 |
-| verter-lsp | 0.0.1-beta.5 |
+| @sveltejs/vite-plugin-svelte | 7.3.1 |
+| vite | 8.3.1 |
+| @verter/native | 0.0.1-beta.6 |
+| @verter/typeinfo | 0.0.1-beta.6 |
+| @verter/proto | 0.0.1-beta.6 |
+| @bufbuild/protobuf | 2.16.0 |
+| verter-tsc | 0.0.1-beta.6 |
+| verter-lsp | 0.0.1-beta.6 |
 | svelte-language-server | 0.18.4 |
 | svelte2tsx | 0.7.61 |
-| sveld | 0.37.3 |
+| sveld | 0.38.0 |
 | svelte-docinfo | 0.7.0 |
-| prettier | 3.9.8 |
+| prettier | 3.9.9 |
 | prettier-plugin-svelte | 4.1.1 |
-| oxfmt | 0.68.0 |
+| oxfmt | 0.71.0 |
 | eslint-plugin-svelte | 3.23.0 |
 | typescript | 6.0.3 |
 | cli:svelte-check | 4.7.6 |
 | cli:svelte-check-rs | 0.11.2 |
-| cli:svelte-check-native | 1.7.0 |
+| cli:svelte-check-native | 1.8.0 |
 | cli:rsvelte-check | unknown |
-| cli:rsvelte-fmt | 0.7.24 |
-| cli:rsvelte-lint | 0.12.3 |
-| cli:prettier | 3.9.8 |
-| cli:oxfmt | 0.68.0 |
-| cli:verter-tsc | 0.0.1-beta.5 |
+| cli:rsvelte-fmt | 0.7.25 |
+| cli:rsvelte-lint | 0.12.6 |
+| cli:prettier | 3.9.9 |
+| cli:oxfmt | 0.71.0 |
+| cli:verter-tsc | 0.0.1-beta.6 |
 
 </details>
 
