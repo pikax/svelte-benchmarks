@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "kind": "real-world",
-  "generatedAt": "2026-09-18T13:14:10.971Z",
+  "generatedAt": "2026-09-29T12:46:10.191Z",
   "fixture": "pinned real-world Svelte source checkouts",
   "fileCount": 287,
   "corpora": [
@@ -39,56 +39,56 @@
     "arch": "x64",
     "cpuCount": 4,
     "cpuModel": "AMD EPYC 7763 64-Core Processor",
-    "totalmem": 16766414848,
+    "totalmem": 16770748416,
     "node": "v22.23.2"
   },
   "commit": {
-    "sha": "649f40499ddb19405eaa8a8e95412702a047b79c",
+    "sha": "1bc177a4498c795618e370b7d1729a7b64de1266",
     "ref": "main",
     "repository": "pikax/svelte-benchmarks",
-    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/35348275151"
+    "runUrl": "https://github.com/pikax/svelte-benchmarks/actions/runs/36569517081"
   },
   "versions": {
     "node": "v22.23.2",
-    "svelte": "5.57.0",
+    "svelte": "5.57.1",
     "svelte-check": "4.7.6",
     "svelte-check-rs": "0.11.2",
-    "svelte-check-native": "1.7.0",
+    "svelte-check-native": "1.8.0",
     "@mrwaip/svelte-rs": "0.0.0-canary.15.1",
-    "@rsvelte/compiler": "0.12.3",
-    "@rsvelte/svelte2tsx": "0.2.27",
-    "@rsvelte/svelte-check": "0.5.29",
-    "@rsvelte/language-server": "0.7.9",
-    "@rsvelte/fmt": "0.7.24",
-    "@rsvelte/lint": "0.12.3",
-    "@rsvelte/vite-plugin-svelte-native": "0.3.14",
+    "@rsvelte/compiler": "0.12.6",
+    "@rsvelte/svelte2tsx": "0.2.28",
+    "@rsvelte/svelte-check": "0.5.32",
+    "@rsvelte/language-server": "0.7.13",
+    "@rsvelte/fmt": "0.7.25",
+    "@rsvelte/lint": "0.12.6",
+    "@rsvelte/vite-plugin-svelte-native": "0.3.17",
     "@rsvelte/vite-plugin-svelte": "0.5.3",
-    "@sveltejs/vite-plugin-svelte": "7.3.0",
-    "vite": "8.3.0",
-    "@verter/native": "0.0.1-beta.5",
-    "@verter/typeinfo": "0.0.1-beta.5",
-    "@verter/proto": "0.0.1-beta.5",
-    "@bufbuild/protobuf": "2.15.0",
-    "verter-tsc": "0.0.1-beta.5",
-    "verter-lsp": "0.0.1-beta.5",
+    "@sveltejs/vite-plugin-svelte": "7.3.1",
+    "vite": "8.3.1",
+    "@verter/native": "0.0.1-beta.6",
+    "@verter/typeinfo": "0.0.1-beta.6",
+    "@verter/proto": "0.0.1-beta.6",
+    "@bufbuild/protobuf": "2.16.0",
+    "verter-tsc": "0.0.1-beta.6",
+    "verter-lsp": "0.0.1-beta.6",
     "svelte-language-server": "0.18.4",
     "svelte2tsx": "0.7.61",
-    "sveld": "0.37.3",
+    "sveld": "0.38.0",
     "svelte-docinfo": "0.7.0",
-    "prettier": "3.9.8",
+    "prettier": "3.9.9",
     "prettier-plugin-svelte": "4.1.1",
-    "oxfmt": "0.68.0",
+    "oxfmt": "0.71.0",
     "eslint-plugin-svelte": "3.23.0",
     "typescript": "6.0.3",
     "cli:svelte-check": "4.7.6",
     "cli:svelte-check-rs": "0.11.2",
-    "cli:svelte-check-native": "1.7.0",
+    "cli:svelte-check-native": "1.8.0",
     "cli:rsvelte-check": "unknown",
-    "cli:rsvelte-fmt": "0.7.24",
-    "cli:rsvelte-lint": "0.12.3",
-    "cli:prettier": "3.9.8",
-    "cli:oxfmt": "0.68.0",
-    "cli:verter-tsc": "0.0.1-beta.5"
+    "cli:rsvelte-fmt": "0.7.25",
+    "cli:rsvelte-lint": "0.12.6",
+    "cli:prettier": "3.9.9",
+    "cli:oxfmt": "0.71.0",
+    "cli:verter-tsc": "0.0.1-beta.6"
   },
   "methodology": [
     "Every corpus is a pinned third-party checkout. The report records repo, ref, immutable commit SHA, file count, corpus kind, and license.",
@@ -114,7 +114,7 @@
           "variants": [
             {
               "id": "svelte-official-1t-client-prod",
-              "label": "svelte/compiler 5.57.0 (1T)",
+              "label": "svelte/compiler 5.57.1 (1T)",
               "package": "svelte",
               "target": "client",
               "comparisonClass": "svelte",
@@ -122,112 +122,112 @@
               "threading": "1t",
               "invocation": "in-process",
               "baseline": true,
-              "baselineLabel": "Svelte 5.57.0 (official)",
+              "baselineLabel": "Svelte 5.57.1 (official)",
               "artifactLabel": "Code bytes",
               "notes": "Official svelte/compiler compile(), generate=client, dev=false, css=external, runes=auto | runtime gate: ✓ 287/287 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)",
               "files": 287,
               "status": "ok",
               "runs": [
-                1062.933,
-                1096.578,
-                1068.068,
-                1012.029,
-                1072.625
+                997.365,
+                1028.859,
+                986.183,
+                849.158,
+                947.589
               ],
-              "medianMs": 1068.068,
-              "minMs": 1012.029,
-              "maxMs": 1096.578,
-              "meanMs": 1062.447,
-              "stddevMs": 30.993,
-              "cvPct": 2.9,
+              "medianMs": 986.183,
+              "minMs": 849.158,
+              "maxMs": 1028.859,
+              "meanMs": 961.831,
+              "stddevMs": 69.366,
+              "cvPct": 7,
               "metaSamples": [
                 {
                   "inputSourceHash": "e40bfd06d5d143274636ac75c9b68b33f752d9972375ddfc6c2645dbb5c496a1",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1750066
+                  "artifact": 1751195
                 },
                 {
                   "inputSourceHash": "3d6f7f87f5b954fe844b5127f912238ea9f3a3022163aff80b6bb2cb61419a25",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1750066
+                  "artifact": 1751195
                 },
                 {
                   "inputSourceHash": "bdb786b02da16c0bd0e9a04cb5d8a4c5e80ba6ea2d945e9b4a727eb3dbe34bdb",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1750066
+                  "artifact": 1751195
                 },
                 {
                   "inputSourceHash": "532d81adeaa4052ebce3313abccc3d7fabb138381bbd78057a6379bb63dfdcfa",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1750066
+                  "artifact": 1751195
                 },
                 {
                   "inputSourceHash": "32efc01bfb6a8632fc8c28f3d42972b3d8689b9ff02b1363f1d1c99ad75cdfec",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1750066
+                  "artifact": 1751195
                 }
               ],
-              "artifactMedian": 1750066,
+              "artifactMedian": 1751195,
               "warmupPasses": 1,
-              "throughput": "269 files/s",
+              "throughput": "291 files/s",
               "freshChildRuns": [
-                1281.369,
-                1278.062,
-                1366.054,
-                1320.403,
-                1277.025
+                1110.495,
+                1149.449,
+                1131.412,
+                1162.394,
+                1124.254
               ],
-              "freshChildMedianMs": 1281.369,
-              "freshChildMinMs": 1277.025,
-              "freshChildMeanMs": 1304.583,
-              "freshChildStddevMs": 38.829,
-              "freshChildCvPct": 3,
+              "freshChildMedianMs": 1131.412,
+              "freshChildMinMs": 1110.495,
+              "freshChildMeanMs": 1135.601,
+              "freshChildStddevMs": 20.532,
+              "freshChildCvPct": 1.8,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "848aedf9f19c505bca89ed6fd9375cf62caddb29e78ab15a6c78c4dfd05e7335",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1281.369307,
-                  "artifact": 1750066,
-                  "rssBytes": 512307200
+                  "ms": 1110.4946739999996,
+                  "artifact": 1751195,
+                  "rssBytes": 491630592
                 },
                 {
                   "inputSourceHash": "5f81c3f3d658448493ea8527bceed8bae9751591ffab48ea6dea327e9faca36f",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1278.06214,
-                  "artifact": 1750066,
-                  "rssBytes": 459698176
+                  "ms": 1149.4494160000004,
+                  "artifact": 1751195,
+                  "rssBytes": 487153664
                 },
                 {
                   "inputSourceHash": "ceb242a5088528a82deb91c9fc2fa95b708baae28a6d85a19dd3cf80d03728c3",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1366.0535950000003,
-                  "artifact": 1750066,
-                  "rssBytes": 522432512
+                  "ms": 1131.4121610000002,
+                  "artifact": 1751195,
+                  "rssBytes": 472948736
                 },
                 {
                   "inputSourceHash": "cdfa8022961b5f22bf387b98c62b5d0bfa0acc20254cae4a4c1aa3bd5dbdb908",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1320.4025179999999,
-                  "artifact": 1750066,
-                  "rssBytes": 553050112
+                  "ms": 1162.3937610000003,
+                  "artifact": 1751195,
+                  "rssBytes": 486612992
                 },
                 {
                   "inputSourceHash": "1ec9722c6b44f70e52f42430c092e513be68b37b5b893bc9ba28c19fac8757cf",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1277.0249370000001,
-                  "artifact": 1750066,
-                  "rssBytes": 494284800
+                  "ms": 1124.2543190000006,
+                  "artifact": 1751195,
+                  "rssBytes": 477458432
                 }
               ]
             },
@@ -246,18 +246,18 @@
               "files": 287,
               "status": "unranked",
               "runs": [
-                94.341,
-                93.538,
-                93.365,
-                96.53,
-                95.893
+                97.071,
+                93.595,
+                92.137,
+                92.474,
+                91.572
               ],
-              "medianMs": 94.341,
-              "minMs": 93.365,
-              "maxMs": 96.53,
-              "meanMs": 94.733,
-              "stddevMs": 1.417,
-              "cvPct": 1.5,
+              "medianMs": 92.474,
+              "minMs": 91.572,
+              "maxMs": 97.071,
+              "meanMs": 93.37,
+              "stddevMs": 2.197,
+              "cvPct": 2.4,
               "metaSamples": [
                 {
                   "inputSourceHash": "e40bfd06d5d143274636ac75c9b68b33f752d9972375ddfc6c2645dbb5c496a1",
@@ -294,58 +294,58 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                108.521,
-                96.814,
-                95.311,
-                98.243,
-                97.916
+                95.467,
+                95.523,
+                93.811,
+                93.429,
+                93.149
               ],
-              "freshChildMedianMs": 97.916,
-              "freshChildMinMs": 95.311,
-              "freshChildMeanMs": 99.361,
-              "freshChildStddevMs": 5.247,
-              "freshChildCvPct": 5.4,
+              "freshChildMedianMs": 93.811,
+              "freshChildMinMs": 93.149,
+              "freshChildMeanMs": 94.276,
+              "freshChildStddevMs": 1.138,
+              "freshChildCvPct": 1.2,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "848aedf9f19c505bca89ed6fd9375cf62caddb29e78ab15a6c78c4dfd05e7335",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 108.52139200000056,
+                  "ms": 95.46745699999974,
                   "artifact": 1502774,
-                  "rssBytes": 493572096
+                  "rssBytes": 462450688
                 },
                 {
                   "inputSourceHash": "5f81c3f3d658448493ea8527bceed8bae9751591ffab48ea6dea327e9faca36f",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 96.81384100000014,
+                  "ms": 95.52329499999996,
                   "artifact": 1502774,
-                  "rssBytes": 503324672
+                  "rssBytes": 461770752
                 },
                 {
                   "inputSourceHash": "ceb242a5088528a82deb91c9fc2fa95b708baae28a6d85a19dd3cf80d03728c3",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 95.31052199999976,
+                  "ms": 93.81066099999953,
                   "artifact": 1502774,
-                  "rssBytes": 488546304
+                  "rssBytes": 479576064
                 },
                 {
                   "inputSourceHash": "cdfa8022961b5f22bf387b98c62b5d0bfa0acc20254cae4a4c1aa3bd5dbdb908",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 98.24305700000059,
+                  "ms": 93.42895899999985,
                   "artifact": 1502774,
-                  "rssBytes": 499834880
+                  "rssBytes": 455573504
                 },
                 {
                   "inputSourceHash": "1ec9722c6b44f70e52f42430c092e513be68b37b5b893bc9ba28c19fac8757cf",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 97.9158039999993,
+                  "ms": 93.14867099999992,
                   "artifact": 1502774,
-                  "rssBytes": 503824384
+                  "rssBytes": 461381632
                 }
               ],
               "unranked": true
@@ -365,106 +365,106 @@
               "files": 287,
               "status": "unranked",
               "runs": [
-                1013.456,
-                998.516,
-                1018.441,
-                1060.736,
-                1009.297
+                1043.757,
+                1030.136,
+                1011.912,
+                1052.872,
+                1006.839
               ],
-              "medianMs": 1013.456,
-              "minMs": 998.516,
-              "maxMs": 1060.736,
-              "meanMs": 1020.089,
-              "stddevMs": 23.879,
-              "cvPct": 2.4,
+              "medianMs": 1030.136,
+              "minMs": 1006.839,
+              "maxMs": 1052.872,
+              "meanMs": 1029.103,
+              "stddevMs": 19.824,
+              "cvPct": 1.9,
               "metaSamples": [
                 {
                   "inputSourceHash": "e40bfd06d5d143274636ac75c9b68b33f752d9972375ddfc6c2645dbb5c496a1",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1748245
+                  "artifact": 1749286
                 },
                 {
                   "inputSourceHash": "3d6f7f87f5b954fe844b5127f912238ea9f3a3022163aff80b6bb2cb61419a25",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1748245
+                  "artifact": 1749286
                 },
                 {
                   "inputSourceHash": "bdb786b02da16c0bd0e9a04cb5d8a4c5e80ba6ea2d945e9b4a727eb3dbe34bdb",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1748245
+                  "artifact": 1749286
                 },
                 {
                   "inputSourceHash": "532d81adeaa4052ebce3313abccc3d7fabb138381bbd78057a6379bb63dfdcfa",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1748245
+                  "artifact": 1749286
                 },
                 {
                   "inputSourceHash": "32efc01bfb6a8632fc8c28f3d42972b3d8689b9ff02b1363f1d1c99ad75cdfec",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1748245
+                  "artifact": 1749286
                 }
               ],
-              "artifactMedian": 1748245,
+              "artifactMedian": 1749286,
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                1079.026,
-                1051.266,
-                1087.178,
-                1099.02,
-                1097.473
+                1043.333,
+                1068.902,
+                1058.069,
+                1026.368,
+                1052.958
               ],
-              "freshChildMedianMs": 1087.178,
-              "freshChildMinMs": 1051.266,
-              "freshChildMeanMs": 1082.793,
-              "freshChildStddevMs": 19.405,
-              "freshChildCvPct": 1.8,
+              "freshChildMedianMs": 1052.958,
+              "freshChildMinMs": 1026.368,
+              "freshChildMeanMs": 1049.926,
+              "freshChildStddevMs": 16.078,
+              "freshChildCvPct": 1.5,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "848aedf9f19c505bca89ed6fd9375cf62caddb29e78ab15a6c78c4dfd05e7335",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1079.025764,
-                  "artifact": 1748245,
-                  "rssBytes": 497762304
+                  "ms": 1043.3333659999998,
+                  "artifact": 1749286,
+                  "rssBytes": 480215040
                 },
                 {
                   "inputSourceHash": "5f81c3f3d658448493ea8527bceed8bae9751591ffab48ea6dea327e9faca36f",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1051.266047,
-                  "artifact": 1748245,
-                  "rssBytes": 514453504
+                  "ms": 1068.9020680000003,
+                  "artifact": 1749286,
+                  "rssBytes": 464310272
                 },
                 {
                   "inputSourceHash": "ceb242a5088528a82deb91c9fc2fa95b708baae28a6d85a19dd3cf80d03728c3",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1087.178465,
-                  "artifact": 1748245,
-                  "rssBytes": 493006848
+                  "ms": 1058.0694429999994,
+                  "artifact": 1749286,
+                  "rssBytes": 467943424
                 },
                 {
                   "inputSourceHash": "cdfa8022961b5f22bf387b98c62b5d0bfa0acc20254cae4a4c1aa3bd5dbdb908",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1099.0197640000006,
-                  "artifact": 1748245,
-                  "rssBytes": 492961792
+                  "ms": 1026.3677849999995,
+                  "artifact": 1749286,
+                  "rssBytes": 476942336
                 },
                 {
                   "inputSourceHash": "1ec9722c6b44f70e52f42430c092e513be68b37b5b893bc9ba28c19fac8757cf",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1097.4728620000005,
-                  "artifact": 1748245,
-                  "rssBytes": 503992320
+                  "ms": 1052.9580720000004,
+                  "artifact": 1749286,
+                  "rssBytes": 489484288
                 }
               ],
               "unranked": true
@@ -480,110 +480,110 @@
               "invocation": "in-process",
               "baseline": false,
               "artifactLabel": "Code bytes",
-              "notes": "rsvelte NAPI compile(), generate=client, dev=false, css=external | runtime gate: ✓ 287/287 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.script: mapped to 2:19; expected 2:17; lf-styles: js.script: mapped to 2:19; expected 2:17). The timing remains visible but cannot rank until the emitted maps are correct.",
+              "notes": "rsvelte NAPI compile(), generate=client, dev=false, css=external | runtime gate: ✓ 287/287 parseable outputs use svelte/internal/client and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ⚠ SOURCE-MAP COORDINATE VALIDITY FAIL — all 33 runtime plants passed, but generated JS/CSS tokens did not trace back to their exact source positions (lf-raw: js.template: generated token has no original mapping; lf-styles: js.template: generated token has no original mapping). The timing remains visible but cannot rank until the emitted maps are correct.",
               "files": 287,
               "status": "unranked",
               "runs": [
-                397.845,
-                380.953,
-                382.618,
-                384.031,
-                378.733
+                413.013,
+                386.094,
+                383.155,
+                386.803,
+                381.873
               ],
-              "medianMs": 382.618,
-              "minMs": 378.733,
-              "maxMs": 397.845,
-              "meanMs": 384.836,
-              "stddevMs": 7.535,
-              "cvPct": 2,
+              "medianMs": 386.094,
+              "minMs": 381.873,
+              "maxMs": 413.013,
+              "meanMs": 390.188,
+              "stddevMs": 12.921,
+              "cvPct": 3.3,
               "metaSamples": [
                 {
                   "inputSourceHash": "e40bfd06d5d143274636ac75c9b68b33f752d9972375ddfc6c2645dbb5c496a1",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1748162
+                  "artifact": 1749286
                 },
                 {
                   "inputSourceHash": "3d6f7f87f5b954fe844b5127f912238ea9f3a3022163aff80b6bb2cb61419a25",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1748162
+                  "artifact": 1749286
                 },
                 {
                   "inputSourceHash": "bdb786b02da16c0bd0e9a04cb5d8a4c5e80ba6ea2d945e9b4a727eb3dbe34bdb",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1748162
+                  "artifact": 1749286
                 },
                 {
                   "inputSourceHash": "532d81adeaa4052ebce3313abccc3d7fabb138381bbd78057a6379bb63dfdcfa",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1748162
+                  "artifact": 1749286
                 },
                 {
                   "inputSourceHash": "32efc01bfb6a8632fc8c28f3d42972b3d8689b9ff02b1363f1d1c99ad75cdfec",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1748162
+                  "artifact": 1749286
                 }
               ],
-              "artifactMedian": 1748162,
+              "artifactMedian": 1749286,
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                387.374,
-                380.484,
-                399.379,
-                391.272,
-                394.005
+                382.171,
+                383.809,
+                381.215,
+                379.594,
+                381.302
               ],
-              "freshChildMedianMs": 391.272,
-              "freshChildMinMs": 380.484,
-              "freshChildMeanMs": 390.503,
-              "freshChildStddevMs": 7.103,
-              "freshChildCvPct": 1.8,
+              "freshChildMedianMs": 381.302,
+              "freshChildMinMs": 379.594,
+              "freshChildMeanMs": 381.618,
+              "freshChildStddevMs": 1.538,
+              "freshChildCvPct": 0.4,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "848aedf9f19c505bca89ed6fd9375cf62caddb29e78ab15a6c78c4dfd05e7335",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 387.37419299999965,
-                  "artifact": 1748162,
-                  "rssBytes": 515735552
+                  "ms": 382.17099699999926,
+                  "artifact": 1749286,
+                  "rssBytes": 488357888
                 },
                 {
                   "inputSourceHash": "5f81c3f3d658448493ea8527bceed8bae9751591ffab48ea6dea327e9faca36f",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 380.48358499999995,
-                  "artifact": 1748162,
-                  "rssBytes": 494198784
+                  "ms": 383.8091429999995,
+                  "artifact": 1749286,
+                  "rssBytes": 489992192
                 },
                 {
                   "inputSourceHash": "ceb242a5088528a82deb91c9fc2fa95b708baae28a6d85a19dd3cf80d03728c3",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 399.3787430000002,
-                  "artifact": 1748162,
-                  "rssBytes": 510885888
+                  "ms": 381.21484599999985,
+                  "artifact": 1749286,
+                  "rssBytes": 482373632
                 },
                 {
                   "inputSourceHash": "cdfa8022961b5f22bf387b98c62b5d0bfa0acc20254cae4a4c1aa3bd5dbdb908",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 391.2722389999999,
-                  "artifact": 1748162,
-                  "rssBytes": 511082496
+                  "ms": 379.59403099999963,
+                  "artifact": 1749286,
+                  "rssBytes": 467902464
                 },
                 {
                   "inputSourceHash": "1ec9722c6b44f70e52f42430c092e513be68b37b5b893bc9ba28c19fac8757cf",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 394.0047049999994,
-                  "artifact": 1748162,
-                  "rssBytes": 509968384
+                  "ms": 381.3022120000005,
+                  "artifact": 1749286,
+                  "rssBytes": 472678400
                 }
               ],
               "unranked": true
@@ -603,18 +603,18 @@
               "files": 287,
               "status": "unranked",
               "runs": [
-                163.015,
-                166.032,
-                165.666,
-                163.214,
-                159.355
+                218.224,
+                215.614,
+                191.715,
+                188.769,
+                187.605
               ],
-              "medianMs": 163.214,
-              "minMs": 159.355,
-              "maxMs": 166.032,
-              "meanMs": 163.456,
-              "stddevMs": 2.674,
-              "cvPct": 1.6,
+              "medianMs": 191.715,
+              "minMs": 187.605,
+              "maxMs": 218.224,
+              "meanMs": 200.385,
+              "stddevMs": 15.195,
+              "cvPct": 7.9,
               "metaSamples": [
                 {
                   "inputSourceHash": "e40bfd06d5d143274636ac75c9b68b33f752d9972375ddfc6c2645dbb5c496a1",
@@ -768,24 +768,24 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                162.162,
-                166.64,
-                166.43,
-                163.837,
-                165.38
+                194.467,
+                190.861,
+                186.596,
+                190.277,
+                186.254
               ],
-              "freshChildMedianMs": 165.38,
-              "freshChildMinMs": 162.162,
-              "freshChildMeanMs": 164.89,
-              "freshChildStddevMs": 1.886,
-              "freshChildCvPct": 1.1,
+              "freshChildMedianMs": 190.277,
+              "freshChildMinMs": 186.254,
+              "freshChildMeanMs": 189.691,
+              "freshChildStddevMs": 3.388,
+              "freshChildCvPct": 1.8,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "848aedf9f19c505bca89ed6fd9375cf62caddb29e78ab15a6c78c4dfd05e7335",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 162.16211899999962,
+                  "ms": 194.46705399999973,
                   "artifact": 0,
                   "returnedCount": 287,
                   "emittedFiles": 0,
@@ -810,13 +810,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 529461248
+                  "rssBytes": 490893312
                 },
                 {
                   "inputSourceHash": "5f81c3f3d658448493ea8527bceed8bae9751591ffab48ea6dea327e9faca36f",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 166.64008000000013,
+                  "ms": 190.8607860000002,
                   "artifact": 0,
                   "returnedCount": 287,
                   "emittedFiles": 0,
@@ -841,13 +841,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 531427328
+                  "rssBytes": 508968960
                 },
                 {
                   "inputSourceHash": "ceb242a5088528a82deb91c9fc2fa95b708baae28a6d85a19dd3cf80d03728c3",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 166.43037000000004,
+                  "ms": 186.5960009999999,
                   "artifact": 0,
                   "returnedCount": 287,
                   "emittedFiles": 0,
@@ -872,13 +872,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 526016512
+                  "rssBytes": 494825472
                 },
                 {
                   "inputSourceHash": "cdfa8022961b5f22bf387b98c62b5d0bfa0acc20254cae4a4c1aa3bd5dbdb908",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 163.8365990000002,
+                  "ms": 190.27741100000003,
                   "artifact": 0,
                   "returnedCount": 287,
                   "emittedFiles": 0,
@@ -903,13 +903,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 511152128
+                  "rssBytes": 500195328
                 },
                 {
                   "inputSourceHash": "1ec9722c6b44f70e52f42430c092e513be68b37b5b893bc9ba28c19fac8757cf",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 165.37954400000035,
+                  "ms": 186.25408400000015,
                   "artifact": 0,
                   "returnedCount": 287,
                   "emittedFiles": 0,
@@ -934,7 +934,7 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 526028800
+                  "rssBytes": 494252032
                 }
               ],
               "unranked": true
@@ -949,7 +949,7 @@
           "variants": [
             {
               "id": "svelte-official-1t-server-prod",
-              "label": "svelte/compiler 5.57.0 (1T)",
+              "label": "svelte/compiler 5.57.1 (1T)",
               "package": "svelte",
               "target": "server",
               "comparisonClass": "svelte",
@@ -957,112 +957,112 @@
               "threading": "1t",
               "invocation": "in-process",
               "baseline": true,
-              "baselineLabel": "Svelte 5.57.0 (official)",
+              "baselineLabel": "Svelte 5.57.1 (official)",
               "artifactLabel": "Code bytes",
               "notes": "Official svelte/compiler compile(), generate=server, dev=false, css=external, runes=auto | runtime gate: ✓ 287/287 parseable outputs use svelte/internal/server and match official CSS presence; dev option changes output | ⓘ adapter parity: 10 distinct input revisions across 10 passes (warm + fresh child) | ✓ runtime semantic validity: 33/33 plants passed through svelte/compiler compile() per plant, css=external, runes=true | ✓ source-map coordinates: 4/4 anchored tokens traced exactly (LF/CRLF, non-BMP)",
               "files": 287,
               "status": "ok",
               "runs": [
-                895.194,
-                902.244,
-                924.497,
-                986.946,
-                870.22
+                727.507,
+                733.748,
+                739.28,
+                765.318,
+                679.991
               ],
-              "medianMs": 902.244,
-              "minMs": 870.22,
-              "maxMs": 986.946,
-              "meanMs": 915.82,
-              "stddevMs": 44.225,
-              "cvPct": 4.9,
+              "medianMs": 733.748,
+              "minMs": 679.991,
+              "maxMs": 765.318,
+              "meanMs": 729.169,
+              "stddevMs": 31.029,
+              "cvPct": 4.2,
               "metaSamples": [
                 {
                   "inputSourceHash": "0e3ec68a92509a8a3783df5089377d50cbb2df0cc14a0c7813f3530d29ebbbcd",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1262630
+                  "artifact": 1262780
                 },
                 {
                   "inputSourceHash": "f775092abc92db7313151debba6fe2feb1957724d7c0369c1818e03f71d50ffd",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1262630
+                  "artifact": 1262780
                 },
                 {
                   "inputSourceHash": "446bd1ef07a818cfbdd6119cf388f3feab85219f032bdd13078de86377f6cb5e",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1262630
+                  "artifact": 1262780
                 },
                 {
                   "inputSourceHash": "2e8b7d5eb3b1987dda3dd4eea98c4420299010c670efa979db9fa75bf3b35612",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1262630
+                  "artifact": 1262780
                 },
                 {
                   "inputSourceHash": "cfafc7cfe935dbaeae118ea8ddf1ab6fad52d6458601872e2c81422ead30dec5",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1262630
+                  "artifact": 1262780
                 }
               ],
-              "artifactMedian": 1262630,
+              "artifactMedian": 1262780,
               "warmupPasses": 1,
-              "throughput": "318 files/s",
+              "throughput": "391 files/s",
               "freshChildRuns": [
-                1116.786,
-                1210.792,
-                1085.347,
-                1100.228,
-                1068.696
+                935.716,
+                982.329,
+                998.829,
+                945.108,
+                955.129
               ],
-              "freshChildMedianMs": 1100.228,
-              "freshChildMinMs": 1068.696,
-              "freshChildMeanMs": 1116.37,
-              "freshChildStddevMs": 55.703,
-              "freshChildCvPct": 5.1,
+              "freshChildMedianMs": 955.129,
+              "freshChildMinMs": 935.716,
+              "freshChildMeanMs": 963.422,
+              "freshChildStddevMs": 26.377,
+              "freshChildCvPct": 2.8,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "3146c07a09aa0c860779f60522e3055c456a04d6207565bc423a63b2dc17c0f1",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1116.7857009999998,
-                  "artifact": 1262630,
-                  "rssBytes": 496693248
+                  "ms": 935.7163439999999,
+                  "artifact": 1262780,
+                  "rssBytes": 495194112
                 },
                 {
                   "inputSourceHash": "00c958e6056c1216cfc7368ad8b8c96876fcd9de5208e41acd8e783f8fb54a03",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1210.791819,
-                  "artifact": 1262630,
-                  "rssBytes": 496693248
+                  "ms": 982.3292519999995,
+                  "artifact": 1262780,
+                  "rssBytes": 491216896
                 },
                 {
                   "inputSourceHash": "92c1373642d1428388cf37af0e4c33123853b911a1a288cc524aa7de0b0faeee",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1085.3466740000003,
-                  "artifact": 1262630,
-                  "rssBytes": 496693248
+                  "ms": 998.8288000000002,
+                  "artifact": 1262780,
+                  "rssBytes": 477925376
                 },
                 {
                   "inputSourceHash": "82f7d7a907c751b680425c1df62ec73bf6a73e8dc4b930d9a3e9651d32e80fca",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1100.2275220000001,
-                  "artifact": 1262630,
-                  "rssBytes": 496693248
+                  "ms": 945.1081490000006,
+                  "artifact": 1262780,
+                  "rssBytes": 478437376
                 },
                 {
                   "inputSourceHash": "d85e60631c06d13e18873d5a89e3f58bc59f965f853295e89071160046a5c7ea",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 1068.695702,
-                  "artifact": 1262630,
-                  "rssBytes": 496693248
+                  "ms": 955.1287440000001,
+                  "artifact": 1262780,
+                  "rssBytes": 467861504
                 }
               ]
             },
@@ -1081,18 +1081,18 @@
               "files": 287,
               "status": "unranked",
               "runs": [
-                79.502,
-                79.512,
-                77.202,
-                77.825,
-                78.156
+                77.823,
+                76.648,
+                74.631,
+                74.872,
+                74.617
               ],
-              "medianMs": 78.156,
-              "minMs": 77.202,
-              "maxMs": 79.512,
-              "meanMs": 78.439,
-              "stddevMs": 1.033,
-              "cvPct": 1.3,
+              "medianMs": 74.872,
+              "minMs": 74.617,
+              "maxMs": 77.823,
+              "meanMs": 75.718,
+              "stddevMs": 1.45,
+              "cvPct": 1.9,
               "metaSamples": [
                 {
                   "inputSourceHash": "0e3ec68a92509a8a3783df5089377d50cbb2df0cc14a0c7813f3530d29ebbbcd",
@@ -1129,58 +1129,58 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                79.929,
-                82.312,
-                84.606,
-                80.224,
-                80.527
+                78.523,
+                79.108,
+                78.459,
+                79.07,
+                78.333
               ],
-              "freshChildMedianMs": 80.527,
-              "freshChildMinMs": 79.929,
-              "freshChildMeanMs": 81.52,
-              "freshChildStddevMs": 1.959,
-              "freshChildCvPct": 2.4,
+              "freshChildMedianMs": 78.523,
+              "freshChildMinMs": 78.333,
+              "freshChildMeanMs": 78.699,
+              "freshChildStddevMs": 0.363,
+              "freshChildCvPct": 0.5,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "3146c07a09aa0c860779f60522e3055c456a04d6207565bc423a63b2dc17c0f1",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 79.92921000000024,
+                  "ms": 78.52310499999976,
                   "artifact": 1001022,
-                  "rssBytes": 496693248
+                  "rssBytes": 427958272
                 },
                 {
                   "inputSourceHash": "00c958e6056c1216cfc7368ad8b8c96876fcd9de5208e41acd8e783f8fb54a03",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 82.31191399999989,
+                  "ms": 79.10832100000016,
                   "artifact": 1001022,
-                  "rssBytes": 496693248
+                  "rssBytes": 427319296
                 },
                 {
                   "inputSourceHash": "92c1373642d1428388cf37af0e4c33123853b911a1a288cc524aa7de0b0faeee",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 84.60595900000044,
+                  "ms": 78.45866699999988,
                   "artifact": 1001022,
-                  "rssBytes": 496693248
+                  "rssBytes": 445493248
                 },
                 {
                   "inputSourceHash": "82f7d7a907c751b680425c1df62ec73bf6a73e8dc4b930d9a3e9651d32e80fca",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 80.22422499999993,
+                  "ms": 79.0698910000001,
                   "artifact": 1001022,
-                  "rssBytes": 496693248
+                  "rssBytes": 432308224
                 },
                 {
                   "inputSourceHash": "d85e60631c06d13e18873d5a89e3f58bc59f965f853295e89071160046a5c7ea",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 80.52711799999952,
+                  "ms": 78.33275099999992,
                   "artifact": 1001022,
-                  "rssBytes": 496693248
+                  "rssBytes": 451411968
                 }
               ],
               "unranked": true
@@ -1200,106 +1200,106 @@
               "files": 287,
               "status": "ok",
               "runs": [
-                729.708,
-                720.546,
-                721.101,
-                717.061,
-                721.138
+                700.952,
+                700.392,
+                698.767,
+                700.587,
+                699.877
               ],
-              "medianMs": 721.101,
-              "minMs": 717.061,
-              "maxMs": 729.708,
-              "meanMs": 721.911,
-              "stddevMs": 4.675,
-              "cvPct": 0.6,
+              "medianMs": 700.392,
+              "minMs": 698.767,
+              "maxMs": 700.952,
+              "meanMs": 700.115,
+              "stddevMs": 0.848,
+              "cvPct": 0.1,
               "metaSamples": [
                 {
                   "inputSourceHash": "0e3ec68a92509a8a3783df5089377d50cbb2df0cc14a0c7813f3530d29ebbbcd",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1260940
+                  "artifact": 1261064
                 },
                 {
                   "inputSourceHash": "f775092abc92db7313151debba6fe2feb1957724d7c0369c1818e03f71d50ffd",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1260940
+                  "artifact": 1261064
                 },
                 {
                   "inputSourceHash": "446bd1ef07a818cfbdd6119cf388f3feab85219f032bdd13078de86377f6cb5e",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1260940
+                  "artifact": 1261064
                 },
                 {
                   "inputSourceHash": "2e8b7d5eb3b1987dda3dd4eea98c4420299010c670efa979db9fa75bf3b35612",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1260940
+                  "artifact": 1261064
                 },
                 {
                   "inputSourceHash": "cfafc7cfe935dbaeae118ea8ddf1ab6fad52d6458601872e2c81422ead30dec5",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1260940
+                  "artifact": 1261064
                 }
               ],
-              "artifactMedian": 1260940,
+              "artifactMedian": 1261064,
               "warmupPasses": 1,
-              "throughput": "398 files/s",
+              "throughput": "410 files/s",
               "freshChildRuns": [
-                754.099,
-                772.951,
-                772.173,
-                756.533,
-                754.861
+                732.462,
+                723.253,
+                737.625,
+                731.313,
+                738.583
               ],
-              "freshChildMedianMs": 756.533,
-              "freshChildMinMs": 754.099,
-              "freshChildMeanMs": 762.123,
-              "freshChildStddevMs": 9.574,
-              "freshChildCvPct": 1.3,
+              "freshChildMedianMs": 732.462,
+              "freshChildMinMs": 723.253,
+              "freshChildMeanMs": 732.647,
+              "freshChildStddevMs": 6.125,
+              "freshChildCvPct": 0.8,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "3146c07a09aa0c860779f60522e3055c456a04d6207565bc423a63b2dc17c0f1",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 754.098806,
-                  "artifact": 1260940,
-                  "rssBytes": 496693248
+                  "ms": 732.4624180000001,
+                  "artifact": 1261064,
+                  "rssBytes": 458727424
                 },
                 {
                   "inputSourceHash": "00c958e6056c1216cfc7368ad8b8c96876fcd9de5208e41acd8e783f8fb54a03",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 772.9514300000001,
-                  "artifact": 1260940,
-                  "rssBytes": 496693248
+                  "ms": 723.2532379999998,
+                  "artifact": 1261064,
+                  "rssBytes": 421163008
                 },
                 {
                   "inputSourceHash": "92c1373642d1428388cf37af0e4c33123853b911a1a288cc524aa7de0b0faeee",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 772.1725690000003,
-                  "artifact": 1260940,
-                  "rssBytes": 496693248
+                  "ms": 737.6248130000004,
+                  "artifact": 1261064,
+                  "rssBytes": 442396672
                 },
                 {
                   "inputSourceHash": "82f7d7a907c751b680425c1df62ec73bf6a73e8dc4b930d9a3e9651d32e80fca",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 756.5329110000002,
-                  "artifact": 1260940,
-                  "rssBytes": 496693248
+                  "ms": 731.3132270000001,
+                  "artifact": 1261064,
+                  "rssBytes": 438669312
                 },
                 {
                   "inputSourceHash": "d85e60631c06d13e18873d5a89e3f58bc59f965f853295e89071160046a5c7ea",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 754.8611839999994,
-                  "artifact": 1260940,
-                  "rssBytes": 496693248
+                  "ms": 738.5829999999996,
+                  "artifact": 1261064,
+                  "rssBytes": 447610880
                 }
               ]
             },
@@ -1318,106 +1318,106 @@
               "files": 287,
               "status": "ok",
               "runs": [
-                266.779,
-                263.392,
-                262.971,
-                266.811,
-                263.378
+                254.52,
+                249.921,
+                252.231,
+                250.656,
+                251.193
               ],
-              "medianMs": 263.392,
-              "minMs": 262.971,
-              "maxMs": 266.811,
-              "meanMs": 264.666,
-              "stddevMs": 1.951,
+              "medianMs": 251.193,
+              "minMs": 249.921,
+              "maxMs": 254.52,
+              "meanMs": 251.704,
+              "stddevMs": 1.785,
               "cvPct": 0.7,
               "metaSamples": [
                 {
                   "inputSourceHash": "0e3ec68a92509a8a3783df5089377d50cbb2df0cc14a0c7813f3530d29ebbbcd",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1260940
+                  "artifact": 1261064
                 },
                 {
                   "inputSourceHash": "f775092abc92db7313151debba6fe2feb1957724d7c0369c1818e03f71d50ffd",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1260940
+                  "artifact": 1261064
                 },
                 {
                   "inputSourceHash": "446bd1ef07a818cfbdd6119cf388f3feab85219f032bdd13078de86377f6cb5e",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1260940
+                  "artifact": 1261064
                 },
                 {
                   "inputSourceHash": "2e8b7d5eb3b1987dda3dd4eea98c4420299010c670efa979db9fa75bf3b35612",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1260940
+                  "artifact": 1261064
                 },
                 {
                   "inputSourceHash": "cfafc7cfe935dbaeae118ea8ddf1ab6fad52d6458601872e2c81422ead30dec5",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "artifact": 1260940
+                  "artifact": 1261064
                 }
               ],
-              "artifactMedian": 1260940,
+              "artifactMedian": 1261064,
               "warmupPasses": 1,
               "throughput": "1.1k files/s",
               "freshChildRuns": [
-                254.049,
-                262.533,
-                256.436,
-                252.869,
-                255.453
+                248.785,
+                249.459,
+                249.139,
+                248.616,
+                249.036
               ],
-              "freshChildMedianMs": 255.453,
-              "freshChildMinMs": 252.869,
-              "freshChildMeanMs": 256.268,
-              "freshChildStddevMs": 3.756,
-              "freshChildCvPct": 1.5,
+              "freshChildMedianMs": 249.036,
+              "freshChildMinMs": 248.616,
+              "freshChildMeanMs": 249.007,
+              "freshChildStddevMs": 0.326,
+              "freshChildCvPct": 0.1,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "3146c07a09aa0c860779f60522e3055c456a04d6207565bc423a63b2dc17c0f1",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 254.04864799999996,
-                  "artifact": 1260940,
-                  "rssBytes": 496693248
+                  "ms": 248.78526299999976,
+                  "artifact": 1261064,
+                  "rssBytes": 422559744
                 },
                 {
                   "inputSourceHash": "00c958e6056c1216cfc7368ad8b8c96876fcd9de5208e41acd8e783f8fb54a03",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 262.53307099999984,
-                  "artifact": 1260940,
-                  "rssBytes": 496693248
+                  "ms": 249.4585659999998,
+                  "artifact": 1261064,
+                  "rssBytes": 422154240
                 },
                 {
                   "inputSourceHash": "92c1373642d1428388cf37af0e4c33123853b911a1a288cc524aa7de0b0faeee",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 256.43636700000025,
-                  "artifact": 1260940,
-                  "rssBytes": 496693248
+                  "ms": 249.13877200000024,
+                  "artifact": 1261064,
+                  "rssBytes": 454533120
                 },
                 {
                   "inputSourceHash": "82f7d7a907c751b680425c1df62ec73bf6a73e8dc4b930d9a3e9651d32e80fca",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 252.86919699999999,
-                  "artifact": 1260940,
-                  "rssBytes": 496693248
+                  "ms": 248.61629900000025,
+                  "artifact": 1261064,
+                  "rssBytes": 427978752
                 },
                 {
                   "inputSourceHash": "d85e60631c06d13e18873d5a89e3f58bc59f965f853295e89071160046a5c7ea",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 255.45259799999985,
-                  "artifact": 1260940,
-                  "rssBytes": 496693248
+                  "ms": 249.0358839999999,
+                  "artifact": 1261064,
+                  "rssBytes": 421261312
                 }
               ]
             },
@@ -1436,18 +1436,18 @@
               "files": 287,
               "status": "unranked",
               "runs": [
-                85.802,
-                89.675,
-                84.142,
-                87.316,
-                85.025
+                89.107,
+                84.211,
+                86.387,
+                86.92,
+                87.8
               ],
-              "medianMs": 85.802,
-              "minMs": 84.142,
-              "maxMs": 89.675,
-              "meanMs": 86.392,
-              "stddevMs": 2.174,
-              "cvPct": 2.5,
+              "medianMs": 86.92,
+              "minMs": 84.211,
+              "maxMs": 89.107,
+              "meanMs": 86.885,
+              "stddevMs": 1.815,
+              "cvPct": 2.1,
               "metaSamples": [
                 {
                   "inputSourceHash": "0e3ec68a92509a8a3783df5089377d50cbb2df0cc14a0c7813f3530d29ebbbcd",
@@ -1601,24 +1601,24 @@
               "warmupPasses": 1,
               "throughput": "n/a",
               "freshChildRuns": [
-                85.622,
-                82.527,
-                83.213,
-                84.103,
-                85.587
+                85.226,
+                82.357,
+                81.859,
+                82.692,
+                83.754
               ],
-              "freshChildMedianMs": 84.103,
-              "freshChildMinMs": 82.527,
-              "freshChildMeanMs": 84.21,
-              "freshChildStddevMs": 1.39,
-              "freshChildCvPct": 1.7,
+              "freshChildMedianMs": 82.692,
+              "freshChildMinMs": 81.859,
+              "freshChildMeanMs": 83.178,
+              "freshChildStddevMs": 1.339,
+              "freshChildCvPct": 1.6,
               "freshChildProcessModel": "fresh-child-first-timed-row-workload",
               "freshChildMetaSamples": [
                 {
                   "inputSourceHash": "3146c07a09aa0c860779f60522e3055c456a04d6207565bc423a63b2dc17c0f1",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 85.62194900000031,
+                  "ms": 85.22645799999964,
                   "artifact": 0,
                   "returnedCount": 287,
                   "emittedFiles": 0,
@@ -1643,13 +1643,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 511922176
+                  "rssBytes": 458469376
                 },
                 {
                   "inputSourceHash": "00c958e6056c1216cfc7368ad8b8c96876fcd9de5208e41acd8e783f8fb54a03",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 82.52743800000007,
+                  "ms": 82.3567280000002,
                   "artifact": 0,
                   "returnedCount": 287,
                   "emittedFiles": 0,
@@ -1674,13 +1674,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 508162048
+                  "rssBytes": 479453184
                 },
                 {
                   "inputSourceHash": "92c1373642d1428388cf37af0e4c33123853b911a1a288cc524aa7de0b0faeee",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 83.2131059999997,
+                  "ms": 81.85937000000013,
                   "artifact": 0,
                   "returnedCount": 287,
                   "emittedFiles": 0,
@@ -1705,13 +1705,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 510480384
+                  "rssBytes": 464019456
                 },
                 {
                   "inputSourceHash": "82f7d7a907c751b680425c1df62ec73bf6a73e8dc4b930d9a3e9651d32e80fca",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 84.10255700000016,
+                  "ms": 82.6915039999999,
                   "artifact": 0,
                   "returnedCount": 287,
                   "emittedFiles": 0,
@@ -1736,13 +1736,13 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 496693248
+                  "rssBytes": 442793984
                 },
                 {
                   "inputSourceHash": "d85e60631c06d13e18873d5a89e3f58bc59f965f853295e89071160046a5c7ea",
                   "inputCount": 287,
                   "inputBytes": 988286,
-                  "ms": 85.58730500000001,
+                  "ms": 83.7540140000001,
                   "artifact": 0,
                   "returnedCount": 287,
                   "emittedFiles": 0,
@@ -1767,7 +1767,7 @@
                     }
                   ],
                   "cacheHits": 0,
-                  "rssBytes": 506130432
+                  "rssBytes": 470867968
                 }
               ],
               "unranked": true
@@ -1794,7 +1794,7 @@
                   "suiteVersion": "2026-09-12.2",
                   "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
                   "entrypoint": "svelte-official",
-                  "label": "svelte/compiler 5.57.0",
+                  "label": "svelte/compiler 5.57.1",
                   "exactPath": "svelte/compiler compile() per plant, css=external, runes=true",
                   "generate": "client",
                   "env": "production",
@@ -3253,7 +3253,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -3263,7 +3262,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -3273,7 +3271,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       },
@@ -3283,7 +3280,6 @@
                         "status": "FAIL",
                         "phase": "compile",
                         "failures": [
-                          "js.script: mapped to 2:19; expected 2:17",
                           "js.template: generated token has no original mapping"
                         ]
                       }
@@ -3714,7 +3710,7 @@
                   "suiteVersion": "2026-09-12.2",
                   "suiteHash": "451381a174028d80618736c2cfc4d91249f2d64f89f76ce17f2d3637f5afc1b3",
                   "entrypoint": "svelte-official",
-                  "label": "svelte/compiler 5.57.0",
+                  "label": "svelte/compiler 5.57.1",
                   "exactPath": "svelte/compiler compile() per plant, css=external, runes=true",
                   "generate": "server",
                   "env": "production",
@@ -5672,18 +5668,18 @@
           "files": 287,
           "status": "ok",
           "runs": [
-            651.061,
-            608.921,
-            628.733,
-            606.91,
-            627.995
+            548.79,
+            481.41,
+            501.394,
+            483.244,
+            487.73
           ],
-          "medianMs": 627.995,
-          "minMs": 606.91,
-          "maxMs": 651.061,
-          "meanMs": 624.724,
-          "stddevMs": 17.941,
-          "cvPct": 2.9,
+          "medianMs": 487.73,
+          "minMs": 481.41,
+          "maxMs": 548.79,
+          "meanMs": 500.514,
+          "stddevMs": 28.098,
+          "cvPct": 5.8,
           "metaSamples": [
             {
               "artifact": 1474117
@@ -5703,7 +5699,7 @@
           ],
           "artifactMedian": 1474117,
           "warmupPasses": 1,
-          "throughput": "457 files/s"
+          "throughput": "588 files/s"
         },
         {
           "id": "rsvelte-svelte2tsx",
@@ -5718,18 +5714,18 @@
           "files": 287,
           "status": "unranked",
           "runs": [
-            152.748,
-            151.922,
-            145.028,
-            144.314,
-            151.66
+            148.789,
+            144.239,
+            139.88,
+            142.094,
+            144.827
           ],
-          "medianMs": 151.66,
-          "minMs": 144.314,
-          "maxMs": 152.748,
-          "meanMs": 149.134,
-          "stddevMs": 4.102,
-          "cvPct": 2.7,
+          "medianMs": 144.239,
+          "minMs": 139.88,
+          "maxMs": 148.789,
+          "meanMs": 143.966,
+          "stddevMs": 3.327,
+          "cvPct": 2.3,
           "metaSamples": [
             {
               "artifact": 1474125
@@ -5760,10 +5756,10 @@
           "invocation": "in-process",
           "baseline": false,
           "artifactLabel": "Projection bytes",
-          "notes": "Native ensureIdeCompiled/getIde Svelte path; separate class because this is Verter's IDE carrier, not a svelte2tsx-compatible schema | gate: ✗ HostError: runtime surface refused for '/home/runner/work/svelte-benchmarks/svelte-benchmarks/work-real/carbon-components-svelte/projection/corpus-ZQVF76/00000--Accordion.svelte': svelte-runtime-unsupported-magic-identifier: Svelte client emission does not yet support the compiler-magic identifier `$$restProps` (the official compiler synthesizes it from the component signature; emitting a raw reference would bind an undefined identifier).",
+          "notes": "Native ensureIdeCompiled/getIde Svelte path; separate class because this is Verter's IDE carrier, not a svelte2tsx-compatible schema | gate: ✗ HostError::CompileError: [svelte-official-reject-void-element-invalid-content] Svelte client emission rejects a void element carrying content or a closing tag — the official `svelte@5.56.10` compiler also compile-errors it (`void_element_invalid_content`). (official `void_element_invalid_content`); [void_element_invalid_content] Svelte recovered from `void_element_invalid_content`",
           "files": 287,
           "status": "error",
-          "error": "HostError: runtime surface refused for '/home/runner/work/svelte-benchmarks/svelte-benchmarks/work-real/carbon-components-svelte/projection/corpus-ZQVF76/00000--Accordion.svelte': svelte-runtime-unsupported-magic-identifier: Svelte client emission does not yet support the compiler-magic identifier `$$restProps` (the official compiler synthesizes it from the component signature; emitting a raw reference would bind an undefined identifier).",
+          "error": "HostError::CompileError: [svelte-official-reject-void-element-invalid-content] Svelte client emission rejects a void element carrying content or a closing tag — the official `svelte@5.56.10` compiler also compile-errors it (`void_element_invalid_content`). (official `void_element_invalid_content`); [void_element_invalid_content] Svelte recovered from `void_element_invalid_content`",
           "throughput": "n/a"
         }
       ],
@@ -5806,20 +5802,20 @@
           "files": 287,
           "status": "ok",
           "runs": [
-            5690.635,
-            5606.243,
-            5582.137,
-            5535.656,
-            5425.492
+            5254.448,
+            5347.436,
+            5316.038,
+            5306.071,
+            5412.049
           ],
-          "medianMs": 5582.137,
-          "minMs": 5425.492,
-          "maxMs": 5690.635,
-          "meanMs": 5568.033,
-          "stddevMs": 97.54,
-          "cvPct": 1.7,
+          "medianMs": 5316.038,
+          "minMs": 5254.448,
+          "maxMs": 5412.049,
+          "meanMs": 5327.208,
+          "stddevMs": 58.036,
+          "cvPct": 1.1,
           "warmupPasses": 1,
-          "throughput": "51 files/s"
+          "throughput": "54 files/s"
         },
         {
           "id": "rsvelte-fmt",
@@ -5832,18 +5828,18 @@
           "files": 287,
           "status": "ok",
           "runs": [
-            170.976,
-            167.864,
-            161.803,
-            163.511,
-            157.525
+            159.454,
+            162.56,
+            161.345,
+            158.719,
+            160.548
           ],
-          "medianMs": 163.511,
-          "minMs": 157.525,
-          "maxMs": 170.976,
-          "meanMs": 164.336,
-          "stddevMs": 5.245,
-          "cvPct": 3.2,
+          "medianMs": 160.548,
+          "minMs": 158.719,
+          "maxMs": 162.56,
+          "meanMs": 160.525,
+          "stddevMs": 1.518,
+          "cvPct": 0.9,
           "warmupPasses": 1,
           "throughput": "1.8k files/s"
         },
@@ -5912,7 +5908,7 @@
           "notes": "ESLint worker_threads fan-out; explicit file list | ⓘ file coverage by construction: the invocation receives all 287 corpus files as an explicit list.",
           "files": 287,
           "status": "error",
-          "error": "TypeError: source.isSpaceBetweenTokens is not a function\nOccurred while linting /home/runner/work/svelte-benchmarks/svelte-benchmarks/work-real/carbon-components-svelte/lint/work/lint/n287/00149--SkeletonPlaceholder.svelte:23\nRule: \"svelte/no-reactive-functions\"\n    at Object.fix (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.10.0_svelte@5.57.0_@typescript-eslint+types@8.70.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:48:61)\n    at normalizeFixes (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:296:25)\n    at /home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:328:11\n    at Array.map (<anonymous>)\n    at mapSuggestions (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:321:5)\n    at FileReport.addRuleMessage (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:558:8)\n    at FileContext.report (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/linter.js:583:28)\n    at SvelteReactiveStatement > ExpressionStatement > AssignmentExpression > :function (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.10.0_svelte@5.57.0_@typescript-eslint+types@8.70.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:36:32)\n    at ruleErrorHandler (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/linter.js:645:33)\n    at /home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/source-code-visitor.js:76:46",
+          "error": "TypeError: source.isSpaceBetweenTokens is not a function\nOccurred while linting /home/runner/work/svelte-benchmarks/svelte-benchmarks/work-real/carbon-components-svelte/lint/work/lint/n287/00149--SkeletonPlaceholder.svelte:23\nRule: \"svelte/no-reactive-functions\"\n    at Object.fix (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.11.0_svelte@5.57.1_@typescript-eslint+types@8.71.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:48:61)\n    at normalizeFixes (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:307:25)\n    at /home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:340:11\n    at Array.map (<anonymous>)\n    at mapSuggestions (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:333:5)\n    at FileReport.addRuleMessage (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:581:7)\n    at FileContext.report (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/linter.js:588:28)\n    at SvelteReactiveStatement > ExpressionStatement > AssignmentExpression > :function (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.11.0_svelte@5.57.1_@typescript-eslint+types@8.71.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:36:32)\n    at SourceCodeVisitor.callSync (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/source-code-visitor.js:158:6)\n    at applyStep (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/source-code-traverser.js:332:17)",
           "throughput": "n/a"
         },
         {
@@ -5923,10 +5919,10 @@
           "threading": "1t",
           "invocation": "cli",
           "baseline": false,
-          "notes": "eslint . over the same isolated corpus; pays startup and config load | ⚠ FILE COVERAGE UNVERIFIED — census failed (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.bin/eslint . --format json exited with 2\nOops! Something went wrong! :(\n\nESLint: 10.10.0\n\nTypeError: source.isSpaceBetweenTokens is not a function\nOccurred while linting /home/runner/work/svelte-benchmarks/svelte-benchmarks/work-real/carbon-components-svelte/lint/work/lint/n287-coverage/00149--SkeletonPlaceholder.svelte:23\nRule: \"svelte/no-reactive-functions\"\n    at Object.fix (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.10.0_svelte@5.57.0_@typescript-eslint+types@8.70.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:48:61)\n    at normalizeFixes (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:296:25)\n    at /home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:328:11\n    at Array.map (<anonymous>)\n    at mapSuggestions (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:321:5)\n    at FileReport.addRuleMessage (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:558:8)\n    at FileContext.report (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/linter.js:583:28)\n    at SvelteReactiveStatement > ExpressionStatement > AssignmentExpression > :function (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.10.0_svelte@5.57.0_@typescript-eslint+types@8.70.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:36:32)\n    at ruleErrorHandler (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/linter.js:645:33)\n    at /home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/source-code-visitor.js:76:46); without proof that the same file set was named, this row is not ranked.",
+          "notes": "eslint . over the same isolated corpus; pays startup and config load | ⚠ FILE COVERAGE UNVERIFIED — census failed (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.bin/eslint . --format json exited with 2\nOops! Something went wrong! :(\n\nESLint: 10.11.0\n\nTypeError: source.isSpaceBetweenTokens is not a function\nOccurred while linting /home/runner/work/svelte-benchmarks/svelte-benchmarks/work-real/carbon-components-svelte/lint/work/lint/n287-coverage/00149--SkeletonPlaceholder.svelte:23\nRule: \"svelte/no-reactive-functions\"\n    at Object.fix (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.11.0_svelte@5.57.1_@typescript-eslint+types@8.71.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:48:61)\n    at normalizeFixes (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:307:25)\n    at /home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:340:11\n    at Array.map (<anonymous>)\n    at mapSuggestions (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:333:5)\n    at FileReport.addRuleMessage (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:581:7)\n    at FileContext.report (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/linter.js:588:28)\n    at SvelteReactiveStatement > ExpressionStatement > AssignmentExpression > :function (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.11.0_svelte@5.57.1_@typescript-eslint+types@8.71.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:36:32)\n    at SourceCodeVisitor.callSync (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/source-code-visitor.js:158:6)\n    at applyStep (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/source-code-traverser.js:332:17)); without proof that the same file set was named, this row is not ranked.",
           "files": 287,
           "status": "error",
-          "error": "/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.bin/eslint . exited with 2\nOops! Something went wrong! :(\n\nESLint: 10.10.0\n\nTypeError: source.isSpaceBetweenTokens is not a function\nOccurred while linting /home/runner/work/svelte-benchmarks/svelte-benchmarks/work-real/carbon-components-svelte/lint/work/lint/n287/00149--SkeletonPlaceholder.svelte:23\nRule: \"svelte/no-reactive-functions\"\n    at Object.fix (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.10.0_svelte@5.57.0_@typescript-eslint+types@8.70.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:48:61)\n    at normalizeFixes (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:296:25)\n    at /home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:328:11\n    at Array.map (<anonymous>)\n    at mapSuggestions (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:321:5)\n    at FileReport.addRuleMessage (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/file-report.js:558:8)\n    at FileContext.report (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/linter.js:583:28)\n    at SvelteReactiveStatement > ExpressionStatement > AssignmentExpression > :function (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.10.0_svelte@5.57.0_@typescript-eslint+types@8.70.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:36:32)\n    at ruleErrorHandler (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/linter.js:645:33)\n    at /home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.10.0/node_modules/eslint/lib/linter/source-code-visitor.js:76:46",
+          "error": "/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.bin/eslint . exited with 2\nOops! Something went wrong! :(\n\nESLint: 10.11.0\n\nTypeError: source.isSpaceBetweenTokens is not a function\nOccurred while linting /home/runner/work/svelte-benchmarks/svelte-benchmarks/work-real/carbon-components-svelte/lint/work/lint/n287/00149--SkeletonPlaceholder.svelte:23\nRule: \"svelte/no-reactive-functions\"\n    at Object.fix (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.11.0_svelte@5.57.1_@typescript-eslint+types@8.71.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:48:61)\n    at normalizeFixes (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:307:25)\n    at /home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:340:11\n    at Array.map (<anonymous>)\n    at mapSuggestions (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:333:5)\n    at FileReport.addRuleMessage (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/file-report.js:581:7)\n    at FileContext.report (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/linter.js:588:28)\n    at SvelteReactiveStatement > ExpressionStatement > AssignmentExpression > :function (file:///home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint-plugin-svelte@3.23.0_eslint@10.11.0_svelte@5.57.1_@typescript-eslint+types@8.71.0_/node_modules/eslint-plugin-svelte/lib/rules/no-reactive-functions.js:36:32)\n    at SourceCodeVisitor.callSync (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/source-code-visitor.js:158:6)\n    at applyStep (/home/runner/work/svelte-benchmarks/svelte-benchmarks/node_modules/.pnpm/eslint@10.11.0/node_modules/eslint/lib/linter/source-code-traverser.js:332:17)",
           "throughput": "n/a"
         },
         {
@@ -5937,24 +5933,24 @@
           "threading": "max",
           "invocation": "cli",
           "baseline": false,
-          "notes": "rsvelte-lint . (Rust linter) | ⚠ TOO NOISY TO RANK — CV 77.7% exceeds the 50% ceiling across 5 samples. The time remains visible but is excluded from ranking. | ⓘ file coverage verified: named 287/287 planted Svelte files.",
+          "notes": "rsvelte-lint . (Rust linter) | ⓘ file coverage verified: named 287/287 planted Svelte files.",
           "files": 287,
-          "status": "unranked",
+          "status": "ok",
           "runs": [
-            387.821,
-            399.248,
-            398.381,
-            1090.226,
-            400.723
+            399.936,
+            398.15,
+            385.425,
+            817.674,
+            401.76
           ],
-          "medianMs": 399.248,
-          "minMs": 387.821,
-          "maxMs": 1090.226,
-          "meanMs": 535.28,
-          "stddevMs": 310.266,
-          "cvPct": 77.7,
+          "medianMs": 399.936,
+          "minMs": 385.425,
+          "maxMs": 817.674,
+          "meanMs": 480.589,
+          "stddevMs": 188.545,
+          "cvPct": 47.1,
           "warmupPasses": 1,
-          "throughput": "n/a"
+          "throughput": "718 files/s"
         },
         {
           "id": "verter-host-lint",
