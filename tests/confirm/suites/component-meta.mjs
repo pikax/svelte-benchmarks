@@ -171,32 +171,18 @@ export async function runComponentMetaSuite() {
   for (const { testCase, file } of files) {
     await suite.run(testCase.id, "sveld", async () => {
       const sveld = await import("sveld");
-      let captured;
-      const writer = `confirm-${process.pid}`;
-      sveld.registerWriter(
-        {
-          name: writer,
-          componentSet: "exported",
-          write(components) {
-            captured = components;
-          },
-        },
-        // sveld 0.37+ throws on a duplicate writer name unless replace is set;
-        // this writer is re-registered once per case.
-        { replace: true },
-      );
-      await sveld.sveld({
+      // sveld 0.38 removed custom writers and resolveTypes; the exported
+      // components come back on the returned API document instead.
+      const { document } = await sveld.sveld({
         entry: relative(process.cwd(), join(dir, "index.js")),
         glob: true,
         types: false,
         json: false,
         markdown: false,
-        resolveTypes: true,
         cache: false,
         quiet: true,
-        additionalWriters: { [writer]: {} },
       });
-      const values = captured instanceof Map ? [...captured.values()] : [];
+      const values = document?.components ?? [];
       const component = values.find(
         (c) => basename(c.filePath ?? "") === file,
       );

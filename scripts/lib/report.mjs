@@ -156,7 +156,7 @@ const SLIM_RULES = [
   {
     re: /^sveld/,
     slim: null,
-    desc: "sveld component API extraction; row label states AST-only or resolveTypes mode.",
+    desc: "sveld component API extraction (AST-only; sveld 0.38 removed resolveTypes).",
   },
   {
     re: /^svelte-docinfo$/,

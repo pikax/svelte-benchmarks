@@ -32,10 +32,10 @@ test("Vite integration surfaces share one stack and fail closed on coverage", ()
   // a cross-version ratio measures Vite, not the plugin. Versions are pinned
   // deliberately; changing them re-runs the bundle/hmr surfaces.
   const packageJson = JSON.parse(readFileSync(join(rootDir, "package.json"), "utf8"));
-  assert.equal(packageJson.dependencies.vite, "8.3.0");
+  assert.equal(packageJson.dependencies.vite, "8.3.1");
   assert.equal(
     packageJson.dependencies["@sveltejs/vite-plugin-svelte"],
-    "7.3.0",
+    "7.3.1",
   );
   assert.equal(
     packageJson.dependencies["@rsvelte/vite-plugin-svelte"],

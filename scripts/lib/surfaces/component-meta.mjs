@@ -22,9 +22,6 @@ import { measureVariants, timedAsync, timedSync } from "../timing.mjs";
 
 const require = createRequire(import.meta.url);
 
-let sveldRegistered = false;
-let sveldCapture = null;
-
 function expectedMetadata(sources) {
   const components = new Set();
   const propFiles = new Set();
@@ -51,8 +48,8 @@ function expectedMetadata(sources) {
   return { components, propFiles, propsByFile };
 }
 
-function summarizeSveld(components) {
-  const values = components instanceof Map ? [...components.values()] : [];
+function summarizeSveld(document) {
+  const values = document?.components ?? [];
   const propsByFile = new Map(
     values.map((component) => [
       basename(component?.filePath ?? ""),
@@ -283,22 +280,6 @@ export async function runComponentMetaSurface(fixtureDir, options) {
   let verterModule;
   try {
     sveldModule = await import("sveld");
-    if (!sveldRegistered) {
-      sveldModule.registerWriter(
-        {
-          name: "svelte-bench-capture",
-          // The staged barrel exports every file exactly once. `all` would
-          // also add filename-derived aliases and double the component count.
-          componentSet: "exported",
-          write(components) {
-            sveldCapture = components;
-          },
-        },
-        // sveld 0.37+ throws on a duplicate writer name unless replace is set.
-        { replace: true },
-      );
-      sveldRegistered = true;
-    }
   } catch (error) {
     sveldModule = {
       error: error instanceof Error ? error.message : String(error),
@@ -319,21 +300,20 @@ export async function runComponentMetaSurface(fixtureDir, options) {
     };
   }
 
-  const runSveld = async (resolveTypes) => {
-    sveldCapture = null;
-    await sveldModule.sveld({
+  // sveld 0.38 removed custom writers and resolveTypes: the returned API
+  // document covers exactly the barrel's exported components (one per file).
+  const runSveld = async () => {
+    const { document } = await sveldModule.sveld({
       entry: relative(process.cwd(), join(dir, "index.js")),
       glob: true,
       types: false,
       json: false,
       markdown: false,
-      resolveTypes,
       cache: false,
       quiet: true,
       failFast: false,
-      additionalWriters: { "svelte-bench-capture": {} },
     });
-    return summarizeSveld(sveldCapture);
+    return summarizeSveld(document);
   };
 
   const runDocinfo = async () =>
@@ -350,38 +330,34 @@ export async function runComponentMetaSurface(fixtureDir, options) {
 
   const variants = [];
   if (typeof sveldModule?.sveld === "function") {
-    for (const resolveTypes of [false, true]) {
-      let gate;
-      try {
-        gate = metadataGate(await runSveld(resolveTypes), expected);
-      } catch (error) {
-        gate = {
-          ok: false,
-          detail: error instanceof Error ? error.message : String(error),
-        };
-      }
-      variants.push({
-        id: resolveTypes ? "sveld-semantic" : "sveld-ast",
-        label: resolveTypes ? "sveld (resolveTypes)" : "sveld (AST-only)",
-        package: "sveld",
-        target: resolveTypes ? "semantic" : "ast",
-        comparisonClass: resolveTypes
-          ? "sveld-resolve-types-project"
-          : "sveld-ast-project",
-        threading: "1t",
-        invocation: "in-process",
-        artifactLabel: "Metadata items",
-        unranked: !gate.ok,
-        notes: `${resolveTypes ? "TypeScript semantic resolution enabled" : "default AST-only extraction"}; cache disabled | gate: ${gate.ok ? "✓" : "✗"} ${gate.detail}`,
-        measure: async () => {
-          let summary;
-          const { ms } = await timedAsync(async () => {
-            summary = await runSveld(resolveTypes);
-          });
-          return { ms, artifact: summary.componentRecords + summary.props };
-        },
-      });
+    let gate;
+    try {
+      gate = metadataGate(await runSveld(), expected);
+    } catch (error) {
+      gate = {
+        ok: false,
+        detail: error instanceof Error ? error.message : String(error),
+      };
     }
+    variants.push({
+      id: "sveld-ast",
+      label: "sveld (AST-only)",
+      package: "sveld",
+      target: "ast",
+      comparisonClass: "sveld-ast-project",
+      threading: "1t",
+      invocation: "in-process",
+      artifactLabel: "Metadata items",
+      unranked: !gate.ok,
+      notes: `default AST-only extraction (sveld 0.38 removed resolveTypes); cache disabled | gate: ${gate.ok ? "✓" : "✗"} ${gate.detail}`,
+      measure: async () => {
+        let summary;
+        const { ms } = await timedAsync(async () => {
+          summary = await runSveld();
+        });
+        return { ms, artifact: summary.componentRecords + summary.props };
+      },
+    });
   } else {
     variants.push({
       id: "sveld",
@@ -487,7 +463,7 @@ export async function runComponentMetaSurface(fixtureDir, options) {
     }),
     methodology: [
       "Every metadata API is a separate workload class unless its discovery, dependency traversal, semantic products, and correctness gates are equivalent. Current metadata timings are informational, without cross-tool ratios.",
-      "sveld(resolveTypes) analyzes the generated barrel/project; svelte-docinfo globs Svelte files with dependency traversal disabled. Both are semantic, but their work products are not asserted equivalent.",
+      "sveld analyzes the generated barrel/project with AST-only extraction; svelte-docinfo is TypeScript-semantic and globs Svelte files with dependency traversal disabled. Their work products are not asserted equivalent.",
       "Verter uses @verter/typeinfo's wire decoder over @verter/native's dedicated Svelte framework-surface executor. It is a separate API/workload class because sveld and svelte-docinfo perform project discovery and barrel analysis.",
       "Persistent caches are disabled and every measured pass re-analyzes the same staged files.",
       "Identity gate: component records and exact per-file prop-name sets must match the staged sources, with no missing, extra, or duplicated records.",
